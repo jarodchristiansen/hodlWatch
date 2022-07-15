@@ -56,7 +56,10 @@ const AssetsPage = () => {
       // });
       return (
         <div>
-          <AssetsContainer assets={assetData || data?.getAssets} />
+          <AssetsContainer
+            assets={assetData || data?.getAssets}
+            data-testid={"assets-container"}
+          />
         </div>
       );
     }
@@ -86,12 +89,13 @@ const AssetsPage = () => {
             setOffsetState={setOffsetState}
             fetchMore={fetchMore}
             refetch={refetch}
+            data-testid={"pagination-component"}
           />
         </div>
       </div>
 
       <div>
-        {loading && <div>Loading...</div>}
+        {loading && <div data-testid={"loading-element"}>Loading...</div>}
         {/*{data && (*/}
         {/*  <div>*/}
         {/*    <AssetsContainer assets={data?.getAssets} />*/}
