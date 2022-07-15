@@ -8,6 +8,7 @@ import SearchForm from "../../components/forms/SearchForm";
 import PaginationComponent from "../../components/commons/Pagination";
 import { render } from "react-dom";
 import { useSession, getSession } from "next-auth/react";
+import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
 
 const AssetsPage = () => {
   const [offsetState, setOffsetState] = useState(1);
@@ -95,7 +96,7 @@ const AssetsPage = () => {
       </div>
 
       <div>
-        {loading && <div data-testid={"loading-element"}>Loading...</div>}
+        {loading && <LoadingSpinner />}
         {/*{data && (*/}
         {/*  <div>*/}
         {/*    <AssetsContainer assets={data?.getAssets} />*/}
