@@ -7,6 +7,7 @@ import AddProductForm from "../components/AddProductForm";
 import { useQuery } from "@apollo/client";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect } from "react";
+import LoadingSpinner from "../components/commons/animations/LoadingSpinner";
 
 export default function Home(props) {
   const { session } = useSession();
@@ -18,8 +19,8 @@ export default function Home(props) {
   return (
     <div className="container text-center">
       {/*<AddProductForm />*/}
-
       {/*<ProductContainer products={props?.data?.data?.getProducts || null} />*/}
+      <LoadingSpinner />
     </div>
   );
 }
