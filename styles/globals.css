@@ -15,6 +15,10 @@ a {
   box-sizing: border-box;
 }
 
+.loading-spinner-background-image {
+  background-image: url("/public/vercel.svg");
+}
+
 /* chrome and chromium based */
 .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
   display: none;

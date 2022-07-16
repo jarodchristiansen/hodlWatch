@@ -6,6 +6,7 @@ import GET_ASSET_FINANCIALS from "../../helpers/queries/getAssetFinancialDetails
 import { Accordion } from "react-bootstrap";
 import IndicatorAccordion from "../../components/assets/Indicators/IndicatorAccordion";
 import TimeButtons from "../../components/commons/TimeButtons";
+import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
 
 const AssetDetailsPage = ({ deviceType }) => {
   const [assetFinancials, setAssetFinancials] = useState();
@@ -31,7 +32,11 @@ const AssetDetailsPage = ({ deviceType }) => {
   return (
     <div className={"container"}>
       Asset Details Page
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <div className={"container text-center"}>
+          <LoadingSpinner />
+        </div>
+      )}
       {error && <div>Error {console.log({ error })}</div>}
       {data && (
         <>
