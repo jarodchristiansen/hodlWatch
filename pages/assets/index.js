@@ -8,6 +8,7 @@ import SearchForm from "../../components/forms/SearchForm";
 import PaginationComponent from "../../components/commons/Pagination";
 import { render } from "react-dom";
 import { useSession, getSession } from "next-auth/react";
+import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
 
 const AssetsPage = () => {
   const [offsetState, setOffsetState] = useState(1);
@@ -23,12 +24,13 @@ const AssetsPage = () => {
     },
     fetchPolicy: "cache-first",
   });
-
   const [assetData, setAssetData] = useState(data);
-
   const [getAsset] = useLazyQuery(GET_ASSET);
-
   const [queryValue, setQueryValue] = useState("");
+
+  useEffect(() => {
+    setAssetData(data.getAsset);
+  }, []);
 
   const filterAssets = async (e) => {
     e?.preventDefault();
@@ -49,11 +51,8 @@ const AssetsPage = () => {
   };
 
   const renderAssets = () => {
+    console.log("running renderAssets", data);
     if (data) {
-      // client.writeQuery({
-      //   query: GET_ASSETS,
-      //   data,
-      // });
       return (
         <div>
           <AssetsContainer
@@ -62,6 +61,8 @@ const AssetsPage = () => {
           />
         </div>
       );
+    } else if (!data && !loading) {
+      console.log({ data, loading });
     }
   };
 
@@ -95,13 +96,17 @@ const AssetsPage = () => {
       </div>
 
       <div>
-        {loading && <div data-testid={"loading-element"}>Loading...</div>}
+        {loading && (
+          <div className={"container text-center"}>
+            <LoadingSpinner />
+          </div>
+        )}
         {/*{data && (*/}
         {/*  <div>*/}
         {/*    <AssetsContainer assets={data?.getAssets} />*/}
         {/*  </div>*/}
         {/*)}*/}
-        {renderAssets()}
+        {!loading && renderAssets()}
         {error && <div>Error Boi {console.log(error)}</div>}
       </div>
     </div>
@@ -111,14 +116,14 @@ const AssetsPage = () => {
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth",
-        permanent: false,
-      },
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/auth",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   return {
     props: { session },
