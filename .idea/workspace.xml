@@ -2,23 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89d60fbe-0bc7-4a4c-9114-89e9299c7b07" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/components/commons/animations/ThreeDotsWave.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/forms/SignUpForm.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/helpers/auth/auth.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/api/auth/signup.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/FZBECTMLUNAGTKVIQQ5ONKG34M.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bitcoin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bitcoin_PNG48.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/commons/animations/LoadingSpinner.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/commons/animations/LoadingSpinner.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/forms/ProviderContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/forms/ProviderContainer.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/forms/SignInForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/forms/SignInForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/assets/[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/assets/[id].js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/auth/[...nextauth].js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/auth/[...nextauth].js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/assets/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/assets/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/globals.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +73,7 @@
       <workItem from="1657491949671" duration="7729000" />
       <workItem from="1657556363649" duration="782000" />
       <workItem from="1657913664650" duration="5001000" />
-      <workItem from="1657999123404" duration="4185000" />
+      <workItem from="1657999123404" duration="7035000" />
     </task>
     <servers />
   </component>

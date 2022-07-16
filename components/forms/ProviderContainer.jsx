@@ -28,7 +28,6 @@ const ProviderContainer = ({ providers }) => {
   };
 
   const selectIcon = (name) => {
-    console.log(name);
     switch (name) {
       case "GitHub":
         return <FaGithub size={28} className={"my-2 mx-2"} color={"#fff"} />;
@@ -60,23 +59,26 @@ const ProviderContainer = ({ providers }) => {
       id={"auth-provider-grid"}
     >
       {providers &&
-        Object.values(providers).map((provider) => (
-          <div key={provider.name}>
-            <button
-              onClick={(e) => {
-                signIn(provider.id, { redirect: false })
-                  .then(() => console.log("success"))
-                  .catch((err) => console.log("err", err));
-                // signInOthers(e, provider)
-              }}
-              className={BootStrapButtonClasses.Provider}
-              id={"provider-button"}
-              type={"button"}
-            >
-              {selectIcon(provider?.name)}
-            </button>
-          </div>
-        ))}
+        Object.values(providers).map(
+          (provider) =>
+            provider.name !== "Credentials" && (
+              <div key={provider.name}>
+                <button
+                  onClick={(e) => {
+                    signIn(provider.id, { redirect: false })
+                      .then(() => console.log("success"))
+                      .catch((err) => console.log("err", err));
+                    // signInOthers(e, provider)
+                  }}
+                  className={BootStrapButtonClasses.Provider}
+                  id={"provider-button"}
+                  type={"button"}
+                >
+                  {selectIcon(provider?.name)}
+                </button>
+              </div>
+            )
+        )}
     </div>
   );
 };

@@ -29,7 +29,7 @@ const AssetsPage = () => {
   const [queryValue, setQueryValue] = useState("");
 
   useEffect(() => {
-    setAssetData(data.getAsset);
+    setAssetData(data?.getAsset);
   }, []);
 
   const filterAssets = async (e) => {
