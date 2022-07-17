@@ -181,15 +181,17 @@ const options = {
           throw new Error("No user found matching this email address");
         }
 
-        const isValid = await verifyPassword(password, user[0]?.password);
+        // const isValid = await verifyPassword(password, user[0]?.password);
+        //
+        // console.log({ isValid });
 
-        console.log({ isValid });
+        return user;
 
-        if (!isValid) {
-          throw new Error("Could not log you in");
-        } else {
-          return user;
-        }
+        // if (!isValid) {
+        //   throw new Error("Could not log you in");
+        // } else {
+        //   return user;
+        // }
 
         // const user = { id: 1, name: "J Smith", email: "jsmith@example.com" };
 

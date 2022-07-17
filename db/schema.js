@@ -83,6 +83,18 @@ const typeDefs = gql`
     createAt: Date
   }
 
+  type DifficultyRibbonData {
+    t: Float
+    ma128: Float
+    ma14: Float
+    ma200: Float
+    ma25: Float
+    ma40: Float
+    ma60: Float
+    ma9: Float
+    ma90: Float
+  }
+
   type Query {
     getProducts: [Product]
     getProduct(id: ID!): Product
@@ -93,6 +105,7 @@ const typeDefs = gql`
       time: Int
     ): [AssetFinancialDetails]
     getUser: User
+    getDifficultyRibbons(symbol: String, cut: Int): [DifficultyRibbonData]
   }
 
   type Mutation {

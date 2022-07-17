@@ -15,13 +15,11 @@ const SignInForm = ({ providers }) => {
     console.log("handleSignInSubmit", e);
     console.log({ email, password });
 
-    const result = await signIn("credentials", {
+    await signIn("credentials", {
       redirect: true,
       email,
       password,
     });
-
-    console.log({ result });
   };
   useEffect(() => {}, []);
 

@@ -68,6 +68,41 @@ const resolvers = {
       }
     },
 
+    getDifficultyRibbons: async (_, { symbol, cut }) => {
+      const data = await fetch(
+        `https://api.glassnode.com/v1/metrics/indicators/difficulty_ribbon?a=${symbol}&api_key=${process.env.GLASSNODE_KEY}`
+      ).then((response) => response.json());
+
+      const addressCount = await fetch(
+        `https://api.glassnode.com/v1/metrics/addresses/active_count?a=${symbol}&api_key=${process.env.GLASSNODE_KEY}`
+      ).then((response) => response.json());
+
+      let ribbonData = [];
+
+      console.log({ data, addressCount });
+
+      for (let i of data.slice(-cut)) {
+        ribbonData.push({
+          t: i.t,
+          ma9: i.o.ma9,
+          ma14: i.o.ma14,
+          ma25: i.o.ma25,
+          ma40: i.o.ma40,
+          ma60: i.o.ma60,
+          ma90: i.o.ma90,
+          ma128: i.o.ma128,
+          ma200: i.o.ma200,
+        });
+      }
+
+      // let formattedData = {
+      //   ribbonData,
+      //   addressCount
+      // }
+
+      return ribbonData;
+    },
+
     getAssetFinancialDetails: async (_, { symbol, time }) => {
       try {
         const data = await fetch(
