@@ -53,7 +53,7 @@ const AssetDetailsPage = ({ deviceType }) => {
               financialData={data?.getAssetFinancialDetails[0]?.timeSeries}
               id={id}
             />
-            <IndicatorAccordion />
+            <IndicatorAccordion timeQuery={timeQuery} id={id} />
           </Accordion>
         </>
       )}

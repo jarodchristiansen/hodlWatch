@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89d60fbe-0bc7-4a4c-9114-89e9299c7b07" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/cypress.env.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cypress/integration/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cypress/plugins/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/assets/Indicators/Charts/Desktop/DifficultyRibbonsChartDesktop.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helpers/queries/GetDifficultyRibbons.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/forms/SignInForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/forms/SignInForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/e2e/HomePage.spec.cy.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/HomePage.spec.cy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/auth/[...nextauth].js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/auth/[...nextauth].js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/assets/Indicators/IndicatorAccordion.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/assets/Indicators/IndicatorAccordion.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/resolvers.js" beforeDir="false" afterPath="$PROJECT_DIR$/db/resolvers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/assets/[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/assets/[id].js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
