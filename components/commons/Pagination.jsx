@@ -15,6 +15,7 @@ const PaginationComponent = ({
     items.push(
       <Pagination.Item
         key={number}
+        data-cy={"pagination-page"}
         active={number === active}
         onClick={() => {
           refetch({ offset: number });

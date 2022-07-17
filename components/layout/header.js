@@ -23,7 +23,7 @@ const Header = () => {
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
         <Container>
           <Navbar.Brand>
-            <Link href={"/"}>
+            <Link href={"/"} data-cy={"nav-item"}>
               <img src={"../chain.png"} className={"pointer-link"} />
             </Link>
           </Navbar.Brand>
@@ -32,7 +32,7 @@ const Header = () => {
             <Nav className="me-auto">
               {status === "authenticated" && (
                 <Nav.Link eventKey={"2"} role={"link"}>
-                  <Link href="/assets">
+                  <Link href="/assets" data-cy={"nav-item"}>
                     <Navbar.Text className={"pointer-link mx-1"}>
                       {"Assets"}
                     </Navbar.Text>
@@ -41,7 +41,7 @@ const Header = () => {
               )}
 
               <Nav.Link eventKey={"3"} role={"link"}>
-                <Link href="/education">
+                <Link href="/education" data-cy={"nav-item"}>
                   <Navbar.Text className={"pointer-link mx-1"}>
                     Education
                   </Navbar.Text>
@@ -50,7 +50,7 @@ const Header = () => {
 
               {status === "authenticated" && (
                 <Nav.Link eventKey={"4"} role={"link"}>
-                  <Link href={`/user/${username}`}>
+                  <Link href={`/user/${username}`} data-cy={"nav-item"}>
                     <Navbar.Text className={"pointer-link mx-1"}>
                       {"Profile"}
                     </Navbar.Text>
@@ -61,13 +61,17 @@ const Header = () => {
               {status === "unauthenticated" ? (
                 <Nav.Link eventKey={"5"} role={"link"}>
                   <Link href="/auth">
-                    <Navbar.Text className={"pointer-link mx-1"}>
+                    <Navbar.Text
+                      className={"pointer-link mx-1"}
+                      data-cy={"nav-item"}
+                    >
                       {"Sign in"}
                     </Navbar.Text>
                   </Link>
                 </Nav.Link>
               ) : (
                 <Nav.Link
+                  data-cy={"nav-item"}
                   eventKey={"5"}
                   role={"link"}
                   onClick={handleSignout}
