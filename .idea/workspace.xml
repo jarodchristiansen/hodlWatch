@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89d60fbe-0bc7-4a4c-9114-89e9299c7b07" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/components/assets/AssetCardAnimationWrapper.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/assets/AssetCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/assets/AssetCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/assets/Indicators/IndicatorAccordion.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/assets/Indicators/IndicatorAccordion.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/forms/SearchForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/forms/SearchForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/assets/AssetCardAnimationWrapper.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/assets/AssetCardAnimationWrapper.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

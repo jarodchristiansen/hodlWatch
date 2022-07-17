@@ -5,7 +5,6 @@ const AssetCardAnimationWrapper = ({ children }) => {
     <motion.div
       whileHover={{
         scale: 1.1,
-        zIndex: 10,
         transition: { duration: 1 },
       }}
       whileTap={{
