@@ -20,7 +20,7 @@ const SearchForm = ({ queryValue, setQueryValue, filterAssets }) => {
 
   return (
     <div>
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSearch} data-testid={"asset-search-form"}>
         <DebounceInput
           className="px-2"
           placeholder="search here..."

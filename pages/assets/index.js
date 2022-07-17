@@ -55,10 +55,7 @@ const AssetsPage = () => {
     if (data) {
       return (
         <div>
-          <AssetsContainer
-            assets={assetData || data?.getAssets}
-            data-testid={"assets-container"}
-          />
+          <AssetsContainer assets={assetData || data?.getAssets} />
         </div>
       );
     } else if (!data && !loading) {
@@ -90,7 +87,6 @@ const AssetsPage = () => {
             setOffsetState={setOffsetState}
             fetchMore={fetchMore}
             refetch={refetch}
-            data-testid={"pagination-component"}
           />
         </div>
       </div>
@@ -107,7 +103,7 @@ const AssetsPage = () => {
         {/*  </div>*/}
         {/*)}*/}
         {!loading && renderAssets()}
-        {error && <div>Error Boi {console.log(error)}</div>}
+        {error && <div>Error Boi - {console.log(error)}</div>}
       </div>
     </div>
   );

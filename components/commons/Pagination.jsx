@@ -27,7 +27,7 @@ const PaginationComponent = ({
   }
 
   return (
-    <div>
+    <div data-testid={"pagination-component"}>
       <Pagination>
         <Pagination.Prev
           onClick={() => {

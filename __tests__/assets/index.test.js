@@ -1,35 +1,10 @@
-// // __tests__/index.test.jsx
-//
-// import { render, screen } from "@testing-library/react";
-// import AssetsPage from "../../pages/assets";
-// import "@testing-library/jest-dom";
-// import client, { Session } from "next-auth/react";
-//
-// jest.mock("next-auth/react");
-//
-// describe("Assets Page", () => {
-//   it("Should render the pagination component", () => {
-//     const component = render(<AssetsPage />);
-//
-//     const mockSession = {
-//       expires: "1",
-//       user: { email: "a", name: "Delta", image: "c" },
-//     };
-//
-//     client.useSession.mockReturnValueOnce([mockSession, false]);
-//
-//     console.log("useSession", client.useSession);
-//
-//     expect(component.find(".pagination-container").exists()).toBe(true);
-//   });
-// });
-
 import { render, screen } from "@testing-library/react";
 import Header from "../../components/layout/Header";
 import "@testing-library/jest-dom";
 import { useSession } from "next-auth/react";
 import AssetsPage from "../../pages/assets";
 import { MockedProvider } from "@apollo/client/testing";
+import GET_ASSETS from "../../helpers/queries/getAssets";
 
 jest.mock("next-auth/react", () => {
   const originalModule = jest.requireActual("next-auth/react");
@@ -59,26 +34,82 @@ describe("Assets Page", () => {
     const container = screen.getByTestId("loading-element");
 
     expect(container).toBeTruthy();
+  });
 
-    // expect(screen.getByTestId("assets-container"));
-    // expect(component.find(".pagination-container").exists()).toBe(true);
+  it("Should render pagination after loaded", () => {
+    const component = render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <AssetsPage />
+      </MockedProvider>
+    );
+
+    const pagination = screen.getByTestId("pagination-component");
+
+    expect(pagination).toBeTruthy();
+  });
+
+  it("Should render search form", () => {
+    const component = render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <AssetsPage />
+      </MockedProvider>
+    );
+
+    const searchForm = screen.getByTestId("asset-search-form");
+
+    expect(searchForm).toBeTruthy();
+  });
+
+  it("Should render assets-container after loaded", async () => {
+    let assetMock = [
+      {
+        request: {
+          query: GET_ASSETS,
+          variables: { offset: 1, limit: 25 },
+        },
+        result: {
+          data: {
+            getAssets: [
+              {
+                id: "bitcoin",
+                name: "Bitcoin",
+                symbol: "btc",
+                image: {
+                  thumb:
+                    "https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579",
+                  small:
+                    "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
+                },
+              },
+              {
+                id: "ethereum",
+                name: "Ethereum",
+                symbol: "eth",
+                image: {
+                  thumb:
+                    "https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880",
+                  small:
+                    "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
+                },
+              },
+            ],
+          },
+        },
+      },
+    ];
+
+    const component = render(
+      <MockedProvider mocks={assetMock} addTypename={false}>
+        <AssetsPage />
+      </MockedProvider>
+    );
+
+    const container = screen.getByTestId("loading-element");
+
+    expect(container).toBeTruthy();
+    expect(await screen.findByText("btc")).toBeInTheDocument();
+
+    const assets = await screen.getByTestId("assets-container");
+    expect(assets).toBeTruthy();
   });
 });
-
-// describe("Assets Page", () => {
-//   it("Should render the pagination component", () => {
-//     const component = render(<AssetsPage/>);
-//
-//     expect(component.find(".pagination-container").exists()).toBe(true)
-//   })
-// }
-// describe("Header Component", () => {
-//
-//   // it('Show Log Out when has session',
-//   //     async () => {
-//   //       const {container} = render(<Header/>);
-//   //
-//   //       expect(container).toMatchSnapshot()
-//   //       expect(screen.getByText("LOG OUT")).toBeInTheDocument();
-//   //     })
-// })

@@ -9,7 +9,7 @@ const AssetsContainer = ({ assets }) => {
   }, [assets]);
 
   return (
-    <div>
+    <div data-testid={"assets-container"}>
       <div className={"w-100"}>
         {currentAssets && currentAssets.length > 1 && (
           <div className={"row row-cols-1 row-cols-sm-2 row-cols-md-3"}>

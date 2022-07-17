@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89d60fbe-0bc7-4a4c-9114-89e9299c7b07" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/helpers/auth/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/mocks/next-auth/sessionMock.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/forms/ProviderContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/forms/ProviderContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/forms/SignInForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/forms/SignInForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/api/auth/[...nextauth].js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/api/auth/[...nextauth].js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/assets/index.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/assets/index.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/assets/AssetsContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/assets/AssetsContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/commons/Pagination.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/commons/Pagination.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/commons/animations/LoadingSpinner.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/commons/animations/LoadingSpinner.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/forms/SearchForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/forms/SearchForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/assets/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/assets/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +75,7 @@
       <workItem from="1657491949671" duration="7729000" />
       <workItem from="1657556363649" duration="782000" />
       <workItem from="1657913664650" duration="5001000" />
-      <workItem from="1657999123404" duration="7035000" />
+      <workItem from="1657999123404" duration="9809000" />
     </task>
     <servers />
   </component>

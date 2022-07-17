@@ -15,6 +15,7 @@ const LoadingSpinner = () => {
     >
       <div className={"col"}>
         <motion.img
+          data-testid={"loading-element"}
           src={"/bitcoin_PNG48.png"}
           style={{
             height: "150px",
@@ -26,7 +27,7 @@ const LoadingSpinner = () => {
           animate={{
             // scale: [1, 1.1, 1.25, 1.1, 1],
             // src: ["/bitcoin.png", "/bitcoin_PNG48.png"],
-            backgroundImage: ["/bitcoin.png", "/bitcoin_PNG48.png"],
+            // backgroundImage: ["/bitcoin.png", "/bitcoin_PNG48.png"],
             rotate: [0, 90, 180, 90, 0],
           }}
           transition={{
