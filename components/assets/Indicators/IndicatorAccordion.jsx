@@ -94,7 +94,6 @@ const IndicatorAccordion = ({ timeQuery = 90, id }) => {
             {chartData?.map((string) => (
               <div className={"px-2 py-3"}>{string}</div>
             ))}
-            {data && console.log({ data })}
           </ScrollMenu>
         </Accordion.Body>
       </Accordion.Item>

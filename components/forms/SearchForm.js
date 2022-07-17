@@ -6,7 +6,6 @@ const SearchForm = ({ queryValue, setQueryValue, filterAssets }) => {
     e.preventDefault();
 
     filterAssets(e);
-    console.log("This is handleSearch", queryValue);
   };
 
   const handleInputChange = (e) => {
