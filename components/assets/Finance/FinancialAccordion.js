@@ -122,7 +122,7 @@ const FinancialAccordion = ({ financialData, id }) => {
   };
 
   return (
-    <div className={"container text-center"}>
+    <div className={"text-center w-100"}>
       <Accordion.Item eventKey="1">
         <Accordion.Header>Financial Charts</Accordion.Header>
         <Accordion.Body>

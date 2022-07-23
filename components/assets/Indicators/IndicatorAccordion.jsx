@@ -82,7 +82,7 @@ const IndicatorAccordion = ({ timeQuery = 90, id }) => {
   };
 
   return (
-    <div className={"container text-center"}>
+    <div className={"text-center w-100 accordion-container"}>
       <Accordion.Item eventKey="2">
         <Accordion.Header>Indicator Panel</Accordion.Header>
         <Accordion.Body>

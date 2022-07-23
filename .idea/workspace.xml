@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89d60fbe-0bc7-4a4c-9114-89e9299c7b07" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/components/assets/AssetDetails/AssetDetailsHeader.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/assets/ChartAnimationWrapper.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Accordion/down-arrow.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/assets/AssetCardAnimationWrapper.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/assets/AssetCardAnimationWrapper.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/assets/Finance/Charts/Desktop/FibonacciRetracementChartDesktop.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/assets/Finance/Charts/Desktop/FibonacciRetracementChartDesktop.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/assets/Finance/FinancialAccordion.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/assets/Finance/FinancialAccordion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/assets/Indicators/Charts/Desktop/DifficultyRibbonsChartDesktop.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/assets/Indicators/Charts/Desktop/DifficultyRibbonsChartDesktop.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/assets/Indicators/IndicatorAccordion.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/assets/Indicators/IndicatorAccordion.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/commons/TimeButtons.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/commons/TimeButtons.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/commons/animations/ThreeDotsWave.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/commons/animations/ThreeDotsWave.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/assets/[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/assets/[id].js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/globals.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,11 +57,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jarod\Documents\HodlWatch\GraphQL-NextJS\public\Accordion" />
       <recent name="C:\Users\jarod\Documents\HodlWatch\GraphQL-NextJS\public" />
       <recent name="C:\Users\jarod\Documents\HodlWatch\GraphQL-NextJS\public\lotties" />
       <recent name="C:\Users\jarod\Documents\HodlWatch\GraphQL-NextJS\components\commons\animations" />
       <recent name="C:\Users\jarod\Documents\HodlWatch\GraphQL-NextJS\helpers" />
-      <recent name="C:\Users\jarod\Documents\HodlWatch\GraphQL-NextJS\pages\api\auth" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

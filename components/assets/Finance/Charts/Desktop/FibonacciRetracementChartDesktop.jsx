@@ -11,6 +11,8 @@ import {
 // import FinanceChartModal from "./FinanceChartModal";
 import React, { useEffect, useState } from "react";
 import { currencyFormat } from "../../../../../helpers/formatters/currency";
+import AssetCardAnimationWrapper from "../../../AssetCardAnimationWrapper";
+import ChartAnimationWrapper from "../../../ChartAnimationWrapper";
 
 const FibonacciRetracementChartDesktop = ({ data }) => {
   const [fibonacciData, setFibonacciData] = useState();

@@ -20,8 +20,6 @@ const DifficultyRibbonChartDesktop = ({ data }) => {
       maximumFractionDigits: 2,
     });
 
-  console.log("data in difficultyRibbonChart", data);
-
   return (
     <div className={"card mt-2 mx-3 text-center"}>
       <div className={"flex flex-row"}>

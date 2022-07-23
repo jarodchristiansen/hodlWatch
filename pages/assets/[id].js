@@ -7,6 +7,7 @@ import { Accordion } from "react-bootstrap";
 import IndicatorAccordion from "../../components/assets/Indicators/IndicatorAccordion";
 import TimeButtons from "../../components/commons/TimeButtons";
 import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
+import AssetDetailsHeader from "../../components/assets/AssetDetails/AssetDetailsHeader";
 
 const AssetDetailsPage = ({ deviceType }) => {
   const [assetFinancials, setAssetFinancials] = useState();
@@ -40,13 +41,18 @@ const AssetDetailsPage = ({ deviceType }) => {
       {error && <div>Error {console.log({ error })}</div>}
       {data && (
         <>
-          <h3>{id}</h3>
-          <h2>{timeQuery} - Days</h2>
-          <TimeButtons
-            setTimeQuery={setTimeQuery}
-            availTimes={availableTimes}
-            refetch={refetch}
+          <AssetDetailsHeader
+            asset={id}
+            time={timeQuery}
+            assetData={data?.getAssetFinancialDetails[0]}
           />
+          <div className={"row flex-nowrap w-auto text-center"}>
+            <TimeButtons
+              setTimeQuery={setTimeQuery}
+              availTimes={availableTimes}
+              refetch={refetch}
+            />
+          </div>
 
           <Accordion defaultActiveKey="1">
             <FinancialAccordion
