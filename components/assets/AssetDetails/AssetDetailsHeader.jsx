@@ -18,14 +18,16 @@ const AssetDetailsHeader = ({ asset, time, assetData }) => {
 
             <div className={"row text-end"}>
               <h6 className="col">Max Supply:</h6>
-              <h6 className="col">{assetData.max_supply}</h6>
+              <h6 className="col">{assetData.max_supply || "N/A"}</h6>
             </div>
 
             {/*Section Divider    */}
 
             <div className={"row text-start"}>
               <h6 className="col">24H Volume:</h6>
-              <h6 className="col">{currencyFormat(assetData.volume_24h)}</h6>
+              <h6 className="col text-end">
+                {currencyFormat(assetData.volume_24h)}
+              </h6>
             </div>
 
             <div className={"row text-end"}>
@@ -54,15 +56,17 @@ const AssetDetailsHeader = ({ asset, time, assetData }) => {
               </h6>
             </div>
 
-            <div className={"row text-end"}>
-              <h6 className="col">30D Change:</h6>
-              <h6 className="col">{assetData.percent_change_30d}</h6>
+            <div className={"row "}>
+              <h6 className="col text-end">30D Change:</h6>
+              <h6 className="col text-end">{assetData.percent_change_30d}</h6>
             </div>
             {/*Section Divider    */}
           </div>
         </div>
       </div>
-      <div className="card-footer text-muted text-center">{time} Day View</div>
+      <div className="card-footer text-center">
+        <h5>{time} Day View</h5>
+      </div>
     </div>
   );
 };

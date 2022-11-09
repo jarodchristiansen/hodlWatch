@@ -32,7 +32,6 @@ const AssetDetailsPage = ({ deviceType }) => {
 
   return (
     <div className={"container"}>
-      Asset Details Page
       {loading && (
         <div className={"container text-center"}>
           <LoadingSpinner />
