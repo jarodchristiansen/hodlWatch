@@ -84,3 +84,10 @@ a {
   font-size: 18px;
   font-weight: normal;
 }
+
+.tradingview-widget-copyright {
+  display: none;
+}
+.screener {
+  max-width: 100%;
+}

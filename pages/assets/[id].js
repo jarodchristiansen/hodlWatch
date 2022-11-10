@@ -8,6 +8,7 @@ import IndicatorAccordion from "../../components/assets/Indicators/IndicatorAcco
 import TimeButtons from "../../components/commons/TimeButtons";
 import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
 import AssetDetailsHeader from "../../components/assets/AssetDetails/AssetDetailsHeader";
+import PriceScreener from "../../components/commons/screener";
 
 const AssetDetailsPage = ({ deviceType }) => {
   const [assetFinancials, setAssetFinancials] = useState();
@@ -31,38 +32,49 @@ const AssetDetailsPage = ({ deviceType }) => {
   }, [timeQuery]);
 
   return (
-    <div className={"container"}>
-      {loading && (
-        <div className={"container text-center"}>
-          <LoadingSpinner />
-        </div>
-      )}
-      {error && <div>Error {console.log({ error })}</div>}
-      {data && (
-        <>
-          <AssetDetailsHeader
-            asset={id}
-            time={timeQuery}
-            assetData={data?.getAssetFinancialDetail ? data?.getAssetFinancialDetails[0] : ''}
-          />
-          <div className={"row flex-nowrap w-auto text-center"}>
-            <TimeButtons
-              setTimeQuery={setTimeQuery}
-              availTimes={availableTimes}
-              refetch={refetch}
-            />
+    <>
+      <PriceScreener />
+      <div className={"container"}>
+        {loading && (
+          <div className={"container text-center"}>
+            <LoadingSpinner />
           </div>
-
-          <Accordion defaultActiveKey="1">
-            <FinancialAccordion
-              financialData={data?.getAssetFinancialDetail ? data?.getAssetFinancialDetails[0]?.timeSeries : []}
-              id={id}
+        )}
+        {error && <div>Error {console.log({ error })}</div>}
+        {data && (
+          <>
+            <AssetDetailsHeader
+              asset={id}
+              time={timeQuery}
+              assetData={
+                data?.getAssetFinancialDetail
+                  ? data?.getAssetFinancialDetails[0]
+                  : ""
+              }
             />
-            <IndicatorAccordion timeQuery={timeQuery} id={id} />
-          </Accordion>
-        </>
-      )}
-    </div>
+            <div className={"row flex-nowrap w-auto text-center"}>
+              <TimeButtons
+                setTimeQuery={setTimeQuery}
+                availTimes={availableTimes}
+                refetch={refetch}
+              />
+            </div>
+
+            <Accordion defaultActiveKey="1">
+              <FinancialAccordion
+                financialData={
+                  data?.getAssetFinancialDetail
+                    ? data?.getAssetFinancialDetails[0]?.timeSeries
+                    : []
+                }
+                id={id}
+              />
+              <IndicatorAccordion timeQuery={timeQuery} id={id} />
+            </Accordion>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

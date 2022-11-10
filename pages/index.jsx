@@ -10,6 +10,8 @@ import { useEffect } from "react";
 import LoadingSpinner from "../components/commons/animations/LoadingSpinner";
 import InfoCard from "../components/commons/info-cards/info-card";
 import styled from "styled-components";
+import PriceScreener from "../components/commons/screener";
+import Image from "next/image";
 
 export default function Home(props) {
   const { session } = useSession();
@@ -20,9 +22,21 @@ export default function Home(props) {
 
   return (
     <HomePageWrapper className="text-center">
+      <PriceScreener />
       {/*<AddProductForm />*/}
       {/*<ProductContainer products={props?.data?.data?.getProducts || null} />*/}
       {/* <LoadingSpinner /> */}
+      <div className="hero-image">
+        <Image
+          src="/assets/web3-landing.jpg"
+          layout="responsive"
+          objectFit="cover"
+          quality={100}
+          width={"100%"}
+          height={"20rem"}
+        />
+      </div>
+
       <div className="grid-template">
         <InfoCard
           headerText={"Historical Insights"}
@@ -54,25 +68,31 @@ const HomePageWrapper = styled.div`
   align-items: center;
 
   .hero-image {
-    width: 100%;
-    background-color: green;
-    margin-top: 4rem;
+    width: 80%;
+    /* background-color: green; */
+    height: 15rem;
+    animation: fadeIn 2s;
+
+    .image {
+      width: 100%;
+      height: 20rem;
+    }
   }
 
   .grid-template {
     animation: fadeIn 2s;
     margin: 0 auto;
     display: grid;
-    gap: 1rem;
+    column-gap: 3rem;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
 
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
   }
 `;

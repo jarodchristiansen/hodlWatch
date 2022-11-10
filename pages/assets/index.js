@@ -9,6 +9,7 @@ import PaginationComponent from "../../components/commons/Pagination";
 import { render } from "react-dom";
 import { useSession, getSession } from "next-auth/client";
 import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
+import PriceScreener from "../../components/commons/screener";
 
 const AssetsPage = () => {
   const [offsetState, setOffsetState] = useState(1);
@@ -64,48 +65,52 @@ const AssetsPage = () => {
   };
 
   return (
-    <div className={"container"}>
-      <div className={"w-100 border border-1 border-bottom"}>
-        <div
-          className={
-            "search-form-container d-flex justify-content-center align-items-center flex-wrap mt-4"
-          }
-        >
-          <SearchForm
-            queryValue={queryValue}
-            setQueryValue={setQueryValue}
-            filterAssets={(e) => filterAssets(e)}
-          />
-        </div>
-        <div
-          className={
-            "pagination-container d-flex justify-content-center align-items-center flex-wrap mt-3"
-          }
-        >
-          <PaginationComponent
-            active={offsetState}
-            setOffsetState={setOffsetState}
-            fetchMore={fetchMore}
-            refetch={refetch}
-          />
-        </div>
-      </div>
+    <>
+      <PriceScreener />
 
-      <div>
-        {loading && (
-          <div className={"container text-center"}>
-            <LoadingSpinner />
+      <div className={"container"}>
+        <div className={"w-100 border border-1 border-bottom"}>
+          <div
+            className={
+              "search-form-container d-flex justify-content-center align-items-center flex-wrap mt-4"
+            }
+          >
+            <SearchForm
+              queryValue={queryValue}
+              setQueryValue={setQueryValue}
+              filterAssets={(e) => filterAssets(e)}
+            />
           </div>
-        )}
-        {/*{data && (*/}
-        {/*  <div>*/}
-        {/*    <AssetsContainer assets={data?.getAssets} />*/}
-        {/*  </div>*/}
-        {/*)}*/}
-        {!loading && renderAssets()}
-        {error && <div>Error Boi - {console.log(error)}</div>}
+          <div
+            className={
+              "pagination-container d-flex justify-content-center align-items-center flex-wrap mt-3"
+            }
+          >
+            <PaginationComponent
+              active={offsetState}
+              setOffsetState={setOffsetState}
+              fetchMore={fetchMore}
+              refetch={refetch}
+            />
+          </div>
+        </div>
+
+        <div>
+          {loading && (
+            <div className={"container text-center"}>
+              <LoadingSpinner />
+            </div>
+          )}
+          {/*{data && (*/}
+          {/*  <div>*/}
+          {/*    <AssetsContainer assets={data?.getAssets} />*/}
+          {/*  </div>*/}
+          {/*)}*/}
+          {!loading && renderAssets()}
+          {error && <div>Error Boi - {console.log(error)}</div>}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
