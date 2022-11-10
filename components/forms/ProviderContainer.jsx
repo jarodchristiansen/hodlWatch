@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getProviders, getSession, signIn, useSession } from "next-auth/react";
+import { getProviders, getSession, signIn, useSession } from "next-auth/client";
 import {
   FaGithub,
   FaFacebookSquare,

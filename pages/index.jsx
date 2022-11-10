@@ -5,7 +5,7 @@ import client from "../apollo-client";
 import GET_PRODUCTS from "../helpers/queries/getProducts";
 import AddProductForm from "../components/AddProductForm";
 import { useQuery } from "@apollo/client";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/client";
 import { useEffect } from "react";
 import LoadingSpinner from "../components/commons/animations/LoadingSpinner";
 import InfoCard from "../components/commons/info-cards/info-card";
@@ -22,10 +22,7 @@ export default function Home(props) {
     <HomePageWrapper className="text-center">
       {/*<AddProductForm />*/}
       {/*<ProductContainer products={props?.data?.data?.getProducts || null} />*/}
-
       {/* <LoadingSpinner /> */}
-      <div className="hero-image">Text</div>
-
       <div className="grid-template">
         <InfoCard
           headerText={"Historical Insights"}

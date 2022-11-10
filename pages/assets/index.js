@@ -7,7 +7,7 @@ import client from "../../apollo-client";
 import SearchForm from "../../components/forms/SearchForm";
 import PaginationComponent from "../../components/commons/Pagination";
 import { render } from "react-dom";
-import { useSession, getSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/client";
 import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
 
 const AssetsPage = () => {

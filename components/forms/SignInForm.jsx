@@ -4,7 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import { isMobile } from "../../helpers/device/ClientSide";
 import { toast, ToastContainer } from "react-nextjs-toast";
 import { SuccessMessageConsts, ErrorMessageConsts } from "../../helpers/Consts";
-import { signIn } from "next-auth/react";
+import { signIn } from "next-auth/client";
 
 const SignInForm = ({ providers }) => {
   const [email, setEmail] = useState("");
