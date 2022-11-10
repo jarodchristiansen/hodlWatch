@@ -106,13 +106,13 @@ const resolvers = {
     getAssetFinancialDetails: async (_, { symbol, time }) => {
       try {
         console.log({ symbol, time });
-        // const data = await fetch(
-        //   `https://api.lunarcrush.com/v2?data=assets&key=688o9wuzvzst3uybpg6eh&symbol=btc&data_points=365&interval=day`
-        // ).then((response) => response.json());
-
         const data = await fetch(
-          `https://api.coingecko.com/api/v3/coins/${symbol}/ohlc/vs_currency=usd&days=${time}`
+          `https://api.lunarcrush.com/v2?data=assets&key=688o9wuzvzst3uybpg6eh&symbol=btc&data_points=365&interval=day`
         ).then((response) => response.json());
+
+        // const data = await fetch(
+        //   `https://api.coingecko.com/api/v3/coins/${symbol}/ohlc/vs_currency=usd&days=${time}`
+        // ).then((response) => response.json());
 
         // const asset = await Asset.find({ symbol });
 

@@ -9,7 +9,7 @@ import TimeButtons from "../../components/commons/TimeButtons";
 import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
 import AssetDetailsHeader from "../../components/assets/AssetDetails/AssetDetailsHeader";
 
-const AssetDetailsPage = ({ deviceType }) => {
+const AssetDetailsPageV2 = ({ deviceType }) => {
   const [assetFinancials, setAssetFinancials] = useState();
   const [timeQuery, setTimeQuery] = useState(365);
 
@@ -24,7 +24,7 @@ const AssetDetailsPage = ({ deviceType }) => {
   useEffect(() => {
     getFinancials({
       variables: {
-        symbol: id || "BTC",
+        symbol: "bitcoin" || "BTC",
         time: timeQuery,
       },
     });
@@ -43,7 +43,7 @@ const AssetDetailsPage = ({ deviceType }) => {
           <AssetDetailsHeader
             asset={id}
             time={timeQuery}
-            assetData={data?.getAssetFinancialDetail ? data?.getAssetFinancialDetails[0] : ''}
+            assetData={data?.getAssetFinancialDetails[0]}
           />
           <div className={"row flex-nowrap w-auto text-center"}>
             <TimeButtons
@@ -55,7 +55,7 @@ const AssetDetailsPage = ({ deviceType }) => {
 
           <Accordion defaultActiveKey="1">
             <FinancialAccordion
-              financialData={data?.getAssetFinancialDetail ? data?.getAssetFinancialDetails[0]?.timeSeries : []}
+              financialData={data?.getAssetFinancialDetails[0]?.timeSeries}
               id={id}
             />
             <IndicatorAccordion timeQuery={timeQuery} id={id} />
@@ -81,4 +81,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default AssetDetailsPage;
+export default AssetDetailsPageV2;
