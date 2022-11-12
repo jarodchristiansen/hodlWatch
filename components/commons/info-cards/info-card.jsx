@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
+import { Colors } from "../../../styles/Colors";
 
 const InfoCard = ({ headerText, bodyText, renderButtons }) => {
   const router = useRouter();
@@ -30,11 +31,17 @@ const InfoCard = ({ headerText, bodyText, renderButtons }) => {
 };
 
 const CustomButton = styled.button`
-  background-color: #739dec;
+  background-color: ${Colors.PrimaryButtonBackground};
   color: white;
   font-size: 22px;
   border-radius: 8px;
   padding: 0 1rem;
+  border: 1px solid black;
+
+  :hover {
+    background-color: white;
+    color: ${Colors.PrimaryButtonBackground};
+  }
 `;
 
 const InfoCardContainer = styled.div`
@@ -61,6 +68,7 @@ const InfoCardContainer = styled.div`
     display: flex;
     justify-content: center;
     gap: 2rem;
+    padding: 1rem 0;
   }
 `;
 

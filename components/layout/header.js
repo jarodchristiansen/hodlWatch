@@ -3,6 +3,7 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useSession, signIn, signOut } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import Image from "next/image";
 
 function Header() {
   const [session, loading, status] = useSession();
@@ -25,7 +26,13 @@ function Header() {
       <Container>
         <Navbar.Brand>
           <Link href={"/"}>
-            <img src={"../chain.png"} className={"pointer-link"} />
+            {/* <img src={"../chain.png"} className={"pointer-link"} /> */}
+            <Image
+              src={"/assets/cube-svgrepo-com.svg"}
+              className={"pointer-link"}
+              height={"50px"}
+              width={"50px"}
+            />
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -96,7 +103,6 @@ function Header() {
           </Nav>
           <Nav>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              {loading && <div>Loading...</div>}
               {session && (
                 <>
                   {/*<p style={{marginTop: "5%"}}>{session.user.name ?? session.user.email}</p> <br />*/}
