@@ -106,9 +106,42 @@ const resolvers = {
     getAssetFinancialDetails: async (_, { symbol, time }) => {
       try {
         console.log({ symbol, time });
+        // const data = await fetch(
+        //   `https://api.lunarcrush.com/v2?data=assets&key=688o9wuzvzst3uybpg6eh&symbol=btc&data_points=365&interval=day`
+        // ).then((response) => response.json());
+
+        // const data = await fetch(
+        //   `https://pro-api.coinmarketcap.com/v1/cryptocurrency/map`,
+        //   {
+        //     headers: {
+        //       "X-CMC_PRO_API_KEY": `${process.env.CMC_KEY}`,
+        //     },
+        //   }
+        // ).then((response) => response.json());
+
+        // let match = data?.data?.filter(
+        //   (item) => item.symbol.toLowerCase() === symbol.toLowerCase()
+        // );
+
+        // if (match) {
+        //   const details = await fetch(
+        //     `https://pro-api.coinmarketcap.com/v2/cryptocurrency/ohlcv/historical`,
+        //     {
+        //       headers: {
+        //         "X-CMC_PRO_API_KEY": `${process.env.CMC_KEY}`,
+        //         id: `${match.id}`,
+        //       },
+        //     }
+        //   ).then((response) => response.json());
+
+        //   console.log({ details });
+        // }
+
         const data = await fetch(
-          `https://api.lunarcrush.com/v2?data=assets&key=688o9wuzvzst3uybpg6eh&symbol=btc&data_points=365&interval=day`
+          `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol.toUpperCase()}&tsym=USD&limit=${time}`
         ).then((response) => response.json());
+
+        console.log("This is data", data.Data);
 
         // const data = await fetch(
         //   `https://api.coingecko.com/api/v3/coins/${symbol}/ohlc/vs_currency=usd&days=${time}`

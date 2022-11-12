@@ -12,6 +12,7 @@ import InfoCard from "../components/commons/info-cards/info-card";
 import styled from "styled-components";
 import PriceScreener from "../components/commons/screener";
 import Image from "next/image";
+import { Colors } from "../styles/Colors";
 
 export default function Home(props) {
   const { session } = useSession();
@@ -57,7 +58,7 @@ export default function Home(props) {
         />
       </div>
 
-      <div className="hero-image">
+      <div className="bottom-card">
         <InfoCard
           headerText={"Join The Community"}
           bodyText="Sign Up to join our community and gain more insights as you explore different assets, and data."
@@ -84,6 +85,11 @@ const HomePageWrapper = styled.div`
       width: 100%;
       height: 15rem;
     }
+  }
+
+  .bottom-card {
+    animation: fadeIn 2s;
+    border-radius: 17px;
   }
 
   .grid-template {

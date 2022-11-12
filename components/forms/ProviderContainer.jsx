@@ -7,6 +7,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { BootStrapButtonClasses } from "../../helpers/atomics/classes";
+import styled from "styled-components";
 
 const ProviderContainer = ({ providers }) => {
   const signInOthers = async (e, provider) => {
@@ -54,10 +55,7 @@ const ProviderContainer = ({ providers }) => {
   };
 
   return (
-    <div
-      className={"w-100 my-5 py-4 border border-2 border-light"}
-      id={"auth-provider-grid"}
-    >
+    <ButtonContainer className={"w-100 my-5 py-4"} id={"auth-provider-grid"}>
       {providers &&
         Object.values(providers).map(
           (provider) =>
@@ -79,8 +77,13 @@ const ProviderContainer = ({ providers }) => {
               </div>
             )
         )}
-    </div>
+    </ButtonContainer>
   );
 };
+
+const ButtonContainer = styled.div`
+  border: 1px solid black;
+  box-shadow 2px 4px 8px gray;
+`;
 
 export default ProviderContainer;
