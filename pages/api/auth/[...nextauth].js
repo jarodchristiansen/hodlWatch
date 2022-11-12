@@ -103,7 +103,6 @@ const options = {
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
-      redirect_url: 
     }),
     Providers.Google({
       clientId: process.env.GOOGLE_ID,
@@ -143,10 +142,9 @@ const options = {
       clientSecret: process.env.TWITTER_SECRET,
     }),
   ],
-  
- // ******** !!!! ADD BELOW LINE !!!! **********
- // Prevents localhost issue on vercel auth deployment
- secret: "PLACE-HERE-ANY-STRING",
+  // ******** !!!! ADD BELOW LINE !!!! **********
+  // Prevents localhost issue on vercel auth deployment
+  secret: "PLACE-HERE-ANY-STRING",
   // database: process.env.MONGODB_URI,
   pages: {
     signIn: "/auth",
@@ -161,4 +159,4 @@ const options = {
 //     })
 // }
 
-export default async (req, res) => NextAuth({site: process.env.NEXTAUTH_URL}, req, res, options);
+export default async (req, res) => NextAuth(req, res, options);
