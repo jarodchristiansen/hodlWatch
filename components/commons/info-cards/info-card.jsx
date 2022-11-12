@@ -1,7 +1,14 @@
+import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
 
-const InfoCard = ({ headerText, bodyText }) => {
+const InfoCard = ({ headerText, bodyText, renderButtons }) => {
+  const router = useRouter();
+
+  const routeToAuth = () => {
+    router.push("/auth");
+  };
+
   return (
     <InfoCardContainer>
       <div className="info-card-header">
@@ -11,9 +18,24 @@ const InfoCard = ({ headerText, bodyText }) => {
       <div className="info-card-body">
         <span className="body-text">{bodyText}</span>
       </div>
+
+      {!!renderButtons && (
+        <div className="button-container">
+          <CustomButton onClick={routeToAuth}>Sign Up</CustomButton>
+          <CustomButton onClick={routeToAuth}>Sign In</CustomButton>
+        </div>
+      )}
     </InfoCardContainer>
   );
 };
+
+const CustomButton = styled.button`
+  background-color: #739dec;
+  color: white;
+  font-size: 22px;
+  border-radius: 8px;
+  padding: 0 1rem;
+`;
 
 const InfoCardContainer = styled.div`
   animation: "fade-in";
@@ -33,6 +55,12 @@ const InfoCardContainer = styled.div`
   .info-card-body {
     text-align: center;
     padding: 1rem 0;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
   }
 `;
 

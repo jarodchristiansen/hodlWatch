@@ -56,6 +56,14 @@ export default function Home(props) {
           bodyText="Web3 isn't as `Webby` without you. Allowing you to show off what makes you an individual in the space."
         />
       </div>
+
+      <div className="hero-image">
+        <InfoCard
+          headerText={"Join The Community"}
+          bodyText="Sign Up to join our community and gain more insights as you explore different assets, and data."
+          renderButtons={true}
+        />
+      </div>
     </HomePageWrapper>
   );
 }
@@ -69,13 +77,12 @@ const HomePageWrapper = styled.div`
 
   .hero-image {
     width: 80%;
-    /* background-color: green; */
-    height: 15rem;
     animation: fadeIn 2s;
+    border-radius: 17px;
 
     .image {
       width: 100%;
-      height: 20rem;
+      height: 15rem;
     }
   }
 
