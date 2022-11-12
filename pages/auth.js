@@ -3,6 +3,7 @@ import { getProviders, getSession } from "next-auth/client";
 import ProviderContainer from "../components/forms/ProviderContainer";
 import SignInForm from "../components/forms/SignInForm";
 import { isMobile } from "../helpers/device/ClientSide";
+import styled from "styled-components";
 
 const AuthPage = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -23,15 +24,21 @@ const AuthPage = () => {
   }, []);
 
   return (
-    <div
-      className={`card text-center list-group-item d-flex justify-content-center align-items-center flex-wrap container mt-5 ${
-        isMobile() ? "w-100" : "w-50"
-      }`}
-    >
+    <AuthPageWrapper>
       <h2 className={"py-2"}>{isSignIn ? "Sign In" : "Sign Up"}</h2>
       {isSignIn ? <SignInForm providers={providers} /> : <SignUpForm />}
-    </div>
+    </AuthPageWrapper>
   );
 };
+
+const AuthPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FormWrapper = styled.div`
+  border: 2px solid blback;
+`;
 
 export default AuthPage;

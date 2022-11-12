@@ -1,3 +1,3 @@
 export const BootStrapButtonClasses = {
-  Provider: "bg-primary mx-2 my-2 rounded w-50",
+  Provider: "bg-primary rounded w-50",
 };

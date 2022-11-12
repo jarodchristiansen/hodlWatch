@@ -41,21 +41,21 @@ const ProviderContainer = ({ providers }) => {
     }
   };
 
-  useEffect(() => {
-    handleFormatOnNumberOfProvider();
-  }, [providers]);
+  // useEffect(() => {
+  //   handleFormatOnNumberOfProvider();
+  // }, [providers]);
 
-  const handleFormatOnNumberOfProvider = () => {
-    let grid = document.getElementById("auth-provider-grid");
-    let childCount = grid?.childElementCount;
+  // const handleFormatOnNumberOfProvider = () => {
+  //   let grid = document.getElementById("auth-provider-grid");
+  //   let childCount = grid?.childElementCount;
 
-    childCount && childCount % 2 == 0
-      ? grid.classList?.add("row", "row-cols-2")
-      : grid.classList?.add("col-8", `col-row-${childCount}`);
-  };
+  //   childCount && childCount % 2 == 0
+  //     ? grid.classList?.add("row", "row-cols-2")
+  //     : grid.classList?.add("col-8", `col-row-${childCount}`);
+  // };
 
   return (
-    <ButtonContainer className={"w-100 my-5 py-4"} id={"auth-provider-grid"}>
+    <ButtonContainer>
       {providers &&
         Object.values(providers).map(
           (provider) =>
@@ -82,8 +82,14 @@ const ProviderContainer = ({ providers }) => {
 };
 
 const ButtonContainer = styled.div`
-  border: 1px solid black;
-  box-shadow 2px 4px 8px gray;
+  padding: 1rem;
+  animation: fadeIn 2s;
+  text-align: center;
+  margin: 0 auto;
+  display: grid;
+  column-gap: 3rem;
+  row-gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 `;
 
 export default ProviderContainer;

@@ -5,6 +5,7 @@ import { isMobile } from "../../helpers/device/ClientSide";
 import { toast, ToastContainer } from "react-nextjs-toast";
 import { SuccessMessageConsts, ErrorMessageConsts } from "../../helpers/Consts";
 import { signIn } from "next-auth/client";
+import styled from "styled-components";
 
 const SignInForm = ({ providers }) => {
   const [email, setEmail] = useState("");
@@ -41,7 +42,7 @@ const SignInForm = ({ providers }) => {
 
   return (
     <form
-      className={isMobile() ? "w-100 my-5" : "w-50 my-5"}
+      className={isMobile() ? "w-100 my-5 px-4" : "w-50 my-5"}
       onSubmit={handleSignInSubmit}
     >
       <div className="mb-3">
@@ -72,7 +73,7 @@ const SignInForm = ({ providers }) => {
           onChange={handleFormChange}
         />
       </div>
-      <div className="mb-3 form-check">
+      <CheckboxWrapper>
         <input
           type="checkbox"
           className="form-check-input"
@@ -80,19 +81,39 @@ const SignInForm = ({ providers }) => {
         />
 
         <label className="form-check-label">Check me out</label>
-      </div>
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
+      </CheckboxWrapper>
 
-      <div>
+      <SubmitWrapper>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </SubmitWrapper>
+
+      <ProviderWrapper>
         <ProviderContainer providers={providers} />
-      </div>
+      </ProviderWrapper>
       <ToastContainer position={"bottom"} />
 
       {/*<ToastHolder />*/}
     </form>
   );
 };
+
+const CheckboxWrapper = styled.div`
+  text-align: center;
+
+  .form-check-label {
+    padding-left: 1rem;
+  }
+`;
+
+const SubmitWrapper = styled.div`
+  text-align: center;
+  padding: 2rem 0;
+`;
+
+const ProviderWrapper = styled.div`
+  padding-top: 3rem;
+`;
 
 export default SignInForm;
