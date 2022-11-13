@@ -18,20 +18,25 @@ const AssetsPage = () => {
 
   console.log({ session, status });
 
-  const { data, loading, error, refetch, fetchMore } = useQuery(GET_ASSETS, {
-    variables: {
-      offset: 1,
-      limit: 25,
-    },
-    fetchPolicy: "cache-first",
-  });
+  const [fetchAssets, { data, loading, error, refetch, fetchMore }] =
+    useLazyQuery(GET_ASSETS, {
+      variables: {
+        offset: 1,
+        limit: 25,
+      },
+      fetchPolicy: "cache-first",
+    });
   const [assetData, setAssetData] = useState(data);
   const [getAsset] = useLazyQuery(GET_ASSET);
   const [queryValue, setQueryValue] = useState("");
 
   useEffect(() => {
-    setAssetData(data?.getAsset);
+    fetchAssets();
   }, []);
+
+  useEffect(() => {
+    setAssetData(data?.getAsset);
+  }, [data?.getAsset]);
 
   const filterAssets = async (e) => {
     e?.preventDefault();
