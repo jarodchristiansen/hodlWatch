@@ -50,7 +50,7 @@ a {
 }
 
 .accordion-body:not(.collapsed) {
-  background-color: rgba(224, 223, 223, 0.9);
+  background-color: rgba(184, 184, 184, 0.9);
 }
 
 .accordion-button:not(.collapsed) {

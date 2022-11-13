@@ -16,11 +16,11 @@ import { Colors } from "../styles/Colors";
 import LandingStatsBanner from "../components/landing/landing-stats";
 
 export default function Home(props) {
-  const { session } = useSession();
+  const [session, loading] = useSession();
 
   useEffect(() => {
     console.log({ session });
-  }, []);
+  }, [loading]);
 
   return (
     <HomePageWrapper className="text-center">

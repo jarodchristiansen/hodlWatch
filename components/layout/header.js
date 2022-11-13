@@ -19,7 +19,7 @@ function Header() {
     signOut();
   };
 
-  let username = session?.user?.username;
+  let id = session?.user?.id;
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -49,15 +49,15 @@ function Header() {
               </Nav.Link>
             )}
 
-            {/* {session && (
+            {session && (
               <Nav.Link eventKey={"3"} role={"link"}>
-                <Link href={`/user/${username}`}>
-                  <Navbar.Text className={"pointer-link mx-1"}>
+                <Link href={`/user/${id}`}>
+                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
                     {"Profile"}
                   </Navbar.Text>
                 </Link>
               </Nav.Link>
-            )} */}
+            )}
 
             {/* <Nav.Link eventKey={"3"} role={"link"}>
               <Link href="/education">
