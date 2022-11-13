@@ -25,7 +25,6 @@ const AuthPage = () => {
 
   return (
     <AuthPageWrapper>
-      <h2 className={"py-2"}>{isSignIn ? "Sign In" : "Sign Up"}</h2>
       {isSignIn ? <SignInForm providers={providers} /> : <SignUpForm />}
     </AuthPageWrapper>
   );
@@ -35,6 +34,7 @@ const AuthPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-height: 80%;
 `;
 
 const FormWrapper = styled.div`

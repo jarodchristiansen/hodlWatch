@@ -41,8 +41,7 @@ const ProfilePage = () => {
     refetch: refetchTokoenData,
   } = useBalance({ addressOrName: account?.address });
 
-  //   const { data, error, isLoading } = useSigner();
-  console.log({ tokenData });
+  console.log({ user });
 
   return (
     <CentralWrapper>
@@ -84,6 +83,10 @@ const ProfilePage = () => {
           <Web3Button />
         </ConnectWalletCard>
       )}
+
+      <UserFavoritesList>
+        <h4 className="header-text">Favorited Assets</h4>
+      </UserFavoritesList>
     </CentralWrapper>
   );
 };
@@ -151,6 +154,20 @@ const UserDetailsCard = styled.div`
 
   @media ${MediaQueries.MD} {
     width: 30rem;
+  }
+`;
+
+const UserFavoritesList = styled.div`
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 14px;
+  max-width: 30rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  .header-text {
+    text-align: center;
   }
 `;
 
