@@ -56,6 +56,8 @@ const ChartContainer = styled.div`
   border: 1px solid black;
   border-radius: 10px;
   padding: 1rem 1rem;
+  background-color: white;
+  box-shadow: 2px 4px 8px lightgray;
 `;
 
 export default VolumeChartDesktop;

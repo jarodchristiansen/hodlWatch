@@ -49,6 +49,10 @@ a {
 
 }
 
+.accordion-body:not(.collapsed) {
+  background-color: rgba(224, 223, 223, 0.9);
+}
+
 .accordion-button:not(.collapsed) {
  /*background-color: yellow;*/
   /* border-radius: 0.5rem; */

@@ -11,6 +11,7 @@ import TimeButtons from "../../components/commons/TimeButtons";
 import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
 import AssetDetailsHeader from "../../components/assets/AssetDetails/AssetDetailsHeader";
 import PriceScreener from "../../components/commons/screener";
+import styled from "styled-components";
 
 const AssetDetailsPage = ({ deviceType }) => {
   const [assetFinancials, setAssetFinancials] = useState();
@@ -54,14 +55,14 @@ const AssetDetailsPage = ({ deviceType }) => {
                   : ""
               }
             /> */}
-            <div className={"w-auto text-center py-4"}>
+            <StickyTimeBar>
               <h3>{timeQuery} Days</h3>
               <TimeButtons
                 setTimeQuery={setTimeQuery}
                 availTimes={availableTimes}
                 refetch={refetch}
               />
-            </div>
+            </StickyTimeBar>
 
             <Accordion defaultActiveKey="1">
               <FinancialAccordion
@@ -95,5 +96,12 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+const StickyTimeBar = styled.div`
+  position: sticky;
+  top: 20;
+  text-align: center;
+  padding: 1rem 0;
+`;
 
 export default AssetDetailsPage;
