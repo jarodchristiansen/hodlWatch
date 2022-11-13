@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-nextjs-toast";
 import { SuccessMessageConsts, ErrorMessageConsts } from "../../helpers/Consts";
 import { signIn } from "next-auth/client";
 import styled from "styled-components";
+import { MediaQueries } from "../../styles/MediaQueries";
 
 const SignInForm = ({ providers }) => {
   const [email, setEmail] = useState("");
@@ -39,11 +40,10 @@ const SignInForm = ({ providers }) => {
   };
 
   return (
-    <form
-      className={isMobile() ? "w-100 my-5 px-4" : "w-50 my-5"}
-      onSubmit={handleSignInSubmit}
-    >
+    <FormStyling onSubmit={handleSignInSubmit}>
       <div className="mb-3">
+        <h2 className={"py-2"}>Sign In</h2>
+
         <label htmlFor="exampleInputEmail1" className="form-label">
           Email address
         </label>
@@ -71,7 +71,7 @@ const SignInForm = ({ providers }) => {
           onChange={handleFormChange}
         />
       </div>
-      <CheckboxWrapper>
+      {/* <CheckboxWrapper>
         <input
           type="checkbox"
           className="form-check-input"
@@ -79,7 +79,7 @@ const SignInForm = ({ providers }) => {
         />
 
         <label className="form-check-label">Check me out</label>
-      </CheckboxWrapper>
+      </CheckboxWrapper> */}
 
       <SubmitWrapper>
         <button type="submit" className="btn btn-primary">
@@ -93,7 +93,7 @@ const SignInForm = ({ providers }) => {
       <ToastContainer position={"bottom"} />
 
       {/*<ToastHolder />*/}
-    </form>
+    </FormStyling>
   );
 };
 
@@ -112,6 +112,20 @@ const SubmitWrapper = styled.div`
 
 const ProviderWrapper = styled.div`
   padding-top: 3rem;
+`;
+
+const FormStyling = styled.form`
+  width: 100%;
+  border: 2px solid black;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0px 4px 8px gray;
+
+  @media ${MediaQueries.MD} {
+    width: 34rem;
+    margin: 1rem 0;
+  }
 `;
 
 export default SignInForm;
