@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useRouter, withRouter } from "next/router";
 import FinancialAccordion from "../../components/assets/Finance/FinancialAccordion";
 import { useQuery, useLazyQuery } from "@apollo/client";
-import GET_ASSET_FINANCIALS from "../../helpers/queries/getAssetFinancialDetails";
+import GET_ASSET_FINANCIALS, {
+  GET_GECKO_HISTORY,
+} from "../../helpers/queries/getAssetFinancialDetails";
 import { Accordion } from "react-bootstrap";
 import IndicatorAccordion from "../../components/assets/Indicators/IndicatorAccordion";
 import TimeButtons from "../../components/commons/TimeButtons";
@@ -12,15 +14,15 @@ import PriceScreener from "../../components/commons/screener";
 
 const AssetDetailsPage = ({ deviceType }) => {
   const [assetFinancials, setAssetFinancials] = useState();
-  const [timeQuery, setTimeQuery] = useState(365);
+  const [timeQuery, setTimeQuery] = useState(14);
 
   const router = useRouter();
   let id = router.query.id;
 
   const [getFinancials, { data, loading, error, refetch }] =
-    useLazyQuery(GET_ASSET_FINANCIALS);
+    useLazyQuery(GET_GECKO_HISTORY);
 
-  const availableTimes = [730, 365, 180, 90, 30, 14];
+  const availableTimes = [14, 30, 90, 180, 365];
 
   useEffect(() => {
     getFinancials({
@@ -30,6 +32,8 @@ const AssetDetailsPage = ({ deviceType }) => {
       },
     });
   }, [timeQuery]);
+
+  console.log({ data });
 
   return (
     <>
@@ -43,15 +47,15 @@ const AssetDetailsPage = ({ deviceType }) => {
         {error && <div>Error {console.log({ error })}</div>}
         {data && (
           <>
-            <AssetDetailsHeader
+            {/* <AssetDetailsHeader
               asset={id}
               time={timeQuery}
               assetData={
-                data?.getAssetFinancialDetail
-                  ? data?.getAssetFinancialDetails[0]
+                data?.getAssetFinancialDetails
+                  ? data?.getAssetFinancialDetails
                   : ""
               }
-            />
+            /> */}
             <div className={"row flex-nowrap w-auto text-center"}>
               <TimeButtons
                 setTimeQuery={setTimeQuery}
@@ -63,8 +67,8 @@ const AssetDetailsPage = ({ deviceType }) => {
             <Accordion defaultActiveKey="1">
               <FinancialAccordion
                 financialData={
-                  data?.getAssetFinancialDetail
-                    ? data?.getAssetFinancialDetails[0]?.timeSeries
+                  data?.getAssetFinancialDetails
+                    ? data?.getAssetFinancialDetails
                     : []
                 }
                 id={id}

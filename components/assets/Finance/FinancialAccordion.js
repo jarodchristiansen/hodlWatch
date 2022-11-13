@@ -19,6 +19,8 @@ const FinancialAccordion = ({ financialData, id }) => {
     financialData && processFinancialData(financialData);
   }, []);
 
+  console.log({ financialData });
+
   const processFinancialData = (financialData) => {
     let market_dominance = [];
     let volatility = [];
@@ -30,32 +32,48 @@ const FinancialAccordion = ({ financialData, id }) => {
     let price_btc = [];
 
     for (let i of financialData) {
-      market_dominance.push({
-        market_dominance: i.market_dominance,
-        time: FormatUnixTime(i.time),
-      });
-      volatility.push({
-        volatility: i.volatility,
-        time: FormatUnixTime(i.time),
-      });
-      volume.push({
-        volume: i.volume,
-        time: FormatUnixTime(i.time),
-      });
-      percent_change.push({
-        percent_change: i.percent_change_24h,
-        time: FormatUnixTime(i.time),
-      });
-      closes.push({
-        close: i.close,
-        time: FormatUnixTime(i.time),
-      });
-      price_btc.push({
-        price_btc: i.price_btc,
-        time: FormatUnixTime(i.time),
-      });
-      highs.push(i.high);
-      lows.push(i.low);
+      if (i?.market_dominance) {
+        market_dominance.push({
+          market_dominance: i.market_dominance,
+          time: FormatUnixTime(i.time),
+        });
+      }
+      if (i?.volatility) {
+        volatility.push({
+          volatility: i.volatility,
+          time: FormatUnixTime(i.time),
+        });
+      }
+      if (i.volumeto && i.volumefrom) {
+        volume.push({
+          volume: i.volumeto + i.volumefrom,
+          time: FormatUnixTime(i.time),
+        });
+      }
+      if (i?.percent_change_24h) {
+        percent_change.push({
+          percent_change: i.percent_change_24h,
+          time: FormatUnixTime(i.time),
+        });
+      }
+      if (i?.close) {
+        closes.push({
+          close: i.close,
+          time: FormatUnixTime(i.time),
+        });
+      }
+      if (i?.price_btc) {
+        price_btc.push({
+          price_btc: i.price_btc,
+          time: FormatUnixTime(i.time),
+        });
+      }
+      if (i?.high) {
+        highs.push(i.high);
+      }
+      if (i?.low) {
+        lows.push(i.low);
+      }
     }
 
     let filteredData = {
@@ -70,22 +88,22 @@ const FinancialAccordion = ({ financialData, id }) => {
     };
 
     const chartData = [
-      filteredData?.closes && (
+      !!filteredData?.closes?.length && (
         <FibonacciRetracementChartDesktop data={filteredData?.closes} />
       ),
-      filteredData?.market_dominance && (
+      !!filteredData?.market_dominance?.length && (
         <MarketDominanceChartDesktop data={filteredData?.market_dominance} />
       ),
-      filteredData?.volatility && (
+      !!filteredData?.volatility?.length && (
         <VolatilityChart data={filteredData?.volatility} />
       ),
-      filteredData?.volume && (
+      !!filteredData?.volume?.length && (
         <VolumeChartDesktop data={filteredData?.volume} />
       ),
-      filteredData?.percent_change && (
+      !!filteredData?.percent_change?.length && (
         <PercentChangeChartDesktop data={filteredData?.percent_change} />
       ),
-      filteredData?.price_btc && id !== "btc" && (
+      !!filteredData?.price_btc?.length && id !== "btc" && (
         <PriceBTCChartDesktop data={filteredData?.price_btc} />
       ),
     ];

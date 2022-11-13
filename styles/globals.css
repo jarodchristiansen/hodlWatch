@@ -52,13 +52,13 @@ a {
 .accordion-button:not(.collapsed) {
  /*background-color: yellow;*/
   border-radius: 0.5rem;
-  background-color: #24013b;
+  background-color: #a996b6;
   /*background: linear-gradient(131deg, rgba(6,1,13,1) 0%, rgba(30,9,60,1) 48%, rgba(50,18,97,1) 100%);*/
   color: white;
 }
 .accordion-button.collapsed {
   border-radius: 0.5rem;
-  background-color: #4a0579;
+  background-color: #5a5061;
   color: white;
 }
 
@@ -67,11 +67,11 @@ a {
 }
 
 .standardized-button {
-  background-color: rgba(93, 187, 5, 0.9);
+  background-color: rgba(16, 101, 212, 0.9);
   color: white;
   font-weight: bolder;
-  border-radius: 15px;
-  padding: 5px 10px;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
   box-shadow: 2px 4px 6px gray;
 }
 

@@ -58,6 +58,18 @@ const typeDefs = gql`
     percent_change_24h: Float
   }
 
+  type GeckoHistory {
+    time: Float
+    high: Float
+    low: Float
+    open: Float
+    volumefrom: Float
+    volumeto: Float
+    close: Float
+    conversionType: String
+    conversionSymbol: String
+  }
+
   type AssetFinancialDetails {
     symbol: String
     id: ID
@@ -100,10 +112,7 @@ const typeDefs = gql`
     getProduct(id: ID!): Product
     getAssets(offset: Int, limit: Int): [Asset]
     getAsset(symbol: String!): [Asset]
-    getAssetFinancialDetails(
-      symbol: String!
-      time: Int
-    ): [AssetFinancialDetails]
+    getAssetFinancialDetails(symbol: String!, time: Int): [GeckoHistory]
     getUser: User
     getDifficultyRibbons(symbol: String, cut: Int): [DifficultyRibbonData]
   }

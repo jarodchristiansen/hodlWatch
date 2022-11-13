@@ -1,6 +1,22 @@
 import { gql } from "@apollo/client";
 
-export default gql`
+export const GET_GECKO_HISTORY = gql`
+  query GetAssetFinancialDetails($symbol: String!, $time: Int) {
+    getAssetFinancialDetails(symbol: $symbol, time: $time) {
+      time
+      high
+      low
+      open
+      volumefrom
+      volumeto
+      close
+      conversionType
+      conversionSymbol
+    }
+  }
+`;
+
+export const GET_ASSET_FINANCIALS = gql`
   query GetAssetFinancialDetails($symbol: String!, $time: Int) {
     getAssetFinancialDetails(symbol: $symbol, time: $time) {
       symbol
