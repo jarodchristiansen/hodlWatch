@@ -13,6 +13,7 @@ import styled from "styled-components";
 import PriceScreener from "../components/commons/screener";
 import Image from "next/image";
 import { Colors } from "../styles/Colors";
+import LandingStatsBanner from "../components/landing/landing-stats";
 
 export default function Home(props) {
   const { session } = useSession();
@@ -30,7 +31,7 @@ export default function Home(props) {
       {/*<AddProductForm />*/}
       {/*<ProductContainer products={props?.data?.data?.getProducts || null} />*/}
       {/* <LoadingSpinner /> */}
-      <div className="hero-image">
+      {/* <div className="hero-image">
         <Image
           src="/assets/web3-landing.jpg"
           layout="responsive"
@@ -40,7 +41,9 @@ export default function Home(props) {
           height={"20rem"}
           alt="blockchain-cube"
         />
-      </div>
+      </div> */}
+
+      <LandingStatsBanner />
 
       <div className="grid-template">
         <InfoCard
