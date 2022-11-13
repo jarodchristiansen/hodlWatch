@@ -38,8 +38,14 @@ const VolumeChartDesktop = ({ data }) => {
           <Tooltip
           // formatter={(value) => currencyFormat(value)}
           />
-          <Legend />
-          <Line type="monotone" dataKey="volume" stroke="#8884d8" dot={false} />
+
+          <Line
+            type="monotone"
+            dataKey="volume"
+            stroke="#8884d8"
+            dot={false}
+            strokeWidth={2}
+          />
         </LineChart>
       )}
     </ChartContainer>

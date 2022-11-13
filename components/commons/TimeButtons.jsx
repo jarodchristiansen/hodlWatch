@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const TimeButtons = ({ availTimes, setTimeQuery, refetch }) => {
   return (
-    <div className={"my-4"}>
+    <div>
       {availTimes &&
         availTimes.map((time) => (
           <button

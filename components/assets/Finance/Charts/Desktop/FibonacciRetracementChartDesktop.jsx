@@ -83,7 +83,7 @@ const FibonacciRetracementChartDesktop = ({ data }) => {
           <XAxis dataKey="time" />
 
           <Tooltip formatter={(value) => currencyFormat(value)} />
-          <Legend />
+          {/* <Legend /> */}
           <Line
             type="monotone"
             dataKey="min"
@@ -91,7 +91,13 @@ const FibonacciRetracementChartDesktop = ({ data }) => {
             dot={false}
             strokeWidth={2}
           />
-          <Line type="monotone" dataKey="close" stroke="#000000" dot={false} />
+          <Line
+            type="monotone"
+            dataKey="close"
+            stroke="#000000"
+            strokeWidth={2}
+            dot={false}
+          />
           <Line
             type="monotone"
             dataKey="fib1"
@@ -124,7 +130,7 @@ const FibonacciRetracementChartDesktop = ({ data }) => {
             type="monotone"
             dataKey="max"
             stroke="#999900"
-            name={"Max Price In Range"}
+            name={"Max"}
             dot={false}
             strokeWidth={2}
           />

@@ -33,8 +33,6 @@ const AssetDetailsPage = ({ deviceType }) => {
     });
   }, [timeQuery]);
 
-  console.log({ data });
-
   return (
     <>
       <PriceScreener />
@@ -56,7 +54,8 @@ const AssetDetailsPage = ({ deviceType }) => {
                   : ""
               }
             /> */}
-            <div className={"row flex-nowrap w-auto text-center"}>
+            <div className={"w-auto text-center py-4"}>
+              <h3>{timeQuery} Days</h3>
               <TimeButtons
                 setTimeQuery={setTimeQuery}
                 availTimes={availableTimes}

@@ -112,7 +112,11 @@ const AssetsPage = () => {
           {/*  </div>*/}
           {/*)}*/}
           {!loading && renderAssets()}
-          {error && <div>Error Boi - {console.log(error)}</div>}
+          {error && (
+            <div>
+              Error Loading Assets, please refresh the page {console.log(error)}
+            </div>
+          )}
         </div>
       </div>
     </>

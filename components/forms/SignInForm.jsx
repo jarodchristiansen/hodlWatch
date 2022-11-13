@@ -17,12 +17,10 @@ const SignInForm = ({ providers }) => {
     console.log({ email, password });
 
     await signIn("credentials", {
-      redirect: true,
       email,
       password,
     });
   };
-  useEffect(() => {}, []);
 
   const handleFormChange = (e) => {
     const { name } = e.target;

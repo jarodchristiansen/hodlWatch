@@ -5,6 +5,7 @@ import {
   FaFacebookSquare,
   FaGoogle,
   FaTwitter,
+  FaFacebook,
 } from "react-icons/fa";
 import { BootStrapButtonClasses } from "../../helpers/atomics/classes";
 import styled from "styled-components";
@@ -34,7 +35,9 @@ const ProviderContainer = ({ providers }) => {
         return <FaGithub size={28} className={"my-2 mx-2"} color={"#fff"} />;
       case "Google":
         return <FaGoogle size={28} className={"my-2 mx-2"} color={"#fff"} />;
-      case "Twitter (Legacy)":
+      case "Facebook":
+        return <FaFacebook size={28} className={"my-2 mx-2"} color={"#fff"} />;
+      case "Twitter":
         return <FaTwitter size={28} className={"my-2 mx-2"} color={"#fff"} />;
       default:
         return <div>N/A</div>;
@@ -63,8 +66,10 @@ const ProviderContainer = ({ providers }) => {
               <div key={provider.name}>
                 <button
                   onClick={(e) => {
-                    signIn(provider.id, { redirect: false })
-                      .then(() => console.log("success"))
+                    signIn(provider.id, { redirect: true, callbackUrl: "/" })
+                      .then(() => {
+                        console.log("Success");
+                      })
                       .catch((err) => console.log("err", err));
                     // signInOthers(e, provider)
                   }}

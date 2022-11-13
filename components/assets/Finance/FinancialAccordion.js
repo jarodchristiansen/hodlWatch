@@ -19,8 +19,6 @@ const FinancialAccordion = ({ financialData, id }) => {
     financialData && processFinancialData(financialData);
   }, []);
 
-  console.log({ financialData });
-
   const processFinancialData = (financialData) => {
     let market_dominance = [];
     let volatility = [];
