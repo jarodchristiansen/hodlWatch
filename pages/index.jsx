@@ -23,6 +23,9 @@ export default function Home(props) {
 
   return (
     <HomePageWrapper className="text-center">
+      <Head>
+        <title>HodlWatch - Home</title>
+      </Head>
       <PriceScreener />
       {/*<AddProductForm />*/}
       {/*<ProductContainer products={props?.data?.data?.getProducts || null} />*/}
@@ -35,6 +38,7 @@ export default function Home(props) {
           quality={100}
           width={"100%"}
           height={"20rem"}
+          alt="blockchain-cube"
         />
       </div>
 
@@ -50,7 +54,7 @@ export default function Home(props) {
 
         <InfoCard
           headerText={"OnChain Data"}
-          bodyText="With a resource as beautiful as a decentralized immulatable ledger, why not use it for real time insights? "
+          bodyText="With a resource as beautiful as a decentralized immutable ledger, why not use it for real time insights? "
         />
         <InfoCard
           headerText={"User Profiles"}

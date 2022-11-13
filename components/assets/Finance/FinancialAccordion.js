@@ -149,8 +149,8 @@ const FinancialAccordion = ({ financialData, id }) => {
             transitionDuration={2500}
             transitionBehavior={"smooth"}
           >
-            {chartsToDisplay?.map((string) => (
-              <div className={"px-2 py-3"}>{string}</div>
+            {chartsToDisplay?.map((chart) => (
+              <div className={"px-2 pb-2"}>{chart}</div>
             ))}
           </ScrollMenu>
         </Accordion.Body>

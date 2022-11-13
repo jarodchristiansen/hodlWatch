@@ -10,10 +10,11 @@ import {
 } from "recharts";
 // import FinanceChartModal from "./FinanceChartModal";
 import React from "react";
+import styled from "styled-components";
 
 const VolumeChartDesktop = ({ data }) => {
   return (
-    <div className={"card mt-2 mx-3 text-center"}>
+    <ChartContainer>
       <div className={"flex flex-row"}>
         <h1>
           Volume Chart
@@ -41,8 +42,14 @@ const VolumeChartDesktop = ({ data }) => {
           <Line type="monotone" dataKey="volume" stroke="#8884d8" dot={false} />
         </LineChart>
       )}
-    </div>
+    </ChartContainer>
   );
 };
+
+const ChartContainer = styled.div`
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 1rem 1rem;
+`;
 
 export default VolumeChartDesktop;

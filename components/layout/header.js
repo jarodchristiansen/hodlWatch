@@ -32,6 +32,7 @@ function Header() {
               className={"pointer-link"}
               height={"50px"}
               width={"50px"}
+              alt="block-logo"
             />
           </Link>
         </Navbar.Brand>
@@ -41,7 +42,7 @@ function Header() {
             {session && (
               <Nav.Link eventKey={"1"} role={"link"}>
                 <Link href="/assets">
-                  <Navbar.Text className={"pointer-link mx-1"}>
+                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
                     Assets
                   </Navbar.Text>
                 </Link>
@@ -58,16 +59,18 @@ function Header() {
               </Nav.Link>
             )} */}
 
-            <Nav.Link eventKey={"3"} role={"link"}>
+            {/* <Nav.Link eventKey={"3"} role={"link"}>
               <Link href="/education">
-                <Navbar.Text className={"pointer-link"}>Education</Navbar.Text>
+                <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
+                  Education
+                </Navbar.Text>
               </Link>
-            </Nav.Link>
+            </Nav.Link> */}
 
             {!session ? (
               <Nav.Link eventKey={"4"} role={"link"}>
                 <Link href="/auth">
-                  <Navbar.Text className={"pointer-link mx-1"}>
+                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
                     {"Sign in"}
                   </Navbar.Text>
                 </Link>
@@ -77,7 +80,7 @@ function Header() {
                 eventKey={"4"}
                 role={"link"}
                 onClick={handleSignout}
-                className={"pointer-link"}
+                className={"pointer-link fw-bold"}
               >
                 {"Sign out"}
               </Nav.Link>

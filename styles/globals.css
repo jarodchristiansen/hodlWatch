@@ -51,15 +51,18 @@ a {
 
 .accordion-button:not(.collapsed) {
  /*background-color: yellow;*/
-  border-radius: 0.5rem;
-  background-color: #a996b6;
+  /* border-radius: 0.5rem; */
+  background-color: rgba(61, 60, 60, 0.9);
   /*background: linear-gradient(131deg, rgba(6,1,13,1) 0%, rgba(30,9,60,1) 48%, rgba(50,18,97,1) 100%);*/
   color: white;
+  font-weight: bold;
+  border: 1px solid black;
 }
 .accordion-button.collapsed {
-  border-radius: 0.5rem;
-  background-color: #5a5061;
+  /* border-radius: 0.5rem; */
+  background-color: rgba(0, 0, 0, 0.9);
   color: white;
+  font-weight: bold;
 }
 
 .accordion-container {
@@ -69,6 +72,15 @@ a {
 .standardized-button {
   background-color: rgba(16, 101, 212, 0.9);
   color: white;
+  font-weight: bolder;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  box-shadow: 2px 4px 6px gray;
+}
+
+.standardized-button:hover {
+  color: rgba(16, 101, 212, 0.9);
+  background-color: white;
   font-weight: bolder;
   border-radius: 10px;
   padding: 0.5rem 1rem;
@@ -90,4 +102,8 @@ a {
 }
 .screener {
   max-width: 100%;
+}
+
+.pointer-link {
+  cursor: pointer;
 }

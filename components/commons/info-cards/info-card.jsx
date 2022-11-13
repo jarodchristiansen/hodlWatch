@@ -22,27 +22,17 @@ const InfoCard = ({ headerText, bodyText, renderButtons }) => {
 
       {!!renderButtons && (
         <div className="button-container">
-          <CustomButton onClick={routeToAuth}>Sign Up</CustomButton>
-          <CustomButton onClick={routeToAuth}>Sign In</CustomButton>
+          <button className="standardized-button" onClick={routeToAuth}>
+            Sign Up
+          </button>
+          <button className="standardized-button" onClick={routeToAuth}>
+            Sign In
+          </button>
         </div>
       )}
     </InfoCardContainer>
   );
 };
-
-const CustomButton = styled.button`
-  background-color: ${Colors.PrimaryButtonBackground};
-  color: white;
-  font-size: 22px;
-  border-radius: 8px;
-  padding: 0 1rem;
-  border: 1px solid black;
-
-  :hover {
-    background-color: white;
-    color: ${Colors.PrimaryButtonBackground};
-  }
-`;
 
 const InfoCardContainer = styled.div`
   animation: "fade-in";

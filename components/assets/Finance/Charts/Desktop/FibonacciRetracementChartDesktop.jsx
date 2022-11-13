@@ -4,15 +4,13 @@ import {
   YAxis,
   Tooltip,
   Legend,
-  ResponsiveContainer,
   LineChart,
   Line,
 } from "recharts";
 // import FinanceChartModal from "./FinanceChartModal";
 import React, { useEffect, useState } from "react";
 import { currencyFormat } from "../../../../../helpers/formatters/currency";
-import AssetCardAnimationWrapper from "../../../AssetCardAnimationWrapper";
-import ChartAnimationWrapper from "../../../ChartAnimationWrapper";
+import styled from "styled-components";
 
 const FibonacciRetracementChartDesktop = ({ data }) => {
   const [fibonacciData, setFibonacciData] = useState();
@@ -67,9 +65,9 @@ const FibonacciRetracementChartDesktop = ({ data }) => {
   };
 
   return (
-    <div className={"card mt-2 mx-3 text-center"}>
+    <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>Fibonacci Retracement Chart (Daily Closes)</h1>
+        <h1>Fibonacci Retracement</h1>
       </div>
       {fibonacciData && (
         <LineChart data={fibonacciData} height={500} width={500}>
@@ -132,8 +130,14 @@ const FibonacciRetracementChartDesktop = ({ data }) => {
           />
         </LineChart>
       )}
-    </div>
+    </ChartContainer>
   );
 };
+
+const ChartContainer = styled.div`
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 1rem 1rem;
+`;
 
 export default FibonacciRetracementChartDesktop;
