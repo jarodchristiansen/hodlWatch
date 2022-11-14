@@ -4,7 +4,6 @@ import Providers from "next-auth/providers";
 // import clientPromise from "../../../lib/mongodb";
 // import { MongoClient } from "mongodb";
 // import { hashPassword, verifyPassword } from "../../../lib/auth";
-import User from "../../../db/models/user";
 
 function makeid(length) {
   var result = "";
@@ -51,17 +50,29 @@ const options = {
         user.email = primaryEmail;
       }
 
-      const users = await User.find({ email: user.email });
+      // if (account?.provider === "github") {
+      //   const emailRes = await fetch("https://api.github.com/user/emails", {
+      //     headers: {
+      //       Authorization: `token ${account.accessToken}`,
+      //     },
+      //   });
+      //   emails = await emailRes.json();
+      //   primaryEmail = emails.find((e) => e.primary).email;
 
-      let existingUser = users.length ? users[0] : [];
+      //   user.email = primaryEmail;
+      // }
 
-      console.log({ existingUser });
+      // const users = await User.find({ email: user.email });
 
-      if (!existingUser) {
-        let newUser = await User.create(user);
-      } else {
-        user = existingUser;
-      }
+      // let existingUser = users.length ? users[0] : [];
+
+      // console.log({ existingUser });
+
+      // if (!existingUser) {
+      //   let newUser = await User.create(user);
+      // } else {
+      //   user = existingUser;
+      // }
 
       // const client = await MongoClient.connect(`${process.env.MONGODB_URI}`);
       // const db = client.db();
@@ -70,7 +81,7 @@ const options = {
       //   .collection("users")
       //   .findOne({ email: user?.email });
 
-      // if (existingUser.length) {
+      // if (existingUser) {
       //   user.favorites = existingUser?.favorites;
 
       //   if (!existingUser?.username) {
