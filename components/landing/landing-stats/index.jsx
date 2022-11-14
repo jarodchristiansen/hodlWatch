@@ -36,7 +36,7 @@ const LandingStatsBanner = () => {
 };
 
 const LandingBannerContainer = styled.div`
-  width: 80%;
+  width: 100%;
   height: 17rem;
   background-image: url("/assets/blue-background-gradient.jpg");
   background-size: cover;
@@ -45,6 +45,8 @@ const LandingBannerContainer = styled.div`
     background-color: rgba(255, 255, 255, 0.3);
     width: 100%;
     padding: 1rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.575);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.274);
   }
 
   .header-text {
@@ -57,7 +59,7 @@ const LandingBannerContainer = styled.div`
   }
 
   @media ${MediaQueries.MD} {
-    height: 15rem;
+    width: 80%;
     background-position: 0px -10rem;
   }
 
@@ -68,8 +70,6 @@ const LandingBannerContainer = styled.div`
     overflow-x: auto;
 
     @media ${MediaQueries.SM} {
-      margin-left: -2rem;
-      margin-right: -2rem;
       padding-left: 4rem;
       padding-right: 4rem;
 
@@ -97,6 +97,8 @@ const StatsBlock = styled.div`
   /* box-shadow: 2px 4px 8px lightgray; */
   color: white;
   background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.37);
+  margin: 0.5rem 0.5rem;
 `;
 
 export default LandingStatsBanner;
