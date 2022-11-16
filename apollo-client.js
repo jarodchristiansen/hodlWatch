@@ -8,10 +8,7 @@ import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 
 const client = new ApolloClient({
   dataIdFromObject: (o) => o.id,
-  link: new HttpLink({
-    uri: "https://hodl-watch.vercel.app/api/graphql",
-    fetch,
-  }),
+  link: new HttpLink({ uri: `${process.env.BASE_URL}/api/graphql`, fetch }),
   cache: new InMemoryCache(),
   //     {
   //   typePolicies: {
