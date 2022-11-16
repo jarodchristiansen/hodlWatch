@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import useOnScreen from "../../helpers/hooks/useOnScreen";
 import AssetCard from "./AssetCard";
+import styled from "styled-components";
 
 const AssetsContainer = ({ assets }) => {
   const [currentAssets, setCurrentAssets] = useState(assets || null);
@@ -8,15 +10,18 @@ const AssetsContainer = ({ assets }) => {
     setCurrentAssets(assets);
   }, [assets]);
 
+  const ref = useRef();
+  // const isVisible = useOnScreen(ref, "100px");
+
   return (
     <div data-testid={"assets-container"}>
       <div className={"w-100"}>
         {currentAssets && currentAssets.length > 1 && (
-          <div className={"row row-cols-1 row-cols-sm-2 row-cols-md-3"}>
+          <GridComponent ref={ref}>
             {currentAssets.map((asset) => {
               return <AssetCard asset={asset} />;
             })}
-          </div>
+          </GridComponent>
         )}
       </div>
 
@@ -26,5 +31,13 @@ const AssetsContainer = ({ assets }) => {
     </div>
   );
 };
+
+const GridComponent = styled.div`
+  animation: fadeIn 2s;
+  margin: 0 auto;
+  display: grid;
+  column-gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+`;
 
 export default AssetsContainer;

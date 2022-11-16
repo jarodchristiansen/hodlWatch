@@ -93,6 +93,13 @@ const typeDefs = gql`
     username: String
     image: String
     createAt: Date
+    favorites: [FavoritesData]
+  }
+
+  type FavoritesData {
+    title: String
+    symbol: String
+    image: String
   }
 
   type DifficultyRibbonData {
@@ -113,7 +120,7 @@ const typeDefs = gql`
     getAssets(offset: Int, limit: Int): [Asset]
     getAsset(symbol: String!): [Asset]
     getAssetFinancialDetails(symbol: String!, time: Int): [GeckoHistory]
-    getUser: User
+    getUser(email: String): User
     getDifficultyRibbons(symbol: String, cut: Int): [DifficultyRibbonData]
   }
 

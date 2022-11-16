@@ -11,6 +11,8 @@ import {
   useSigner,
 } from "@web3modal/react";
 import PriceScreener from "../../components/commons/screener";
+import { useLazyQuery } from "@apollo/client";
+import { GET_USER } from "../../helpers/queries/user/getUserAccount";
 
 const ProfilePage = () => {
   const [session, loading] = useSession();
@@ -20,11 +22,27 @@ const ProfilePage = () => {
   //   const [walletIsConnected, setWalletIsConnected] = useState(false);
   const { isOpen, open, close } = useConnectModal();
 
+  const [
+    fetchUserDetails,
+    { data, loading: dataLoading, error, refetch, fetchMore },
+  ] = useLazyQuery(GET_USER, {
+    variables: {
+      email: user?.email,
+    },
+    fetchPolicy: "cache-first",
+  });
+
   useEffect(() => {
     if (session?.user) {
       setUser(session.user);
     }
   }, [loading]);
+
+  useEffect(() => {
+    if (user?.email) {
+      fetchUserDetails();
+    }
+  }, [user]);
 
   const walletIsConnected = useMemo(() => {
     if (!account.status) return false;

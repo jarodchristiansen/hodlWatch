@@ -1,6 +1,6 @@
 import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
 import GET_ASSETS from "../../helpers/queries/getAssets";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AssetsContainer from "../../components/assets/AssetsContainer";
 import GET_ASSET from "../../helpers/queries/getAsset";
 import client from "../../apollo-client";
@@ -10,6 +10,7 @@ import { render } from "react-dom";
 import { useSession, getSession } from "next-auth/client";
 import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
 import PriceScreener from "../../components/commons/screener";
+import useOnScreen from "../../helpers/hooks/useOnScreen";
 
 const AssetsPage = () => {
   const [offsetState, setOffsetState] = useState(1);
@@ -61,12 +62,23 @@ const AssetsPage = () => {
     if (data) {
       return (
         <div>
-          <AssetsContainer assets={assetData || data?.getAssets} />
+          <AssetsContainer
+            assets={assetData || data?.getAssets}
+            loadMore={loadMoreFunction}
+          />
         </div>
       );
     } else if (!data && !loading) {
       console.log({ data, loading });
     }
+  };
+
+  const loadMoreFunction = () => {
+    // refetch({ offset: offsetState - 1 });
+    fetchMore({
+      offset: offsetState,
+    });
+    setOffsetState(offsetState++);
   };
 
   return (

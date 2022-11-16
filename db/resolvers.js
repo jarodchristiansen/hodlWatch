@@ -14,11 +14,13 @@ const resolvers = {
     getUser: async (_, { email }) => {
       const user = await User.find({ email });
 
+      console.log(user[0], "In getUser");
+
       if (!user) {
         throw new Error("User not found");
       }
 
-      return user;
+      return user[0];
     },
     getProducts: async () => {
       try {
