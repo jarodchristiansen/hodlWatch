@@ -4,7 +4,6 @@ import Providers from "next-auth/providers";
 // import clientPromise from "../../../lib/mongodb";
 // import { MongoClient } from "mongodb";
 // import { hashPassword, verifyPassword } from "../../../lib/auth";
-import User from "../../../db/models/user";
 
 function makeid(length) {
   var result = "";
@@ -26,21 +25,12 @@ const options = {
     async session(session, token) {
       session.accessToken = token.accessToken;
       session.user = token.user;
-
       return session;
     },
     async jwt(token, user) {
       if (user) {
         token.accessToken = user._id;
-
-        const users = await User.find({ email: user.email });
-
-        if (users.length) {
-          token.user = users[0];
-        } else {
-          token.user = user
-        }
-
+        token.user = user;
       }
       return token;
     },

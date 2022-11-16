@@ -78,7 +78,6 @@ const AssetsPage = () => {
     fetchMore({
       offset: offsetState,
     });
-    setOffsetState(offsetState++);
   };
 
   return (
