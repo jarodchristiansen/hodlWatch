@@ -1,13 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import Header from "../../components/layout/Header";
 import "@testing-library/jest-dom";
-import { useSession } from "next-auth/react";
 import AssetsPage from "../../pages/assets";
 import { MockedProvider } from "@apollo/client/testing";
 import GET_ASSETS from "../../helpers/queries/getAssets";
 
-jest.mock("next-auth/react", () => {
-  const originalModule = jest.requireActual("next-auth/react");
+jest.mock("next-auth/client", () => {
+  const originalModule = jest.requireActual("next-auth/client");
   const mockSession = {
     expires: new Date(Date.now() + 2 * 86400).toISOString(),
     user: { username: "admin" },
@@ -107,7 +105,7 @@ describe("Assets Page", () => {
     const container = screen.getByTestId("loading-element");
 
     expect(container).toBeTruthy();
-    expect(await screen.findByText("btc")).toBeInTheDocument();
+    expect(await screen.findByText("BTC")).toBeInTheDocument();
 
     const assets = await screen.getByTestId("assets-container");
     expect(assets).toBeTruthy();
