@@ -3,7 +3,14 @@ import React from "react";
 import styled from "styled-components";
 import { Colors } from "../../../styles/Colors";
 
-const InfoCard = ({ headerText, bodyText, renderButtons }) => {
+interface InfoCardProps {
+  headerText: string
+  bodyText: string
+  renderButtons?: boolean
+}
+
+
+const InfoCard = ({ headerText, bodyText, renderButtons = false }: InfoCardProps) => {
   const router = useRouter();
 
   const routeToAuth = () => {
