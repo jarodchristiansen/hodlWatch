@@ -26,9 +26,14 @@ const SearchForm = ({ queryValue, setQueryValue, filterAssets }) => {
           minLength={1}
           debounceTimeout={500}
           onChange={(event) => handleInputChange(event.target.value)}
+          data-testid="search-input"
         />
 
-        <button type={"submit"} className={"rounded px-3"}>
+        <button
+          type={"submit"}
+          className={"rounded px-3"}
+          data-testid="search-button"
+        >
           Submit
         </button>
       </form>

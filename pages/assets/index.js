@@ -95,6 +95,7 @@ const AssetsPage = () => {
               queryValue={queryValue}
               setQueryValue={setQueryValue}
               filterAssets={(e) => filterAssets(e)}
+              data-testid="search-form"
             />
           </div>
           <div
@@ -133,22 +134,5 @@ const AssetsPage = () => {
     </>
   );
 };
-
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  // if (!session) {
-  //   return {
-  //     redirect: {
-  //       destination: "/auth",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
-
-  return {
-    props: { session },
-  };
-}
 
 export default AssetsPage;

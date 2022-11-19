@@ -5,9 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Image from "next/image";
 
-function Header() {
-  const [session, loading, status] = useSession();
-
+function Header({session}) {
   const router = useRouter();
 
   const handleSignin = (e) => {

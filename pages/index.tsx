@@ -19,7 +19,7 @@ export default function Home(props) {
   const [session, loading] = useSession();
 
   useEffect(() => {
-    console.log({ session });
+    // console.log({ session });
   }, [loading]);
 
   return (
@@ -46,7 +46,7 @@ export default function Home(props) {
 
 {/* <LandingStatsBanner /> */}
 
-      <div className="grid-template">
+      <div className="grid-template" data-testid='info-grid'>
         <InfoCard
           headerText={"Historical Insights"}
           bodyText="History doesn't always repeat, but it often rhymes. Using historical data to find insights into existing markets"
