@@ -10,12 +10,6 @@ jobs:
       matrix:
         node-version: [18.x]
 
-    comment: # this is a top-level key
-      layout: "reach, diff, header, footer, files"
-      behavior: default
-      require_changes: false # if true: only post the comment if coverage changes
-      require_base: no # [yes :: must have a base report to post]
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -35,3 +29,9 @@ jobs:
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
+
+    comment: # this is a top-level key
+      layout: "reach, diff, header, footer, files"
+      behavior: default
+      require_changes: false # if true: only post the comment if coverage changes
+      require_base: no # [yes :: must have a base report to post]
