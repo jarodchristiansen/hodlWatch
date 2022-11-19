@@ -1,6 +1,6 @@
 import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
 import GET_ASSETS from "../../helpers/queries/getAssets";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import AssetsContainer from "../../components/assets/AssetsContainer";
 import GET_ASSET from "../../helpers/queries/getAsset";
 import client from "../../apollo-client";
@@ -57,8 +57,7 @@ const AssetsPage = () => {
     }
   };
 
-  const renderAssets = () => {
-    console.log("running renderAssets", data);
+  const renderedAssets = useMemo(() => {
     if (data) {
       return (
         <div>
@@ -71,7 +70,7 @@ const AssetsPage = () => {
     } else if (!data && !loading) {
       console.log({ data, loading });
     }
-  };
+  }, [loading, data]);
 
   const loadMoreFunction = () => {
     // refetch({ offset: offsetState - 1 });
@@ -123,7 +122,7 @@ const AssetsPage = () => {
           {/*    <AssetsContainer assets={data?.getAssets} />*/}
           {/*  </div>*/}
           {/*)}*/}
-          {!loading && renderAssets()}
+          {!loading && renderedAssets}
           {error && (
             <div>
               Error Loading Assets, please refresh the page {console.log(error)}
