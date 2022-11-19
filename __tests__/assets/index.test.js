@@ -1,7 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Header from "../../components/layout/Header";
 import "@testing-library/jest-dom";
-import { useSession } from "next-auth/client";
 import AssetsPage from "../../pages/assets";
 import { MockedProvider } from "@apollo/client/testing";
 import GET_ASSETS from "../../helpers/queries/getAssets";
