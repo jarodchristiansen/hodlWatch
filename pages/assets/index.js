@@ -95,6 +95,7 @@ const AssetsPage = () => {
               queryValue={queryValue}
               setQueryValue={setQueryValue}
               filterAssets={(e) => filterAssets(e)}
+              fetchAssets={fetchAssets}
             />
           </div>
           <div
