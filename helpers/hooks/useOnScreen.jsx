@@ -11,7 +11,6 @@ export default function useOnScreen(element, rootMargin) {
       { rootMargin }
     );
 
-    console.log("IN HOOK", element.current.lastChild.lastChild.lastChild);
     element.current &&
       observer.observe(element.current.lastChild.lastChild.lastChild);
 

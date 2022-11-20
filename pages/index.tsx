@@ -10,9 +10,9 @@ import PriceScreener from "../components/commons/screener/index";
 export default function Home(props) {
   const [session, loading] = useSession();
 
-  useEffect(() => {
-    console.log({ session });
-  }, [loading]);
+  // useEffect(() => {
+  //   console.log({ session });
+  // }, [loading]);
 
   const generatePartners = useMemo(() => {
     const companies = [

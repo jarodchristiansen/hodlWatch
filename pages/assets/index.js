@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import AssetsContainer from "../../components/assets/AssetsContainer";
 import GET_ASSET from "../../helpers/queries/getAsset";
 import client from "../../apollo-client";
-import SearchForm from "../../components/forms/SearchForm";
+import SearchForm from "../../components/forms/SearchForm/SearchForm";
 import PaginationComponent from "../../components/commons/Pagination";
 import { render } from "react-dom";
 import { useSession, getSession } from "next-auth/client";
@@ -42,8 +42,6 @@ const AssetsPage = () => {
   const filterAssets = async (e) => {
     e?.preventDefault();
 
-    console.log("e in filterAssets", e);
-
     const results = await getAsset({
       variables: { symbol: queryValue },
     });
@@ -51,14 +49,12 @@ const AssetsPage = () => {
     if (error) {
       console.log(error);
     } else {
-      console.log("This is filterAssets data", results);
       // return data;
       setAssetData(results.data.getAsset);
     }
   };
 
   const renderAssets = () => {
-    console.log("running renderAssets", data);
     if (data) {
       return (
         <div>
@@ -69,7 +65,7 @@ const AssetsPage = () => {
         </div>
       );
     } else if (!data && !loading) {
-      console.log({ data, loading });
+      // console.log({ data, loading });
     }
   };
 

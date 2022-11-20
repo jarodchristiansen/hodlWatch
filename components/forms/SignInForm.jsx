@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProviderContainer from "./ProviderContainer";
+import ProviderContainer from "./ProviderContainer/ProviderContainer";
 import { Form, Button } from "react-bootstrap";
 import { isMobile } from "../../helpers/device/ClientSide";
 import { toast, ToastContainer } from "react-nextjs-toast";
