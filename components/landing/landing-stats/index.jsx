@@ -1,14 +1,11 @@
 import styled from "styled-components";
+import { Colors } from "../../../styles/Colors";
 import { MediaQueries } from "../../../styles/MediaQueries";
 
 const LandingStatsBanner = () => {
   return (
     <LandingBannerContainer>
       <div className="banner-column">
-        <div className="header-container">
-          <h4 className="header-text">At A Glance</h4>
-        </div>
-
         <div className="stats-row">
           <StatsBlock>
             <h4>1,680</h4>
@@ -38,16 +35,8 @@ const LandingStatsBanner = () => {
 const LandingBannerContainer = styled.div`
   width: 100%;
   height: 17rem;
-  background-image: url("/assets/blue-background-gradient.jpg");
-  background-size: cover;
-
-  .header-container {
-    background-color: rgba(255, 255, 255, 0.3);
-    width: 100%;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.575);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.274);
-  }
+  background-color: #202020;
+  border-radius: 5px;
 
   .header-text {
     color: white;
@@ -65,7 +54,7 @@ const LandingBannerContainer = styled.div`
 
   .stats-row {
     display: flex;
-    padding-top: 2rem;
+    padding-top: 3rem;
     gap: 2rem;
     overflow-x: auto;
 
@@ -87,7 +76,7 @@ const LandingBannerContainer = styled.div`
 `;
 
 const StatsBlock = styled.div`
-  border: 1px solid white;
+  border: 1.25px solid white;
   display: flex;
   flex-direction: column;
   border-radius: 12px;
@@ -96,8 +85,7 @@ const StatsBlock = styled.div`
   justify-content: end;
   /* box-shadow: 2px 4px 8px lightgray; */
   color: white;
-  background-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.37);
+  background-color: #877ec7;
   margin: 0.5rem 0.5rem;
 `;
 

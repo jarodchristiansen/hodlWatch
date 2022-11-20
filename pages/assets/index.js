@@ -42,8 +42,6 @@ const AssetsPage = () => {
   const filterAssets = async (e) => {
     e?.preventDefault();
 
-    console.log("e in filterAssets", e);
-
     const results = await getAsset({
       variables: { symbol: queryValue },
     });
@@ -51,14 +49,12 @@ const AssetsPage = () => {
     if (error) {
       console.log(error);
     } else {
-      console.log("This is filterAssets data", results);
       // return data;
       setAssetData(results.data.getAsset);
     }
   };
 
   const renderAssets = () => {
-    console.log("running renderAssets", data);
     if (data) {
       return (
         <div>
@@ -69,7 +65,7 @@ const AssetsPage = () => {
         </div>
       );
     } else if (!data && !loading) {
-      console.log({ data, loading });
+      // console.log({ data, loading });
     }
   };
 

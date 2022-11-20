@@ -1,25 +1,48 @@
 import React from "react";
 import { signIn } from "next-auth/client";
-import {
-  FaGithub,
-  FaGoogle,
-  FaTwitter,
-  FaFacebook,
-} from "react-icons/fa";
+import { FaGithub, FaGoogle, FaTwitter, FaFacebook } from "react-icons/fa";
 import { BootStrapButtonClasses } from "../../../helpers/atomics/classes";
 import styled from "styled-components";
 
-
 interface ProvidersAsProps {
   providers: {
-    credentials: {callbackUrl: string, id: string, name: string, signinUrl: string, type: string}
-    facebook: {callbackUrl: string, id: string, name: string, signinUrl: string, type: string}
-    github: {callbackUrl: string, id: string, name: string, signinUrl: string, type: string}
-    google: {callbackUrl: string, id: string, name: string, signinUrl: string, type: string}
-    twitter: {callbackUrl: string, id: string, name: string, signinUrl: string, type: string}
-  }
+    credentials: {
+      callbackUrl: string;
+      id: string;
+      name: string;
+      signinUrl: string;
+      type: string;
+    };
+    facebook: {
+      callbackUrl: string;
+      id: string;
+      name: string;
+      signinUrl: string;
+      type: string;
+    };
+    github: {
+      callbackUrl: string;
+      id: string;
+      name: string;
+      signinUrl: string;
+      type: string;
+    };
+    google: {
+      callbackUrl: string;
+      id: string;
+      name: string;
+      signinUrl: string;
+      type: string;
+    };
+    twitter: {
+      callbackUrl: string;
+      id: string;
+      name: string;
+      signinUrl: string;
+      type: string;
+    };
+  };
 }
-
 
 const ProviderContainer = ({ providers }: ProvidersAsProps) => {
   const signInOthers = async (e, provider) => {
@@ -40,20 +63,46 @@ const ProviderContainer = ({ providers }: ProvidersAsProps) => {
     // }
   };
 
-  console.log({providers})
-
   const selectIcon = (name) => {
     switch (name) {
       case "GitHub":
-        return <FaGithub size={28} className={"my-2 mx-2"} color={"#fff"} data-testid="login-github"/>;
+        return (
+          <FaGithub
+            size={28}
+            className={"my-2 mx-2"}
+            color={"#fff"}
+            data-testid="login-github"
+          />
+        );
       case "Google":
-        return <FaGoogle size={28} className={"my-2 mx-2"} color={"#fff"} data-testid="login-google" />;
+        return (
+          <FaGoogle
+            size={28}
+            className={"my-2 mx-2"}
+            color={"#fff"}
+            data-testid="login-google"
+          />
+        );
       case "Facebook":
-        return <FaFacebook size={28} className={"my-2 mx-2"} color={"#fff"} data-testid="login-facebook" />;
+        return (
+          <FaFacebook
+            size={28}
+            className={"my-2 mx-2"}
+            color={"#fff"}
+            data-testid="login-facebook"
+          />
+        );
       case "Twitter":
-        return <FaTwitter size={28} className={"my-2 mx-2"} color={"#fff"} data-testid="login-twitter" />;
+        return (
+          <FaTwitter
+            size={28}
+            className={"my-2 mx-2"}
+            color={"#fff"}
+            data-testid="login-twitter"
+          />
+        );
       default:
-        return <div data-testid='login-na'>N/A</div>;
+        return <div data-testid="login-na">N/A</div>;
     }
   };
 

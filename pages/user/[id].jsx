@@ -59,8 +59,6 @@ const ProfilePage = () => {
     refetch: refetchTokoenData,
   } = useBalance({ addressOrName: account?.address });
 
-  console.log({ user });
-
   return (
     <CentralWrapper>
       <PriceScreener />

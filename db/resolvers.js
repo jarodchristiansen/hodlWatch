@@ -81,8 +81,6 @@ const resolvers = {
 
       let ribbonData = [];
 
-      console.log({ data, addressCount });
-
       for (let i of data.slice(-cut)) {
         ribbonData.push({
           t: i.t,
