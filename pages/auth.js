@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getProviders, getSession } from "next-auth/client";
-import ProviderContainer from "../components/forms/ProviderContainer";
+import ProviderContainer from "../components/forms/ProviderContainer/ProviderContainer";
 import SignInForm from "../components/forms/SignInForm";
 import { isMobile } from "../helpers/device/ClientSide";
 import styled from "styled-components";

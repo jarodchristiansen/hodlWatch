@@ -44,7 +44,7 @@ export default function Home(props) {
       </div> */}
 
 
-{/* <LandingStatsBanner /> */}
+     {/* <LandingStatsBanner /> */}
 
       <div className="grid-template">
         <InfoCard
