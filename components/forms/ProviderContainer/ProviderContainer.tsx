@@ -1,16 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { getProviders, getSession, signIn, useSession } from "next-auth/client";
+import React from "react";
+import { signIn } from "next-auth/client";
 import {
   FaGithub,
-  FaFacebookSquare,
   FaGoogle,
   FaTwitter,
   FaFacebook,
 } from "react-icons/fa";
-import { BootStrapButtonClasses } from "../../helpers/atomics/classes";
+import { BootStrapButtonClasses } from "../../../helpers/atomics/classes";
 import styled from "styled-components";
 
-const ProviderContainer = ({ providers }) => {
+
+interface ProvidersAsProps {
+  providers: {
+    credentials: {callbackUrl: string, id: string, name: string, signinUrl: string, type: string}
+    facebook: {callbackUrl: string, id: string, name: string, signinUrl: string, type: string}
+    github: {callbackUrl: string, id: string, name: string, signinUrl: string, type: string}
+    google: {callbackUrl: string, id: string, name: string, signinUrl: string, type: string}
+    twitter: {callbackUrl: string, id: string, name: string, signinUrl: string, type: string}
+  }
+}
+
+
+const ProviderContainer = ({ providers }: ProvidersAsProps) => {
   const signInOthers = async (e, provider) => {
     // console.log({ provider });
     // e.preventDefault();
@@ -29,18 +40,20 @@ const ProviderContainer = ({ providers }) => {
     // }
   };
 
+  console.log({providers})
+
   const selectIcon = (name) => {
     switch (name) {
       case "GitHub":
-        return <FaGithub size={28} className={"my-2 mx-2"} color={"#fff"} />;
+        return <FaGithub size={28} className={"my-2 mx-2"} color={"#fff"} data-testid="login-github"/>;
       case "Google":
-        return <FaGoogle size={28} className={"my-2 mx-2"} color={"#fff"} />;
+        return <FaGoogle size={28} className={"my-2 mx-2"} color={"#fff"} data-testid="login-google" />;
       case "Facebook":
-        return <FaFacebook size={28} className={"my-2 mx-2"} color={"#fff"} />;
+        return <FaFacebook size={28} className={"my-2 mx-2"} color={"#fff"} data-testid="login-facebook" />;
       case "Twitter":
-        return <FaTwitter size={28} className={"my-2 mx-2"} color={"#fff"} />;
+        return <FaTwitter size={28} className={"my-2 mx-2"} color={"#fff"} data-testid="login-twitter" />;
       default:
-        return <div>N/A</div>;
+        return <div data-testid='login-na'>N/A</div>;
     }
   };
 

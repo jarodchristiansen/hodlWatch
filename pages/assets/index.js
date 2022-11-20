@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import AssetsContainer from "../../components/assets/AssetsContainer";
 import GET_ASSET from "../../helpers/queries/getAsset";
 import client from "../../apollo-client";
-import SearchForm from "../../components/forms/SearchForm";
+import SearchForm from "../../components/forms/SearchForm/SearchForm";
 import PaginationComponent from "../../components/commons/Pagination";
 import { render } from "react-dom";
 import { useSession, getSession } from "next-auth/client";
