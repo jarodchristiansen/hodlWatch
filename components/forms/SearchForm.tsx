@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { DebounceInput } from "react-debounce-input";
 import styled from "styled-components";
 
-const SearchForm = ({ queryValue, setQueryValue, filterAssets }) => {
+interface SearchFormProps {
+  queryValue: string
+  setQueryValue:  React.Dispatch<React.SetStateAction<string>>
+  filterAssets: (e?: string) => []
+}
+
+
+const SearchForm = ({ queryValue, setQueryValue, filterAssets }: SearchFormProps) => {
   const handleSearch = (e) => {
     e.preventDefault();
 
@@ -25,9 +31,10 @@ const SearchForm = ({ queryValue, setQueryValue, filterAssets }) => {
           className="px-2"
           placeholder="search here..."
           onChange={(event) => handleInputChange(event.target.value)}
+          data-testid='search-input'
         />
 
-        <button type={"submit"} className={"standardized-button"}>
+        <button type={"submit"} className={"standardized-button"} data-testid='search-button'>
           Submit
         </button>
       </form>
@@ -38,7 +45,7 @@ const SearchForm = ({ queryValue, setQueryValue, filterAssets }) => {
 const StyledInput = styled.input`
   color: black;
   font-weight: bolder;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid gray;
   padding: 0.5rem 1rem;
   box-shadow: 2px 4px 6px gray;
