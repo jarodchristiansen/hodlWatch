@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
 
 interface SearchFormProps {
@@ -15,7 +15,7 @@ const SearchForm = ({ queryValue, setQueryValue, filterAssets }: SearchFormProps
     filterAssets(e);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: string | undefined) => {
     if (e) {
       setQueryValue(e);
     } else if (!e || e === undefined) {
