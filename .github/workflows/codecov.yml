@@ -2,16 +2,30 @@ name: Running Code Coverage
 
 on: [push, pull_request]
 
-coverage:
-  precision: 2
-  round: down
-  range: "70...100"
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-  status:
-    project: yes
-    patch: yes
-    changes: yes
+    strategy:
+      matrix:
+        node-version: [18.x]
 
-comment:
-  layout: "header, diff, changes, tree"
-  behavior: default
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run the tests
+        run: npm test
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
