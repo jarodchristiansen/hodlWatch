@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watchAll --coverage",
+    "test": "jest --coverage",
     "jest": "jest --watch --coverage",
     "cypress": "npx cypress open",
     "cypress:run": "npx cypress run"
