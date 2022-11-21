@@ -96,7 +96,7 @@ const AssetsPage = () => {
 
           {!loading && renderAssets()}
 
-          {data && !loading && (
+          {!error && (
             <div
               className={
                 "pagination-container d-flex justify-content-center align-items-center flex-wrap mt-3"
