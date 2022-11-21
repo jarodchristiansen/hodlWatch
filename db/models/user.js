@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { stringify } from "querystring";
 
 const { Schema } = mongoose;
 
@@ -28,6 +29,10 @@ const UsersSchema = new Schema({
   createAt: {
     type: Date,
     default: Date.now(),
+  },
+  favorites: {
+    type: [{ title: String, symbo: String, image: String }],
+    default: [],
   },
 });
 

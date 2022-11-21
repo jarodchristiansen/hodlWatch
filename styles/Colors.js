@@ -1,5 +1,5 @@
 export const Colors = {
-  MainPageBackground: "rgba(14, 16, 24, 0.94)",
-  PrimaryButtonBackground: "rgba(42, 74, 213, 1)",
+  MainPageBackground: "#c1b8fd3d",
+  PrimaryButtonBackground: "#806cfe",
   ButtonBlackBackground: "rgba(3, 3, 3, 1)",
 };

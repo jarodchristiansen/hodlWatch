@@ -1,5 +1,5 @@
 import { Accordion } from "react-bootstrap";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import FibonacciRetracementChartDesktop from "../Finance/Charts/Desktop/FibonacciRetracementChartDesktop";
@@ -12,9 +12,12 @@ import { useLazyQuery } from "@apollo/client";
 import GET_ASSET_FINANCIALS from "../../../helpers/queries/getAssetFinancialDetails";
 import GET_DIFFICULTY_RIBBONS from "../../../helpers/queries/GetDifficultyRibbons";
 import DifficultyRibbonChartDesktop from "../Indicators/Charts/Desktop/DifficultyRibbonsChartDesktop";
+import { FormatUnixTime } from "../../../helpers/formatters/time";
+import ActiveAddressesChart from "../Finance/Charts/Desktop/ActiveAddressesChart";
 
-const IndicatorAccordion = ({ timeQuery = 90, id }) => {
+const IndicatorAccordion = ({ timeQuery = 90, id, blockchainData }) => {
   const [ribbonData, setRibbonData] = useState();
+  const [chartData, setChartData] = useState();
 
   const [getRibbon, { data, loading, error, refetch }] = useLazyQuery(
     GET_DIFFICULTY_RIBBONS
@@ -23,6 +26,8 @@ const IndicatorAccordion = ({ timeQuery = 90, id }) => {
   const availableTimes = [730, 365, 180, 90, 30, 14];
 
   useEffect(() => {
+    formatData();
+
     if (id === "btc") {
       getRibbon({
         variables: {
@@ -33,26 +38,34 @@ const IndicatorAccordion = ({ timeQuery = 90, id }) => {
     }
   }, [timeQuery]);
 
-  const chartData = [
-    data?.getDifficultyRibbons[0] && (
-      <DifficultyRibbonChartDesktop data={data?.getDifficultyRibbons} />
-    ),
-    // filteredData?.market_dominance && (
-    //     <MarketDominanceChartDesktop data={filteredData?.market_dominance} />
-    // ),
-    // filteredData?.volatility && (
-    //     <VolatilityChart data={filteredData?.volatility} />
-    // ),
-    // filteredData?.volume && (
-    //     <VolumeChartDesktop data={filteredData?.volume} />
-    // ),
-    // filteredData?.percent_change && (
-    //     <PercentChangeChartDesktop data={filteredData?.percent_change} />
-    // ),
-    // filteredData?.price_btc && id !== "btc" && (
-    //     <PriceBTCChartDesktop data={filteredData?.price_btc} />
-    // ),
-  ];
+  const formatData = () => {
+    if (!blockchainData) return [];
+
+    let addresses = [];
+
+    for (let i of blockchainData) {
+      console.log({ i, blockchainData });
+
+      addresses.push({
+        new_addresses: i.new_addresses,
+        active_addresses: i.active_addresses,
+        time: FormatUnixTime(i.time),
+      });
+    }
+
+    const formatData = {
+      addresses,
+    };
+
+    const charts = [
+      formatData?.addresses && (
+        <ActiveAddressesChart data={formatData.addresses} />
+      ),
+    ];
+
+    setChartData(charts);
+    return charts;
+  };
 
   const renderArrows = () => {
     const { isFirstItemVisible, scrollPrev } =

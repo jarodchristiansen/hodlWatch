@@ -6,6 +6,8 @@ import {
   Legend,
   LineChart,
   Line,
+  Area,
+  ComposedChart,
 } from "recharts";
 // import FinanceChartModal from "./FinanceChartModal";
 import React, { useEffect, useState } from "react";
@@ -70,7 +72,7 @@ const FibonacciRetracementChartDesktop = ({ data }) => {
         <h1>Fibonacci Retracement</h1>
       </div>
       {fibonacciData && (
-        <LineChart data={fibonacciData} height={500} width={500}>
+        <ComposedChart data={fibonacciData} height={500} width={500}>
           <CartesianGrid strokeDasharray="3 3" />
 
           <YAxis
@@ -91,17 +93,27 @@ const FibonacciRetracementChartDesktop = ({ data }) => {
             dot={false}
             strokeWidth={2}
           />
-          <Line
+
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="70%" stopColor="#806cfe" stopOpacity={0.1} />
+              <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
+            </linearGradient>
+          </defs>
+
+          <Area
             type="monotone"
             dataKey="close"
-            stroke="#000000"
+            stroke="#806cfe"
             strokeWidth={2}
-            dot={false}
+            fillOpacity={1}
+            fill="url(#colorUv)"
           />
+
           <Line
             type="monotone"
             dataKey="fib1"
-            stroke="purple"
+            stroke="black"
             dot={false}
             name={"Profit 3/Topping"}
           />
@@ -134,7 +146,7 @@ const FibonacciRetracementChartDesktop = ({ data }) => {
             dot={false}
             strokeWidth={2}
           />
-        </LineChart>
+        </ComposedChart>
       )}
     </ChartContainer>
   );

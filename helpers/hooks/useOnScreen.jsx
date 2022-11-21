@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 export default function useOnScreen(element, rootMargin) {
   const [isVisible, setState] = useState(false);
 
+  console.log({ element });
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -11,12 +13,9 @@ export default function useOnScreen(element, rootMargin) {
       { rootMargin }
     );
 
-    console.log("IN HOOK", element.current.lastChild.lastChild.lastChild);
-    element.current &&
-      observer.observe(element.current.lastChild.lastChild.lastChild);
+    element.current && observer.observe(element.current);
 
-    return () =>
-      observer.unobserve(element.current.lastChild.lastChild.lastChild);
+    return () => observer.unobserve(element);
   }, []);
 
   return isVisible;

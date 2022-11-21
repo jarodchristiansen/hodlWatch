@@ -12,15 +12,21 @@ const resolvers = {
   Query: {
     // products
     getUser: async (_, { email }) => {
-      const user = await User.find({ email });
+      const user = await User.find({ email }).then((res) => res[0].toObject());
 
-      console.log(user[0], "In getUser");
+      if (user?.favorites) {
+        for (let i of user.favorites) {
+          i.id = user.favorites.indexOf(i);
+        }
+      }
 
       if (!user) {
         throw new Error("User not found");
       }
 
-      return user[0];
+      console.log(user, "In getUser");
+
+      return user;
     },
     getProducts: async () => {
       try {
@@ -81,8 +87,6 @@ const resolvers = {
 
       let ribbonData = [];
 
-      console.log({ data, addressCount });
-
       for (let i of data.slice(-cut)) {
         ribbonData.push({
           t: i.t,
@@ -121,10 +125,7 @@ const resolvers = {
 
         data.priceData = priceData.Data.Data;
 
-        if (
-          symbol.toUpperCase() === "BTC" ||
-          symbolsymbol.toUpperCase() === "ETH"
-        ) {
+        if (symbol.toUpperCase() === "BTC" || symbol.toUpperCase() === "ETH") {
           let blockchainData = await fetch(
             `https://min-api.cryptocompare.com/data/blockchain/histo/day?fsym=${symbol}&limit=${time}&api_key=${process.env.CRYPTO_COMPARE_KEY}`
           ).then((response) => response.json());
@@ -196,10 +197,7 @@ const resolvers = {
 
         data.priceData = priceData.Data.Data;
 
-        if (
-          symbol.toUpperCase() === "BTC" ||
-          symbolsymbol.toUpperCase() === "ETH"
-        ) {
+        if (symbol.toUpperCase() === "BTC" || symbol.toUpperCase() === "ETH") {
           let blockchainData = await fetch(
             `https://min-api.cryptocompare.com/data/blockchain/histo/day?fsym=${symbol}&limit=${time}&api_key=${process.env.CRYPTO_COMPARE_KEY}`
           ).then((response) => response.json());

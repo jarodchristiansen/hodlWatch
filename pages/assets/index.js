@@ -3,18 +3,16 @@ import GET_ASSETS from "../../helpers/queries/getAssets";
 import React, { useState, useEffect, useRef } from "react";
 import AssetsContainer from "../../components/assets/AssetsContainer";
 import GET_ASSET from "../../helpers/queries/getAsset";
-import client from "../../apollo-client";
 import SearchForm from "../../components/forms/SearchForm/SearchForm";
 import PaginationComponent from "../../components/commons/Pagination";
-import { render } from "react-dom";
 import { useSession, getSession } from "next-auth/client";
 import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
 import PriceScreener from "../../components/commons/screener";
-import useOnScreen from "../../helpers/hooks/useOnScreen";
+import styled from "styled-components";
 
 const AssetsPage = () => {
   const [offsetState, setOffsetState] = useState(1);
-  const [limitState, setLimitState] = useState(25);
+  const [limitState, setLimitState] = useState(9);
   const { session, status } = useSession();
 
   console.log({ session, status });
@@ -23,9 +21,9 @@ const AssetsPage = () => {
     useLazyQuery(GET_ASSETS, {
       variables: {
         offset: 1,
-        limit: 25,
+        limit: 9,
       },
-      fetchPolicy: "cache-first",
+      fetchPolicy: "cache-and-network",
     });
   const [assetData, setAssetData] = useState(data);
   const [getAsset] = useLazyQuery(GET_ASSET);
@@ -42,8 +40,6 @@ const AssetsPage = () => {
   const filterAssets = async (e) => {
     e?.preventDefault();
 
-    console.log("e in filterAssets", e);
-
     const results = await getAsset({
       variables: { symbol: queryValue },
     });
@@ -51,14 +47,12 @@ const AssetsPage = () => {
     if (error) {
       console.log(error);
     } else {
-      console.log("This is filterAssets data", results);
       // return data;
       setAssetData(results.data.getAsset);
     }
   };
 
   const renderAssets = () => {
-    console.log("running renderAssets", data);
     if (data) {
       return (
         <div>
@@ -69,7 +63,7 @@ const AssetsPage = () => {
         </div>
       );
     } else if (!data && !loading) {
-      console.log({ data, loading });
+      // console.log({ data, loading });
     }
   };
 
@@ -85,31 +79,13 @@ const AssetsPage = () => {
       <PriceScreener />
 
       <div className={"container"}>
-        <div className={"w-100 border border-1 border-bottom"}>
-          <div
-            className={
-              "search-form-container d-flex justify-content-center align-items-center flex-wrap mt-4"
-            }
-          >
-            <SearchForm
-              queryValue={queryValue}
-              setQueryValue={setQueryValue}
-              filterAssets={(e) => filterAssets(e)}
-            />
-          </div>
-          <div
-            className={
-              "pagination-container d-flex justify-content-center align-items-center flex-wrap mt-3"
-            }
-          >
-            <PaginationComponent
-              active={offsetState}
-              setOffsetState={setOffsetState}
-              fetchMore={fetchMore}
-              refetch={refetch}
-            />
-          </div>
-        </div>
+        <SearchBarContainer>
+          <SearchForm
+            queryValue={queryValue}
+            setQueryValue={setQueryValue}
+            filterAssets={(e) => filterAssets(e)}
+          />
+        </SearchBarContainer>
 
         <div>
           {loading && (
@@ -117,12 +93,24 @@ const AssetsPage = () => {
               <LoadingSpinner />
             </div>
           )}
-          {/*{data && (*/}
-          {/*  <div>*/}
-          {/*    <AssetsContainer assets={data?.getAssets} />*/}
-          {/*  </div>*/}
-          {/*)}*/}
+
           {!loading && renderAssets()}
+
+          {!error && (
+            <div
+              className={
+                "pagination-container d-flex justify-content-center align-items-center flex-wrap mt-3"
+              }
+            >
+              <PaginationComponent
+                active={offsetState}
+                setOffsetState={setOffsetState}
+                fetchMore={fetchMore}
+                refetch={refetch}
+              />
+            </div>
+          )}
+
           {error && (
             <div>
               Error Loading Assets, please refresh the page {console.log(error)}
@@ -133,6 +121,14 @@ const AssetsPage = () => {
     </>
   );
 };
+
+const SearchBarContainer = styled.div`
+  width: 100%;
+  border: 1px solid gray;
+  padding: 2rem 2rem;
+  text-align: right;
+  white-space: nowrap;
+`;
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);

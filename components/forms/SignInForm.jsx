@@ -41,13 +41,13 @@ const SignInForm = ({ providers }) => {
 
   return (
     <FormStyling onSubmit={handleSignInSubmit}>
-      <div className="mb-3">
+      <div className="mb-3 input-container">
         <h2 className={"py-2"}>Sign In</h2>
 
         <label htmlFor="exampleInputEmail1" className="form-label">
           Email address
         </label>
-        <input
+        <StyledInput
           name={"email"}
           type="email"
           className="form-control"
@@ -59,11 +59,11 @@ const SignInForm = ({ providers }) => {
           We'll never share your email with anyone else.
         </div>
       </div>
-      <div className="mb-3">
+      <div className="mb-3 input-container">
         <label htmlFor="exampleInputPassword1" className="form-label">
           Password
         </label>
-        <input
+        <StyledInput
           name={"password"}
           type="password"
           className="form-control"
@@ -82,12 +82,18 @@ const SignInForm = ({ providers }) => {
       </CheckboxWrapper> */}
 
       <SubmitWrapper>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="standardized-button">
           Submit
         </button>
       </SubmitWrapper>
 
       <ProviderWrapper>
+        <h6>Sign in with:</h6>
+
+        <span className="provider-note">
+          Note: Signing in with providers for the first time also creates account
+        </span>
+
         <ProviderContainer providers={providers} />
       </ProviderWrapper>
       <ToastContainer position={"bottom"} />
@@ -97,11 +103,15 @@ const SignInForm = ({ providers }) => {
   );
 };
 
-const CheckboxWrapper = styled.div`
-  text-align: center;
+const StyledInput = styled.input`
+  border: 1.5px solid black;
+  border-radius: 8px;
+  color: black;
+  font-weight: bold;
 
-  .form-check-label {
-    padding-left: 1rem;
+  ::placeholder {
+    color: black;
+    font-weight: bold;
   }
 `;
 
@@ -111,7 +121,12 @@ const SubmitWrapper = styled.div`
 `;
 
 const ProviderWrapper = styled.div`
-  padding-top: 3rem;
+  padding-top: 2rem;
+
+  .provider-note {
+    font-size: 14px;
+    color: gray;
+  }
 `;
 
 const FormStyling = styled.form`
@@ -122,9 +137,9 @@ const FormStyling = styled.form`
   border-radius: 14px;
   box-shadow: 0px 4px 8px gray;
 
-  @media ${MediaQueries.MD} {
-    width: 34rem;
-    margin: 1rem 0;
+  .input-container {
+    max-width: 28rem;
+    margin: auto;
   }
 `;
 

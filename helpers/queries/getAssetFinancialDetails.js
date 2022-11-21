@@ -15,7 +15,6 @@ export const GET_ASSET_HISTORY = gql`
         conversionSymbol
       }
       blockchainData {
-        id
         symbol
         time
         zero_balance_addresses_all_time

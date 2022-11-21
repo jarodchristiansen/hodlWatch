@@ -25,6 +25,7 @@ const AssetDetailsPage = ({ deviceType }) => {
     useLazyQuery(GET_ASSET_HISTORY);
 
   const availableTimes = [14, 30, 90, 180, 365];
+  const isBtcOrEth = id === "btc" || id === "eth";
 
   useEffect(() => {
     getFinancials({
@@ -68,13 +69,23 @@ const AssetDetailsPage = ({ deviceType }) => {
             <Accordion defaultActiveKey="1">
               <FinancialAccordion
                 financialData={
-                  data?.getAssetFinancialDetails
-                    ? data?.getAssetFinancialDetails
+                  data?.getAssetHistory?.priceData
+                    ? data?.getAssetHistory.priceData
                     : []
                 }
                 id={id}
               />
-              <IndicatorAccordion timeQuery={timeQuery} id={id} />
+              {isBtcOrEth && (
+                <IndicatorAccordion
+                  timeQuery={timeQuery}
+                  id={id}
+                  blockchainData={
+                    data?.getAssetHistory?.blockchainData
+                      ? data?.getAssetHistory.blockchainData
+                      : []
+                  }
+                />
+              )}
             </Accordion>
           </>
         )}

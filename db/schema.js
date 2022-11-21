@@ -88,7 +88,6 @@ const typeDefs = gql`
   }
 
   type BlockchainDataDetails {
-    id: ID
     symbol: String
     time: Int
     zero_balance_addresses_all_time: Float
