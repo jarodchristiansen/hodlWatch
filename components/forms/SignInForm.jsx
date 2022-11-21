@@ -121,11 +121,6 @@ const FormStyling = styled.form`
   padding: 2rem;
   border-radius: 14px;
   box-shadow: 0px 4px 8px gray;
-
-  @media ${MediaQueries.MD} {
-    width: 34rem;
-    margin: 1rem 0;
-  }
 `;
 
 export default SignInForm;
