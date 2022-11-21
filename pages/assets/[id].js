@@ -3,6 +3,7 @@ import { useRouter, withRouter } from "next/router";
 import FinancialAccordion from "../../components/assets/Finance/FinancialAccordion";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import GET_ASSET_FINANCIALS, {
+  GET_ASSET_HISTORY,
   GET_GECKO_HISTORY,
 } from "../../helpers/queries/getAssetFinancialDetails";
 import { Accordion } from "react-bootstrap";
@@ -21,9 +22,10 @@ const AssetDetailsPage = ({ deviceType }) => {
   let id = router.query.id;
 
   const [getFinancials, { data, loading, error, refetch }] =
-    useLazyQuery(GET_GECKO_HISTORY);
+    useLazyQuery(GET_ASSET_HISTORY);
 
   const availableTimes = [14, 30, 90, 180, 365];
+  const isBtcOrEth = id === "btc" || id === "eth";
 
   useEffect(() => {
     getFinancials({
@@ -67,13 +69,23 @@ const AssetDetailsPage = ({ deviceType }) => {
             <Accordion defaultActiveKey="1">
               <FinancialAccordion
                 financialData={
-                  data?.getAssetFinancialDetails
-                    ? data?.getAssetFinancialDetails
+                  data?.getAssetHistory?.priceData
+                    ? data?.getAssetHistory.priceData
                     : []
                 }
                 id={id}
               />
-              <IndicatorAccordion timeQuery={timeQuery} id={id} />
+              {isBtcOrEth && (
+                <IndicatorAccordion
+                  timeQuery={timeQuery}
+                  id={id}
+                  blockchainData={
+                    data?.getAssetHistory?.blockchainData
+                      ? data?.getAssetHistory.blockchainData
+                      : []
+                  }
+                />
+              )}
             </Accordion>
           </>
         )}

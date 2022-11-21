@@ -1,5 +1,41 @@
 import { gql } from "@apollo/client";
 
+export const GET_ASSET_HISTORY = gql`
+  query GetAssetHistory($symbol: String!, $time: Int) {
+    getAssetHistory(symbol: $symbol, time: $time) {
+      priceData {
+        time
+        high
+        low
+        open
+        volumefrom
+        volumeto
+        close
+        conversionType
+        conversionSymbol
+      }
+      blockchainData {
+        symbol
+        time
+        zero_balance_addresses_all_time
+        unique_addresses_all_time
+        new_addresses
+        active_addresses
+        transaction_count
+        transaction_count_all_time
+        large_transaction_count
+        average_transaction_value
+        block_height
+        hashrate
+        difficulty
+        block_time
+        block_size
+        current_supply
+      }
+    }
+  }
+`;
+
 export const GET_GECKO_HISTORY = gql`
   query GetAssetFinancialDetails($symbol: String!, $time: Int) {
     getAssetFinancialDetails(symbol: $symbol, time: $time) {

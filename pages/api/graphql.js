@@ -26,6 +26,9 @@ const server = new ApolloServer({
   context: () => {
     return {};
   },
+  engine: {
+    reportSchema: true,
+  },
   playground: {
     settings: {
       "editor.theme": "dark",

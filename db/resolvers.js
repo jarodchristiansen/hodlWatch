@@ -10,6 +10,19 @@ const resolvers = {
   Date: dateScalar,
 
   Query: {
+    getNewsFeed: async (_, {}) => {
+      try {
+        let newsData = await fetch(
+          `https://min-api.cryptocompare.com/data/v2/news/?lang=EN`
+        ).then((response) => response.json());
+
+        if (newsData.Data) {
+          return newsData.Data;
+        }
+      } catch (err) {
+        console.log({ err }, "No news feed found");
+      }
+    },
     // products
     getUser: async (_, { email }) => {
       const user = await User.find({ email }).then((res) => res[0].toObject());
@@ -117,12 +130,21 @@ const resolvers = {
         // ).then((response) => response.json());
 
         // console.log({data})
+        const data = {};
 
-        const data = await fetch(
+        let priceData = await fetch(
           `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol.toUpperCase()}&tsym=USD&limit=${time}`
         ).then((response) => response.json());
 
-        console.log("This is data", data);
+        data.priceData = priceData.Data.Data;
+
+        if (symbol.toUpperCase() === "BTC" || symbol.toUpperCase() === "ETH") {
+          let blockchainData = await fetch(
+            `https://min-api.cryptocompare.com/data/blockchain/histo/day?fsym=${symbol}&limit=${time}&api_key=${process.env.CRYPTO_COMPARE_KEY}`
+          ).then((response) => response.json());
+
+          data.blockchainData = blockchainData.Data.Data;
+        }
 
         // const data = await fetch(
         //   `https://api.coingecko.com/api/v3/coins/${symbol}/ohlc/vs_currency=usd&days=${time}`
@@ -156,8 +178,54 @@ const resolvers = {
         //   glassnode = result;
         // });
 
-        if (data?.Data) {
-          return data.Data.Data;
+        if (data?.priceData) {
+          console.log(
+            "Price Data",
+            data.priceData,
+            "Blockchain Data",
+            data.blockchainData
+          );
+          return data;
+        } else {
+          throw new Error("Asset not found");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    getAssetHistory: async (_, { symbol, time }) => {
+      try {
+        console.log({ symbol, time });
+        // const data = await fetch(
+        //   `https://api.lunarcrush.com/v2?data=assets&key=688o9wuzvzst3uybpg6eh&symbol=btc&data_points=365&interval=day`
+        // ).then((response) => response.json());
+
+        // console.log({data})
+        const data = {};
+
+        let priceData = await fetch(
+          `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol.toUpperCase()}&tsym=USD&limit=${time}`
+        ).then((response) => response.json());
+
+        data.priceData = priceData.Data.Data;
+
+        if (symbol.toUpperCase() === "BTC" || symbol.toUpperCase() === "ETH") {
+          let blockchainData = await fetch(
+            `https://min-api.cryptocompare.com/data/blockchain/histo/day?fsym=${symbol}&limit=${time}&api_key=${process.env.CRYPTO_COMPARE_KEY}`
+          ).then((response) => response.json());
+
+          data.blockchainData = blockchainData.Data.Data;
+        }
+
+        if (data?.priceData) {
+          console.log(
+            "Price Data",
+            data.priceData,
+            "Blockchain Data",
+            data.blockchainData
+          );
+          return data;
         } else {
           throw new Error("Asset not found");
         }

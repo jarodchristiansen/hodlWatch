@@ -13,12 +13,14 @@ import React from "react";
 import styled from "styled-components";
 import { currencyFormat } from "../../../../../helpers/formatters/currency";
 
-const VolumeChartDesktop = ({ data }) => {
+const ActiveAddressesChart = ({ data }) => {
+  console.log({ data }, "in ActiveAddresses");
+
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
         <h1>
-          Volume Chart
+          Active Addresses
           {/*<span className={"ms-3"}>*/}
           {/*  <FinanceChartModal />*/}
           {/*</span>*/}
@@ -29,56 +31,55 @@ const VolumeChartDesktop = ({ data }) => {
         <ComposedChart data={data} height={500} width={500}>
           <CartesianGrid strokeDasharray="3 3" />
           <YAxis
-            dataKey="volumeTo"
+            dataKey="active_addresses"
             yAxisId="left-axis"
             // domain={["auto", "auto"]}
             // allowDataOverflow={true}
             // width={0}
           />
           <YAxis
-            dataKey="volumeFrom"
+            dataKey="new_addresses"
             yAxisId="right-axis"
             orientation="right"
-            tickFormatter={(value) => currencyFormat(value)}
             // domain={["auto", "auto"]}
             // allowDataOverflow={true}
-            width={0}
+            // width={0}
           />
           <XAxis dataKey="time" />
-          <Tooltip formatter={(value) => currencyFormat(value)} />
+          <Tooltip />
           <defs>
-            <linearGradient id="toExchange" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="active_addresses" x1="0" y1="0" x2="0" y2="1">
               <stop offset="70%" stopColor="#8884d8" stopOpacity={0.4} />
               <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
             </linearGradient>
           </defs>
           <Area
             type="monotone"
-            dataKey="volumeTo"
+            dataKey="active_addresses"
             yAxisId="left-axis"
             stroke="#8884d8"
             dot={false}
             strokeWidth={2}
-            name="Volume from exchanges"
+            name="Active Addresses"
             fillOpacity={1}
-            fill="url(#toExchange)"
+            fill="url(#active_addresses)"
           />
           <defs>
-            <linearGradient id="fromExchange" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="new_addresses" x1="0" y1="0" x2="0" y2="1">
               <stop offset="70%" stopColor="#00ff00" stopOpacity={0.1} />
               <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
             </linearGradient>
           </defs>
           <Area
             type="monotone"
-            dataKey="volumeFrom"
+            dataKey="new_addresses"
             yAxisId="right-axis"
             stroke="#00ff00"
             dot={false}
             strokeWidth={2}
-            name="Volume from exchanges"
+            name="new_addresses"
             fillOpacity={1}
-            fill="url(#fromExchange)"
+            fill="url(#new_addresses)"
           />
         </ComposedChart>
       )}
@@ -94,4 +95,4 @@ const ChartContainer = styled.div`
   box-shadow: 2px 4px 8px lightgray;
 `;
 
-export default VolumeChartDesktop;
+export default ActiveAddressesChart;

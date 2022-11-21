@@ -6,13 +6,11 @@ import LandingCard from "../components/commons/info-cards/landing-card";
 import { MediaQueries } from "../styles/MediaQueries";
 import Head from "next/head";
 import PriceScreener from "../components/commons/screener/index";
+import { GET_NEWS_FEED } from "../helpers/queries/news-feed";
+import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
 
 export default function Home(props) {
   const [session, loading] = useSession();
-
-  // useEffect(() => {
-  //   console.log({ session });
-  // }, [loading]);
 
   const generatePartners = useMemo(() => {
     const companies = [
@@ -84,12 +82,12 @@ export default function Home(props) {
         </div>
       </div>
 
-      <div className="mid-row">
+      <div className="bottom-row">
         <div className="mid-row-heading">
           <h3>Our Partners</h3>
         </div>
 
-        <div className="mid-row-body">{generatePartners}</div>
+        <div className="bottom-row-body">{generatePartners}</div>
       </div>
     </AlternateHomePageWrapper>
   );
@@ -155,6 +153,47 @@ const AlternateHomePageWrapper = styled.div`
       }
     }
   }
+
+  .bottom-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 1rem;
+    border-top: 2px solid lightgray;
+
+    @media ${MediaQueries.MD} {
+      width: 90%;
+      padding: 0.5rem 2rem;
+    }
+
+    .bottom-row-heading {
+      font-size: 28px;
+      padding: 1rem 1rem;
+    }
+
+    .bottom-row-body {
+      display: flex;
+      overflow-x: scroll;
+      padding-right: 1rem;
+
+      ::-webkit-scrollbar {
+        display: none;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
+    }
+  }
+`;
+
+const NewsItem = styled.div`
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  justify-content: start;
+  max-height: 22rem;
+  min-width: 22rem;
 `;
 
 const PartnerBlock = styled.div`
