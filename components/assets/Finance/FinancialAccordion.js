@@ -44,7 +44,8 @@ const FinancialAccordion = ({ financialData, id }) => {
       }
       if (i.volumeto && i.volumefrom) {
         volume.push({
-          volume: i.volumeto + i.volumefrom,
+          volumeTo: i.volumeto,
+          volumeFrom: i.volumefrom,
           time: FormatUnixTime(i.time),
         });
       }

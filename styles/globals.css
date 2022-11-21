@@ -56,15 +56,14 @@ a {
 .accordion-button:not(.collapsed) {
  /*background-color: yellow;*/
   /* border-radius: 0.5rem; */
-  background-color: rgba(61, 60, 60, 0.9);
+  background-color: #806cfe;
   /*background: linear-gradient(131deg, rgba(6,1,13,1) 0%, rgba(30,9,60,1) 48%, rgba(50,18,97,1) 100%);*/
   color: white;
   font-weight: bold;
-  border: 1px solid black;
 }
 .accordion-button.collapsed {
   /* border-radius: 0.5rem; */
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: #3b3274;
   color: white;
   font-weight: bold;
 }

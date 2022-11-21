@@ -75,9 +75,9 @@ export default function Home(props) {
         <div className="right-card">
           <div className={"landing-svg"}>
             <Image
-              src={"/assets/landing-page.svg"}
-              height={"300px"}
-              width={"300px"}
+              src={"/assets/landing-page.png"}
+              height={"550px"}
+              width={"600px"}
               alt="block-logo"
             />
           </div>
@@ -92,57 +92,6 @@ export default function Home(props) {
         <div className="mid-row-body">{generatePartners}</div>
       </div>
     </AlternateHomePageWrapper>
-    // <HomePageWrapper className="text-center">
-    //   <Head>
-    //     <title>HodlWatch - Home</title>
-    //   </Head>
-    //   <PriceScreener />
-    //   {/*<AddProductForm />*/}
-    //   {/*<ProductContainer products={props?.data?.data?.getProducts || null} />*/}
-    //   {/* <LoadingSpinner /> */}
-    //   {/* <div className="hero-image">
-    //     <Image
-    //       src="/assets/web3-landing.jpg"
-    //       layout="responsive"
-    //       objectFit="cover"
-    //       quality={100}
-    //       width={"100%"}
-    //       height={"20rem"}
-    //       alt="blockchain-cube"
-    //     />
-    //   </div> */}
-
-    //   {/* <LandingStatsBanner /> */}
-
-    //   <div className="grid-template">
-    //     <InfoCard
-    //       headerText={"Historical Insights"}
-    //       bodyText="History doesn't always repeat, but it often rhymes. Using historical data to find insights into existing markets"
-    //     />
-    //     <InfoCard
-    //       headerText={"Community Analytics"}
-    //       bodyText="A view of the market from the community's own eyes. Insights into some of the most popular current assets"
-    //     />
-
-    //     <InfoCard
-    //       headerText={"OnChain Data"}
-    //       bodyText="With a resource as beautiful as a decentralized immutable ledger, why not use it for real time insights? "
-    //     />
-    //     <InfoCard
-    //       headerText={"User Profiles"}
-    //       bodyText="Web3 isn't as `Webby` without you. Allowing you to show off what makes you an individual in the space."
-    //     />
-    //   </div>
-
-    //   <div className="bottom-card">
-    //     <InfoCard
-    //       headerText={"Join The Community"}
-    //       bodyText="Sign Up to join our community and gain more insights as you explore different assets, and data."
-    //       renderButtons={true}
-    //     />
-    //   </div>
-
-    // </HomePageWrapper>
   );
 }
 
@@ -157,7 +106,6 @@ const AlternateHomePageWrapper = styled.div`
     width: 100%;
     margin: 0 auto;
     display: grid;
-    column-gap: 3rem;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
     @media ${MediaQueries.MD} {
@@ -172,11 +120,8 @@ const AlternateHomePageWrapper = styled.div`
     }
 
     .right-card {
-      margin-top: 3rem;
-      /* background-color: #8000804e; */
-
-      .landing-svg {
-        padding-left: 2rem;
+      @media ${MediaQueries.MD} {
+        margin-top: 3rem;
       }
     }
   }
