@@ -66,41 +66,13 @@ const ProviderContainer = ({ providers }: ProvidersAsProps) => {
   const selectIcon = (name) => {
     switch (name) {
       case "GitHub":
-        return (
-          <FaGithub
-            size={28}
-            className={"my-2 mx-2"}
-            color={"#fff"}
-            data-testid="login-github"
-          />
-        );
+        return <FaGithub size={28} data-testid="login-github" />;
       case "Google":
-        return (
-          <FaGoogle
-            size={28}
-            className={"my-2 mx-2"}
-            color={"#fff"}
-            data-testid="login-google"
-          />
-        );
+        return <FaGoogle size={28} data-testid="login-google" />;
       case "Facebook":
-        return (
-          <FaFacebook
-            size={28}
-            className={"my-2 mx-2"}
-            color={"#fff"}
-            data-testid="login-facebook"
-          />
-        );
+        return <FaFacebook size={28} data-testid="login-facebook" />;
       case "Twitter":
-        return (
-          <FaTwitter
-            size={28}
-            className={"my-2 mx-2"}
-            color={"#fff"}
-            data-testid="login-twitter"
-          />
-        );
+        return <FaTwitter size={28} data-testid="login-twitter" />;
       default:
         return <div data-testid="login-na">N/A</div>;
     }
@@ -126,7 +98,7 @@ const ProviderContainer = ({ providers }: ProvidersAsProps) => {
           (provider) =>
             provider.name !== "Credentials" && (
               <div key={provider.name}>
-                <button
+                <ProviderButton
                   onClick={(e) => {
                     signIn(provider.id, { redirect: true, callbackUrl: "/" })
                       .then(() => {
@@ -135,12 +107,14 @@ const ProviderContainer = ({ providers }: ProvidersAsProps) => {
                       .catch((err) => console.log("err", err));
                     // signInOthers(e, provider)
                   }}
-                  className={BootStrapButtonClasses.Provider}
                   id={"provider-button"}
                   type={"button"}
                 >
-                  {selectIcon(provider?.name)}
-                </button>
+                  <div className="button-content">
+                    {selectIcon(provider?.name)}
+                    {/* <span>{provider?.name}</span> */}
+                  </div>
+                </ProviderButton>
               </div>
             )
         )}
@@ -148,15 +122,34 @@ const ProviderContainer = ({ providers }: ProvidersAsProps) => {
   );
 };
 
+const ProviderButton = styled.button`
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  border: 2px solid black;
+  box-shadow: 2px 4px 8px gray;
+
+  .button-content {
+    display: flex;
+    white-space: nowrap;
+    gap: 1rem;
+    padding: 0.5rem 0.5rem;
+  }
+
+  :hover {
+    background-color: white;
+    color: black;
+  }
+`;
+
 const ButtonContainer = styled.div`
   padding: 1rem;
   animation: fadeIn 2s;
   text-align: center;
   margin: 0 auto;
   display: grid;
-  column-gap: 3rem;
-  row-gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  row-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 `;
 
 export default ProviderContainer;

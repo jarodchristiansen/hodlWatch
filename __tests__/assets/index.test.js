@@ -63,7 +63,7 @@ describe("Assets Page", () => {
       {
         request: {
           query: GET_ASSETS,
-          variables: { offset: 1, limit: 25 },
+          variables: { offset: 1, limit: 9 },
         },
         result: {
           data: {
