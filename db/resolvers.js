@@ -20,7 +20,7 @@ const resolvers = {
           return newsData.Data;
         }
       } catch (err) {
-        console.log({ err });
+        console.log({ err }, "No news feed found");
       }
     },
     // products
