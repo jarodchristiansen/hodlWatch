@@ -23,7 +23,7 @@ const AssetsPage = () => {
         offset: 1,
         limit: 9,
       },
-      fetchPolicy: "cache-first",
+      fetchPolicy: "cache-and-network",
     });
   const [assetData, setAssetData] = useState(data);
   const [getAsset] = useLazyQuery(GET_ASSET);

@@ -82,7 +82,7 @@ function Header() {
                 onClick={handleSignout}
                 className={"pointer-link fw-bold"}
               >
-                {"Sign out"}
+                {"Sign Out"}
               </Nav.Link>
             )}
             {/*{router?.route === "/assets" && (*/}

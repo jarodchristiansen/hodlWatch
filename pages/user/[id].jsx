@@ -13,6 +13,8 @@ import {
 import PriceScreener from "../../components/commons/screener";
 import { useLazyQuery } from "@apollo/client";
 import { GET_USER } from "../../helpers/queries/user/getUserAccount";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 const ProfilePage = () => {
   const [session, loading] = useSession();
@@ -29,7 +31,7 @@ const ProfilePage = () => {
     variables: {
       email: user?.email,
     },
-    fetchPolicy: "cache-first",
+    fetchPolicy: "network-only",
   });
 
   useEffect(() => {
@@ -43,6 +45,8 @@ const ProfilePage = () => {
       fetchUserDetails();
     }
   }, [user]);
+
+  const router = useRouter();
 
   const walletIsConnected = useMemo(() => {
     if (!account.status) return false;
@@ -58,6 +62,35 @@ const ProfilePage = () => {
     isLoading: fetchTokensLoading,
     refetch: refetchTokoenData,
   } = useBalance({ addressOrName: account?.address });
+
+  const navigateToAssetPage = (favorite) => {
+    router.push(`/assets/${favorite.symbol.toLowerCase()}`);
+  };
+
+  const userFavoritesList = useMemo(() => {
+    if (!data?.getUser?.favorites) return [];
+
+    return data.getUser.favorites.map((favorite) => {
+      return (
+        <div className="favorites-row">
+          <Image
+            src={favorite.image}
+            height={"50px"}
+            width={"50px"}
+            alt="block-logo"
+            className="pointer-link favorites-image"
+            onClick={() => navigateToAssetPage(favorite)}
+          />
+          <h5
+            className="pointer-link"
+            onClick={() => navigateToAssetPage(favorite)}
+          >
+            {favorite.title}-{favorite.symbol}
+          </h5>
+        </div>
+      );
+    });
+  }, [data?.getUser?.favorites]);
 
   return (
     <CentralWrapper>
@@ -100,9 +133,12 @@ const ProfilePage = () => {
         </ConnectWalletCard>
       )}
 
-      <UserFavoritesList>
-        <h4 className="header-text">Favorited Assets</h4>
-      </UserFavoritesList>
+      {!!userFavoritesList.length && (
+        <UserFavoritesList>
+          <h4 className="header-text">Favorited Assets</h4>
+          {userFavoritesList}
+        </UserFavoritesList>
+      )}
     </CentralWrapper>
   );
 };
@@ -153,13 +189,7 @@ const UserDetailsCard = styled.div`
     justify-content: space-between;
     border-top: 1px solid black;
     gap: 1rem;
-
     overflow-x: auto;
-
-    /* margin-left: -2rem;
-      margin-right: -2rem;
-      padding-left: 4rem;
-      padding-right: 4rem; */
 
     ::-webkit-scrollbar {
       display: none;
@@ -181,9 +211,31 @@ const UserFavoritesList = styled.div`
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  max-height: 40rem;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; Firefox
+  }
 
   .header-text {
     text-align: center;
+    padding-bottom: 1rem;
+  }
+
+  .favorites-row {
+    display: flex;
+    white-space: nowrap;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-top: 1px solid black;
+
+    .favorites-image {
+      border-radius: 30px;
+      border: 1px solid gray;
+    }
   }
 `;
 
