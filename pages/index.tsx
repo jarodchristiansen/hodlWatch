@@ -66,8 +66,8 @@ export default function Home(props) {
         <div className="left-card">
           <LandingCard
             headerText={"Get Involved"}
-            header2Text={"Join The Community"}
-            bodyText="Sign Up to join our community and gain more insights as you explore different assets."
+            header2Text={"Join the community"}
+            bodyText="Sign up to join our community and gain more insights as you explore different assets."
             renderButtons={true}
           />
         </div>
@@ -110,7 +110,7 @@ const AlternateHomePageWrapper = styled.div`
 
     @media ${MediaQueries.MD} {
       padding: 0 4rem;
-      padding-bottom: 4rem;
+      padding-bottom: 2rem;
     }
 
     .left-card {
