@@ -51,6 +51,8 @@ const Explainer = styled.div`
   background-image: url("/assets/sign-in.png");
   background-position-x: -2rem;
   background-position-y: -1rem;
+  height: 51rem;
+  max-width: 43rem;
 
   .sign-in-image {
     overflow: hidden;
