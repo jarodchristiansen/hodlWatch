@@ -150,6 +150,36 @@ const typeDefs = gql`
     ma90: Float
   }
 
+  type NewsFeedEntries {
+    id: String
+    guid: String
+    published_on: Float
+    imageurl: String
+    title: String
+    url: String
+    body: String
+    tags: String
+    lang: String
+    upvotes: String
+    downvotes: String
+    categories: CategoryType
+    source_info: SourceInfo
+    source: String
+  }
+
+  type SourceInfo {
+    name: String
+    img: String
+    lang: String
+  }
+
+  enum CategoryType {
+    BTC
+    BUSINESS
+    EXCHANGE
+    ICO
+  }
+
   type Query {
     getProducts: [Product]
     getProduct(id: ID!): Product
@@ -159,6 +189,7 @@ const typeDefs = gql`
     getAssetFinancialDetails(symbol: String!, time: Int): CryptoCompareHistory
     getUser(email: String): User
     getDifficultyRibbons(symbol: String, cut: Int): [DifficultyRibbonData]
+    getNewsFeed: [NewsFeedEntries]
   }
 
   type Mutation {

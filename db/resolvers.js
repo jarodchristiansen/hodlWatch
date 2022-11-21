@@ -10,6 +10,19 @@ const resolvers = {
   Date: dateScalar,
 
   Query: {
+    getNewsFeed: async (_, {}) => {
+      try {
+        let newsData = await fetch(
+          `https://min-api.cryptocompare.com/data/v2/news/?lang=EN`
+        ).then((response) => response.json());
+
+        if (newsData.Data) {
+          return newsData.Data;
+        }
+      } catch (err) {
+        console.log({ err });
+      }
+    },
     // products
     getUser: async (_, { email }) => {
       const user = await User.find({ email }).then((res) => res[0].toObject());
