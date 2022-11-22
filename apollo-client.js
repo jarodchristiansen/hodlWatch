@@ -1,9 +1,6 @@
 import fetch from "cross-fetch";
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 
-console.log('This is in apolloClient', process.env.BASE_URL)
-
-
 const configBaseURL = () => {
   if (process.env.BASE_URL === "http://localhost:3000") {
     return "http://localhost:3000/api/graphql"

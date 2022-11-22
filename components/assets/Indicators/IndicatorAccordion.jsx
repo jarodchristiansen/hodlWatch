@@ -9,8 +9,8 @@ import VolumeChartDesktop from "../Finance/Charts/Desktop/VolumeChartDesktop";
 import PercentChangeChartDesktop from "../Finance/Charts/Desktop/PercentChangeChartDesktop";
 import PriceBTCChartDesktop from "../Finance/Charts/Desktop/PriceBTCChartDesktop";
 import { useLazyQuery } from "@apollo/client";
-import GET_ASSET_FINANCIALS from "../../../helpers/queries/getAssetFinancialDetails";
-import GET_DIFFICULTY_RIBBONS from "../../../helpers/queries/GetDifficultyRibbons";
+import GET_ASSET_FINANCIALS from "../../../helpers/queries/assets/getAssetFinancialDetails";
+import GET_DIFFICULTY_RIBBONS from "../../../helpers/queries/assets/GetDifficultyRibbons";
 import DifficultyRibbonChartDesktop from "../Indicators/Charts/Desktop/DifficultyRibbonsChartDesktop";
 import { FormatUnixTime } from "../../../helpers/formatters/time";
 import ActiveAddressesChart from "../Finance/Charts/Desktop/ActiveAddressesChart";
@@ -25,6 +25,7 @@ const IndicatorAccordion = ({ timeQuery = 90, id, blockchainData }) => {
 
   const availableTimes = [730, 365, 180, 90, 30, 14];
 
+  
   useEffect(() => {
     formatData();
 

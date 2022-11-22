@@ -173,6 +173,20 @@ const typeDefs = gql`
     lang: String
   }
 
+  type AssetPairResponse {
+    pairData: [AssetPairs24Hours]
+  }
+
+  type AssetPairs24Hours {
+    SYMBOL: String
+    SUPPLY: Float
+    MKTCAPPENALTY: Float
+    FULLNAME: String
+    NAME: String
+    ID: String
+    VOLUME24HOURTO: Float
+  }
+
   enum CategoryType {
     BTC
     BUSINESS
@@ -185,6 +199,7 @@ const typeDefs = gql`
     getProduct(id: ID!): Product
     getAssets(offset: Int, limit: Int): [Asset]
     getAsset(symbol: String!): [Asset]
+    getAssetPairs(symbol: String!): AssetPairResponse
     getAssetHistory(symbol: String!, time: Int): CryptoCompareHistory
     getAssetFinancialDetails(symbol: String!, time: Int): CryptoCompareHistory
     getUser(email: String): User
