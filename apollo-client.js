@@ -1,15 +1,22 @@
 import fetch from "cross-fetch";
-// import { ApolloClient, HttpLink } from "@apollo/client";
-// const client = new ApolloClient({
-//   link: new HttpLink({ uri: "/graphql", fetch }),
-// });
-
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
+
+console.log('This is in apolloClient', process.env.BASE_URL)
+
+
+const configBaseURL = () => {
+  if (process.env.BASE_URL === "http://localhost:3000") {
+    return "http://localhost:3000/api/graphql"
+  } else {
+    return "https://hodl-watch.vercel.app/api/graphql"
+  }
+}
+
 
 const client = new ApolloClient({
   dataIdFromObject: (o) => o.id,
   link: new HttpLink({
-    uri: "https://hodl-watch.vercel.app/api/graphql",
+    uri: configBaseURL(),
     fetch,
   }),
   cache: new InMemoryCache(),
@@ -28,5 +35,8 @@ const client = new ApolloClient({
   //   },
   // }
 });
+
+
+
 
 export default client;
