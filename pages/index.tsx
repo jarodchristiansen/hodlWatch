@@ -12,6 +12,52 @@ import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
 export default function Home(props) {
   const [session, loading] = useSession();
 
+  const [
+    fetchNewsFeed,
+    { data, loading: newsLoading, error, called, refetch },
+  ] = useLazyQuery(GET_NEWS_FEED);
+
+  // useEffect(() => {
+  //   console.log({ session });
+  // }, [loading]);
+
+  useEffect(() => {
+    fetchNewsFeed();
+  }, []);
+
+  const newsFeedContent = useMemo(() => {
+    if (!data?.getNewsFeed?.length) return [];
+
+    console.log({ data });
+
+    return data.getNewsFeed.slice(0, 5).map((story) => {
+      return (
+        <NewsItem>
+          <h4 className="partner-header">{story.title}</h4>
+
+          <Image
+            src={story.imageurl}
+            height={"140px"}
+            width={"190px"}
+            alt="block-logo"
+            className="partner-image"
+          />
+
+          <span>{story?.source_info?.name}</span>
+          <Image
+            src={story.source_info?.img}
+            height={"90px"}
+            width={"90px"}
+            alt="block-logo"
+            className="partner-image"
+          />
+        </NewsItem>
+      );
+    });
+
+    console.log({ data });
+  }, [data]);
+
   const generatePartners = useMemo(() => {
     const companies = [
       {
@@ -81,6 +127,14 @@ export default function Home(props) {
           </div>
         </div>
       </div>
+
+      {/* <div className="mid-row">
+        <div className="mid-row-heading">
+          <h3>News Stories</h3>
+        </div>
+
+        <div className="mid-row-body">{newsFeedContent}</div>
+      </div> */}
 
       <div className="bottom-row">
         <div className="mid-row-heading">
