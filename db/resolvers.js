@@ -121,7 +121,19 @@ const resolvers = {
 
       return ribbonData;
     },
+    getAssetPairs: async (_, { symbol }) => {
+      const data = {};
 
+      let pairData = await fetch(
+        `https://min-api.cryptocompare.com/data/top/volumes?tsym=${symbol.toUpperCase()}`
+      ).then((response) => response.json());
+
+      console.log(pairData.Data);
+
+      data.pairData = pairData.Data;
+
+      return data;
+    },
     getAssetFinancialDetails: async (_, { symbol, time }) => {
       try {
         console.log({ symbol, time });
@@ -179,12 +191,6 @@ const resolvers = {
         // });
 
         if (data?.priceData) {
-          console.log(
-            "Price Data",
-            data.priceData,
-            "Blockchain Data",
-            data.blockchainData
-          );
           return data;
         } else {
           throw new Error("Asset not found");
@@ -196,7 +202,6 @@ const resolvers = {
 
     getAssetHistory: async (_, { symbol, time }) => {
       try {
-        console.log({ symbol, time });
         // const data = await fetch(
         //   `https://api.lunarcrush.com/v2?data=assets&key=688o9wuzvzst3uybpg6eh&symbol=btc&data_points=365&interval=day`
         // ).then((response) => response.json());
@@ -215,16 +220,16 @@ const resolvers = {
             `https://min-api.cryptocompare.com/data/blockchain/histo/day?fsym=${symbol}&limit=${time}&api_key=${process.env.CRYPTO_COMPARE_KEY}`
           ).then((response) => response.json());
 
+          // let indicatorData = await fetch(
+          //   `https://min-api.cryptocompare.com/data/tradingsignals/intotheblock/latest?fsym=BTC&api_key=${process.env.CRYPTO_COMPARE_KEY}`
+          // ).then((response) => response.json());
+
+          // console.log("IN GET ASSET HISTORY RESOLVER", { indicatorData });
+
           data.blockchainData = blockchainData.Data.Data;
         }
 
         if (data?.priceData) {
-          console.log(
-            "Price Data",
-            data.priceData,
-            "Blockchain Data",
-            data.blockchainData
-          );
           return data;
         } else {
           throw new Error("Asset not found");

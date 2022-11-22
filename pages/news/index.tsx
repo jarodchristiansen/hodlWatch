@@ -5,6 +5,9 @@ import styled from "styled-components";
 import Image from "next/image";
 import PriceScreener from "../../components/commons/screener";
 import { FormatUnixTime } from "../../helpers/formatters/time";
+import { MediaQueries } from "../../styles/MediaQueries";
+import Link from "next/link";
+import ReadMoreButton from "../../components/commons/text/ReadMoreButton";
 
 const NewsFeedPage = () => {
   const [
@@ -23,14 +26,18 @@ const NewsFeedPage = () => {
   const newsFeedContent = useMemo(() => {
     if (!data?.getNewsFeed?.length) return [];
 
-    console.log({ data });
-
     return data.getNewsFeed.slice(0, 5).map((story) => {
+      console.log({ story });
       return (
         <NewsItem>
           <div className="news-text-column">
             <span>{FormatUnixTime(story.published_on)}</span>
-            <h4 className="partner-header">{story.title}</h4>
+
+            <Link href={story?.guid} passHref>
+              <a target="_blank">
+                <h4 className="partner-header">{story.title}</h4>
+              </a>
+            </Link>
 
             {/* <Image
               src={story.imageurl}
@@ -40,17 +47,21 @@ const NewsFeedPage = () => {
               className="partner-image"
             /> */}
 
-            <span>{story.body}</span>
+            <ReadMoreButton>{story.body}</ReadMoreButton>
           </div>
 
-          <span>{story?.source_info?.name}</span>
-          <Image
-            src={story.source_info?.img}
-            height={"90px"}
-            width={"90px"}
-            alt="block-logo"
-            className="partner-image"
-          />
+          <Link href={story?.guid} passHref>
+            <a target="_blank">
+              <span>{story?.source_info?.name}</span>
+              <Image
+                src={story.source_info?.img}
+                height={"90px"}
+                width={"90px"}
+                alt="block-logo"
+                className="partner-image"
+              />
+            </a>
+          </Link>
         </NewsItem>
       );
     });
@@ -62,10 +73,32 @@ const NewsFeedPage = () => {
     <PageWrapper>
       <PriceScreener />
       News Feed Page
+      <FilterBar>
+        <button className="standardized-button">All</button>
+        <button className="standardized-button">All</button>
+        <button className="standardized-button">All</button>
+      </FilterBar>
       <NewsFeed>{newsFeedContent}</NewsFeed>
     </PageWrapper>
   );
 };
+
+const FilterBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: sticky;
+  top: 4.3rem;
+  z-index: 100;
+  width: 100%;
+  justify-content: center;
+  gap: 2rem;
+  background-color: white;
+  padding: 1rem 1rem;
+
+  @media ${MediaQueries.MD} {
+    top: 2.6rem;
+  }
+`;
 
 const PageWrapper = styled.div`
   display: flex;
@@ -73,13 +106,17 @@ const PageWrapper = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const NewsFeed = styled.div`
   display: flex;
   flex-direction: column;
   border: 2px solid black;
-  margin: 1rem 3rem;
+
+  @media ${MediaQueries.MD} {
+    margin: 1rem 3rem;
+  }
 `;
 
 const NewsItem = styled.div`

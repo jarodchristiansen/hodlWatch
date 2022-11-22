@@ -1,8 +1,8 @@
 import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
-import GET_ASSETS from "../../helpers/queries/getAssets";
+import GET_ASSETS from "../../helpers/queries/assets/getAssets";
 import React, { useState, useEffect, useRef } from "react";
 import AssetsContainer from "../../components/assets/AssetsContainer";
-import GET_ASSET from "../../helpers/queries/getAsset";
+import GET_ASSET from "../../helpers/queries/assets/getAsset";
 import SearchForm from "../../components/forms/SearchForm/SearchForm";
 import PaginationComponent from "../../components/commons/Pagination";
 import { useSession, getSession } from "next-auth/client";

@@ -1,5 +1,21 @@
 import { gql } from "@apollo/client";
 
+export const GET_ASSET_PAIRS_24_HOURS = gql`
+  query GetAssetPairs24Hours($symbol: String!) {
+    getAssetPairs(symbol: $symbol) {
+      pairData {
+        SYMBOL
+        SUPPLY
+        MKTCAPPENALTY
+        FULLNAME
+        NAME
+        ID
+        VOLUME24HOURTO
+      }
+    }
+  }
+`;
+
 export const GET_ASSET_HISTORY = gql`
   query GetAssetHistory($symbol: String!, $time: Int) {
     getAssetHistory(symbol: $symbol, time: $time) {
