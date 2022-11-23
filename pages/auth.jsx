@@ -6,6 +6,8 @@ import { isMobile } from "../helpers/device/ClientSide";
 import styled from "styled-components";
 import { MediaQueries } from "../styles/MediaQueries";
 import Image from "next/image";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const AuthPage = () => {
   const [providers, setProviders] = useState([]);
@@ -24,8 +26,15 @@ const AuthPage = () => {
     loadProviders();
   }, []);
 
+  const router = useRouter();
+  const isSignIn = router.query.path === "SignIn";
+
   return (
     <AuthPageWrapper>
+      <Head>
+        <title>{isSignIn ? "Sign In" : "Sign Up"}</title>
+      </Head>
+
       <div className="top-row">
         <div className="left-card">
           {providers && <SignInForm providers={providers} />}
