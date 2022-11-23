@@ -15,6 +15,7 @@ import PriceScreener from "../../components/commons/screener";
 import styled from "styled-components";
 import PairDetailsRow from "../../components/assets/Finance/PairDetails/index";
 import { MediaQueries } from "../../styles/MediaQueries";
+import Head from "next/head";
 
 const AssetDetailsPage = ({ deviceType }) => {
   const [assetFinancials, setAssetFinancials] = useState();
@@ -40,6 +41,9 @@ const AssetDetailsPage = ({ deviceType }) => {
 
   return (
     <AssetDetailsPageContainer>
+      <Head>
+        <title>Asset Details - {id.toUpperCase()}</title>
+      </Head>
       <PriceScreener />
       <div className={"container text-center"}>
         <h2>{"$" + id?.toUpperCase()}</h2>

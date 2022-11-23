@@ -8,6 +8,7 @@ import { FormatUnixTime } from "../../helpers/formatters/time";
 import { MediaQueries } from "../../styles/MediaQueries";
 import Link from "next/link";
 import ReadMoreButton from "../../components/commons/text/ReadMoreButton";
+import Head from "next/head";
 
 const NewsFeedPage = () => {
   const [
@@ -71,6 +72,10 @@ const NewsFeedPage = () => {
 
   return (
     <PageWrapper>
+      <Head>
+        <title>HodlWatch- NewsFeed</title>
+      </Head>
+
       <PriceScreener />
       News Feed Page
       <FilterBar>
