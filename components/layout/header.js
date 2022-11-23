@@ -69,7 +69,7 @@ function Header() {
 
             {!session ? (
               <Nav.Link eventKey={"4"} role={"link"}>
-                <Link href="/auth">
+                <Link href="/auth?path=SignIn">
                   <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
                     {"Sign in"}
                   </Navbar.Text>

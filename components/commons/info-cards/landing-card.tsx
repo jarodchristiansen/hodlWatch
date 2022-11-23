@@ -18,8 +18,8 @@ const LandingCard = ({
 }: LandingCardProps) => {
   const router = useRouter();
 
-  const routeToAuth = () => {
-    router.push("/auth");
+  const routeToAuth = (string) => {
+    router.push(`/auth?path=${string}`);
   };
 
   return (
@@ -35,10 +35,16 @@ const LandingCard = ({
 
       {!!renderButtons && (
         <div className="button-container">
-          <button className="standardized-button" onClick={routeToAuth}>
+          <button
+            className="standardized-button"
+            onClick={() => routeToAuth("SignUp")}
+          >
             Sign Up
           </button>
-          <button className="standardized-button" onClick={routeToAuth}>
+          <button
+            className="standardized-button"
+            onClick={() => routeToAuth("SignIn")}
+          >
             Sign In
           </button>
         </div>

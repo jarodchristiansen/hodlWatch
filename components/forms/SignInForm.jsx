@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import ProviderContainer from "./ProviderContainer/ProviderContainer";
 import { Form, Button } from "react-bootstrap";
 import { isMobile } from "../../helpers/device/ClientSide";
@@ -7,10 +7,17 @@ import { SuccessMessageConsts, ErrorMessageConsts } from "../../helpers/Consts";
 import { signIn } from "next-auth/client";
 import styled from "styled-components";
 import { MediaQueries } from "../../styles/MediaQueries";
+import { useRouter } from "next/router";
+import ToggleSwitch from "../commons/switchers/toggle-switch";
 
 const SignInForm = ({ providers }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const [isSignIn, setIsSignIn] = useState(router.query.path === "SignIn");
+
+  console.log({ router, isSignIn });
 
   const handleSignInSubmit = async (e) => {
     e.preventDefault();
@@ -35,42 +42,104 @@ const SignInForm = ({ providers }) => {
           break;
         case "password":
           setPassword(e.target.value);
+        case "passwordConfirm":
+          console.log("This is password confirm", e.target.value);
       }
     }
   };
 
+  useEffect(() => {
+    isSignIn
+      ? router.push("/auth?path=SignIn")
+      : router.push("/auth?path=SignUp");
+  }, [isSignIn]);
+
   return (
     <FormStyling onSubmit={handleSignInSubmit}>
-      <div className="mb-3 input-container">
-        <h2 className={"py-2"}>Sign In</h2>
+      <ToggleSwitch
+        label={"Sign In?"}
+        toggleState={isSignIn}
+        setToggleState={setIsSignIn}
+      />
 
-        <label htmlFor="exampleInputEmail1" className="form-label">
-          Email address
-        </label>
-        <StyledInput
-          name={"email"}
-          type="email"
-          className="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          onChange={handleFormChange}
-        />
-        <div id="emailHelp" className="form-text">
-          We'll never share your email with anyone else.
-        </div>
-      </div>
-      <div className="mb-3 input-container">
-        <label htmlFor="exampleInputPassword1" className="form-label">
-          Password
-        </label>
-        <StyledInput
-          name={"password"}
-          type="password"
-          className="form-control"
-          id="exampleInputPassword1"
-          onChange={handleFormChange}
-        />
-      </div>
+      {isSignIn ? (
+        <>
+          <div className="mb-3 input-container">
+            <h2 className={"py-2"}>Sign In</h2>
+
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Email address
+            </label>
+            <StyledInput
+              name={"email"}
+              type="email"
+              className="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              onChange={handleFormChange}
+            />
+          </div>
+          <div className="mb-3 input-container">
+            <label htmlFor="exampleInputPassword1" className="form-label">
+              Password
+            </label>
+            <StyledInput
+              name={"password"}
+              type="password"
+              className="form-control"
+              id="exampleInputPassword1"
+              onChange={handleFormChange}
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="mb-3 input-container">
+            <h2 className={"py-2"}>Sign Up</h2>
+
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Email address
+            </label>
+            <StyledInput
+              name={"email"}
+              type="email"
+              className="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              onChange={handleFormChange}
+            />
+            {/* <div id="emailHelp" className="form-text">
+              We'll never share your email with anyone else.
+            </div> */}
+          </div>
+          <div className="mb-3 input-container">
+            <label htmlFor="exampleInputPassword1" className="form-label">
+              Password
+            </label>
+            <StyledInput
+              name={"password"}
+              type="password"
+              className="form-control"
+              id="exampleInputPassword1"
+              onChange={handleFormChange}
+            />
+          </div>
+
+          <div className="mb-3 input-container">
+            <label htmlFor="confirmPasswordInput" className="form-label">
+              Confirm Password
+            </label>
+            <StyledInput
+              name={"passwordConfirm"}
+              type="passwordConfirm"
+              className="form-control"
+              id="confirmPasswordInput"
+              onChange={handleFormChange}
+            />
+          </div>
+        </>
+      )}
+
       {/* <CheckboxWrapper>
         <input
           type="checkbox"
@@ -91,7 +160,8 @@ const SignInForm = ({ providers }) => {
         <h6>Sign in with:</h6>
 
         <span className="provider-note">
-          Note: Signing in with providers for the first time also creates account
+          Note: Signing in with providers for the first time also creates
+          account
         </span>
 
         <ProviderContainer providers={providers} />
