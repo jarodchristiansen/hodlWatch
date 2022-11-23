@@ -203,7 +203,7 @@ const FormStyling = styled.form`
 
   .input-container {
     max-width: 28rem;
-    margin: 0.5rem fauto;
+    margin: 0.5rem auto;
   }
 `;
 
