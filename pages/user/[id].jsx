@@ -94,6 +94,10 @@ const ProfilePage = () => {
 
   return (
     <CentralWrapper>
+      <Head>
+        <title>Profile</title>
+      </Head>
+
       <PriceScreener />
       <UserDetailsCard>
         <div className="detail-header">

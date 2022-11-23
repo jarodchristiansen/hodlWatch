@@ -9,6 +9,7 @@ import { useSession, getSession } from "next-auth/client";
 import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
 import PriceScreener from "../../components/commons/screener";
 import styled from "styled-components";
+import Head from "next/head";
 
 const AssetsPage = () => {
   const [offsetState, setOffsetState] = useState(1);
@@ -77,6 +78,9 @@ const AssetsPage = () => {
   return (
     <>
       <PriceScreener />
+      <Head>
+        <title>Assets</title>
+      </Head>
 
       <div className={"container"}>
         <SearchBarContainer>
