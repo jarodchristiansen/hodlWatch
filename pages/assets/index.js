@@ -1,15 +1,15 @@
-import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
-import GET_ASSETS from "../../helpers/queries/assets/getAssets";
-import React, { useState, useEffect, useRef } from "react";
-import AssetsContainer from "../../components/assets/AssetsContainer";
-import GET_ASSET from "../../helpers/queries/assets/getAsset";
-import SearchForm from "../../components/forms/SearchForm/SearchForm";
-import PaginationComponent from "../../components/commons/Pagination";
-import { useSession, getSession } from "next-auth/client";
-import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
-import PriceScreener from "../../components/commons/screener";
-import styled from "styled-components";
+import { useLazyQuery } from "@apollo/client";
+import { getSession, useSession } from "next-auth/client";
 import Head from "next/head";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import AssetsContainer from "../../components/assets/AssetsContainer";
+import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
+import PaginationComponent from "../../components/commons/Pagination";
+import PriceScreener from "../../components/commons/screener";
+import SearchForm from "../../components/forms/SearchForm/SearchForm";
+import GET_ASSET from "../../helpers/queries/assets/getAsset";
+import GET_ASSETS from "../../helpers/queries/assets/getAssets";
 
 const AssetsPage = () => {
   const [offsetState, setOffsetState] = useState(1);

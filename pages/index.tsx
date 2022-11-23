@@ -1,13 +1,13 @@
-import { useSession, signIn, signOut } from "next-auth/client";
+import { useLazyQuery } from "@apollo/client";
+import { useSession } from "next-auth/client";
+import Head from "next/head";
+import Image from "next/image";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
-import Image from "next/image";
 import LandingCard from "../components/commons/info-cards/landing-card";
-import { MediaQueries } from "../styles/MediaQueries";
-import Head from "next/head";
 import PriceScreener from "../components/commons/screener/index";
 import { GET_NEWS_FEED } from "../helpers/queries/news-feed";
-import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
+import { MediaQueries } from "../styles/MediaQueries";
 
 export default function Home(props) {
   const [session, loading] = useSession();

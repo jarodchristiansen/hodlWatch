@@ -1,14 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import ProviderContainer from "./ProviderContainer/ProviderContainer";
-import { Form, Button } from "react-bootstrap";
-import { isMobile } from "../../helpers/device/ClientSide";
-import { toast, ToastContainer } from "react-nextjs-toast";
-import { SuccessMessageConsts, ErrorMessageConsts } from "../../helpers/Consts";
 import { signIn } from "next-auth/client";
-import styled from "styled-components";
-import { MediaQueries } from "../../styles/MediaQueries";
 import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { ToastContainer } from "react-nextjs-toast";
+import styled from "styled-components";
 import ToggleSwitch from "../commons/switchers/toggle-switch";
+import ProviderContainer from "./ProviderContainer/ProviderContainer";
 
 const SignInForm = ({ providers }) => {
   const [email, setEmail] = useState("");

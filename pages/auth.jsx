@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
 import { getProviders, getSession } from "next-auth/client";
-import ProviderContainer from "../components/forms/ProviderContainer/ProviderContainer";
-import SignInForm from "../components/forms/SignInForm";
-import { isMobile } from "../helpers/device/ClientSide";
-import styled from "styled-components";
-import { MediaQueries } from "../styles/MediaQueries";
-import Image from "next/image";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import SignInForm from "../components/forms/SignInForm";
+import { MediaQueries } from "../styles/MediaQueries";
 
 const AuthPage = () => {
   const [providers, setProviders] = useState([]);

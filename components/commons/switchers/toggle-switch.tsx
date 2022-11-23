@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Colors } from "../../../styles/Colors";
 
 const ToggleSwitch = ({ label, toggleState, setToggleState }) => {
   const changeToggleState = (e) => {

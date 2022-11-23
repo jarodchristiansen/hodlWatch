@@ -1,7 +1,5 @@
-import React from "react";
 import { signIn } from "next-auth/client";
-import { FaGithub, FaGoogle, FaTwitter, FaFacebook } from "react-icons/fa";
-import { BootStrapButtonClasses } from "../../../helpers/atomics/classes";
+import { FaFacebook, FaGithub, FaGoogle, FaTwitter } from "react-icons/fa";
 import styled from "styled-components";
 
 interface ProvidersAsProps {
