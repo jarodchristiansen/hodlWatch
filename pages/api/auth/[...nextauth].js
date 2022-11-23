@@ -4,6 +4,7 @@ import Providers from "next-auth/providers";
 // import clientPromise from "../../../lib/mongodb";
 // import { MongoClient } from "mongodb";
 // import { hashPassword, verifyPassword } from "../../../lib/auth";
+import User from "../../../db/models/user";
 
 function makeid(length) {
   var result = "";
@@ -50,36 +51,19 @@ const options = {
         user.email = primaryEmail;
       }
 
-      // if (account?.provider === "github") {
-      //   const emailRes = await fetch("https://api.github.com/user/emails", {
-      //     headers: {
-      //       Authorization: `token ${account.accessToken}`,
-      //     },
-      //   });
-      //   emails = await emailRes.json();
-      //   primaryEmail = emails.find((e) => e.primary).email;
+      const email = user?.email;
 
-      //   user.email = primaryEmail;
-      // }
+      const users = await User.find({ email });
 
-      // const users = await User.find({ email: user.email });
+      let existingUser = users.length ? users[0].toObject() : [];
 
-      // let existingUser = users.length ? users[0] : [];
-
-      // console.log({ existingUser });
-
-      // if (!existingUser) {
-      //   let newUser = await User.create(user);
-      // } else {
-      //   user = existingUser;
-      // }
-
-      // const client = await MongoClient.connect(`${process.env.MONGODB_URI}`);
-      // const db = client.db();
-
-      // const existingUser = await db
-      //   .collection("users")
-      //   .findOne({ email: user?.email });
+      if (!Object.keys(existingUser)?.length) {
+        await User.create(user);
+        console.log("NEW USER CREATED");
+      } else {
+        console.log("IN EXISTING USER", { existingUser });
+        user = existingUser;
+      }
 
       // if (existingUser) {
       //   user.favorites = existingUser?.favorites;
@@ -134,13 +118,14 @@ const options = {
     }),
     Providers.Credentials({
       async authorize(credentials) {
-        // let client = await MongoClient.connect(`${process.env.MONGODB_URI}`);
-        // const db = client.db("Crypto_Watch");
-        // const usersCollection = db.collection("users");
-        // const user = await usersCollection.findOne({
-        //   email: credentials.email,
-        // });
-        // console.log("this is the user", user);
+        const email = credentials.email;
+
+        const users = await User.find({ email });
+
+        let existingUser = users.length ? users[0].toObject() : [];
+
+        console.log("this is the user", existingUser);
+
         // if (!user) {
         //   throw new Error("No user found!");
         // }

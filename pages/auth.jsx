@@ -8,7 +8,6 @@ import { MediaQueries } from "../styles/MediaQueries";
 import Image from "next/image";
 
 const AuthPage = () => {
-  const [isSignIn, setIsSignIn] = useState(true);
   const [providers, setProviders] = useState([]);
 
   async function loadProviders() {
@@ -29,7 +28,7 @@ const AuthPage = () => {
     <AuthPageWrapper>
       <div className="top-row">
         <div className="left-card">
-          {isSignIn ? <SignInForm providers={providers} /> : <SignUpForm />}
+          {providers && <SignInForm providers={providers} />}
         </div>
 
         <div className="right-card">
