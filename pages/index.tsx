@@ -99,6 +99,19 @@ export default function Home(props) {
     <AlternateHomePageWrapper>
       <Head>
         <title>HodlWatch - Home</title>
+        <meta property="og:url" content="https://hodl-watch.vercel.app/" />
+        <meta property="og:type" content="website" />
+        <meta property="fb:app_id" content="your fb id" />
+        <meta property="og:title" content={"HodlWatch - Home"} />
+        <meta
+          name="twitter:card"
+          content="Web3 centered application highlighting one beauty of blockchain; data."
+        />
+        <meta
+          property="og:description"
+          content="Web3 centered application highlighting one beauty of blockchain; data."
+        />
+        <meta property="og:image" content={"/assets/assets-page.png"} />
       </Head>
       <PriceScreener />
 
