@@ -1,6 +1,6 @@
 import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
 import GET_ASSETS from "../../helpers/queries/assets/getAssets";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import AssetsContainer from "../../components/assets/AssetsContainer";
 import GET_ASSET from "../../helpers/queries/assets/getAsset";
 import SearchForm from "../../components/forms/SearchForm/SearchForm";
@@ -10,13 +10,12 @@ import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
 import PriceScreener from "../../components/commons/screener";
 import styled from "styled-components";
 import Head from "next/head";
+import { GET_USER } from "../../helpers/queries/user/getUserAccount";
 
 const AssetsPage = () => {
   const [offsetState, setOffsetState] = useState(1);
   const [limitState, setLimitState] = useState(9);
-  const { session, status } = useSession();
-
-  console.log({ session, status });
+  const [session, { loading: sessionLoading }] = useSession();
 
   const [fetchAssets, { data, loading, error, refetch, fetchMore }] =
     useLazyQuery(GET_ASSETS, {
@@ -29,14 +28,43 @@ const AssetsPage = () => {
   const [assetData, setAssetData] = useState(data);
   const [getAsset] = useLazyQuery(GET_ASSET);
   const [queryValue, setQueryValue] = useState("");
+  const [user, setUser] = useState();
+
+  const [
+    fetchUserDetails,
+    {
+      data: UserData,
+      loading: dataLoading,
+      error: FetchUserDataError,
+      refetch: RefetchUser,
+    },
+  ] = useLazyQuery(GET_USER, {
+    fetchPolicy: "network-only",
+  });
 
   useEffect(() => {
     fetchAssets();
   }, []);
 
   useEffect(() => {
+    if (session?.user?.email) {
+      fetchUserDetails({
+        variables: {
+          email: session.user.email,
+        },
+      });
+    }
+  }, [loading]);
+
+  useEffect(() => {
     setAssetData(data?.getAsset);
   }, [data?.getAsset]);
+
+  useEffect(() => {
+    if (!UserData?.getUser) return;
+
+    setUser(UserData?.getUser);
+  }, [UserData?.getUser]);
 
   const filterAssets = async (e) => {
     e?.preventDefault();
@@ -59,6 +87,7 @@ const AssetsPage = () => {
         <div>
           <AssetsContainer
             assets={assetData || data?.getAssets}
+            user={user}
             loadMore={loadMoreFunction}
           />
         </div>

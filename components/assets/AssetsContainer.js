@@ -3,12 +3,50 @@ import useOnScreen from "../../helpers/hooks/useOnScreen";
 import AssetCard from "./AssetCard";
 import styled from "styled-components";
 
-const AssetsContainer = ({ assets }) => {
+const AssetsContainer = ({ assets, user }) => {
   const [currentAssets, setCurrentAssets] = useState(assets || null);
 
   useEffect(() => {
-    setCurrentAssets(assets);
+    setCurrentAssets(processAssets(assets));
   }, [assets]);
+
+  useEffect(() => {
+    console.log({ assets, user });
+  }, [user, currentAssets]);
+
+  const processAssets = (assets) => {
+    if (user) {
+      if (!assets || !user?.favorites) return;
+      for (let i of assets) {
+        console.log({ i }, "useEffect");
+        if (containsObject(i, user.favorites)) {
+          i = {
+            ...i,
+            favorited: true,
+          };
+        } else {
+          console.log({ i });
+          i = {
+            ...i,
+            favorited: false,
+          };
+        }
+      }
+    }
+    return assets;
+  };
+
+  console.log({ currentAssets });
+
+  function containsObject(obj, list) {
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].title === obj.name) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   const ref = useRef();
   // const isVisible = useOnScreen(ref, "100px");
