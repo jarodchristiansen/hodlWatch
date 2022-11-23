@@ -15,8 +15,6 @@ const AuthPage = () => {
   async function loadProviders() {
     let provs = await getProviders();
     let session = await getSession();
-
-    console.log({ providers, session });
     // delete providers.credentials;
     // setLoadedProviders(providers);
     setProviders(provs);
@@ -117,7 +115,7 @@ const AuthPageWrapper = styled.div`
 `;
 
 const FormWrapper = styled.div`
-  border: 2px solid blback;
+  border: 2px solid black;
 `;
 
 export default AuthPage;

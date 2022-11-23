@@ -14,8 +14,6 @@ import styled from "styled-components";
 import { currencyFormat } from "../../../../../helpers/formatters/currency";
 
 const ActiveAddressesChart = ({ data }) => {
-  console.log({ data }, "in ActiveAddresses");
-
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>

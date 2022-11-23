@@ -28,8 +28,6 @@ export default function Home(props) {
   const newsFeedContent = useMemo(() => {
     if (!data?.getNewsFeed?.length) return [];
 
-    console.log({ data });
-
     return data.getNewsFeed.slice(0, 5).map((story) => {
       return (
         <NewsItem>
@@ -54,8 +52,6 @@ export default function Home(props) {
         </NewsItem>
       );
     });
-
-    console.log({ data });
   }, [data]);
 
   const generatePartners = useMemo(() => {

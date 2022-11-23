@@ -16,8 +16,6 @@ const AssetsPage = () => {
   const [limitState, setLimitState] = useState(9);
   const { session, status } = useSession();
 
-  console.log({ session, status });
-
   const [fetchAssets, { data, loading, error, refetch, fetchMore }] =
     useLazyQuery(GET_ASSETS, {
       variables: {

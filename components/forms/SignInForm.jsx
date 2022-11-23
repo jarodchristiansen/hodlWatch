@@ -17,12 +17,8 @@ const SignInForm = ({ providers }) => {
 
   const [isSignIn, setIsSignIn] = useState(router.query.path === "SignIn");
 
-  console.log({ router, isSignIn });
-
   const handleSignInSubmit = async (e) => {
     e.preventDefault();
-    console.log("handleSignInSubmit", e);
-    console.log({ email, password });
 
     await signIn("credentials", {
       email,
@@ -32,8 +28,6 @@ const SignInForm = ({ providers }) => {
 
   const handleFormChange = (e) => {
     const { name } = e.target;
-
-    console.log(name);
 
     if (name) {
       switch (name) {
@@ -57,15 +51,15 @@ const SignInForm = ({ providers }) => {
   return (
     <FormStyling onSubmit={handleSignInSubmit}>
       <ToggleSwitch
-        label={"Sign In?"}
+        label={"Sign In"}
         toggleState={isSignIn}
         setToggleState={setIsSignIn}
       />
 
       {isSignIn ? (
         <>
-          <div className="mb-3 input-container">
-            <h2 className={"py-2"}>Sign In</h2>
+          <div className="input-container">
+            <h2 className={"form-header"}>Sign In</h2>
 
             <label htmlFor="exampleInputEmail1" className="form-label">
               Email address
@@ -79,7 +73,7 @@ const SignInForm = ({ providers }) => {
               onChange={handleFormChange}
             />
           </div>
-          <div className="mb-3 input-container">
+          <div className="input-container">
             <label htmlFor="exampleInputPassword1" className="form-label">
               Password
             </label>
@@ -94,8 +88,8 @@ const SignInForm = ({ providers }) => {
         </>
       ) : (
         <>
-          <div className="mb-3 input-container">
-            <h2 className={"py-2"}>Sign Up</h2>
+          <div className="input-container">
+            <h2 className={"form-header"}>Sign Up</h2>
 
             <label htmlFor="exampleInputEmail1" className="form-label">
               Email address
@@ -112,7 +106,7 @@ const SignInForm = ({ providers }) => {
               We'll never share your email with anyone else.
             </div> */}
           </div>
-          <div className="mb-3 input-container">
+          <div className="input-container">
             <label htmlFor="exampleInputPassword1" className="form-label">
               Password
             </label>
@@ -125,7 +119,7 @@ const SignInForm = ({ providers }) => {
             />
           </div>
 
-          <div className="mb-3 input-container">
+          <div className="input-container">
             <label htmlFor="confirmPasswordInput" className="form-label">
               Confirm Password
             </label>
@@ -137,18 +131,18 @@ const SignInForm = ({ providers }) => {
               onChange={handleFormChange}
             />
           </div>
+
+          {/* <div>
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="exampleCheck1"
+            />
+
+            <label className="form-check-label">Check me out</label>
+          </div> */}
         </>
       )}
-
-      {/* <CheckboxWrapper>
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="exampleCheck1"
-        />
-
-        <label className="form-check-label">Check me out</label>
-      </CheckboxWrapper> */}
 
       <SubmitWrapper>
         <button type="submit" className="standardized-button">
@@ -207,9 +201,13 @@ const FormStyling = styled.form`
   border-radius: 14px;
   box-shadow: 0px 4px 8px gray;
 
+  .form-header {
+    padding: 1rem 0;
+  }
+
   .input-container {
     max-width: 28rem;
-    margin: auto;
+    margin: 0.5rem fauto;
   }
 `;
 

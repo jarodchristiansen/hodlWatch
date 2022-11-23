@@ -37,8 +37,6 @@ const resolvers = {
         throw new Error("User not found");
       }
 
-      console.log(user, "In getUser");
-
       return user;
     },
     getProducts: async () => {
@@ -127,16 +125,12 @@ const resolvers = {
       let pairData = await fetch(
         `https://min-api.cryptocompare.com/data/top/volumes?tsym=${symbol.toUpperCase()}`
       ).then((response) => response.json());
-
-      console.log(pairData.Data);
-
       data.pairData = pairData.Data;
 
       return data;
     },
     getAssetFinancialDetails: async (_, { symbol, time }) => {
       try {
-        console.log({ symbol, time });
         // const data = await fetch(
         //   `https://api.lunarcrush.com/v2?data=assets&key=688o9wuzvzst3uybpg6eh&symbol=btc&data_points=365&interval=day`
         // ).then((response) => response.json());
