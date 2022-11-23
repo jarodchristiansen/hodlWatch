@@ -8,6 +8,7 @@ import { Web3Modal } from "@web3modal/react";
 import Script from "next/script";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { pageview } from "../lib/gtag";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const config = {
@@ -23,7 +24,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
   useEffect(() => {
     const handleRouteChange = (url) => {
-      gtag.pageview(url);
+      pageview(url);
     };
 
     router.events.on("routeChangeComplete", handleRouteChange);
@@ -49,7 +50,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           gtag('js', new Date());
           gtag('config', 'G-L0KCFED511', {
             page_path: window.location.pathname,
-          });]
+          });
         `,
         }}
       />
