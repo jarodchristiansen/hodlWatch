@@ -15,6 +15,7 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_USER } from "../../helpers/queries/user/getUserAccount";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const ProfilePage = () => {
   const [session, loading] = useSession();
