@@ -59,9 +59,7 @@ const options = {
 
       if (!Object.keys(existingUser)?.length) {
         await User.create(user);
-        console.log("NEW USER CREATED");
       } else {
-        console.log("IN EXISTING USER", { existingUser });
         user = existingUser;
       }
 
@@ -123,8 +121,6 @@ const options = {
         const users = await User.find({ email });
 
         let existingUser = users.length ? users[0].toObject() : [];
-
-        console.log("this is the user", existingUser);
 
         // if (!user) {
         //   throw new Error("No user found!");

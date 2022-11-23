@@ -5,8 +5,6 @@ const ReadMoreButton = ({ children }) => {
   const [shouldShowReadMore, setShouldShowReadMore] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
-  console.log({ children });
-
   useEffect(() => {
     if (children.length > 250) {
       setShouldShowReadMore(true);

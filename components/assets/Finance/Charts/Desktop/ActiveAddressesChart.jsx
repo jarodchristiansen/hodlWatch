@@ -1,21 +1,16 @@
 import {
+  Area,
   CartesianGrid,
+  ComposedChart,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  LineChart,
-  Line,
-  ComposedChart,
-  Area,
 } from "recharts";
 // import FinanceChartModal from "./FinanceChartModal";
 import React from "react";
 import styled from "styled-components";
-import { currencyFormat } from "../../../../../helpers/formatters/currency";
 
 const ActiveAddressesChart = ({ data }) => {
-  console.log({ data }, "in ActiveAddresses");
-
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>

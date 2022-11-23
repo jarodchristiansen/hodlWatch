@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
 import { getProviders, getSession } from "next-auth/client";
-import ProviderContainer from "../components/forms/ProviderContainer/ProviderContainer";
-import SignInForm from "../components/forms/SignInForm";
-import { isMobile } from "../helpers/device/ClientSide";
-import styled from "styled-components";
-import { MediaQueries } from "../styles/MediaQueries";
-import Image from "next/image";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import SignInForm from "../components/forms/SignInForm";
+import { MediaQueries } from "../styles/MediaQueries";
 
 const AuthPage = () => {
   const [providers, setProviders] = useState([]);
@@ -15,8 +12,6 @@ const AuthPage = () => {
   async function loadProviders() {
     let provs = await getProviders();
     let session = await getSession();
-
-    console.log({ providers, session });
     // delete providers.credentials;
     // setLoadedProviders(providers);
     setProviders(provs);
@@ -117,7 +112,7 @@ const AuthPageWrapper = styled.div`
 `;
 
 const FormWrapper = styled.div`
-  border: 2px solid blback;
+  border: 2px solid black;
 `;
 
 export default AuthPage;

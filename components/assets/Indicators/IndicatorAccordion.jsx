@@ -25,7 +25,6 @@ const IndicatorAccordion = ({ timeQuery = 90, id, blockchainData }) => {
 
   const availableTimes = [730, 365, 180, 90, 30, 14];
 
-  
   useEffect(() => {
     formatData();
 
@@ -45,8 +44,6 @@ const IndicatorAccordion = ({ timeQuery = 90, id, blockchainData }) => {
     let addresses = [];
 
     for (let i of blockchainData) {
-      console.log({ i, blockchainData });
-
       addresses.push({
         new_addresses: i.new_addresses,
         active_addresses: i.active_addresses,

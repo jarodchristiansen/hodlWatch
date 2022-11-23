@@ -21,8 +21,6 @@ interface PairData {
 const PairBlock = (props: PairBlockProps) => {
   const { data, id } = props;
 
-  console.log({ data }, "In PAIRBLOCK ITSELF");
-
   const router = useRouter();
 
   const routeUser = () => {

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Colors } from "../../../styles/Colors";
 import { MediaQueries } from "../../../styles/MediaQueries";
 
 const LandingStatsBanner = () => {

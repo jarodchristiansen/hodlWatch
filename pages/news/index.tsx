@@ -66,8 +66,6 @@ const NewsFeedPage = () => {
         </NewsItem>
       );
     });
-
-    console.log({ data });
   }, [data]);
 
   return (
@@ -75,7 +73,6 @@ const NewsFeedPage = () => {
       <Head>
         <title>HodlWatch- NewsFeed</title>
       </Head>
-
       <PriceScreener />
       News Feed Page
       <FilterBar>

@@ -24,14 +24,10 @@ const PairDetailsRow = ({ id }: PairDetailsRowProps) => {
   const PairBlocks = useMemo(() => {
     if (!data?.getAssetPairs?.pairData?.length) return [];
 
-    console.log({ data }, "In Pairblocks");
-
     return data?.getAssetPairs.pairData.map((pair) => {
       return <PairBlock data={pair} id={id} />;
     });
   }, [data?.getAssetPairs, loading]);
-
-  console.log({ PairBlocks });
 
   return <PairRowContainer>{PairBlocks}</PairRowContainer>;
 };

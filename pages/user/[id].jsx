@@ -1,21 +1,19 @@
-import styled from "styled-components";
-import { useSession } from "next-auth/client";
-import { useEffect, useMemo, useState } from "react";
-import { MediaQueries } from "../../styles/MediaQueries";
+import { useLazyQuery } from "@apollo/client";
 import {
-  Web3Button,
-  useConnectModal,
   useAccount,
   useBalance,
-  useProvider,
-  useSigner,
+  useConnectModal,
+  Web3Button,
 } from "@web3modal/react";
-import PriceScreener from "../../components/commons/screener";
-import { useLazyQuery } from "@apollo/client";
-import { GET_USER } from "../../helpers/queries/user/getUserAccount";
+import { useSession } from "next-auth/client";
+import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Head from "next/head";
+import { useEffect, useMemo, useState } from "react";
+import styled from "styled-components";
+import PriceScreener from "../../components/commons/screener";
+import { GET_USER } from "../../helpers/queries/user/getUserAccount";
+import { MediaQueries } from "../../styles/MediaQueries";
 
 const ProfilePage = () => {
   const [session, loading] = useSession();
