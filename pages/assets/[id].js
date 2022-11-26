@@ -42,100 +42,101 @@ const AssetDetailsPage = ({ deviceType }) => {
   return (
     <AssetDetailsPageContainer>
       <Head>
-        <title>Asset Details - {id.toUpperCase()}</title>
+        <title>Asset Details - {id?.toUpperCase()}</title>
       </Head>
       <PriceScreener />
-      <div className={"container text-center"}>
-        <h2>{"$" + id?.toUpperCase()}</h2>
-        {loading && (
-          <div className={"container text-center"}>
-            <LoadingSpinner />
-          </div>
-        )}
-        {error && <div>Error {console.log({ error })}</div>}
 
-        {id && (
-          <PairRowContainer>
-            <h6>Top Pairs by Volume (24 hours)</h6>
-            <PairDetailsRow id={id} />
-          </PairRowContainer>
-        )}
+      {loading && (
+        <div className={"container text-center"}>
+          <LoadingSpinner />
+        </div>
+      )}
 
-        {data && (
-          <>
-            {/* <AssetDetailsHeader
-              asset={id}
-              time={timeQuery}
-              assetData={
-                data?.getAssetFinancialDetails
-                  ? data?.getAssetFinancialDetails
-                  : ""
-              }
-            /> */}
-            <StickyTimeBar>
+      {!loading && (
+        <div className={"container text-center"}>
+          <h2>{"$" + id?.toUpperCase()}</h2>
+
+          {error && <div>Error {console.log({ error })}</div>}
+
+          {id && (
+            <PairRowContainer>
+              <PairDetailsRow id={id} />
+            </PairRowContainer>
+          )}
+
+          {data && (
+            <FilterBar>
               <h3>{timeQuery} Days</h3>
               <TimeButtons
                 setTimeQuery={setTimeQuery}
                 availTimes={availableTimes}
                 refetch={refetch}
               />
-            </StickyTimeBar>
+            </FilterBar>
+          )}
 
-            <Accordion defaultActiveKey="1">
-              <FinancialAccordion
-                financialData={
-                  data?.getAssetHistory?.priceData
-                    ? data?.getAssetHistory.priceData
-                    : []
-                }
-                id={id}
-              />
-              {isBtcOrEth && (
-                <IndicatorAccordion
-                  timeQuery={timeQuery}
-                  id={id}
-                  blockchainData={
-                    data?.getAssetHistory?.blockchainData
-                      ? data?.getAssetHistory.blockchainData
+          {data && (
+            <>
+              {/* <AssetDetailsHeader
+       asset={id}
+       time={timeQuery}
+       assetData={
+         data?.getAssetFinancialDetails
+           ? data?.getAssetFinancialDetails
+           : ""
+       }
+     /> */}
+              <Accordion defaultActiveKey="1">
+                <FinancialAccordion
+                  financialData={
+                    data?.getAssetHistory?.priceData
+                      ? data?.getAssetHistory.priceData
                       : []
                   }
+                  id={id}
                 />
-              )}
-            </Accordion>
-          </>
-        )}
-      </div>
+                {isBtcOrEth && (
+                  <IndicatorAccordion
+                    timeQuery={timeQuery}
+                    id={id}
+                    blockchainData={
+                      data?.getAssetHistory?.blockchainData
+                        ? data?.getAssetHistory.blockchainData
+                        : []
+                    }
+                  />
+                )}
+              </Accordion>
+            </>
+          )}
+        </div>
+      )}
     </AssetDetailsPageContainer>
   );
 };
-
-export async function getServerSideProps(context) {
-  const UA = context.req.headers["user-agent"];
-  const isMobile = Boolean(
-    UA.match(
-      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
-    )
-  );
-
-  return {
-    props: {
-      deviceType: isMobile ? "mobile" : "desktop",
-    },
-  };
-}
 
 const PairRowContainer = styled.div`
   margin-right: -0.5rem;
   margin-left: -0.5rem;
   min-width: 100%;
   text-align: center;
+  padding: 1rem 0;
 `;
 
-const StickyTimeBar = styled.div`
+const FilterBar = styled.div`
+  display: flex;
+  flex-direction: column;
   position: sticky;
-  top: 20;
   text-align: center;
+  justify-content: center;
+  background-color: white;
+  z-index: 100;
+  top: 4.6rem;
   padding: 1rem 0;
+
+  @media ${MediaQueries.MD} {
+    top: 2.85rem;
+  }
 `;
 
 const AssetDetailsPageContainer = styled.div`
@@ -145,6 +146,7 @@ const AssetDetailsPageContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 3rem;
+  min-height: 100vh;
 `;
 
 export default AssetDetailsPage;
