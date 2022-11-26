@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import styled from "styled-components";
+import { Colors } from "../../../styles/Colors";
 
 const ReadMoreButton = ({ children }) => {
   const [currentText, setCurrentText] = useState();
@@ -36,23 +38,40 @@ const ReadMoreButton = ({ children }) => {
   };
 
   return (
-    <div>
+    <ReadMoreWrapper>
       {!shouldShowReadMore && !showMore && <>{children}</>}
 
       {shouldShowReadMore && (
-        <>
+        <div className="content-container">
           {shortenedText}
-          <h2 onClick={() => changeRender("More")}>Read More</h2>
-        </>
+          <h5 onClick={() => changeRender("More")} className="read-more-text">
+            Read More
+          </h5>
+        </div>
       )}
 
       {!shouldShowReadMore && showMore && (
-        <>
-          {children} - <h2 onClick={() => changeRender("Less")}>Show Less</h2>
-        </>
+        <div className="content-container">
+          {children}
+          <h5 onClick={() => changeRender("Less")} className="read-more-text">
+            Show Less
+          </h5>
+        </div>
       )}
-    </div>
+    </ReadMoreWrapper>
   );
 };
+
+const ReadMoreWrapper = styled.div`
+  .read-more-text {
+    color: ${Colors.PrimaryButtonBackground};
+  }
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
 
 export default ReadMoreButton;

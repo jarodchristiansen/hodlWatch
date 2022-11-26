@@ -1,16 +1,22 @@
 import { Fragment } from "react";
 import Header from "./header";
 import Footer from "./footer";
+import styled from "styled-components";
 
 function Layout(props) {
   return (
-    <Fragment>
+    <LayoutContainer>
       <Header />
       <main>{props.children}</main>
 
-      {/* <Footer /> */}
-    </Fragment>
+      <Footer />
+    </LayoutContainer>
   );
 }
+
+const LayoutContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export default Layout;

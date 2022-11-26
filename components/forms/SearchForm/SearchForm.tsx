@@ -2,13 +2,16 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
 
 interface SearchFormProps {
-  queryValue: string
-  setQueryValue:  React.Dispatch<React.SetStateAction<string>>
-  filterAssets: (e?: string) => []
+  queryValue: string;
+  setQueryValue: React.Dispatch<React.SetStateAction<string>>;
+  filterAssets: (e?: string) => [];
 }
 
-
-const SearchForm = ({ queryValue, setQueryValue, filterAssets }: SearchFormProps) => {
+const SearchForm = ({
+  queryValue,
+  setQueryValue,
+  filterAssets,
+}: SearchFormProps) => {
   const handleSearch = (e) => {
     e.preventDefault();
 
@@ -25,20 +28,22 @@ const SearchForm = ({ queryValue, setQueryValue, filterAssets }: SearchFormProps
   };
 
   return (
-    <div>
-      <form onSubmit={handleSearch} data-testid={"asset-search-form"}>
-        <StyledInput
-          className="px-2"
-          placeholder="search here..."
-          onChange={(event) => handleInputChange(event.target.value)}
-          data-testid='search-input'
-        />
+    <form onSubmit={handleSearch} data-testid={"asset-search-form"}>
+      <StyledInput
+        className="px-2"
+        placeholder="search here..."
+        onChange={(event) => handleInputChange(event.target.value)}
+        data-testid="search-input"
+      />
 
-        <button type={"submit"} className={"standardized-button"} data-testid='search-button'>
-          Submit
-        </button>
-      </form>
-    </div>
+      <button
+        type={"submit"}
+        className={"standardized-button"}
+        data-testid="search-button"
+      >
+        Submit
+      </button>
+    </form>
   );
 };
 

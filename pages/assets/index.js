@@ -1,7 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import { getSession, useSession } from "next-auth/client";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import AssetsContainer from "../../components/assets/AssetsContainer";
 import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
@@ -9,7 +9,8 @@ import PaginationComponent from "../../components/commons/Pagination";
 import PriceScreener from "../../components/commons/screener";
 import SearchForm from "../../components/forms/SearchForm/SearchForm";
 import GET_ASSET from "../../helpers/queries/assets/getAsset";
-import GET_ASSETS from "../../helpers/queries/assets/getAssets";
+import { GET_ASSETS } from "../../helpers/queries/assets/getAssets";
+import { MediaQueries } from "../../styles/MediaQueries";
 
 const AssetsPage = () => {
   const [offsetState, setOffsetState] = useState(1);
@@ -51,20 +52,22 @@ const AssetsPage = () => {
     }
   };
 
-  const renderAssets = () => {
+  const renderedAssets = useMemo(() => {
+    if (!data && !loading) {
+      return [];
+    }
+
     if (data) {
       return (
-        <div>
+        <AssetContainerWrapper>
           <AssetsContainer
             assets={assetData || data?.getAssets}
-            loadMore={loadMoreFunction}
+            // loadMore={loadMoreFunction}
           />
-        </div>
+        </AssetContainerWrapper>
       );
-    } else if (!data && !loading) {
-      // console.log({ data, loading });
     }
-  };
+  }, [data, loading, assetData]);
 
   const loadMoreFunction = () => {
     // refetch({ offset: offsetState - 1 });
@@ -74,29 +77,30 @@ const AssetsPage = () => {
   };
 
   return (
-    <>
-      <PriceScreener />
+    <PageWrapper>
       <Head>
         <title>Assets</title>
       </Head>
 
-      <div className={"container"}>
-        <SearchBarContainer>
+      <PriceScreener />
+
+      {loading && (
+        <div className={"container text-center"}>
+          <LoadingSpinner />
+        </div>
+      )}
+
+      <>
+        <FilterBar>
           <SearchForm
             queryValue={queryValue}
             setQueryValue={setQueryValue}
             filterAssets={(e) => filterAssets(e)}
           />
-        </SearchBarContainer>
+        </FilterBar>
 
         <div>
-          {loading && (
-            <div className={"container text-center"}>
-              <LoadingSpinner />
-            </div>
-          )}
-
-          {!loading && renderAssets()}
+          {!!renderedAssets && renderedAssets}
 
           {!error && (
             <div
@@ -119,17 +123,43 @@ const AssetsPage = () => {
             </div>
           )}
         </div>
-      </div>
-    </>
+      </>
+    </PageWrapper>
   );
 };
 
-const SearchBarContainer = styled.div`
-  width: 100%;
-  border: 1px solid gray;
-  padding: 2rem 2rem;
+const PageWrapper = styled.div`
+  min-height: 100vh;
+`;
+
+const FilterBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: sticky;
+  top: 4.5rem;
+  z-index: 100;
+  border-bottom: 1px solid gray;
+  box-shadow: 2px 4px 8px gray;
+
   text-align: right;
   white-space: nowrap;
+  justify-content: flex-end;
+
+  background-color: white;
+  padding: 1.5rem 1rem;
+  width: 100%;
+
+  @media ${MediaQueries.MD} {
+    top: 2.8rem;
+  }
+`;
+
+const AssetContainerWrapper = styled.div`
+  padding: 2rem 0;
+
+  @media ${MediaQueries.MD} {
+    padding: 2rem 6rem;
+  }
 `;
 
 export async function getServerSideProps(context) {
