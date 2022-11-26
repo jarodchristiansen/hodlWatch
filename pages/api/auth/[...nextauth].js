@@ -39,29 +39,29 @@ const options = {
       let emails;
       let primaryEmail;
 
-      if (account?.provider === "github") {
-        const emailRes = await fetch("https://api.github.com/user/emails", {
-          headers: {
-            Authorization: `token ${account.accessToken}`,
-          },
-        });
-        emails = await emailRes.json();
-        primaryEmail = emails.find((e) => e.primary).email;
+      // if (account?.provider === "github") {
+      //   const emailRes = await fetch("https://api.github.com/user/emails", {
+      //     headers: {
+      //       Authorization: `token ${account.accessToken}`,
+      //     },
+      //   });
+      //   emails = await emailRes.json();
+      //   primaryEmail = emails.find((e) => e.primary).email;
 
-        user.email = primaryEmail;
-      }
+      //   user.email = primaryEmail;
+      // }
 
-      const email = user?.email;
+      // const email = user?.email;
 
-      const users = await User.find({ email });
+      // const users = await User.find({ email });
 
-      let existingUser = users.length ? users[0].toObject() : [];
+      // let existingUser = users.length ? users[0].toObject() : [];
 
-      if (!Object.keys(existingUser)?.length) {
-        await User.create(user);
-      } else {
-        user = existingUser;
-      }
+      // if (!Object.keys(existingUser)?.length) {
+      //   await User.create(user);
+      // } else {
+      //   user = existingUser;
+      // }
 
       // if (existingUser) {
       //   user.favorites = existingUser?.favorites;
