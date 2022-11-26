@@ -1,14 +1,11 @@
 import { useLazyQuery } from "@apollo/client";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { GET_NEWS_FEED } from "../../helpers/queries/news-feed";
 import styled from "styled-components";
-import Image from "next/image";
 import PriceScreener from "../../components/commons/screener";
-import { FormatUnixTime } from "../../helpers/formatters/time";
 import { MediaQueries } from "../../styles/MediaQueries";
-import Link from "next/link";
-import ReadMoreButton from "../../components/commons/text/ReadMoreButton";
 import Head from "next/head";
+import NewsBlock from "../../components/news/news-block";
 
 const NewsFeedPage = () => {
   const [
@@ -24,49 +21,36 @@ const NewsFeedPage = () => {
     fetchNewsFeed();
   }, []);
 
+  const [articleLimit, setArticleLimit] = useState(5);
+  const [contentLength, setContentLength] = useState(0);
+  const [shouldFetchContent, setShouldFetchContent] = useState(true);
+
   const newsFeedContent = useMemo(() => {
     if (!data?.getNewsFeed?.length) return [];
 
-    return data.getNewsFeed.slice(0, 5).map((story) => {
-      console.log({ story });
-      return (
-        <NewsItem>
-          <div className="news-text-column">
-            <span>{FormatUnixTime(story.published_on)}</span>
-
-            <Link href={story?.guid} passHref>
-              <a target="_blank">
-                <h4 className="partner-header">{story.title}</h4>
-              </a>
-            </Link>
-
-            {/* <Image
-              src={story.imageurl}
-              height={"140px"}
-              width={"190px"}
-              alt="block-logo"
-              className="partner-image"
-            /> */}
-
-            <ReadMoreButton>{story.body}</ReadMoreButton>
-          </div>
-
-          <Link href={story?.guid} passHref>
-            <a target="_blank">
-              <span>{story?.source_info?.name}</span>
-              <Image
-                src={story.source_info?.img}
-                height={"90px"}
-                width={"90px"}
-                alt="block-logo"
-                className="partner-image"
-              />
-            </a>
-          </Link>
-        </NewsItem>
-      );
+    return data.getNewsFeed.slice(0, articleLimit).map((story) => {
+      return <NewsBlock story={story} />;
     });
-  }, [data]);
+  }, [data, articleLimit]);
+
+  useEffect(() => {
+    if (
+      contentLength !== newsFeedContent?.length ||
+      newsFeedContent.length === 0
+    ) {
+      setContentLength(newsFeedContent.length);
+    } else {
+      setShouldFetchContent(false);
+    }
+  }, [newsFeedContent]);
+
+  console.log({ articleLimit, data, newsFeedContent });
+
+  const increaseArticleLimit = () => {
+    if (shouldFetchContent) {
+      setArticleLimit(articleLimit + 5);
+    }
+  };
 
   return (
     <PageWrapper>
@@ -74,13 +58,17 @@ const NewsFeedPage = () => {
         <title>HodlWatch- NewsFeed</title>
       </Head>
       <PriceScreener />
-      News Feed Page
+      <h2>Live Updates</h2>
       <FilterBar>
+        {/* <button className="standardized-button">All</button>
         <button className="standardized-button">All</button>
-        <button className="standardized-button">All</button>
-        <button className="standardized-button">All</button>
+        <button className="standardized-button">All</button> */}
+        <button className="standardized-button" onClick={increaseArticleLimit}>
+          Add More Articles
+        </button>
       </FilterBar>
       <NewsFeed>{newsFeedContent}</NewsFeed>
+      {!shouldFetchContent && <div>No More Fetchy Block</div>}
     </PageWrapper>
   );
 };
@@ -114,33 +102,12 @@ const PageWrapper = styled.div`
 const NewsFeed = styled.div`
   display: flex;
   flex-direction: column;
-  border: 2px solid black;
+  gap: 1rem;
 
   @media ${MediaQueries.MD} {
-    margin: 1rem 3rem;
+    margin: 1rem 0;
+    /* max-width: 42rem; */
   }
-`;
-
-const NewsItem = styled.div`
-  border: 2px solid black;
-  text-align: center;
-  padding: 2rem 2rem;
-
-  .news-text-column {
-    display: flex;
-    flex-direction: column;
-    max-width: 80%;
-    margin: auto;
-  }
-
-  /* border: 2px solid black;
-  display: flex;
-  flex-direction: column;
-  border-radius: 12px;
-  padding: 1rem 2rem;
-  justify-content: start;
-  max-height: 22rem;
-  min-width: 22rem; */
 `;
 
 export default NewsFeedPage;

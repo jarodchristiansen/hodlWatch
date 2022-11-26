@@ -1,5 +1,6 @@
 import { TradingViewEmbed, widgetType } from "react-tradingview-embed";
 import styled from "styled-components";
+import { MediaQueries } from "../../../styles/MediaQueries";
 
 const PriceScreener = () => {
   return (
@@ -61,6 +62,11 @@ const ScreenerContainer = styled.div`
   top: 0;
   z-index: 100;
   width: 100%;
+  height: 4.5rem;
+
+  @media ${MediaQueries.MD} {
+    height: 3rem;
+  }
 `;
 
 export default PriceScreener;

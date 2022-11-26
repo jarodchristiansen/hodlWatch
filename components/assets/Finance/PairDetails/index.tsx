@@ -29,14 +29,24 @@ const PairDetailsRow = ({ id }: PairDetailsRowProps) => {
     });
   }, [data?.getAssetPairs, loading]);
 
-  return <PairRowContainer>{PairBlocks}</PairRowContainer>;
+  return (
+    <div>
+      {!!data?.getAssetPairs?.pairData?.length && (
+        <>
+          <h6>Top Pairs by Volume (24 hours)</h6>
+          <PairRowContainer>{PairBlocks}</PairRowContainer>
+        </>
+      )}
+    </div>
+  );
 };
 
 const PairRowContainer = styled.div`
   display: flex;
   max-width: 100%;
   overflow: scroll;
-  border: 2px solid black;
+  gap: 1rem;
+  padding: 1rem 0;
 
   ::-webkit-scrollbar {
     display: none;

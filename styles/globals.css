@@ -73,6 +73,7 @@ a {
 }
 
 .standardized-button {
+  border: 2px solid black;
   background-color: #806cfe;
   color: white;
   font-weight: bolder;

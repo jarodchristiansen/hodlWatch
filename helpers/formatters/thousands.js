@@ -1,3 +1,6 @@
-export const numberWithCommas = (x) => {
-  return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+export const numberWithCommas = (x, digits = 15) => {
+  return x
+    .toPrecision(digits)
+    .toString()
+    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 };

@@ -57,7 +57,7 @@ const resolvers = {
 
       return product;
     },
-    getAssets: async (_, { offset, limit }) => {
+    getAssets: async (_, { offset, limit, topListBy }) => {
       try {
         const CoinGeckoClient = new CoinGecko();
         let assets = await CoinGeckoClient.coins.all({
