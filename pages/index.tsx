@@ -146,7 +146,7 @@ export default function Home(props) {
       </div> */}
 
       <div className="bottom-row">
-        <div className="mid-row-heading">
+        <div className="bottom-row-heading">
           <h3>Our Partners</h3>
         </div>
 
@@ -232,6 +232,7 @@ const AlternateHomePageWrapper = styled.div`
     .bottom-row-heading {
       font-size: 28px;
       padding: 1rem 1rem;
+      padding-top: 2rem;
     }
 
     .bottom-row-body {
@@ -274,9 +275,9 @@ const PartnerBlock = styled.div`
   text-align: center;
   min-width: 12rem;
   outline: 0.5px solid gray;
+  gap: 1rem;
 
   .partner-header {
-    padding: 1rem 0;
     font-weight: bold;
   }
 

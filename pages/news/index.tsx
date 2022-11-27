@@ -59,15 +59,26 @@ const NewsFeedPage = () => {
       </Head>
       <PriceScreener />
       <h2>Live Updates</h2>
-      <FilterBar>
-        {/* <button className="standardized-button">All</button>
+      {/* <FilterBar>
         <button className="standardized-button">All</button>
-        <button className="standardized-button">All</button> */}
+        <button className="standardized-button">All</button>
+        <button className="standardized-button">All</button>
         <button className="standardized-button" onClick={increaseArticleLimit}>
           Add More Articles
         </button>
-      </FilterBar>
+      </FilterBar> */}
       <NewsFeed>{newsFeedContent}</NewsFeed>
+
+      {shouldFetchContent && (
+        <div className="fetch-more-button-holder">
+          <button
+            className="standardized-button"
+            onClick={increaseArticleLimit}
+          >
+            + More Articles
+          </button>
+        </div>
+      )}
       {!shouldFetchContent && <div>No More Fetchy Block</div>}
     </PageWrapper>
   );
@@ -97,6 +108,10 @@ const PageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+
+  .fetch-more-button-holder {
+    padding: 2rem 0;
+  }
 `;
 
 const NewsFeed = styled.div`

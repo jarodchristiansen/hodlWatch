@@ -8,6 +8,7 @@ const ToggleSwitch = ({ label, toggleState, setToggleState }) => {
   return (
     <ToggleContainer>
       <label className="label">
+        <div className="label-text-left">{"Sign Up"}</div>
         <div className="toggle">
           <input
             className="toggle-state"
@@ -38,6 +39,10 @@ const ToggleContainer = styled.div`
 
   .label-text {
     margin-left: 16px;
+  }
+
+  .label-text-left {
+    margin-right: 12px;
   }
 
   .toggle {

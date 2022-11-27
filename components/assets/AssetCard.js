@@ -22,11 +22,15 @@ const AssetCard = ({ asset }) => {
           </h6>
 
           <div>
-            <Image className="my-2" src={imageUrl || small} alt={name || title}/>
+            <Image
+              className="my-2"
+              src={imageUrl || small}
+              alt={name || title}
+            />
           </div>
 
           <Link href={exploreLink}>
-            <button className={"standardized-button mt-4"}>Explore</button>
+            <button className={"standardized-button my-2"}>Explore</button>
           </Link>
         </div>
       </AssetCardWrapper>

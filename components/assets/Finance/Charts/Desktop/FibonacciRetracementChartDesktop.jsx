@@ -81,6 +81,7 @@ const FibonacciRetracementChartDesktop = ({ data }) => {
             allowDataOverflow={true}
             // tick={{ fill: "white" }}
             width={0}
+            // formatter={(value) => currencyFormat(value)}
           />
           <XAxis dataKey="time" />
 

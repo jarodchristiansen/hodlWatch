@@ -27,6 +27,7 @@ function Header() {
         <Navbar.Brand>
           <Link href={"/"}>
             {/* <img src={"../chain.png"} className={"pointer-link"} /> */}
+
             <Image
               src={"/assets/cube-svgrepo-com.svg"}
               className={"pointer-link"}
@@ -50,10 +51,20 @@ function Header() {
             )}
 
             {session && (
-              <Nav.Link eventKey={"3"} role={"link"}>
+              <Nav.Link eventKey={"2"} role={"link"}>
                 <Link href={`/user/${id}`}>
                   <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
                     {"Profile"}
+                  </Navbar.Text>
+                </Link>
+              </Nav.Link>
+            )}
+
+            {session && (
+              <Nav.Link eventKey={"3"} role={"link"}>
+                <Link href={`/news`}>
+                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
+                    {"Newsfeed"}
                   </Navbar.Text>
                 </Link>
               </Nav.Link>

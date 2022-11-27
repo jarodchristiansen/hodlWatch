@@ -141,13 +141,11 @@ const ProviderButton = styled.button`
 `;
 
 const ButtonContainer = styled.div`
-  padding: 1rem;
-  animation: fadeIn 2s;
-  text-align: center;
-  margin: 0 auto;
-  display: grid;
-  row-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  white-space: nowrap;
+  justify-content: center;
+  padding: 2rem 0;
+  gap: 1rem;
 `;
 
 export default ProviderContainer;
