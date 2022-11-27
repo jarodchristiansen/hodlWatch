@@ -16,6 +16,7 @@ import EditUserDetails from "../../components/user/edit-user-details";
 import { GET_USER } from "../../helpers/queries/user/getUserAccount";
 import { Colors } from "../../styles/Colors";
 import { MediaQueries } from "../../styles/MediaQueries";
+import SideMenu from "../../components/commons/sidebar-nav";
 
 const ProfilePage = () => {
   const [session, loading] = useSession();
@@ -107,157 +108,150 @@ const ProfilePage = () => {
     router.push(`/user/${session.user.id}?view=edit_user`);
   };
 
+  const navLinks = [
+    { name: "Profile", stateChanger: () => routeToMain() },
+    { name: "Portfolio", stateChanger: null },
+    // { name: "Services" },
+    // { name: "Contact Us" },
+  ];
+
   return (
-    <div>
+    <PageWrapper>
+      <Head>
+        <title>Profile</title>
+      </Head>
+
+      <PriceScreener />
+
       <CentralWrapper>
-        <Head>
-          <title>Profile</title>
-        </Head>
+        <div className="side-menu-container">
+          <SideMenu navLinks={navLinks} />
+        </div>
 
-        <PriceScreener />
-
-        {viewState === "Main" && (
-          <>
-            <div className="switch-container">
-              <button className="standardized-button" onClick={routeEditUser}>
-                Edit User Profile
-              </button>
-              <button className="standardized-button">Edit Favorites</button>
-              {/* <button className="standardized-button">Social</button> */}
-            </div>
-
-            <UserDetailsCard>
-              <div className="detail-header">
-                <h2>User Details</h2>
-              </div>
-
-              <div className="detail-row">
-                <h4>Name:</h4>
-                <h4>{user?.name}</h4>
-              </div>
-
-              <div className="detail-row">
-                <h4>Email:</h4>
-                <h4>{user?.email}</h4>
-              </div>
-
-              {data?.getUser && (
-                <>
-                  <div className="detail-row">
-                    <h4>Username:</h4>
-                    <h4>{data.getUser?.username}</h4>
-                  </div>
-
-                  <div className="detail-row">
-                    <h4>Profile Pic:</h4>
-                    <Image
-                      src={data.getUser?.image}
-                      height={"50px"}
-                      width={"50px"}
-                      alt="block-logo"
-                      layout="fixed"
-                    />
-                  </div>
-                </>
-              )}
-            </UserDetailsCard>
-
-            {!walletIsConnected && (
-              <ConnectWalletCard>
-                <h4>It looks like your wallet isn't connected</h4>
-                <button className="standardized-button" onClick={open}>
-                  Connect Your Wallet
+        <div className="page-wrapper">
+          {viewState === "Main" && (
+            <>
+              <div className="switch-container">
+                <button className="standardized-button" onClick={routeEditUser}>
+                  Edit User Profile
                 </button>
-              </ConnectWalletCard>
-            )}
+                <button className="standardized-button">Edit Favorites</button>
+              </div>
 
-            {!!walletIsConnected && (
-              <ConnectWalletCard onClick={open}>
-                <h6>{account?.address}</h6>
-                <div>
-                  <h4>Balance:</h4>
-                  <h4>
-                    {tokenData?.formatted} {tokenData?.symbol}
-                  </h4>
+              <UserDetailsCard>
+                <div className="detail-header">
+                  <h2>User Details</h2>
                 </div>
-                <Web3Button />
-              </ConnectWalletCard>
-            )}
 
-            {!!userFavoritesList.length ? (
-              <UserFavoritesList>
-                <h4 className="header-text">Favorited Assets</h4>
-                {userFavoritesList}
-              </UserFavoritesList>
-            ) : (
-              <UserFavoritesList>
-                <h4 className="header-text">No Favorited Assets</h4>
-                {/* {userFavoritesList} */}
-              </UserFavoritesList>
-            )}
-          </>
-        )}
+                <div className="detail-row">
+                  <h4>Name:</h4>
+                  <h4>{user?.name}</h4>
+                </div>
 
-        {viewState === "edit_user" && (
-          <>
-            <div className="switch-container">
-              <button className="standardized-button" onClick={routeToMain}>
-                Back to Main Page
-              </button>
-              {/* <button className="standardized-button">Assets</button>
-              <button className="standardized-button">Social</button> */}
-            </div>
+                <div className="detail-row">
+                  <h4>Email:</h4>
+                  <h4>{user?.email}</h4>
+                </div>
 
-            <EditUserDetails user={user} fetchedUser={data?.getUser} />
-            {/* <UserDetailsCard>
-              <div className="detail-header">
-                <h2>User Details</h2>
-              </div>
+                {data?.getUser && (
+                  <>
+                    <div className="detail-row">
+                      <h4>Username:</h4>
+                      <h4>{data.getUser?.username}</h4>
+                    </div>
 
-              <div className="detail-row">
-                <h4>Name:</h4>
-                <h4>{user?.name}</h4>
-              </div>
+                    <div className="detail-row">
+                      <h4>Profile Pic:</h4>
+                      <Image
+                        src={data.getUser?.image}
+                        height={"50px"}
+                        width={"50px"}
+                        alt="block-logo"
+                        layout="fixed"
+                      />
+                    </div>
+                  </>
+                )}
+              </UserDetailsCard>
 
-              <div className="detail-row">
-                <h4>Email:</h4>
-                <h4>{user?.email}</h4>
-              </div>
-
-              {data?.getUser && (
-                <>
-                  <div className="detail-row">
-                    <h4>Username:</h4>
-                    <h4>{data.getUser?.username}</h4>
-                  </div>
-
-                  <div className="detail-row">
-                    <h4>Profile Pic:</h4>
-                    <Image
-                      src={data.getUser?.image}
-                      height={"50px"}
-                      width={"50px"}
-                      alt="block-logo"
-                      layout="fixed"
-                    />
-                  </div>
-                </>
+              {!walletIsConnected && (
+                <ConnectWalletCard>
+                  <h4>It looks like your wallet isn't connected</h4>
+                  <button className="standardized-button" onClick={open}>
+                    Connect Your Wallet
+                  </button>
+                </ConnectWalletCard>
               )}
-            </UserDetailsCard> */}
-          </>
-        )}
+
+              {!!walletIsConnected && (
+                <ConnectWalletCard onClick={open}>
+                  <h6>{account?.address}</h6>
+                  <div>
+                    <h4>Balance:</h4>
+                    <h4>
+                      {tokenData?.formatted} {tokenData?.symbol}
+                    </h4>
+                  </div>
+                  <Web3Button />
+                </ConnectWalletCard>
+              )}
+
+              {!!userFavoritesList.length ? (
+                <UserFavoritesList>
+                  <h4 className="header-text">Favorited Assets</h4>
+                  {userFavoritesList}
+                </UserFavoritesList>
+              ) : (
+                <UserFavoritesList>
+                  <h4 className="header-text">No Favorited Assets</h4>
+                </UserFavoritesList>
+              )}
+            </>
+          )}
+
+          {viewState === "edit_user" && (
+            <>
+              <div className="switch-container">
+                <button className="standardized-button" onClick={routeToMain}>
+                  Back to Main Page
+                </button>
+              </div>
+
+              <EditUserDetails user={user} fetchedUser={data?.getUser} />
+            </>
+          )}
+        </div>
       </CentralWrapper>
-    </div>
+    </PageWrapper>
   );
 };
 
+const PageWrapper = styled.div``;
+
 const CentralWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   gap: 3rem;
+
+  .side-menu-container {
+    display: none;
+
+    @media ${MediaQueries.MD} {
+      display: unset;
+    }
+  }
+
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 3rem;
+    padding-top: 3rem;
+  }
 
   .switch-container {
     display: flex;
