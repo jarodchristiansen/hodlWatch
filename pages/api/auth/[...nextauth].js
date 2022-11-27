@@ -19,6 +19,7 @@ function makeid(length) {
 
 const options = {
   // site: process.env.NEXTAUTH_URL,
+  database: process.env.MONGODB_URI,
   session: {
     jwt: true,
   },
