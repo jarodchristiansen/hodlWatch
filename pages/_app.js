@@ -27,11 +27,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       pageview(url);
     };
 
-    router.events.on("routeChangeComplete", handleRouteChange);
+    if (process.env.BASE_URL != "http://localhost:3000") {
+      router.events.on("routeChangeComplete", handleRouteChange);
 
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
+      return () => {
+        router.events.off("routeChangeComplete", handleRouteChange);
+      };
+    }
   }, [router.events]);
 
   return (
