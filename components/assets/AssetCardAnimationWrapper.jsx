@@ -4,13 +4,13 @@ const AssetCardAnimationWrapper = ({ children }) => {
   return (
     <motion.div
       whileHover={{
-        scale: 1.1,
-        transition: { duration: 0.5 },
+        scale: 1.03,
+        transition: { duration: 0.7 },
       }}
       whileTap={{
-        scale: 1.1,
+        scale: 1.03,
         zIndex: 10,
-        transition: { duration: 0.5 },
+        transition: { duration: 0.7 },
       }}
     >
       {children}

@@ -31,7 +31,7 @@ const SearchForm = ({
     <form onSubmit={handleSearch} data-testid={"asset-search-form"}>
       <StyledInput
         className="px-2"
-        placeholder="search here..."
+        placeholder="Search here..."
         onChange={(event) => handleInputChange(event.target.value)}
         data-testid="search-input"
       />

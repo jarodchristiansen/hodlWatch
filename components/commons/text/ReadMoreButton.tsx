@@ -44,18 +44,24 @@ const ReadMoreButton = ({ children }) => {
       {shouldShowReadMore && (
         <div className="content-container">
           {shortenedText}
-          <h5 onClick={() => changeRender("More")} className="read-more-text">
+          <button
+            onClick={() => changeRender("More")}
+            className="read-more-text standardized-button"
+          >
             Read More
-          </h5>
+          </button>
         </div>
       )}
 
       {!shouldShowReadMore && showMore && (
         <div className="content-container">
           {children}
-          <h5 onClick={() => changeRender("Less")} className="read-more-text">
+          <button
+            onClick={() => changeRender("Less")}
+            className="read-more-text standardized-button"
+          >
             Show Less
-          </h5>
+          </button>
         </div>
       )}
     </ReadMoreWrapper>
@@ -64,7 +70,9 @@ const ReadMoreButton = ({ children }) => {
 
 const ReadMoreWrapper = styled.div`
   .read-more-text {
-    color: ${Colors.PrimaryButtonBackground};
+    /* color: ${Colors.PrimaryButtonBackground}; */
+    max-width: 12rem;
+    margin: 1rem auto;
   }
 
   .content-container {

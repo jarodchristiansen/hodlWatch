@@ -58,7 +58,7 @@ const SignInForm = ({ providers }) => {
             <h2 className={"form-header"}>Sign In</h2>
 
             <label htmlFor="exampleInputEmail1" className="form-label">
-              Email address
+              Email Address
             </label>
             <StyledInput
               name={"email"}
@@ -88,7 +88,7 @@ const SignInForm = ({ providers }) => {
             <h2 className={"form-header"}>Sign Up</h2>
 
             <label htmlFor="exampleInputEmail1" className="form-label">
-              Email address
+              Email Address
             </label>
             <StyledInput
               name={"email"}

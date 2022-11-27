@@ -146,11 +146,12 @@ const FilterBar = styled.div`
   justify-content: flex-end;
 
   background-color: white;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 2rem;
   width: 100%;
 
   @media ${MediaQueries.MD} {
     top: 2.8rem;
+    padding: 1.5rem 6rem;
   }
 `;
 
