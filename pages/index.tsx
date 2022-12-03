@@ -115,6 +115,10 @@ export default function Home(props) {
           name="google-site-verification"
           content="sYZ6VaJuOfDFRSGlLK4-ISx-yHIfZVRdiEK6RXh3eUM"
         />
+        <meta
+          name="ahrefs-site-verification"
+          content="36afae7f6a8e6e641fd27c84b465e990d8323de93402b68c2c27779626abd7b1"
+        ></meta>
         <meta property="og:url" content="https://hodl-watch.vercel.app/" />
         <meta property="og:type" content="website" />
         <meta property="fb:app_id" content="your fb id" />
