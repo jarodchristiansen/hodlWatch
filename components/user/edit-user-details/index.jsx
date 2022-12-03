@@ -1,18 +1,34 @@
+import { useMutation } from "@apollo/client";
 import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
+import { UPDATE_USERNAME } from "../../../helpers/mutations/user";
 import { MediaQueries } from "../../../styles/MediaQueries";
 
 const EditUserDetails = ({ user, fetchedUser }) => {
+  const [usernameInput, setUsernameInput] = useState("");
+
+  const [updateUsername, { loading, error }] = useMutation(UPDATE_USERNAME);
+
   const [viewState, setViewState] = useState("Main");
 
   const setEditUsername = () => {
-    console.log("Set Edit Username");
     setViewState("Username");
   };
 
   const setEditMain = () => {
     setViewState("Main");
+  };
+
+  const submitUsernameChange = () => {
+    updateUsername({
+      variables: {
+        input: {
+          email: user.email,
+          username: usernameInput,
+        },
+      },
+    });
   };
 
   const viewIsMain = viewState === "Main";
@@ -81,7 +97,10 @@ const EditUserDetails = ({ user, fetchedUser }) => {
             <>
               <div className="detail-row">
                 <h4>Username:</h4>
-                <UserNameInput placeholder={fetchedUser?.username} />
+                <UserNameInput
+                  placeholder={fetchedUser?.username}
+                  onChange={(e) => setUsernameInput(e.target.value)}
+                />
                 {/* <h4>{fetchedUser?.username}</h4> */}
 
                 <span onClick={setEditMain}>Back</span>
@@ -99,6 +118,8 @@ const EditUserDetails = ({ user, fetchedUser }) => {
               </div>
             </>
           )}
+
+          <button onClick={submitUsernameChange}>Submit</button>
         </UserDetailsCard>
       )}
     </>
