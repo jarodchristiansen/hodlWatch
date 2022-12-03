@@ -45,6 +45,7 @@ export default function Home(props) {
             alt="block-logo"
             className="partner-image"
             layout="fixed"
+            unoptimized={true}
           />
 
           <div className="source-container">
@@ -56,6 +57,7 @@ export default function Home(props) {
               alt="block-logo"
               className="partner-image"
               layout="fixed"
+              unoptimized={true}
             />
           </div>
         </NewsItem>
