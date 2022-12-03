@@ -91,6 +91,7 @@ const ProfilePage = () => {
             alt="block-logo"
             className="pointer-link favorites-image"
             onClick={() => navigateToAssetPage(favorite)}
+            unoptimized={true}
           />
           <h5
             className="pointer-link"
@@ -184,6 +185,7 @@ const ProfilePage = () => {
                         width={"50px"}
                         alt="block-logo"
                         layout="fixed"
+                        unoptimized={true}
                       />
                     </div>
                   </>

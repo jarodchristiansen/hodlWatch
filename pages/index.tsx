@@ -100,6 +100,7 @@ export default function Home(props) {
             width={"190px"}
             alt="block-logo"
             className="partner-image"
+            unoptimized={true}
           />
         </PartnerBlock>
       );
@@ -143,6 +144,7 @@ export default function Home(props) {
               height={"550px"}
               width={"600px"}
               alt="block-logo"
+              unoptimized={true}
             />
           </div>
         </div>

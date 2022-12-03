@@ -34,6 +34,7 @@ function Header() {
               height={"50px"}
               width={"50px"}
               alt="block-logo"
+              unoptimized={true}
             />
           </Link>
         </Navbar.Brand>

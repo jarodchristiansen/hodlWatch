@@ -48,6 +48,7 @@ const NewsBlock = (props: NewsBlockProps) => {
           width={"100px"}
           alt="block-logo"
           layout="responsive"
+          unoptimized={true}
         />
 
         <ReadMoreButton>{story.body}</ReadMoreButton>
@@ -63,6 +64,7 @@ const NewsBlock = (props: NewsBlockProps) => {
               width={"50px"}
               alt="block-logo"
               layout="fixed"
+              unoptimized={true}
             />
           </div>
         </a>

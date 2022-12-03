@@ -70,6 +70,7 @@ const EditUserDetails = ({ user, fetchedUser }) => {
                   width={"50px"}
                   alt="block-logo"
                   layout="fixed"
+                  unoptimized={true}
                 />
               </div>
             </>
@@ -114,6 +115,7 @@ const EditUserDetails = ({ user, fetchedUser }) => {
                   width={"50px"}
                   alt="block-logo"
                   layout="fixed"
+                  unoptimized={true}
                 />
               </div>
             </>
