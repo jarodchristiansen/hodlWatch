@@ -114,14 +114,19 @@ export default function Home(props) {
         <meta property="og:url" content="https://hodl-watch.vercel.app/" />
         <meta property="og:type" content="website" />
         <meta property="fb:app_id" content="your fb id" />
-        <meta property="og:title" content={"HodlWatch - Home"} />
+        <meta
+          property="og:title"
+          content={
+            "Crypto & Web3 data aggregation platform utilizing blockchain. "
+          }
+        />
         <meta
           name="twitter:card"
           content="Web3 centered application highlighting one beauty of blockchain; data."
         />
         <meta
           property="og:description"
-          content="Web3 centered application highlighting one beauty of blockchain; data."
+          content="Crypto and blockchain data explorer, allowing users to build communities centered around their favorite assets while gaining insight into financial, social, and on-chain metrics"
         />
         <meta property="og:image" content={"/assets/assets-page.png"} />
       </Head>
