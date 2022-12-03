@@ -138,7 +138,7 @@ export default function Home(props) {
         />
 
         <meta
-          property="description"
+          name="description"
           content="Crypto and blockchain data explorer, allowing users to build communities centered around their favorite assets while gaining insight into financial, social, and on-chain metrics"
         />
         <meta
