@@ -1,5 +1,11 @@
 import { signIn } from "next-auth/client";
-import { FaFacebook, FaGithub, FaGoogle, FaTwitter } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaGithub,
+  FaGoogle,
+  FaTwitter,
+  FaCoins,
+} from "react-icons/fa";
 import styled from "styled-components";
 
 interface ProvidersAsProps {
@@ -71,6 +77,8 @@ const ProviderContainer = ({ providers }: ProvidersAsProps) => {
         return <FaFacebook size={28} data-testid="login-facebook" />;
       case "Twitter":
         return <FaTwitter size={28} data-testid="login-twitter" />;
+      case "Coinbase":
+        return <FaCoins size={28} data-testid="login-coinbase" />;
       default:
         return <div data-testid="login-na">N/A</div>;
     }

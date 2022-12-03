@@ -107,6 +107,11 @@ const options = {
     //   },
     //   from: process.env.EMAIL_FROM,
     // }),
+    Providers.Coinbase({
+      clientId: process.env.COINBASE_CLIENT_ID,
+      clientSecret: process.env.COINBASE_CLIENT_SECRET,
+      // scope: "wallet:accounts:read,wallet:transactions:read",
+    }),
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,

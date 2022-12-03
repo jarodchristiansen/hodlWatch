@@ -17,6 +17,7 @@ import { GET_USER } from "../../helpers/queries/user/getUserAccount";
 import { Colors } from "../../styles/Colors";
 import { MediaQueries } from "../../styles/MediaQueries";
 import SideMenu from "../../components/commons/sidebar-nav";
+import PortfolioMain from "../../components/portfolio/PortfolioMain";
 
 const ProfilePage = () => {
   const [session, loading] = useSession();
@@ -25,6 +26,16 @@ const ProfilePage = () => {
   const [user, setUser] = useState();
   //   const [walletIsConnected, setWalletIsConnected] = useState(false);
   const { isOpen, open, close } = useConnectModal();
+
+  const router = useRouter();
+
+  const slug = useMemo(() => {
+    if (!router?.query?.id) return "";
+
+    return router.query.id;
+  }, [router?.asPath]);
+
+  const isUsersProfile = session?.user?.id == slug;
 
   const [
     fetchUserDetails,
@@ -47,8 +58,6 @@ const ProfilePage = () => {
       fetchUserDetails();
     }
   }, [user]);
-
-  const router = useRouter();
 
   const walletIsConnected = useMemo(() => {
     if (!account.status) return false;
@@ -108,9 +117,14 @@ const ProfilePage = () => {
     router.push(`/user/${session.user.id}?view=edit_user`);
   };
 
+  const routeToPortfolio = () => {
+    router.push(`/user/${session.user.id}?view=portfolio`);
+  };
+
   const navLinks = [
     { name: "Profile", stateChanger: () => routeToMain() },
-    { name: "Portfolio", stateChanger: null },
+    { name: "Edit Account", stateChanger: () => routeEditUser() },
+    { name: "Portfolio", stateChanger: () => routeToPortfolio() },
     // { name: "Services" },
     // { name: "Contact Us" },
   ];
@@ -124,9 +138,11 @@ const ProfilePage = () => {
       <PriceScreener />
 
       <CentralWrapper>
-        <div className="side-menu-container">
-          <SideMenu navLinks={navLinks} />
-        </div>
+        {isUsersProfile && (
+          <div className="side-menu-container">
+            <SideMenu navLinks={navLinks} />
+          </div>
+        )}
 
         <div className="page-wrapper">
           {viewState === "Main" && (
@@ -173,7 +189,7 @@ const ProfilePage = () => {
                   </>
                 )}
               </UserDetailsCard>
-
+              {/* 
               {!walletIsConnected && (
                 <ConnectWalletCard>
                   <h4>It looks like your wallet isn't connected</h4>
@@ -194,7 +210,7 @@ const ProfilePage = () => {
                   </div>
                   <Web3Button />
                 </ConnectWalletCard>
-              )}
+              )} */}
 
               {!!userFavoritesList.length ? (
                 <UserFavoritesList>
@@ -209,15 +225,21 @@ const ProfilePage = () => {
             </>
           )}
 
-          {viewState === "edit_user" && (
+          {viewState === "edit_user" && isUsersProfile && (
             <>
-              <div className="switch-container">
+              {/* <div className="switch-container">
                 <button className="standardized-button" onClick={routeToMain}>
                   Back to Main Page
                 </button>
-              </div>
+              </div> */}
 
               <EditUserDetails user={user} fetchedUser={data?.getUser} />
+            </>
+          )}
+
+          {viewState === "portfolio" && isUsersProfile && (
+            <>
+              <PortfolioMain />
             </>
           )}
         </div>
@@ -256,6 +278,10 @@ const CentralWrapper = styled.div`
   .switch-container {
     display: flex;
     gap: 1rem;
+
+    @media ${MediaQueries.MD} {
+      display: none;
+    }
   }
 
   .back-button {

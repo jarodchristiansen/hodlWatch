@@ -132,6 +132,11 @@ const typeDefs = gql`
     favorites: [FavoritesData]
   }
 
+  input UsernameInput {
+    username: String!
+    email: String
+  }
+
   type FavoritesData {
     title: String
     symbol: String
@@ -209,6 +214,7 @@ const typeDefs = gql`
 
   type Mutation {
     #Products
+    updateUsername(input: UsernameInput): User
     newProduct(input: ProductInput): Product
     updateProduct(id: ID!, input: ProductInput): Product
     deleteProduct(id: ID!): String

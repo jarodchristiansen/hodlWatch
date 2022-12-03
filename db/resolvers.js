@@ -235,6 +235,27 @@ const resolvers = {
   },
 
   Mutation: {
+    updateUsername: async (_, { input }) => {
+      const { username, email } = input;
+
+      try {
+        let user = await User.findOne({ email });
+
+        let inputMatch = await User.findOne({ username: username });
+
+        inputMatch && new Error("User name already exists");
+
+        if (user && !inputMatch) {
+          console.log("IN if user", { user });
+          user.username = username;
+          await user.save();
+          return user;
+        }
+      } catch (err) {
+        console.log("Error in updating username!", { err });
+      }
+    },
+
     // products
     newProduct: async (_, { input }) => {
       try {
@@ -247,6 +268,7 @@ const resolvers = {
         console.log(err);
       }
     },
+
     updateProduct: async (_, { id, input }) => {
       let product = await Product.findById(id);
 
@@ -260,6 +282,7 @@ const resolvers = {
 
       return product;
     },
+
     deleteProduct: async (_, { id }) => {
       const product = await Product.findById(id);
 

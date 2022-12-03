@@ -20,7 +20,7 @@ const UsersSchema = new Schema({
   },
   username: {
     type: String,
-    trim: true,
+    default: "",
   },
   image: {
     type: String,
