@@ -2,6 +2,7 @@ import { useLazyQuery } from "@apollo/client";
 import { useSession } from "next-auth/client";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import LandingCard from "../components/commons/info-cards/landing-card";
@@ -31,24 +32,32 @@ export default function Home(props) {
     return data.getNewsFeed.slice(0, 5).map((story) => {
       return (
         <NewsItem>
-          <h4 className="partner-header">{story.title}</h4>
+          <Link href={story?.guid} passHref>
+            <a target="_blank">
+              <h4 className="partner-header">{story.title}</h4>
+            </a>
+          </Link>
 
           <Image
             src={story.imageurl}
-            height={"140px"}
+            height={"190px"}
             width={"190px"}
             alt="block-logo"
             className="partner-image"
+            layout="fixed"
           />
 
-          <span>{story?.source_info?.name}</span>
-          <Image
-            src={story.source_info?.img}
-            height={"90px"}
-            width={"90px"}
-            alt="block-logo"
-            className="partner-image"
-          />
+          <div className="source-container">
+            <span>{story?.source_info?.name}</span>
+            <Image
+              src={story.source_info?.img}
+              height={"70px"}
+              width={"70px"}
+              alt="block-logo"
+              className="partner-image"
+              layout="fixed"
+            />
+          </div>
         </NewsItem>
       );
     });
@@ -137,21 +146,21 @@ export default function Home(props) {
         </div>
       </div>
 
-      {/* <div className="mid-row">
+      <div className="mid-row">
         <div className="mid-row-heading">
           <h3>News Stories</h3>
         </div>
 
         <div className="mid-row-body">{newsFeedContent}</div>
-      </div> */}
+      </div>
 
-      <div className="bottom-row">
+      {/* <div className="bottom-row">
         <div className="bottom-row-heading">
           <h3>Our Partners</h3>
         </div>
 
         <div className="bottom-row-body">{generatePartners}</div>
-      </div>
+      </div> */}
     </AlternateHomePageWrapper>
   );
 }
@@ -195,7 +204,6 @@ const AlternateHomePageWrapper = styled.div`
     border-top: 2px solid lightgray;
 
     @media ${MediaQueries.MD} {
-      width: 90%;
       padding: 0.5rem 2rem;
     }
 
@@ -207,7 +215,8 @@ const AlternateHomePageWrapper = styled.div`
     .mid-row-body {
       display: flex;
       overflow-x: scroll;
-      padding-right: 1rem;
+      padding: 1rem;
+      gap: 1rem;
 
       ::-webkit-scrollbar {
         display: none;
@@ -257,7 +266,26 @@ const NewsItem = styled.div`
   padding: 1rem 2rem;
   justify-content: start;
   max-height: 22rem;
-  min-width: 22rem;
+  min-width: 20rem;
+  text-align: center;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 2px 4px 8px lightgray;
+
+  .source-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0.5rem;
+    gap: 1rem;
+    font-size: 18px;
+    margin-bottom: auto;
+  }
+
+  @media ${MediaQueries.MD} {
+    max-height: 32rem;
+    min-width: 22rem;
+  }
 `;
 
 const PartnerBlock = styled.div`
@@ -268,7 +296,7 @@ const PartnerBlock = styled.div`
   width: fit-content;
   padding: 1rem 2rem;
   justify-content: start;
-  /* box-shadow: 2px 4px 8px lightgray; */
+
   color: black;
   background-color: #dfdee673;
   margin: 0.5rem 0.5rem;
