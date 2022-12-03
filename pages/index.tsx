@@ -111,6 +111,10 @@ export default function Home(props) {
     <AlternateHomePageWrapper>
       <Head>
         <title>HodlWatch - Home</title>
+        <meta
+          name="google-site-verification"
+          content="sYZ6VaJuOfDFRSGlLK4-ISx-yHIfZVRdiEK6RXh3eUM"
+        />
         <meta property="og:url" content="https://hodl-watch.vercel.app/" />
         <meta property="og:type" content="website" />
         <meta property="fb:app_id" content="your fb id" />

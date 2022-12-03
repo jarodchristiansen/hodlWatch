@@ -1,5 +1,3 @@
-import React from "react";
-import * as fs from "fs";
 import glob from "glob";
 
 const Sitemap = () => {
