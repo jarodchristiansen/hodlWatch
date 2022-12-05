@@ -110,7 +110,9 @@ export default function Home(props) {
   return (
     <AlternateHomePageWrapper>
       <Head>
-        <title>HodlWatch - Home</title>
+        <title>
+          HodlWatch - Web3 data explorer platform utilizing blockchain
+        </title>
         <meta
           name="google-site-verification"
           content="sYZ6VaJuOfDFRSGlLK4-ISx-yHIfZVRdiEK6RXh3eUM"
@@ -124,13 +126,6 @@ export default function Home(props) {
         <meta property="fb:app_id" content="your fb id" />
 
         <meta
-          property="title"
-          content={
-            "Crypto & Web3 data aggregation platform utilizing blockchain. "
-          }
-        />
-
-        <meta
           property="og:title"
           content={
             "Crypto & Web3 data aggregation platform utilizing blockchain. "
@@ -139,18 +134,21 @@ export default function Home(props) {
 
         <meta
           name="description"
-          content="Crypto and blockchain data explorer, allowing users to build communities centered around their favorite assets while gaining insight into financial, social, and on-chain metrics"
+          content="Crypto and blockchain data explorer, allowing users to build communities centered around their favorite assets with financial, social, and on-chain metrics"
         />
         <meta
           name="twitter:card"
           content="Web3 centered application highlighting one beauty of blockchain; data."
         />
+
+        <meta name="twitter:site" content="https://hodl-watch.vercel.app/" />
         <meta
           property="og:description"
           content="Crypto and blockchain data explorer, allowing users to build communities centered around their favorite assets while gaining insight into financial, social, and on-chain metrics"
         />
         <meta property="og:image" content={"/assets/assets-page.png"} />
       </Head>
+
       <PriceScreener />
 
       <div className="top-row">

@@ -33,14 +33,16 @@ const Footer = () => {
 
             <h6>Latest Posts</h6>
 
-            <Link href="/news">
-              <h6>Newsfeed</h6>
+            <Link href="/news" passHref>
+              <a>
+                <h6>Newsfeed</h6>
+              </a>
             </Link>
           </div>
           <div className="info-column">
             <h5>Resources</h5>
 
-            <Link href="/news">
+            <Link href="/assets">
               <h6>Assets</h6>
             </Link>
 
