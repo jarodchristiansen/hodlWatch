@@ -13,10 +13,6 @@ const NewsFeedPage = () => {
     { data, loading: newsLoading, error, called, refetch },
   ] = useLazyQuery(GET_NEWS_FEED);
 
-  // useEffect(() => {
-  //   console.log({ session });
-  // }, [loading]);
-
   useEffect(() => {
     fetchNewsFeed();
   }, []);
@@ -44,8 +40,6 @@ const NewsFeedPage = () => {
     }
   }, [newsFeedContent]);
 
-  console.log({ articleLimit, data, newsFeedContent });
-
   const increaseArticleLimit = () => {
     if (shouldFetchContent) {
       setArticleLimit(articleLimit + 5);
@@ -55,6 +49,7 @@ const NewsFeedPage = () => {
   return (
     <PageWrapper>
       <Head>
+        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>HodlWatch- NewsFeed</title>
       </Head>
       <PriceScreener />

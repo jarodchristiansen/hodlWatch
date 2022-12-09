@@ -107,9 +107,7 @@ const ProviderContainer = ({ providers }: ProvidersAsProps) => {
                 <ProviderButton
                   onClick={(e) => {
                     signIn(provider.id, { redirect: true, callbackUrl: "/" })
-                      .then(() => {
-                        console.log("Success");
-                      })
+                      .then(() => {})
                       .catch((err) => console.log("err", err));
                     // signInOthers(e, provider)
                   }}

@@ -14,7 +14,6 @@ const resolvers = {
     getPosts: async (_, { filter }) => {
       try {
         let posts = await Post.find({ section: filter });
-        console.log("IN getPOSTS", { filter, posts });
 
         return posts;
       } catch (err) {
@@ -24,8 +23,6 @@ const resolvers = {
     getPost: async (_, { slug }) => {
       try {
         let post = await Post.findOne({ slug });
-
-        console.log("POST FOUND IN GETPOST", { post });
 
         return post;
       } catch (err) {
@@ -268,7 +265,6 @@ const resolvers = {
         inputMatch && new Error("User name already exists");
 
         if (user && !inputMatch) {
-          console.log("IN if user", { user });
           user.username = username;
           await user.save();
           return user;

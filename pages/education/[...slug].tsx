@@ -27,8 +27,6 @@ const EducationArticle = () => {
     }
   }, [data]);
 
-  console.log({ slug });
-
   return <div></div>;
 };
 

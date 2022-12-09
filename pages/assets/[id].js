@@ -42,6 +42,7 @@ const AssetDetailsPage = ({ deviceType }) => {
   return (
     <AssetDetailsPageContainer>
       <Head>
+        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>Asset Details - {id?.toUpperCase()}</title>
       </Head>
       <PriceScreener />

@@ -29,7 +29,6 @@ const SideMenu = ({ navLinks }) => {
 
   const runPropFunction = (stateChanger) => {
     if (!!stateChanger && typeof stateChanger === "function") {
-      console.log("Should run prop function");
       stateChanger();
     }
   };
