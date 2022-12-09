@@ -41,43 +41,39 @@ const AssetDetailsPage = ({ deviceType }) => {
 
   return (
     <AssetDetailsPageContainer>
+      <PriceScreener />
       <Head>
+        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>Asset Details - {id?.toUpperCase()}</title>
       </Head>
-      <PriceScreener />
 
-      {loading && (
-        <div className={"container text-center"}>
-          <LoadingSpinner />
-        </div>
-      )}
+      <PageContentContainer>
+        {!loading && (
+          <div className={"container text-center"}>
+            <h2>{"$" + id?.toUpperCase()}</h2>
 
-      {!loading && (
-        <div className={"container text-center"}>
-          <h2>{"$" + id?.toUpperCase()}</h2>
+            {error && <div>Error {console.log({ error })}</div>}
 
-          {error && <div>Error {console.log({ error })}</div>}
+            {id && (
+              <PairRowContainer>
+                <PairDetailsRow id={id} />
+              </PairRowContainer>
+            )}
 
-          {id && (
-            <PairRowContainer>
-              <PairDetailsRow id={id} />
-            </PairRowContainer>
-          )}
+            {data && (
+              <FilterBar>
+                <h3>{timeQuery} Days</h3>
+                <TimeButtons
+                  setTimeQuery={setTimeQuery}
+                  availTimes={availableTimes}
+                  refetch={refetch}
+                />
+              </FilterBar>
+            )}
 
-          {data && (
-            <FilterBar>
-              <h3>{timeQuery} Days</h3>
-              <TimeButtons
-                setTimeQuery={setTimeQuery}
-                availTimes={availableTimes}
-                refetch={refetch}
-              />
-            </FilterBar>
-          )}
-
-          {data && (
-            <>
-              {/* <AssetDetailsHeader
+            {data && (
+              <>
+                {/* <AssetDetailsHeader
        asset={id}
        time={timeQuery}
        assetData={
@@ -86,34 +82,47 @@ const AssetDetailsPage = ({ deviceType }) => {
            : ""
        }
      /> */}
-              <Accordion defaultActiveKey="1">
-                <FinancialAccordion
-                  financialData={
-                    data?.getAssetHistory?.priceData
-                      ? data?.getAssetHistory.priceData
-                      : []
-                  }
-                  id={id}
-                />
-                {isBtcOrEth && (
-                  <IndicatorAccordion
-                    timeQuery={timeQuery}
-                    id={id}
-                    blockchainData={
-                      data?.getAssetHistory?.blockchainData
-                        ? data?.getAssetHistory.blockchainData
+                <Accordion defaultActiveKey="1">
+                  <FinancialAccordion
+                    financialData={
+                      data?.getAssetHistory?.priceData
+                        ? data?.getAssetHistory.priceData
                         : []
                     }
+                    id={id}
                   />
-                )}
-              </Accordion>
-            </>
-          )}
-        </div>
-      )}
+                  {isBtcOrEth && (
+                    <IndicatorAccordion
+                      timeQuery={timeQuery}
+                      id={id}
+                      blockchainData={
+                        data?.getAssetHistory?.blockchainData
+                          ? data?.getAssetHistory.blockchainData
+                          : []
+                      }
+                    />
+                  )}
+                </Accordion>
+              </>
+            )}
+          </div>
+        )}
+
+        {loading && (
+          <div className={"container text-center"}>
+            <LoadingSpinner />
+          </div>
+        )}
+      </PageContentContainer>
     </AssetDetailsPageContainer>
   );
 };
+
+const PageContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+`;
 
 const PairRowContainer = styled.div`
   margin-right: -0.5rem;

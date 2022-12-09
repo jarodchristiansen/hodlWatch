@@ -27,8 +27,6 @@ const PairBlock = (props: PairBlockProps) => {
     router.push(`/assets/${data?.SYMBOL.toLowerCase()}`);
   };
 
-  console.log({ data }, "In related card");
-
   return (
     <PairBlockContainer>
       <h6 className="pointer-link block-header" onClick={routeUser}>

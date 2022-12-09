@@ -27,6 +27,7 @@ const AuthPage = () => {
   return (
     <AuthPageWrapper>
       <Head>
+        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>{isSignIn ? "Sign In" : "Sign Up"}</title>
       </Head>
 

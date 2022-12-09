@@ -88,22 +88,37 @@ const FinancialAccordion = ({ financialData, id }) => {
 
     const chartData = [
       !!filteredData?.closes?.length && (
-        <FibonacciRetracementChartDesktop data={filteredData?.closes} />
+        <FibonacciRetracementChartDesktop
+          data={filteredData?.closes}
+          key="fib-chart"
+        />
       ),
       !!filteredData?.market_dominance?.length && (
-        <MarketDominanceChartDesktop data={filteredData?.market_dominance} />
+        <MarketDominanceChartDesktop
+          data={filteredData?.market_dominance}
+          key="market-dom-chart"
+        />
       ),
       !!filteredData?.volatility?.length && (
-        <VolatilityChart data={filteredData?.volatility} />
+        <VolatilityChart
+          data={filteredData?.volatility}
+          key="volatility-chart"
+        />
       ),
       !!filteredData?.volume?.length && (
-        <VolumeChartDesktop data={filteredData?.volume} />
+        <VolumeChartDesktop data={filteredData?.volume} key="volume-chart" />
       ),
       !!filteredData?.percent_change?.length && (
-        <PercentChangeChartDesktop data={filteredData?.percent_change} />
+        <PercentChangeChartDesktop
+          data={filteredData?.percent_change}
+          key="percent-change-chart"
+        />
       ),
       !!filteredData?.price_btc?.length && id !== "btc" && (
-        <PriceBTCChartDesktop data={filteredData?.price_btc} />
+        <PriceBTCChartDesktop
+          data={filteredData?.price_btc}
+          key="price-btc-chart"
+        />
       ),
     ];
 
@@ -148,8 +163,10 @@ const FinancialAccordion = ({ financialData, id }) => {
             transitionDuration={2500}
             transitionBehavior={"smooth"}
           >
-            {chartsToDisplay?.map((chart) => (
-              <div className={"px-1 py-2"}>{chart}</div>
+            {chartsToDisplay?.map((chart, idx) => (
+              <div className={"px-1 py-2"} key={idx}>
+                {chart}
+              </div>
             ))}
           </ScrollMenu>
         </Accordion.Body>

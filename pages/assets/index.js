@@ -79,6 +79,7 @@ const AssetsPage = () => {
   return (
     <PageWrapper>
       <Head>
+        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>Assets</title>
       </Head>
 

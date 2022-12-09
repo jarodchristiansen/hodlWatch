@@ -29,7 +29,6 @@ const SideMenu = ({ navLinks }) => {
 
   const runPropFunction = (stateChanger) => {
     if (!!stateChanger && typeof stateChanger === "function") {
-      console.log("Should run prop function");
       stateChanger();
     }
   };
@@ -39,7 +38,7 @@ const SideMenu = ({ navLinks }) => {
       <div className={style}>
         <ul>
           {navLinks.map(({ name, stateChanger }) => (
-            <li onClick={() => runPropFunction(stateChanger)}>
+            <li onClick={() => runPropFunction(stateChanger)} key={name}>
               <span>{name}</span>
             </li>
           ))}

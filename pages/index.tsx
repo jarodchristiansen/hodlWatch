@@ -18,10 +18,6 @@ export default function Home(props) {
     { data, loading: newsLoading, error, called, refetch },
   ] = useLazyQuery(GET_NEWS_FEED);
 
-  // useEffect(() => {
-  //   console.log({ session });
-  // }, [loading]);
-
   useEffect(() => {
     fetchNewsFeed();
   }, []);
@@ -31,7 +27,7 @@ export default function Home(props) {
 
     return data.getNewsFeed.slice(0, 5).map((story) => {
       return (
-        <NewsItem>
+        <NewsItem key={story?.guid}>
           <Link href={story?.guid} passHref>
             <a target="_blank">
               <h4 className="partner-header">{story.title}</h4>
@@ -110,6 +106,7 @@ export default function Home(props) {
   return (
     <AlternateHomePageWrapper>
       <Head>
+        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>
           HodlWatch - Web3 data explorer platform utilizing blockchain
         </title>

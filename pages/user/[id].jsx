@@ -133,6 +133,7 @@ const ProfilePage = () => {
   return (
     <PageWrapper>
       <Head>
+        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>Profile</title>
       </Head>
 

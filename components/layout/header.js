@@ -25,16 +25,17 @@ function Header() {
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
       <Container>
         <Navbar.Brand>
-          <Link href={"/"}>
+          <Link href={"/"} passHref>
             {/* <img src={"../chain.png"} className={"pointer-link"} /> */}
-
-            <Image
-              src={"/assets/cube-svgrepo-com.svg"}
-              className={"pointer-link"}
-              height={"50px"}
-              width={"50px"}
-              alt="block-logo"
-            />
+            <a>
+              <Image
+                src={"/assets/cube-svgrepo-com.svg"}
+                className={"pointer-link"}
+                height={"50px"}
+                width={"50px"}
+                alt="block-logo"
+              />
+            </a>
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
