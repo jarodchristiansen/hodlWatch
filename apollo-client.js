@@ -3,12 +3,11 @@ import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 
 const configBaseURL = () => {
   if (process.env.BASE_URL === "http://localhost:3000") {
-    return "http://localhost:3000/api/graphql"
+    return "http://localhost:3000/api/graphql";
   } else {
-    return "https://hodl-watch.vercel.app/api/graphql"
+    return "https://hodl-watch.vercel.app/api/graphql";
   }
-}
-
+};
 
 const client = new ApolloClient({
   dataIdFromObject: (o) => o.id,
@@ -32,8 +31,5 @@ const client = new ApolloClient({
   //   },
   // }
 });
-
-
-
 
 export default client;
