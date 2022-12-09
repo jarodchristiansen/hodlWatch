@@ -26,7 +26,7 @@ const AssetCard = ({ asset }) => {
               className="my-2"
               src={imageUrl || small}
               alt={name || title}
-              unoptimized={true}
+              unoptimized={"true"}
             />
           </div>
 

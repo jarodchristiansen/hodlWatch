@@ -19,7 +19,7 @@ const AssetsContainer = ({ assets }) => {
         {currentAssets && currentAssets.length > 1 && (
           <GridComponent ref={ref}>
             {currentAssets.map((asset) => {
-              return <AssetCard asset={asset} />;
+              return <AssetCard asset={asset} key={asset.id} />;
             })}
           </GridComponent>
         )}

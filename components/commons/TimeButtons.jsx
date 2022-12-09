@@ -6,6 +6,7 @@ const TimeButtons = ({ availTimes, setTimeQuery, refetch }) => {
       {availTimes &&
         availTimes.map((time) => (
           <button
+            key={time}
             className={"standardized-button"}
             onClick={() => {
               setTimeQuery(time);

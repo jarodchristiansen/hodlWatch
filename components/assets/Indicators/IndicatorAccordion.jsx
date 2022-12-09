@@ -102,8 +102,8 @@ const IndicatorAccordion = ({ timeQuery = 90, id, blockchainData }) => {
             transitionDuration={2500}
             transitionBehavior={"smooth"}
           >
-            {chartData?.map((string) => (
-              <div className={"px-2 py-3"}>{string}</div>
+            {chartData?.map((string, idx) => (
+              <div className={"px-2 py-3"} key={idx}>{string}</div>
             ))}
           </ScrollMenu>
         </Accordion.Body>
