@@ -26,7 +26,6 @@ function Header() {
       <Container>
         <Navbar.Brand>
           <Link href={"/"} passHref>
-            {/* <img src={"../chain.png"} className={"pointer-link"} /> */}
             <a>
               <Image
                 src={"/assets/cube-svgrepo-com.svg"}
@@ -71,6 +70,16 @@ function Header() {
               </Nav.Link>
             )}
 
+            {/* {session && (
+              <Nav.Link eventKey={"4"} role={"link"}>
+                <Link href={`/education`}>
+                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
+                    {"Education"}
+                  </Navbar.Text>
+                </Link>
+              </Nav.Link>
+            )} */}
+
             {/* <Nav.Link eventKey={"3"} role={"link"}>
               <Link href="/education">
                 <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
@@ -80,7 +89,7 @@ function Header() {
             </Nav.Link> */}
 
             {!session ? (
-              <Nav.Link eventKey={"4"} role={"link"}>
+              <Nav.Link eventKey={"5"} role={"link"}>
                 <Link href="/auth?path=SignIn">
                   <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
                     {"Sign in"}
@@ -89,7 +98,7 @@ function Header() {
               </Nav.Link>
             ) : (
               <Nav.Link
-                eventKey={"4"}
+                eventKey={"5"}
                 role={"link"}
                 onClick={handleSignout}
                 className={"pointer-link fw-bold"}
