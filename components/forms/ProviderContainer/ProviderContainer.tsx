@@ -111,7 +111,6 @@ const ProviderContainer = ({ providers }: ProvidersAsProps) => {
                       .catch((err) => console.log("err", err));
                     // signInOthers(e, provider)
                   }}
-                  id={"provider-button"}
                   type={"button"}
                 >
                   <div className="button-content">

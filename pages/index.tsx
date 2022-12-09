@@ -27,7 +27,7 @@ export default function Home(props) {
 
     return data.getNewsFeed.slice(0, 5).map((story) => {
       return (
-        <NewsItem>
+        <NewsItem key={story?.guid}>
           <Link href={story?.guid} passHref>
             <a target="_blank">
               <h4 className="partner-header">{story.title}</h4>

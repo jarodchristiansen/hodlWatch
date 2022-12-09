@@ -33,7 +33,6 @@ const SignInForm = ({ providers }) => {
         case "password":
           setPassword(e.target.value);
         case "passwordConfirm":
-          console.log("This is password confirm", e.target.value);
       }
     }
   };
@@ -67,6 +66,7 @@ const SignInForm = ({ providers }) => {
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               onChange={handleFormChange}
+              autoComplete={"true"}
             />
           </div>
           <div className="input-container">
@@ -79,6 +79,7 @@ const SignInForm = ({ providers }) => {
               className="form-control"
               id="exampleInputPassword1"
               onChange={handleFormChange}
+              autoComplete={"true"}
             />
           </div>
         </>
@@ -97,6 +98,7 @@ const SignInForm = ({ providers }) => {
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               onChange={handleFormChange}
+              autoComplete={"false"}
             />
             {/* <div id="emailHelp" className="form-text">
               We'll never share your email with anyone else.
@@ -112,6 +114,7 @@ const SignInForm = ({ providers }) => {
               className="form-control"
               id="exampleInputPassword1"
               onChange={handleFormChange}
+              autoComplete={"false"}
             />
           </div>
 
@@ -125,6 +128,7 @@ const SignInForm = ({ providers }) => {
               className="form-control"
               id="confirmPasswordInput"
               onChange={handleFormChange}
+              autoComplete={"false"}
             />
           </div>
 
