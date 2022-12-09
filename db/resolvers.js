@@ -1,4 +1,5 @@
 import User from "./models/user";
+import Post from "./models/post";
 
 const CoinGecko = require("coingecko-api");
 
@@ -10,6 +11,27 @@ const resolvers = {
   Date: dateScalar,
 
   Query: {
+    getPosts: async (_, { filter }) => {
+      try {
+        let posts = await Post.find({ section: filter });
+        console.log("IN getPOSTS", { filter, posts });
+
+        return posts;
+      } catch (err) {
+        console.log("ERROR IN TRY CATCH GET POSTS");
+      }
+    },
+    getPost: async (_, { slug }) => {
+      try {
+        let post = await Post.findOne({ slug });
+
+        console.log("POST FOUND IN GETPOST", { post });
+
+        return post;
+      } catch (err) {
+        console.log("ERROR IN TRY CATCH GET POSTS");
+      }
+    },
     getNewsFeed: async (_, {}) => {
       try {
         let newsData = await fetch(

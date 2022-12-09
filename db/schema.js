@@ -199,6 +199,26 @@ const typeDefs = gql`
     ICO
   }
 
+  type Post {
+    section: String
+    category: String
+    publish_date: Date
+    slug: String
+    header_image: String
+    post_title: String
+    post_content: String
+  }
+
+  input PostInput {
+    section: String
+    category: String
+    publish_date: Date
+    slug: String
+    header_image: String
+    post_title: String
+    post_content: String
+  }
+
   type Query {
     getProducts: [Product]
     getProduct(id: ID!): Product
@@ -210,6 +230,8 @@ const typeDefs = gql`
     getUser(email: String): User
     getDifficultyRibbons(symbol: String, cut: Int): [DifficultyRibbonData]
     getNewsFeed: [NewsFeedEntries]
+    getPost(slug: String): Post
+    getPosts(filter: String): [Post]
   }
 
   type Mutation {
