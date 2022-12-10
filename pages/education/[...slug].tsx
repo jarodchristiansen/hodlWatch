@@ -11,6 +11,8 @@ import styled from "styled-components";
 import Image from "next/image";
 import { MediaQueries } from "../../styles/MediaQueries";
 import RelatedPostsRow from "../../components/posts/RelatedPosts";
+import Link from "next/link";
+import { Colors } from "../../styles/Colors";
 
 const EducationArticle = () => {
   const router = useRouter();
@@ -50,11 +52,28 @@ const EducationArticle = () => {
 
     let markdownParts = postContent.split("\n");
 
-    const noGoCharacters = ["####", "1.", "2.", "3.", "4.", "5.", "6."];
+    const noGoCharacters = [
+      "#",
+      "##",
+      "###",
+      "####",
+      "1.",
+      "2.",
+      "3.",
+      "4.",
+      "5.",
+      "6.",
+    ];
 
     return markdownParts
       .filter((element) => !!element.length)
       .map((markdownPiece, idx) => {
+        // Throughout the piece without interfering in headers or lists
+        let renderRepetitionCondition =
+          !!idx &&
+          idx % 3 === 0 &&
+          !noGoCharacters.some((char) => markdownPiece.includes(char));
+
         return (
           <div>
             <ReactMarkdown
@@ -64,13 +83,11 @@ const EducationArticle = () => {
               key={markdownPiece + Math.random()}
             />
             {/* Adds interstitial on odd idx and prevents being under headings, within list,  */}
-            {!!idx &&
-              idx % 3 === 0 &&
-              !noGoCharacters.some((char) => markdownPiece.includes(char)) && (
-                <InterstitialPlaceholder key={markdownPiece + idx}>
-                  This is a CTA Placeholder For the Moment
-                </InterstitialPlaceholder>
-              )}
+            {renderRepetitionCondition && (
+              <InterstitialPlaceholder key={markdownPiece + idx}>
+                This is a CTA Placeholder For the Moment
+              </InterstitialPlaceholder>
+            )}
           </div>
         );
       });
@@ -83,6 +100,15 @@ const EducationArticle = () => {
       <DisclaimerHeader>
         Nothing in this article should be interpreted as financial advice.
       </DisclaimerHeader>
+
+      <BackButton>
+        <Link href="/education">
+          <span>
+            <span>&#8592;</span>
+            <span> Back</span>
+          </span>
+        </Link>
+      </BackButton>
 
       <ContentContainer>
         {headerImage}
@@ -99,10 +125,27 @@ const EducationArticle = () => {
             </div>
           )}
         </div>
+
+        <InterstitialPlaceholder>
+          CTA Placholder at bottom if no other at bottom
+        </InterstitialPlaceholder>
       </ContentContainer>
     </div>
   );
 };
+
+const BackButton = styled.div`
+  position: absolute;
+  top: 10rem;
+  left: 2rem;
+  cursor: pointer;
+
+  span {
+    font-weight: bold;
+    font-size: 1rem;
+    color: ${Colors.PrimaryButtonBackground};
+  }
+`;
 
 const DisclaimerHeader = styled.div`
   background-color: gray;
