@@ -23,6 +23,7 @@ export const GET_POST = gql`
       publish_date
       section
       slug
+      post_title
     }
   }
 `;
