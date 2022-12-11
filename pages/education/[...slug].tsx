@@ -1,5 +1,3 @@
-import { useLazyQuery, useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import { GET_POST } from "../../helpers/queries/posts";
 import ReactMarkdown from "react-markdown";
@@ -16,23 +14,7 @@ import { Colors } from "../../styles/Colors";
 import Head from "next/head";
 import client from "../../apollo-client";
 
-const EducationArticle = () => {
-  const router = useRouter();
-  const { slug } = router.query;
-
-  const {
-    data,
-    loading,
-    error: getPostError,
-    called,
-    refetch,
-  } = useQuery(GET_POST, {
-    ssr: true,
-    variables: {
-      slug: "/" + slug?.toString(),
-    },
-  });
-
+const EducationArticle = ({ data }) => {
   const headerImage = useMemo(() => {
     if (!data?.getPost?.header_image) return "";
 
@@ -94,8 +76,6 @@ const EducationArticle = () => {
         );
       });
   }, [data?.getPost]);
-
-  console.log({ markdown });
 
   return (
     <div>
@@ -273,5 +253,36 @@ const MarkdownContainer = styled.div`
     border: unset;
   }
 `;
+
+const getSiteTitle = async (context) => {
+  const { slug } = context.query;
+
+  const result = await client.query({
+    query: GET_POST,
+    variables: {
+      slug: "/" + slug?.toString(),
+    },
+  });
+
+  return { data: result };
+};
+
+export const getServerSideProps = async (context) => {
+  let data = null;
+
+  const response = await getSiteTitle(context); // any async promise here.
+
+  data = response.data;
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: data, // will be passed to the page component as props
+  };
+};
 
 export default EducationArticle;

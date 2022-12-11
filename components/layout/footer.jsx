@@ -24,14 +24,9 @@ const Footer = () => {
   return (
     <FooterContainer>
       <div className="text-column">
-        {/* <h4>Stay tuned</h4> */}
-        <h6>Follow For More Content</h6>
-
         <InfoColumnsContainer>
           <div className="info-column">
-            <h5>News & Info</h5>
-
-            <h6>Latest Posts</h6>
+            <h4>News & Info</h4>
 
             <Link href="/news" passHref>
               <a>
@@ -40,16 +35,18 @@ const Footer = () => {
             </Link>
           </div>
           <div className="info-column">
-            <h5>Resources</h5>
+            <h4>Resources</h4>
 
             <Link href="/assets">
               <h6>Assets</h6>
             </Link>
 
-            <h6>Education</h6>
+            <Link href="/education">
+              <h6>Education</h6>
+            </Link>
           </div>
           <div className="info-column">
-            <h5>Users</h5>
+            <h4>Users</h4>
             <h6 onClick={() => routerToProfile(false)}>Profile</h6>
             <h6 onClick={() => routerToProfile(true)}>Manage Account</h6>
           </div>

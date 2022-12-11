@@ -113,7 +113,7 @@ const PageHolder = styled.div`
       }
 
       @media ${MediaQueries.MD} {
-        max-width: 20%;
+        max-width: 27%;
         margin-top: 3rem;
       }
     }
