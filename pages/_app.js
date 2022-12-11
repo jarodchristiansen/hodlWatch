@@ -60,7 +60,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <ApolloProvider client={client}>
           <Layout>
             <Component {...pageProps} />
-            {/* <Web3Modal config={config} /> */}
+            <Web3Modal config={config} />
           </Layout>
         </ApolloProvider>
       </Provider>

@@ -6,6 +6,7 @@ import PriceScreener from "../../components/commons/screener";
 import { MediaQueries } from "../../styles/MediaQueries";
 import Head from "next/head";
 import NewsBlock from "../../components/news/news-block";
+import { useSession, getSession } from "next-auth/client";
 
 const NewsFeedPage = () => {
   const [
@@ -53,7 +54,6 @@ const NewsFeedPage = () => {
         <title>HodlWatch- NewsFeed</title>
       </Head>
       <PriceScreener />
-      <h2>Live Updates</h2>
       {/* <FilterBar>
         <button className="standardized-button">All</button>
         <button className="standardized-button">All</button>
@@ -119,5 +119,22 @@ const NewsFeed = styled.div`
     /* max-width: 42rem; */
   }
 `;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 
 export default NewsFeedPage;

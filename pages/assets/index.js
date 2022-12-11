@@ -15,7 +15,7 @@ import { MediaQueries } from "../../styles/MediaQueries";
 const AssetsPage = () => {
   const [offsetState, setOffsetState] = useState(1);
   const [limitState, setLimitState] = useState(9);
-  const { session, status } = useSession();
+  // const { session, status } = useSession();
 
   const [fetchAssets, { data, loading, error, refetch, fetchMore }] =
     useLazyQuery(GET_ASSETS, {
@@ -167,14 +167,14 @@ const AssetContainerWrapper = styled.div`
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
-  // if (!session) {
-  //   return {
-  //     redirect: {
-  //       destination: "/auth",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: { session },

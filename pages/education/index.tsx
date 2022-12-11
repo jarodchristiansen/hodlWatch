@@ -6,6 +6,7 @@ import { GET_POSTS } from "../../helpers/queries/posts/index";
 import styled from "styled-components";
 import { MediaQueries } from "../../styles/MediaQueries";
 import RelatedPostsRow from "../../components/posts/RelatedPosts";
+import { useSession, getSession } from "next-auth/client";
 
 const EducationPage = () => {
   const [getPosts, { data, loading: newsLoading, error, called, refetch }] =
@@ -119,5 +120,22 @@ const PageHolder = styled.div`
     }
   }
 `;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 
 export default EducationPage;

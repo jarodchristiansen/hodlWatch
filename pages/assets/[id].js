@@ -16,6 +16,7 @@ import styled from "styled-components";
 import PairDetailsRow from "../../components/assets/Finance/PairDetails/index";
 import { MediaQueries } from "../../styles/MediaQueries";
 import Head from "next/head";
+import { useSession, getSession } from "next-auth/client";
 
 const AssetDetailsPage = ({ deviceType }) => {
   const [assetFinancials, setAssetFinancials] = useState();
@@ -149,5 +150,22 @@ const AssetDetailsPageContainer = styled.div`
   gap: 3rem;
   min-height: 100vh;
 `;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 
 export default AssetDetailsPage;

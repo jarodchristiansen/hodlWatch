@@ -5,7 +5,7 @@ import {
   useConnectModal,
   Web3Button,
 } from "@web3modal/react";
-import { useSession } from "next-auth/client";
+import { useSession, getSession } from "next-auth/client";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -387,5 +387,22 @@ const UserFavoritesList = styled.div`
     }
   }
 `;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
 
 export default ProfilePage;
