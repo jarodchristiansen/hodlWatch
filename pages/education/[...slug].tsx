@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import { GET_POST } from "../../helpers/queries/posts";
@@ -14,23 +14,24 @@ import RelatedPostsRow from "../../components/posts/RelatedPosts";
 import Link from "next/link";
 import { Colors } from "../../styles/Colors";
 import Head from "next/head";
+import client from "../../apollo-client";
 
 const EducationArticle = () => {
   const router = useRouter();
   const { slug } = router.query;
 
-  const [getPost, { data, loading, error: getPostError, called, refetch }] =
-    useLazyQuery(GET_POST);
-
-  useEffect(() => {
-    if (slug) {
-      getPost({
-        variables: {
-          slug: "/" + slug.toString(),
-        },
-      });
-    }
-  }, [slug]);
+  const {
+    data,
+    loading,
+    error: getPostError,
+    called,
+    refetch,
+  } = useQuery(GET_POST, {
+    ssr: true,
+    variables: {
+      slug: "/" + slug?.toString(),
+    },
+  });
 
   const headerImage = useMemo(() => {
     if (!data?.getPost?.header_image) return "";
