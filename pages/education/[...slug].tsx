@@ -13,6 +13,7 @@ import { MediaQueries } from "../../styles/MediaQueries";
 import RelatedPostsRow from "../../components/posts/RelatedPosts";
 import Link from "next/link";
 import { Colors } from "../../styles/Colors";
+import Head from "next/head";
 
 const EducationArticle = () => {
   const router = useRouter();
@@ -97,6 +98,39 @@ const EducationArticle = () => {
 
   return (
     <div>
+      {data?.getPost && (
+        <Head>
+          <link
+            rel="icon"
+            type="image/png"
+            href="/images/cube-svgrepo-com.svg"
+          />
+          <title>{data?.getPost?.post_title}</title>
+
+          <meta
+            name="description"
+            content={`${
+              data?.getPost?.meta_description ||
+              data?.getPost?.post_content.slice(0, 255)
+            }`}
+          />
+          <meta name="twitter:card" content={data?.getPost?.post_title} />
+
+          <meta
+            name="twitter:site"
+            content={`https://hodl-watch.vercel.app/education${data?.getPost?.slug}`}
+          />
+          <meta
+            property="og:description"
+            content={`${
+              data?.getPost?.meta_description ||
+              data?.getPost?.post_content.slice(0, 255)
+            }`}
+          />
+          <meta property="og:image" content={data?.getPost?.post_header} />
+        </Head>
+      )}
+
       <DisclaimerHeader>
         Nothing in this article should be interpreted as financial advice.
       </DisclaimerHeader>
