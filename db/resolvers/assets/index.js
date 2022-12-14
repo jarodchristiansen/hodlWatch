@@ -147,6 +147,27 @@ export const AssetResolver = {
       // console.log({data})
       const data = {};
 
+      // // // How to get details on contracts from erc-20
+      // const CoinGeckoClient = new CoinGecko();
+
+      // let coinList = await CoinGeckoClient.coins.list();
+
+      // let geckoProp = coinList.data.filter(
+      //   (asset) => symbol.toLowerCase() === asset.symbol.toLowerCase()
+      // );
+
+      // console.log({ geckoProp });
+
+      // if (geckoProp) {
+      //   let geckoData = await CoinGeckoClient.coins.fetch(geckoProp[0].id, {});
+      //   console.log({ geckoData });
+      // }
+
+      // let zrx = "0xe41d2489571d322189246dafa5ebde1f4699f498";
+      // let contract = await CoinGeckoClient.coins.fetchCoinContractInfo(zrx);
+
+      // console.log({ contract });
+
       let priceData = await fetch(
         `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol.toUpperCase()}&tsym=USD&limit=${time}`
       ).then((response) => response.json());
@@ -168,6 +189,56 @@ export const AssetResolver = {
       }
 
       if (data?.priceData) {
+        return data;
+      } else {
+        throw new Error("Asset not found");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  getGeckoAssetDetails: async (_, { symbol, time }) => {
+    try {
+      // console.log({data})
+      let data = {};
+
+      // // How to get details on contracts from erc-20
+      const CoinGeckoClient = new CoinGecko();
+
+      let coinList = await CoinGeckoClient.coins.list();
+
+      let geckoProp = coinList?.data?.filter(
+        (asset) => symbol.toLowerCase() === asset.symbol.toLowerCase()
+      );
+
+
+
+
+      if (geckoProp) {
+        let geckoData = await CoinGeckoClient.coins.fetch(geckoProp[0].id, {
+          market_data: false,
+          localization: false,
+        });
+
+        data = geckoData?.data;
+
+
+        console.log({ geckoProp, data });
+      
+      }
+
+
+      console.log({ geckoProp, data });
+      
+
+      // let zrx = "0xe41d2489571d322189246dafa5ebde1f4699f498";
+      // let contract = await CoinGeckoClient.coins.fetchCoinContractInfo(zrx);
+
+      // console.log({ contract });
+
+
+      if (data) {
         return data;
       } else {
         throw new Error("Asset not found");

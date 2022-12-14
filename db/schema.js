@@ -219,6 +219,56 @@ const typeDefs = gql`
     post_content: String
   }
 
+  type GeckoAssetDetails {
+    id: String
+    symbol: String
+    name: String
+    block_time_in_minutes: Float
+    hashing_algorithm: String
+    categories: [String]
+    genesis_date: String
+    sentiment_votes_up_percentage: Float
+    sentiment_votes_down_percentage: Float
+    market_cap_rank: Float
+    coingecko_rank: Float
+    coingecko_score: Float
+    developer_score: Float
+    community_score: Float
+    liquidity_score: Float
+    public_interest_score: Float
+    description: AssetGeckoDescription
+    community_data: GeckoCommunityData
+    devloper_data: GeckoDeveloperData
+  }
+
+  type AssetGeckoDescription {
+    en: String
+  }
+
+  type GeckoCommunityData {
+    twitter_followers: Float
+    reddit_average_posts_48h: Float
+    reddit_average_comments_48h: Float
+    reddit_subscribers: Float
+    reddit_accounts_active_48h: Float
+    telegram_channel_user_count: Float
+  }
+
+  type GeckoDeveloperData {
+    forks: Float
+    stars: Float
+    subscribers: Float
+    pull_requests_merged: Float
+    pull_request_contributors: Float
+    code_additions_deletions_4_weeks: CodeAdditionType
+    commit_count_4_weeks: Float
+  }
+
+  type CodeAdditionType {
+    additions: Float
+    deletions: Float
+  }
+
   type Query {
     getProducts: [Product]
     getProduct(id: ID!): Product
@@ -226,6 +276,7 @@ const typeDefs = gql`
     getAsset(symbol: String!): [Asset]
     getAssetPairs(symbol: String!): AssetPairResponse
     getAssetHistory(symbol: String!, time: Int): CryptoCompareHistory
+    getGeckoAssetDetails(symbol: String!, time: Int): GeckoAssetDetails
     getAssetFinancialDetails(symbol: String!, time: Int): CryptoCompareHistory
     getUser(email: String): User
     getDifficultyRibbons(symbol: String, cut: Int): [DifficultyRibbonData]
