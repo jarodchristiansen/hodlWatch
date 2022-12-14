@@ -3,7 +3,8 @@ import PortfolioConnector from "../PortfolioConnector";
 const PortfolioMain = () => {
   return (
     <div>
-      PortfolioMain
+      <button>Analytics</button>
+      <button>Time Frame</button>
       <PortfolioConnector />
     </div>
   );

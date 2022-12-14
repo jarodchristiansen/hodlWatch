@@ -17,3 +17,16 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_USER_HOLDINGS = gql`
+  query getUserExchangeData($input: UserExchangeInput) {
+    getUserExchangeData(input: $input) {
+      balances {
+        symbol
+        balance
+        ticker
+        usd
+      }
+    }
+  }
+`;

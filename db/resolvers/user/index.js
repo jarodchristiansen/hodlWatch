@@ -2,6 +2,90 @@ import User from "../../models/user";
 
 export const UserResolver = {
   queries: {
+    getAssetPriceData: async (_, { tickers, exchange_data }) => {
+      if (tickers) {
+        try {
+          const { public_key: publicKey, private_key: privateKey } =
+            exchange_data;
+
+          const ccxt = require("ccxt");
+
+          const exchange = new ccxt.coinbase({
+            apiKey: publicKey,
+            secret: privateKey,
+          });
+
+          let prices = await exchange.fetchTickers(tickers);
+          let assetArray = [];
+
+          if (prices) {
+            for (let i in prices) {
+              assetArray.push({ symbol: i, info: 1 / prices[i].info });
+            }
+          }
+          // prices = prices.map((asset) => {
+          //   console.log({ asset });
+          // });
+
+          return assetArray;
+        } catch (err) {}
+      }
+    },
+    getUserExchangeData: async (_, { input }) => {
+      const {
+        exchangeData,
+        public_key: publicKey,
+        private_key: privateKey,
+      } = input;
+
+      const ccxt = require("ccxt");
+
+      try {
+        const exchange = new ccxt.coinbase({
+          apiKey: publicKey,
+          secret: privateKey,
+        });
+
+        let balance = {};
+        let tickers = [];
+
+        let list = await exchange.fetchBalance();
+
+        balance = Object.entries(list.free)
+          .filter((entry) => entry[1] > 0)
+          .map((entry) => {
+            tickers.push(`${entry[0]}/USD`);
+
+            return {
+              symbol: entry[0],
+              balance: entry[1],
+              ticker: `${entry[0]}/USD`,
+            };
+          });
+
+        let prices = await exchange.fetchTickers(tickers);
+        let assetArray = [];
+
+        if (prices) {
+          for (let i in prices) {
+            assetArray.push({
+              symbol: prices[i].symbol,
+              usd: 1 / prices[i].info,
+            });
+          }
+        }
+
+        const result = balance.map((asset) => ({
+          ...asset,
+          ...assetArray.find((price) => price.symbol === asset.ticker),
+        }));
+
+        return { balances: result };
+      } catch (err) {
+        console.log({ err });
+      }
+    },
+
     getUser: async (_, { email }) => {
       const user = await User.find({ email }).then((res) => res[0].toObject());
 

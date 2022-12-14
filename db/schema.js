@@ -47,7 +47,7 @@ const typeDefs = gql`
     galaxy_score: Float
     volatility: Float
     alt_rank: Float
-    alt_rank_30d: Float
+    alt_rank_3Floatd: Float
     alt_rank_hour_average: Float
     market_cap_rank: Float
     percent_change_24h_rank: Float
@@ -115,7 +115,7 @@ const typeDefs = gql`
     market_cap: Float
     percent_change_24h: Float
     percent_change_7d: Float
-    percent_change_30d: Float
+    percent_change_3Floatd: Float
     volume_24h: Float
     max_supply: Float
     categories: String
@@ -147,12 +147,12 @@ const typeDefs = gql`
     t: Float
     ma128: Float
     ma14: Float
-    ma200: Float
+    ma2FloatFloat: Float
     ma25: Float
-    ma40: Float
-    ma60: Float
+    ma4Float: Float
+    ma6Float: Float
     ma9: Float
-    ma90: Float
+    ma9Float: Float
   }
 
   type NewsFeedEntries {
@@ -219,6 +219,27 @@ const typeDefs = gql`
     post_content: String
   }
 
+  input UserExchangeInput {
+    public_key: String
+    private_key: String
+  }
+
+  type Balance {
+    balances: [BalancesObject]
+  }
+
+  type BalancesObject {
+    symbol: String
+    balance: Float
+    ticker: String
+    usd: Float
+  }
+
+  type PriceObject {
+    symbol: String
+    info: Float
+  }
+
   type GeckoAssetDetails {
     id: String
     symbol: String
@@ -283,6 +304,11 @@ const typeDefs = gql`
     getNewsFeed: [NewsFeedEntries]
     getPost(slug: String): Post
     getPosts(filter: String): [Post]
+    getAssetPriceData(
+      tickers: [String]
+      exchange_data: UserExchangeInput
+    ): [PriceObject]
+    getUserExchangeData(input: UserExchangeInput): Balance
   }
 
   type Mutation {
