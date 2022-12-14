@@ -8,13 +8,14 @@ import {
 } from "../../../helpers/localStorage/index";
 import { currencyFormat } from "../../../helpers/formatters/currency";
 import { MediaQueries } from "../../../styles/MediaQueries";
+import UserHoldingsPieChart from "../../../components/assets/Finance/Charts/UserHoldingsPieChart";
 
 const PortfolioConnector = () => {
   const [publicKeyValue, setPublicKeyValue] = useState("");
   const [privateKeyValue, setPrivateKeyValue] = useState("");
   const [exchangeValue, setExchangeValue] = useState("");
   const [sum, setSum] = useState(0);
-  const [portfolioView, setPortfolioView] = useState("");
+  const [portfolioView, setPortfolioView] = useState("Main");
 
   const [
     fetchUserHoldings,
@@ -48,7 +49,6 @@ const PortfolioConnector = () => {
 
   const submitForm = (evt: React.ChangeEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    console.log({ evt, publicKeyValue, privateKeyValue, exchangeValue });
 
     let userStore = {
       public_key: publicKeyValue,
@@ -64,7 +64,6 @@ const PortfolioConnector = () => {
     let results = GetLocalKeys("Portfolio Connector");
 
     if (results) {
-      console.log(JSON.parse(results));
       let parsedResult = JSON.parse(results);
 
       fetchUserHoldings({
@@ -165,14 +164,37 @@ const PortfolioConnector = () => {
         </FormContainer>
       )}
 
-      {!!HoldingsItems?.length && (
-        <HoldingItemsContainer>
-          <div>
-            <h2>Current Holdings</h2>
-            {sum && <h4>Total Holdings: {currencyFormat(sum)}</h4>}
-          </div>
-          {HoldingsItems}
-        </HoldingItemsContainer>
+      {!!HoldingsItems?.length && portfolioView === "Main" && (
+        <div>
+          <button onClick={() => setPortfolioView("Analytics")}>
+            Analytics
+          </button>
+
+          <HoldingItemsContainer>
+            <div>
+              <h2>Current Holdings</h2>
+              {sum && <h4>Total Holdings: {currencyFormat(sum)}</h4>}
+            </div>
+            {HoldingsItems}
+          </HoldingItemsContainer>
+        </div>
+      )}
+
+      {!!HoldingsItems?.length && portfolioView === "Analytics" && (
+        <div>
+          <button onClick={() => setPortfolioView("Main")}>Main</button>
+
+          <HoldingItemsContainer>
+            <div>
+              <h2>Portolio Analytics</h2>
+              {sum && <h4>Total Holdings: {currencyFormat(sum)}</h4>}
+            </div>
+            {/* {HoldingsItems} */}
+            <div>
+              <UserHoldingsPieChart data={holdingData?.getUserExchangeData?.balances} />
+            </div>
+          </HoldingItemsContainer>
+        </div>
       )}
     </div>
   );
