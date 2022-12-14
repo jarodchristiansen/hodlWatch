@@ -1,7 +1,7 @@
 import Cors from "micro-cors";
 import { ApolloServer, gql } from "apollo-server-micro";
 import typeDefs from "../../db/schema";
-import resolvers from "../../db/resolvers";
+import resolvers from "../../db/resolvers/index";
 import connectDb from "../../db/config";
 
 // import { createContext } from "graphql/context";
