@@ -114,6 +114,19 @@ const PortfolioConnector = () => {
     });
   }, [holdingData?.getUserExchangeData]);
 
+  const analyticsData = useMemo(() => {
+    if (!holdingData?.getUserExchangeData?.balances?.length || !sum) return [];
+
+    return holdingData.getUserExchangeData.balances.map((item) => {
+      return {
+        ...item,
+        relative_value: ((item.balance * item.usd) / sum) * 100,
+      };
+    });
+  }, [holdingData?.getUserExchangeData, sum]);
+
+  console.log({ analyticsData });
+
   return (
     <div>
       {holdingLoading && <div>Loading</div>}
@@ -180,7 +193,7 @@ const PortfolioConnector = () => {
         </div>
       )}
 
-      {!!HoldingsItems?.length && portfolioView === "Analytics" && (
+      {!!analyticsData.length && portfolioView === "Analytics" && (
         <div>
           <button onClick={() => setPortfolioView("Main")}>Main</button>
 
@@ -191,7 +204,7 @@ const PortfolioConnector = () => {
             </div>
             {/* {HoldingsItems} */}
             <div>
-              <UserHoldingsPieChart data={holdingData?.getUserExchangeData?.balances} />
+              <UserHoldingsPieChart data={analyticsData} />
             </div>
           </HoldingItemsContainer>
         </div>
