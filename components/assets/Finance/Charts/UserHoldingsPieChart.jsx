@@ -34,9 +34,9 @@ const UserHoldingsPieChart = ({ data, sum }) => {
             border: "1px solid #cccc",
           }}
         >
-          <label>{`${payload[0].name} : ${payload[0].value.toFixed(
-            2
-          )}%`}</label>
+          <label>{`${payload[0].name} : ${payload[0].value.toFixed(2)}% : $${(
+            payload[0].payload.usd * payload[0].payload.balance
+          ).toFixed(2)}`}</label>
         </div>
       );
     }
