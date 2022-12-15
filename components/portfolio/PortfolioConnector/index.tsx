@@ -16,6 +16,7 @@ const PortfolioConnector = () => {
   const [exchangeValue, setExchangeValue] = useState("");
   const [sum, setSum] = useState(0);
   const [portfolioView, setPortfolioView] = useState("Main");
+  const [holdingSort, setHoldingSort] = useState("");
 
   const [
     fetchUserHoldings,
@@ -87,32 +88,66 @@ const PortfolioConnector = () => {
   const HoldingsItems = useMemo(() => {
     if (!holdingData?.getUserExchangeData?.balances?.length) return [];
 
-    const sum = holdingData.getUserExchangeData.balances.reduce(
+    const tempSum = holdingData.getUserExchangeData.balances.reduce(
       (accumulator, object) => {
         return accumulator + object.usd;
       },
       0
     );
 
-    setSum(sum);
+    setSum(tempSum);
 
-    return holdingData.getUserExchangeData.balances.map((item) => {
+    let initialData = [...holdingData.getUserExchangeData.balances];
+
+    let data;
+
+    console.log({ holdingSort });
+
+    switch (holdingSort) {
+      case "Value":
+        console.log("In Value Sort");
+        data = initialData.sort((a, b) => {
+          let aValue = a.balance * a.usd;
+          let bValue = b.balance * b.usd;
+
+          if (aValue < bValue) {
+            return 1;
+          } else if (bValue < aValue) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+      case "Price":
+        data = initialData.sort((a, b) =>
+          a.usd > b.usd ? 1 : b.usd > a.usd ? -1 : 0
+        );
+      default:
+        data = initialData;
+        break;
+    }
+
+    return data.map((item) => {
       return (
         <div className="holding-item-row">
           <span className="item-symbol">{item.symbol}</span>
 
           <div className="holdings-column">
-            <span>Holdings: {item.balance}</span>
+            <span>Holdings: {item.balance.toFixed(2)}</span>
             <span>Current Price: {currencyFormat(item.usd)}</span>
           </div>
 
           <div className="item-total">
-            {currencyFormat(item.balance * item.usd)}
+            <span>Value: {currencyFormat(item.balance * item.usd)}</span>
+
+            <span>
+              Ratio: {(((item.balance * item.usd) / sum) * 100).toFixed(2)}%
+            </span>
           </div>
         </div>
       );
     });
-  }, [holdingData?.getUserExchangeData]);
+  }, [holdingData?.getUserExchangeData, holdingSort]);
 
   const analyticsData = useMemo(() => {
     if (!holdingData?.getUserExchangeData?.balances?.length || !sum) return [];
@@ -124,8 +159,6 @@ const PortfolioConnector = () => {
       };
     });
   }, [holdingData?.getUserExchangeData, sum]);
-
-  console.log({ analyticsData });
 
   return (
     <div>
@@ -178,8 +211,11 @@ const PortfolioConnector = () => {
       )}
 
       {!!HoldingsItems?.length && portfolioView === "Main" && (
-        <div>
-          <button onClick={() => setPortfolioView("Analytics")}>
+        <ColumnContainer>
+          <button
+            onClick={() => setPortfolioView("Analytics")}
+            className="standardized-button"
+          >
             Analytics
           </button>
 
@@ -187,31 +223,69 @@ const PortfolioConnector = () => {
             <div>
               <h2>Current Holdings</h2>
               {sum && <h4>Total Holdings: {currencyFormat(sum)}</h4>}
+
+              <button onClick={() => setHoldingSort("Value")}>
+                Sort By Value
+              </button>
+              <button onClick={() => setHoldingSort("Price")}>
+                Sort By Price
+              </button>
             </div>
             {HoldingsItems}
           </HoldingItemsContainer>
-        </div>
+        </ColumnContainer>
       )}
 
       {!!analyticsData.length && portfolioView === "Analytics" && (
-        <div>
-          <button onClick={() => setPortfolioView("Main")}>Main</button>
+        <AnalyticsContainer>
+          <button
+            onClick={() => setPortfolioView("Main")}
+            className="standardized-button"
+          >
+            Main
+          </button>
 
-          <HoldingItemsContainer>
+          <div className="holdings-container">
             <div>
-              <h2>Portolio Analytics</h2>
-              {sum && <h4>Total Holdings: {currencyFormat(sum)}</h4>}
+              <UserHoldingsPieChart data={analyticsData} sum={sum} />
             </div>
-            {/* {HoldingsItems} */}
-            <div>
-              <UserHoldingsPieChart data={analyticsData} />
-            </div>
-          </HoldingItemsContainer>
-        </div>
+          </div>
+        </AnalyticsContainer>
       )}
     </div>
   );
 };
+
+const ColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+`;
+
+const AnalyticsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+
+  .holdings-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 12px;
+    box-shadow: 2px 4px 8px gray;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: scroll;
+
+    @media ${MediaQueries.MD} {
+      overflow-y: unset;
+    }
+  }
+`;
 
 const HoldingItemsContainer = styled.div`
   display: flex;
@@ -237,6 +311,7 @@ const HoldingItemsContainer = styled.div`
 
     .item-symbol {
       font-weight: bold;
+      font-size: 14px;
     }
 
     .holdings-column {
@@ -245,6 +320,8 @@ const HoldingItemsContainer = styled.div`
     }
 
     .item-total {
+      display: flex;
+      flex-direction: column;
       font-weight: bold;
     }
   }

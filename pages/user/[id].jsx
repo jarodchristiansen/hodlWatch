@@ -153,7 +153,7 @@ const ProfilePage = () => {
                 <button className="standardized-button" onClick={routeEditUser}>
                   Edit User Profile
                 </button>
-                <button className="standardized-button">Edit Favorites</button>
+                <button className="standardized-button" onClick={routeToPortfolio}>View Portfolio</button>
               </div>
 
               <UserDetailsCard>

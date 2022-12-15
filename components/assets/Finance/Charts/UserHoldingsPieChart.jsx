@@ -1,8 +1,16 @@
-import { Tooltip, PieChart, Pie, Cell, Legend } from "recharts";
+import {
+  Tooltip,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import React from "react";
 import styled from "styled-components";
+import { currencyFormat } from "../../../../helpers/formatters/currency";
 
-const UserHoldingsPieChart = ({ data }) => {
+const UserHoldingsPieChart = ({ data, sum }) => {
   const COLORS = [
     "#8884d8",
     "#82ca9d",
@@ -36,33 +44,37 @@ const UserHoldingsPieChart = ({ data }) => {
 
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div>
         <h1>User Holdings Percentages</h1>
+
+        <span>Total - {currencyFormat(sum)}</span>
       </div>
 
       {data && (
-        <PieChart width={730} height={600}>
-          <Pie
-            data={data}
-            color="#000000"
-            dataKey="relative_value"
-            nameKey="symbol"
-            cx="50%"
-            cy="50%"
-            innerRadius={80}
-            outerRadius={120}
-            fill="#8884d8"
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Tooltip content={CustomToolTip} />
-          <Legend />
-        </PieChart>
+        <ResponsiveContainer width="95%" height={600}>
+          <PieChart>
+            <Pie
+              data={data}
+              color="#000000"
+              dataKey="relative_value"
+              nameKey="symbol"
+              cx="50%"
+              cy="50%"
+              innerRadius={80}
+              outerRadius={120}
+              fill="#8884d8"
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Tooltip content={CustomToolTip} />
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
       )}
     </ChartContainer>
   );
@@ -74,6 +86,7 @@ const ChartContainer = styled.div`
   padding: 1rem 1rem;
   background-color: white;
   box-shadow: 2px 4px 8px lightgray;
+  text-align: center;
 `;
 
 export default UserHoldingsPieChart;
