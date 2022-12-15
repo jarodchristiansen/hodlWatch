@@ -70,15 +70,13 @@ function Header() {
               </Nav.Link>
             )}
 
-            {session && (
-              <Nav.Link eventKey={"4"} role={"link"}>
-                <Link href={`/education`}>
-                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                    {"Education"}
-                  </Navbar.Text>
-                </Link>
-              </Nav.Link>
-            )}
+            <Nav.Link eventKey={"4"} role={"link"}>
+              <Link href={`/education`}>
+                <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
+                  {"Education"}
+                </Navbar.Text>
+              </Link>
+            </Nav.Link>
 
             {/* <Nav.Link eventKey={"3"} role={"link"}>
               <Link href="/education">

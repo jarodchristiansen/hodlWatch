@@ -103,6 +103,36 @@ export const UserResolver = {
     },
   },
   mutations: {
+    addFavorite: async (_, { input }) => {
+      const { asset, email } = input;
+
+      try {
+        let user = await User.findOne({ email });
+
+        if (user) {
+          if (
+            user.favorites.find(
+              (item) =>
+                item?.symbol?.toLowerCase() === asset.symbol.toLowerCase()
+            )
+          ) {
+
+            console.log('ALREADY IN FAVORITES', {user, asset})
+
+            return;
+          }
+
+          console.log('ADDING ASSET', {asset})
+          user.favorites.push(asset);
+
+          user.save();
+        }
+
+        return user;
+      } catch (err) {
+        console.log("Err in addFavorite!!", err);
+      }
+    },
     updateUsername: async (_, { input }) => {
       const { username, email } = input;
 

@@ -12,6 +12,21 @@ import { gql } from "@apollo/client";
 //     }
 //   }
 // `;
+export const ADD_FAVORITE = gql`
+  mutation addFavorite($input: FavoriteInput) {
+    addFavorite(input: $input) {
+      email
+      id
+      name
+      username
+      favorites {
+        title
+        symbol
+        image
+      }
+    }
+  }
+`;
 
 export const UPDATE_USERNAME = gql`
   mutation updateUsername($input: UsernameInput) {

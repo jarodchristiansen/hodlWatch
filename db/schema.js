@@ -143,6 +143,12 @@ const typeDefs = gql`
     image: String
   }
 
+  input FavoritesDataInput {
+    title: String
+    symbol: String
+    image: String
+  }
+
   type DifficultyRibbonData {
     t: Float
     ma128: Float
@@ -290,6 +296,11 @@ const typeDefs = gql`
     deletions: Float
   }
 
+  input FavoriteInput {
+    asset: FavoritesDataInput
+    email: String
+  }
+
   type Query {
     getProducts: [Product]
     getProduct(id: ID!): Product
@@ -313,6 +324,7 @@ const typeDefs = gql`
 
   type Mutation {
     #Products
+    addFavorite(input: FavoriteInput): User
     updateUsername(input: UsernameInput): User
     newProduct(input: ProductInput): Product
     updateProduct(id: ID!, input: ProductInput): Product
