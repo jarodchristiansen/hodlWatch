@@ -13,7 +13,7 @@ import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import PriceScreener from "../../components/commons/screener";
 import EditUserDetails from "../../components/user/edit-user-details";
-import { GET_USER } from "../../helpers/queries/user/getUserAccount";
+import { GET_USER } from "../../helpers/queries/user/index";
 import { Colors } from "../../styles/Colors";
 import { MediaQueries } from "../../styles/MediaQueries";
 import SideMenu from "../../components/commons/sidebar-nav";
@@ -241,9 +241,9 @@ const ProfilePage = () => {
           )}
 
           {viewState === "portfolio" && isUsersProfile && (
-            <>
+            <div>
               <PortfolioMain />
-            </>
+            </div>
           )}
         </div>
       </CentralWrapper>

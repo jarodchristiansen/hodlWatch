@@ -4,21 +4,21 @@ import { ApolloProvider } from "@apollo/client";
 import { Provider } from "next-auth/client";
 import client from "../apollo-client";
 import Layout from "../components/layout/layout";
-import { Web3Modal } from "@web3modal/react";
+// import { Web3Modal } from "@web3modal/react";
 import Script from "next/script";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { pageview } from "../lib/gtag";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-  const config = {
-    projectId: `${process.env.WALLET_CONNECT_ID}`,
-    theme: "dark",
-    accentColor: "default",
-    ethereum: {
-      appName: "web3Modal",
-    },
-  };
+  // const config = {
+  //   projectId: `${process.env.WALLET_CONNECT_ID}`,
+  //   theme: "dark",
+  //   accentColor: "default",
+  //   ethereum: {
+  //     appName: "web3Modal",
+  //   },
+  // };
 
   const router = useRouter();
 
@@ -56,11 +56,12 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         `,
         }}
       />
+
       <Provider session={pageProps.session} store={[]}>
         <ApolloProvider client={client}>
           <Layout>
             <Component {...pageProps} />
-            <Web3Modal config={config} />
+            {/* <Web3Modal config={config} /> */}
           </Layout>
         </ApolloProvider>
       </Provider>
