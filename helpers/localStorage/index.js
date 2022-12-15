@@ -3,7 +3,7 @@ const Cryptr = require("cryptr");
 
 export const StoreLocalKeys = (identity, values) => {
   //TODO: add logic to obfuscate the values passed in/decode
-  const cryptr = new Cryptr(process.env.GITHUB_SECRET);
+  const cryptr = new Cryptr(process.env.NEXT_PUBLIC_SECRET);
 
   const encryptedMessage = cryptr.encrypt(values);
 
@@ -14,7 +14,7 @@ export const StoreLocalKeys = (identity, values) => {
 export const GetLocalKeys = (identity) => {
   //TODO: add logic to obfuscate the values passed in/decode
 
-  const cryptr = new Cryptr(process.env.GITHUB_SECRET);
+  const cryptr = new Cryptr(process.env.NEXT_PUBLIC_SECRET);
 
   let retrieved = cookieCutter.get(identity);
 
