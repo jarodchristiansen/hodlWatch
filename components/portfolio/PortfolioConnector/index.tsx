@@ -67,14 +67,16 @@ const PortfolioConnector = () => {
     if (results) {
       let parsedResult = JSON.parse(results);
 
-      fetchUserHoldings({
-        variables: {
-          input: {
-            private_key: parsedResult.private_key,
-            public_key: parsedResult.public_key,
+      if (!holdingData) {
+        fetchUserHoldings({
+          variables: {
+            input: {
+              private_key: parsedResult.private_key,
+              public_key: parsedResult.public_key,
+            },
           },
-        },
-      });
+        });
+      }
 
       setPrivateKeyValue(parsedResult.private_key);
       setPublicKeyValue(parsedResult.public_key);
@@ -88,12 +90,17 @@ const PortfolioConnector = () => {
   const HoldingsItems = useMemo(() => {
     if (!holdingData?.getUserExchangeData?.balances?.length) return [];
 
-    const tempSum = holdingData.getUserExchangeData.balances.reduce(
-      (accumulator, object) => {
-        return accumulator + object.usd;
-      },
-      0
-    );
+    // const tempSum = holdingData.getUserExchangeData.balances.reduce(
+    //   (accumulator, object) => {
+    //     return accumulator + object.usd;
+    //   },
+    //   0
+    // );
+    let tempSum = 0;
+
+    for (let asset of holdingData.getUserExchangeData.balances) {
+      tempSum += asset.usd;
+    }
 
     setSum(tempSum);
 
@@ -128,6 +135,8 @@ const PortfolioConnector = () => {
     }
 
     return data.map((item) => {
+      let ratio = Math.floor(((item.balance * item.usd) / sum) * 100);
+
       return (
         <div className="holding-item-row">
           <span className="item-symbol">{item.symbol}</span>
@@ -140,9 +149,7 @@ const PortfolioConnector = () => {
           <div className="item-total">
             <span>Value: {currencyFormat(item.balance * item.usd)}</span>
 
-            <span>
-              Ratio: {(((item.balance * item.usd) / sum) * 100).toFixed(2)}%
-            </span>
+            <span>Ratio: {ratio}%</span>
           </div>
         </div>
       );
@@ -210,7 +217,7 @@ const PortfolioConnector = () => {
         </FormContainer>
       )}
 
-      {!!HoldingsItems?.length && portfolioView === "Main" && (
+      {!!HoldingsItems?.length && !holdingLoading && portfolioView === "Main" && (
         <ColumnContainer>
           <button
             onClick={() => setPortfolioView("Analytics")}
