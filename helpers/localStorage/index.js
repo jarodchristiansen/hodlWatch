@@ -7,7 +7,11 @@ export const StoreLocalKeys = (identity, values) => {
 
   const encryptedMessage = cryptr.encrypt(values);
 
-  cookieCutter.set(identity, encryptedMessage);
+  cookieCutter.set(identity, encryptedMessage, {
+    path: "/",
+    maxAge: 2592000,
+    sameSite: true,
+  });
   // localStorage.setItem(identity, values);
 };
 
