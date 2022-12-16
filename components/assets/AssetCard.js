@@ -14,8 +14,6 @@ const AssetCard = ({ asset, email, favorited, refetchFavorites }) => {
 
   const exploreLink = `/assets/${symbol}`;
 
-  console.log({ asset, favorited });
-
   const [addFavorite, { loading, error }] = useMutation(ADD_FAVORITE, {
     // TEMP SOLUTION UNTIL CACHING FIXED
     refetchQueries: [
