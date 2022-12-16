@@ -34,9 +34,6 @@ const AssetsContainer = ({ assets, session }) => {
   }, [assets]);
 
   const ref = useRef();
-  // const isVisible = useOnScreen(ref, "100px");
-
-  console.log({ session });
 
   const AssetCards = useMemo(() => {
     if ((!currentAssets, !userData?.getUser?.favorites)) return [];
@@ -53,27 +50,19 @@ const AssetsContainer = ({ assets, session }) => {
             (e) => e.symbol.toLowerCase() === asset.symbol.toLowerCase()
           )}
           refetchFavorites={() => refetchUser()}
+          data-testid={`asset-card`}
         />
       );
     });
-  }, [currentAssets, userData?.getUser?.favorites]);
+  }, [currentAssets, userData?.getUser?.favorites, dataLoading]);
 
   return (
     <div data-testid={"assets-container"}>
       <div className={"w-100"}>
+        {dataLoading && <span data-testid="data-loading"></span>}
+
         {currentAssets && currentAssets.length > 1 && (
-          <GridComponent ref={ref}>
-            {/* {currentAssets.map((asset) => {
-              return (
-                <AssetCard
-                  asset={asset}
-                  key={asset.id}
-                  email={session?.user?.email}
-                />
-              );
-            })} */}
-            {AssetCards}
-          </GridComponent>
+          <GridComponent ref={ref}>{AssetCards}</GridComponent>
         )}
       </div>
 

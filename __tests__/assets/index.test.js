@@ -4,12 +4,13 @@ import AssetsPage from "../../pages/assets";
 import { MockedProvider } from "@apollo/client/testing";
 // import GET_ASSETS from "../../helpers/queries/assets/getAssets";
 import { GET_ASSETS } from "../../helpers/queries/assets/getAssets";
+import { GET_USER } from "../../helpers/queries/user";
 
 jest.mock("next-auth/client", () => {
   const originalModule = jest.requireActual("next-auth/client");
   const mockSession = {
     expires: new Date(Date.now() + 2 * 86400).toISOString(),
-    user: { username: "admin" },
+    user: { username: "admin", email: "testtesterson@gmail.com" },
   };
   return {
     __esModule: true,
@@ -78,6 +79,7 @@ describe("Assets Page", () => {
   //                   "https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579",
   //                 small:
   //                   "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
+  //                 __typename: "ImageParts",
   //               },
   //             },
   //             {
@@ -89,6 +91,7 @@ describe("Assets Page", () => {
   //                   "https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880",
   //                 small:
   //                   "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
+  //                 __typename: "ImageParts",
   //               },
   //             },
   //           ],
@@ -97,8 +100,46 @@ describe("Assets Page", () => {
   //     },
   //   ];
 
+  //   let userMock = [
+  //     {
+  //       request: {
+  //         query: GET_USER,
+  //         variables: { email: "testtesterson@gmail.com" },
+  //       },
+  //       result: {
+  //         data: {
+  //           getUser: {
+  //             createAt: 167099839030389,
+  //             email: "testtesterson@gmail.com",
+  //             favorites: [
+  //               {
+  //                 title: "Bitcoin",
+  //                 symbol: "BTC",
+  //                 image:
+  //                   "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
+  //                 __typename: "FavoritesData",
+  //               },
+  //               {
+  //                 title: "Astar",
+  //                 symbol: "ASTR",
+  //                 image:
+  //                   "https://assets.coingecko.com/coins/images/22617/small/astr.png?1642314057",
+  //                 __typename: "FavoritesData",
+  //               },
+  //             ],
+  //             image:
+  //               "https://lh3.googleusercontent.com/a/ALm5wu2dED2ID3Xe1yIQqm8bnu9cFWmwSTw7VHb_NEo2=s96-c",
+  //             name: "Test Testerson",
+  //             username: "Tester",
+  //             __typename: "User",
+  //           },
+  //         },
+  //       },
+  //     },
+  //   ];
+
   //   render(
-  //     <MockedProvider mocks={assetMock} addTypename={false}>
+  //     <MockedProvider mocks={[...assetMock, ...userMock]} addTypename={false}>
   //       <AssetsPage />
   //     </MockedProvider>
   //   );

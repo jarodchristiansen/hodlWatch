@@ -7,7 +7,7 @@ import { ADD_FAVORITE, REMOVE_FAVORITE } from "../../helpers/mutations/user";
 import { useMutation } from "@apollo/client";
 import { GET_USER } from "../../helpers/queries/user";
 
-const AssetCard = ({ asset, email, favorited, refetchFavorites }) => {
+const AssetCard = ({ asset, email, favorited }) => {
   const [assetDetails, setAssetDetails] = useState();
   const { title, name, description, symbol, imageUrl, image } = asset;
   const { thumb, small } = image;
@@ -66,7 +66,11 @@ const AssetCard = ({ asset, email, favorited, refetchFavorites }) => {
       <AssetCardWrapper>
         <div className={"card-body py-4 holder"}>
           {!favorited && (
-            <div onClick={addToFavorites} className="favorite-button">
+            <div
+              onClick={addToFavorites}
+              className="favorite-button"
+              data-testid="add-button"
+            >
               <Image
                 src={"/images/empty-star.svg"}
                 className={"pointer-link"}
@@ -76,7 +80,11 @@ const AssetCard = ({ asset, email, favorited, refetchFavorites }) => {
             </div>
           )}
           {favorited && (
-            <div onClick={removeFromFavorites} className="favorite-button">
+            <div
+              onClick={removeFromFavorites}
+              className="favorite-button"
+              data-testid="remove-button"
+            >
               <Image
                 src={"/images/filled-star.svg"}
                 className={"pointer-link"}
