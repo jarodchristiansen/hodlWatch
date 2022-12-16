@@ -9,6 +9,8 @@ import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracem
 import { FormatUnixTime } from "../../../helpers/formatters/time";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import PriceBTCChartDesktop from "./Charts/Desktop/PriceBTCChartDesktop";
+import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
+import BollingerBandChart from "./Charts/Desktop/BollingerBandChartDesktop";
 
 const FinancialAccordion = ({ financialData, id }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -93,6 +95,15 @@ const FinancialAccordion = ({ financialData, id }) => {
           key="fib-chart"
         />
       ),
+
+      // !!filteredData?.closes?.length && (
+      //   <BollingerBandChart data={filteredData?.closes} key="bband-chart" />
+      // ),
+
+      !!filteredData?.closes?.length && (
+        <EMAChartDesktop data={filteredData?.closes} key="ema-chart" />
+      ),
+
       !!filteredData?.market_dominance?.length && (
         <MarketDominanceChartDesktop
           data={filteredData?.market_dominance}
