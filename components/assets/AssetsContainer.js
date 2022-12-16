@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import useOnScreen from "../../helpers/hooks/useOnScreen";
 import AssetCard from "./AssetCard";
 import styled from "styled-components";
 import { useLazyQuery } from "@apollo/client";

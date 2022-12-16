@@ -1,7 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import { GET_USER } from "../../helpers/queries/user";
-import { sessionMock } from "../../next-auth/sessionMock";
 import AssetCard from "./AssetCard";
 import AssetsContainer from "./AssetsContainer";
 
