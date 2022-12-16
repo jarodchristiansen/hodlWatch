@@ -28,6 +28,7 @@ import rehypeRaw from "rehype-raw";
 const AssetDetailsPage = ({ deviceType }) => {
   const [assetFinancials, setAssetFinancials] = useState();
   const [timeQuery, setTimeQuery] = useState(14);
+  const [isMarkdownOpen, setIsMarkdownOpen] = useState(true);
 
   const router = useRouter();
   let id = router.query.id;
@@ -68,6 +69,15 @@ const AssetDetailsPage = ({ deviceType }) => {
 
     return (
       <AssetDetailsRow>
+        {!!data?.description?.en && (
+          <button
+            className="standardized-button"
+            onClick={() => setIsMarkdownOpen(!isMarkdownOpen)}
+          >
+            {isMarkdownOpen ? "Close" : "Open"} Description
+          </button>
+        )}
+
         <div className="top-row">
           <div>
             <h5>Name</h5>
@@ -80,7 +90,7 @@ const AssetDetailsPage = ({ deviceType }) => {
           </div>
         </div>
 
-        <div className="bottom-row">
+        <div className="mid-row">
           <div>
             <h5>Geneis Date</h5>
             <span>{data?.genesis_date}</span>
@@ -116,19 +126,21 @@ const AssetDetailsPage = ({ deviceType }) => {
               {data?.sentiment_votes_up_percentage + "%"}
             </span>
           </div>
+        </div>
 
-          {/* <div>
+        {!!data?.description?.en && isMarkdownOpen && (
+          <div className="bottom-row">
             <ReactMarkdown
-              children={data?.description}
+              children={data?.description?.en}
               remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
               rehypePlugins={[rehypeRaw]}
               // key={markdownPiece + Math.random()}
             />
-          </div> */}
-        </div>
+          </div>
+        )}
       </AssetDetailsRow>
     );
-  }, [GeckoDetails?.getGeckoAssetDetails]);
+  }, [GeckoDetails?.getGeckoAssetDetails, isMarkdownOpen]);
 
   return (
     <AssetDetailsPageContainer>
@@ -213,10 +225,15 @@ const AssetDetailsRow = styled.div`
   gap: 1rem;
   width: 100%;
   max-width: 70rem;
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 12px;
   border: 1px solid gray;
   margin: 1rem;
+
+  button {
+    max-width: 25rem;
+    margin: auto;
+  }
 
   .top-row {
     display: flex;
@@ -231,17 +248,17 @@ const AssetDetailsRow = styled.div`
     }
   }
 
-  .bottom-row {
+  .mid-row {
     display: flex;
     gap: 1rem;
     overflow-x: scroll;
     padding-right: 1rem;
+    text-align: center;
+    justify-content: space-between;
 
     div {
       display: flex;
       flex-direction: column;
-      text-align: center;
-      justify-content: center;
     }
 
     .positive {
@@ -259,6 +276,10 @@ const AssetDetailsRow = styled.div`
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
     }
+  }
+
+  .bottom-row {
+    text-align: center;
   }
 `;
 

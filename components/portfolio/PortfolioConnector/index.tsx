@@ -113,22 +113,15 @@ const PortfolioConnector = () => {
     switch (holdingSort) {
       case "Value":
         console.log("In Value Sort");
-        data = initialData.sort((a, b) => {
-          let aValue = a.balance * a.usd;
-          let bValue = b.balance * b.usd;
-
-          if (aValue < bValue) {
-            return 1;
-          } else if (bValue < aValue) {
-            return -1;
-          } else {
-            return 0;
-          }
-        });
+        data = initialData.sort(
+          (a, b) => a.balance * a.usd - b.balance * b.usd
+        );
+        break;
       case "Price":
         data = initialData.sort((a, b) =>
           a.usd > b.usd ? 1 : b.usd > a.usd ? -1 : 0
         );
+        break;
       default:
         data = initialData;
         break;
@@ -231,10 +224,25 @@ const PortfolioConnector = () => {
               <h2>Current Holdings</h2>
               {sum && <h4>Total Holdings: {currencyFormat(sum)}</h4>}
 
-              <button onClick={() => setHoldingSort("Value")}>
+              <button
+                onClick={() => setHoldingSort("Value")}
+                className="standardized-button"
+              >
                 Sort By Value
+                {/* <span>
+                  <span>&uarr;</span>
+                </span>
+               */}
+                {/* <span>
+                  <span>&#8595;</span>
+                </span>
+               */}
               </button>
-              <button onClick={() => setHoldingSort("Price")}>
+
+              <button
+                onClick={() => setHoldingSort("Price")}
+                className="standardized-button"
+              >
                 Sort By Price
               </button>
             </div>

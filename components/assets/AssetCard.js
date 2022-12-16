@@ -3,18 +3,44 @@ import Link from "next/link";
 import { Image } from "react-bootstrap";
 import AssetCardAnimationWrapper from "./AssetCardAnimationWrapper";
 import styled from "styled-components";
+import { ADD_FAVORITE } from "../../helpers/mutations/user";
+import { useMutation } from "@apollo/client";
 
-const AssetCard = ({ asset }) => {
+const AssetCard = ({ asset, email, favorited, refetchFavorites }) => {
   const [assetDetails, setAssetDetails] = useState();
   const { title, name, description, symbol, imageUrl, image } = asset;
   const { thumb, small } = image;
 
   const exploreLink = `/assets/${symbol}`;
 
+  console.log({ asset, favorited });
+
+  const [addFavorite, { loading, error }] = useMutation(ADD_FAVORITE);
+
+  const addToFavorites = () => {
+    addFavorite({
+      variables: {
+        input: {
+          email,
+          asset: {
+            title: asset.name,
+            symbol: symbol.toUpperCase(),
+            image: image.small,
+          },
+        },
+      },
+    });
+
+    refetchFavorites();
+  };
+
   return (
     <AssetCardAnimationWrapper>
       <AssetCardWrapper>
         <div className={"card-body py-4"}>
+          {!favorited && <button onClick={addToFavorites}>Fav</button>}
+          {favorited && <button onClick={addToFavorites}>Remove</button>}
+
           <h4 className="card-title">{title || name || "Card Title"}</h4>
 
           <h6 className="card-subtitle my-2 text-muted">

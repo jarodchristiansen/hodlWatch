@@ -6,7 +6,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 import { currencyFormat } from "../../../../helpers/formatters/currency";
 
@@ -42,6 +42,16 @@ const UserHoldingsPieChart = ({ data, sum }) => {
     }
   };
 
+  const formattedData = useMemo(() => {
+    if (!data.length) return [];
+
+    let dataCopy = [
+      ...data.sort((a, b) => a.relative_value - b.relative_value),
+    ];
+
+    return dataCopy;
+  }, [data]);
+
   return (
     <ChartContainer>
       <div>
@@ -50,11 +60,11 @@ const UserHoldingsPieChart = ({ data, sum }) => {
         <span>Total - {currencyFormat(sum)}</span>
       </div>
 
-      {data && (
+      {!!formattedData.length && (
         <ResponsiveContainer width="95%" height={600}>
           <PieChart>
             <Pie
-              data={data}
+              data={formattedData}
               color="#000000"
               dataKey="relative_value"
               nameKey="symbol"

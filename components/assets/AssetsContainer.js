@@ -1,10 +1,33 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import useOnScreen from "../../helpers/hooks/useOnScreen";
 import AssetCard from "./AssetCard";
 import styled from "styled-components";
+import { useLazyQuery } from "@apollo/client";
+import { GET_USER } from "../../helpers/queries/user";
 
-const AssetsContainer = ({ assets }) => {
+const AssetsContainer = ({ assets, session }) => {
   const [currentAssets, setCurrentAssets] = useState(assets || null);
+
+  const [
+    fetchUserDetails,
+    {
+      data: userData,
+      loading: dataLoading,
+      error: userError,
+      refetch: refetchUser,
+    },
+  ] = useLazyQuery(GET_USER, {
+    variables: {
+      email: session?.user?.email,
+    },
+    fetchPolicy: "network-only",
+  });
+
+  useEffect(() => {
+    if (session?.user?.email) {
+      fetchUserDetails();
+    }
+  }, [session?.user?.email]);
 
   useEffect(() => {
     setCurrentAssets(assets);
@@ -13,20 +36,57 @@ const AssetsContainer = ({ assets }) => {
   const ref = useRef();
   // const isVisible = useOnScreen(ref, "100px");
 
+  console.log({ session });
+
+  const AssetCards = useMemo(() => {
+    if ((!currentAssets, !userData?.getUser?.favorites)) return [];
+
+    let favorites = userData?.getUser?.favorites;
+
+    return currentAssets.map((asset) => {
+      return (
+        <AssetCard
+          asset={asset}
+          key={asset.id}
+          email={session?.user?.email}
+          favorited={favorites.some(
+            (e) => e.symbol.toLowerCase() === asset.symbol.toLowerCase()
+          )}
+          refetchFavorites={() => refetchUser()}
+        />
+      );
+    });
+  }, [currentAssets, userData?.getUser?.favorites]);
+
   return (
     <div data-testid={"assets-container"}>
       <div className={"w-100"}>
         {currentAssets && currentAssets.length > 1 && (
           <GridComponent ref={ref}>
-            {currentAssets.map((asset) => {
-              return <AssetCard asset={asset} key={asset.id} />;
-            })}
+            {/* {currentAssets.map((asset) => {
+              return (
+                <AssetCard
+                  asset={asset}
+                  key={asset.id}
+                  email={session?.user?.email}
+                />
+              );
+            })} */}
+            {AssetCards}
           </GridComponent>
         )}
       </div>
 
       {currentAssets && currentAssets.length === 1 && (
-        <AssetCard asset={currentAssets[0]} />
+        <AssetCard
+          asset={currentAssets[0]}
+          email={session?.user?.email}
+          favorited={userData?.getUser?.favorites.some(
+            (e) =>
+              e.symbol.toLowerCase() === currentAssets[0].symbol.toLowerCase()
+          )}
+          refetchFavorites={() => refetchUser()}
+        />
       )}
     </div>
   );

@@ -74,8 +74,8 @@ const PostRow = styled.div`
 `;
 
 const PageHolder = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  /* flex-direction: column; */
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -99,7 +99,8 @@ const PageHolder = styled.div`
       gap: 4rem;
 
       @media ${MediaQueries.MD} {
-        width: 90%;
+        width: 100%;
+        max-width: 50rem;
         margin-top: 3rem;
       }
     }
@@ -121,21 +122,21 @@ const PageHolder = styled.div`
   }
 `;
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
+// export async function getServerSideProps(context) {
+//   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth",
-        permanent: false,
-      },
-    };
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/auth",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: { session },
-  };
-}
+//   return {
+//     props: { session },
+//   };
+// }
 
 export default EducationPage;

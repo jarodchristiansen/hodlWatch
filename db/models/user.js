@@ -31,7 +31,7 @@ const UsersSchema = new Schema({
     default: Date.now(),
   },
   favorites: {
-    type: [{ title: String, symbo: String, image: String }],
+    type: [{ title: String, symbol: String, image: String }],
     default: [],
   },
 });

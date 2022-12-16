@@ -10,9 +10,10 @@ import PriceScreener from "../../components/commons/screener";
 import SearchForm from "../../components/forms/SearchForm/SearchForm";
 import GET_ASSET from "../../helpers/queries/assets/getAsset";
 import { GET_ASSETS } from "../../helpers/queries/assets/getAssets";
+import { GET_USER } from "../../helpers/queries/user";
 import { MediaQueries } from "../../styles/MediaQueries";
 
-const AssetsPage = () => {
+const AssetsPage = ({ userSession: session }) => {
   const [offsetState, setOffsetState] = useState(1);
   const [limitState, setLimitState] = useState(9);
   // const { session, status } = useSession();
@@ -25,6 +26,7 @@ const AssetsPage = () => {
       },
       fetchPolicy: "cache-and-network",
     });
+
   const [assetData, setAssetData] = useState(data);
   const [getAsset] = useLazyQuery(GET_ASSET);
   const [queryValue, setQueryValue] = useState("");
@@ -62,6 +64,7 @@ const AssetsPage = () => {
         <AssetContainerWrapper>
           <AssetsContainer
             assets={assetData || data?.getAssets}
+            session={session}
             // loadMore={loadMoreFunction}
           />
         </AssetContainerWrapper>
@@ -177,7 +180,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { session },
+    props: { userSession: session },
   };
 }
 
