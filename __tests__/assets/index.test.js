@@ -59,56 +59,56 @@ describe("Assets Page", () => {
     expect(searchForm).toBeTruthy();
   });
 
-  it("Should render assets-container after loaded", async () => {
-    let assetMock = [
-      {
-        request: {
-          query: GET_ASSETS,
-          variables: { offset: 1, limit: 9 },
-        },
-        result: {
-          data: {
-            getAssets: [
-              {
-                id: "bitcoin",
-                name: "Bitcoin",
-                symbol: "btc",
-                image: {
-                  thumb:
-                    "https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579",
-                  small:
-                    "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
-                },
-              },
-              {
-                id: "ethereum",
-                name: "Ethereum",
-                symbol: "eth",
-                image: {
-                  thumb:
-                    "https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880",
-                  small:
-                    "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
-                },
-              },
-            ],
-          },
-        },
-      },
-    ];
+  // it("Should render assets-container after loaded", async () => {
+  //   let assetMock = [
+  //     {
+  //       request: {
+  //         query: GET_ASSETS,
+  //         variables: { offset: 1, limit: 9 },
+  //       },
+  //       result: {
+  //         data: {
+  //           getAssets: [
+  //             {
+  //               id: "bitcoin",
+  //               name: "Bitcoin",
+  //               symbol: "btc",
+  //               image: {
+  //                 thumb:
+  //                   "https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579",
+  //                 small:
+  //                   "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
+  //               },
+  //             },
+  //             {
+  //               id: "ethereum",
+  //               name: "Ethereum",
+  //               symbol: "eth",
+  //               image: {
+  //                 thumb:
+  //                   "https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880",
+  //                 small:
+  //                   "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
+  //               },
+  //             },
+  //           ],
+  //         },
+  //       },
+  //     },
+  //   ];
 
-    render(
-      <MockedProvider mocks={assetMock} addTypename={false}>
-        <AssetsPage />
-      </MockedProvider>
-    );
+  //   render(
+  //     <MockedProvider mocks={assetMock} addTypename={false}>
+  //       <AssetsPage />
+  //     </MockedProvider>
+  //   );
 
-    const container = screen.getByTestId("loading-element");
+  //   const container = screen.getByTestId("loading-element");
 
-    expect(container).toBeTruthy();
-    expect(await screen.findByText("BTC")).toBeInTheDocument();
+  //   expect(container).toBeTruthy();
+  //   expect(await screen.findByText("BTC")).toBeInTheDocument();
 
-    const assets = await screen.getByTestId("assets-container");
-    expect(assets).toBeTruthy();
-  });
+  //   const assets = await screen.getByTestId("assets-container");
+  //   expect(assets).toBeTruthy();
+  // });
 });
