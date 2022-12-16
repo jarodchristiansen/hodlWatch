@@ -3,8 +3,9 @@ import Link from "next/link";
 import { Image } from "react-bootstrap";
 import AssetCardAnimationWrapper from "./AssetCardAnimationWrapper";
 import styled from "styled-components";
-import { ADD_FAVORITE } from "../../helpers/mutations/user";
+import { ADD_FAVORITE, REMOVE_FAVORITE } from "../../helpers/mutations/user";
 import { useMutation } from "@apollo/client";
+import { GET_USER } from "../../helpers/queries/user";
 
 const AssetCard = ({ asset, email, favorited, refetchFavorites }) => {
   const [assetDetails, setAssetDetails] = useState();
@@ -15,7 +16,37 @@ const AssetCard = ({ asset, email, favorited, refetchFavorites }) => {
 
   console.log({ asset, favorited });
 
-  const [addFavorite, { loading, error }] = useMutation(ADD_FAVORITE);
+  const [addFavorite, { loading, error }] = useMutation(ADD_FAVORITE, {
+    // TEMP SOLUTION UNTIL CACHING FIXED
+    refetchQueries: [
+      { query: GET_USER, variables: { email: email } },
+      "getUser",
+    ],
+  });
+
+  const [removeFavorite, { loading: removeLoading, error: removeError }] =
+    useMutation(REMOVE_FAVORITE, {
+      // TEMP SOLUTION UNTIL CACHING FIXED
+      refetchQueries: [
+        { query: GET_USER, variables: { email: email } },
+        "getUser",
+      ],
+    });
+
+  const removeFromFavorites = () => {
+    removeFavorite({
+      variables: {
+        input: {
+          email,
+          asset: {
+            title: asset.name,
+            symbol: symbol.toUpperCase(),
+            image: image.small,
+          },
+        },
+      },
+    });
+  };
 
   const addToFavorites = () => {
     addFavorite({
@@ -30,16 +61,33 @@ const AssetCard = ({ asset, email, favorited, refetchFavorites }) => {
         },
       },
     });
-
-    refetchFavorites();
   };
 
   return (
     <AssetCardAnimationWrapper>
       <AssetCardWrapper>
-        <div className={"card-body py-4"}>
-          {!favorited && <button onClick={addToFavorites}>Fav</button>}
-          {favorited && <button onClick={addToFavorites}>Remove</button>}
+        <div className={"card-body py-4 holder"}>
+          {!favorited && (
+            <div onClick={addToFavorites} className="favorite-button">
+              <Image
+                src={"/images/empty-star.svg"}
+                className={"pointer-link"}
+                height={"40px"}
+                width={"40px"}
+              />
+            </div>
+          )}
+          {favorited && (
+            <div onClick={removeFromFavorites} className="favorite-button">
+              <Image
+                src={"/images/filled-star.svg"}
+                className={"pointer-link"}
+                height={"40px"}
+                width={"40px"}
+                alt="block-logo"
+              />
+            </div>
+          )}
 
           <h4 className="card-title">{title || name || "Card Title"}</h4>
 
@@ -72,6 +120,16 @@ const AssetCardWrapper = styled.div`
   text-align: center;
   margin: 1rem 0;
   box-shadow: 2px 4px 8px gray;
+
+  .holder {
+    position: relative;
+  }
+
+  .favorite-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
 `;
 
 export default AssetCard;

@@ -324,6 +324,7 @@ const typeDefs = gql`
 
   type Mutation {
     #Products
+    removeFavorite(input: FavoriteInput): User
     addFavorite(input: FavoriteInput): User
     updateUsername(input: UsernameInput): User
     newProduct(input: ProductInput): Product

@@ -103,6 +103,34 @@ export const UserResolver = {
     },
   },
   mutations: {
+    removeFavorite: async (_, { input }) => {
+      const { asset, email } = input;
+
+      try {
+        let user = await User.findOne({ email });
+
+        if (user) {
+          if (
+            user.favorites.find(
+              (item) =>
+                item?.symbol?.toLowerCase() === asset.symbol.toLowerCase()
+            )
+          ) {
+            user.favorites = user.favorites.filter(function (item) {
+              return item?.symbol?.toLowerCase() !== asset.symbol.toLowerCase();
+            });
+
+            user.save();
+
+            return user;
+          }
+        }
+        return "user not found";
+      } catch (err) {
+        console.log("Err in removeFavorite!!", err);
+      }
+    },
+
     addFavorite: async (_, { input }) => {
       const { asset, email } = input;
 
@@ -116,13 +144,12 @@ export const UserResolver = {
                 item?.symbol?.toLowerCase() === asset.symbol.toLowerCase()
             )
           ) {
-
-            console.log('ALREADY IN FAVORITES', {user, asset})
+            console.log("ALREADY IN FAVORITES", { user, asset });
 
             return;
           }
 
-          console.log('ADDING ASSET', {asset})
+          console.log("ADDING ASSET", { asset });
           user.favorites.push(asset);
 
           user.save();

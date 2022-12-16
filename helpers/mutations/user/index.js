@@ -12,6 +12,24 @@ import { gql } from "@apollo/client";
 //     }
 //   }
 // `;
+
+// Condense the below 2 mutations into 1 query/resolver
+export const REMOVE_FAVORITE = gql`
+  mutation removeFavorite($input: FavoriteInput) {
+    removeFavorite(input: $input) {
+      email
+      id
+      name
+      username
+      favorites {
+        title
+        symbol
+        image
+      }
+    }
+  }
+`;
+
 export const ADD_FAVORITE = gql`
   mutation addFavorite($input: FavoriteInput) {
     addFavorite(input: $input) {
