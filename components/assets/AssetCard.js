@@ -12,7 +12,10 @@ const AssetCard = ({ asset, email, favorited }) => {
   const { title, name, description, symbol, imageUrl, image } = asset;
   const { thumb, small } = image;
 
-  const exploreLink = `/assets/${symbol}`;
+  const exploreLink = {
+    pathname: `/assets/${symbol}`,
+    query: { name },
+  };
 
   const [addFavorite, { loading, error }] = useMutation(ADD_FAVORITE, {
     // TEMP SOLUTION UNTIL CACHING FIXED
@@ -110,7 +113,7 @@ const AssetCard = ({ asset, email, favorited }) => {
             />
           </div>
 
-          <Link href={exploreLink}>
+          <Link href={exploreLink} as={`/assets/${symbol}?name=${name}`}>
             <button className={"standardized-button my-2"}>Explore</button>
           </Link>
         </div>

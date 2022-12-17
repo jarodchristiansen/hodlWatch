@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { MediaQueries } from "../../styles/MediaQueries";
 import RelatedPostsRow from "../../components/posts/RelatedPosts";
 import { useSession, getSession } from "next-auth/client";
+import PriceScreener from "../../components/commons/screener";
 
 const EducationPage = () => {
   const [getPosts, { data, loading: newsLoading, error, called, refetch }] =
@@ -45,17 +46,26 @@ const EducationPage = () => {
   }, [data?.getPosts]);
 
   return (
-    <PageHolder>
-      {data?.getPosts && (
-        <div className="top-row">
-          <div className="left-card">{PostCards}</div>
+    <div>
+      <PriceScreener />
+      <PageHolder>
+        {data?.getPosts && (
+          <div>
+            <div className="top-row">
+              <div className="left-card">
+                {PostCards}
 
-          <div className="right-card">
-            <RelatedPostsRow tempPost={data.getPosts[0]} />
+                {PostCards}
+              </div>
+            </div>
+
+            <div className="right-card">
+              <RelatedPostsRow tempPost={data.getPosts[0]} />
+            </div>
           </div>
-        </div>
-      )}
-    </PageHolder>
+        )}
+      </PageHolder>
+    </div>
   );
 };
 
@@ -65,7 +75,10 @@ const PostRow = styled.div`
   padding: 2rem;
   text-align: center;
   border: 2px solid black;
+  border-radius: 12px;
+  box-shadow: 2px 4px 8px lightgray;
   gap: 1rem;
+  margin: 1rem;
 
   span {
     color: gray;
@@ -75,10 +88,7 @@ const PostRow = styled.div`
 
 const PageHolder = styled.div`
   display: grid;
-  /* flex-direction: column; */
   width: 100%;
-  justify-content: center;
-  align-items: center;
   padding: 2rem 0;
 
   .top-row {
@@ -94,30 +104,21 @@ const PageHolder = styled.div`
     }
 
     .left-card {
-      display: flex;
-      flex-direction: column;
-      gap: 4rem;
-
-      @media ${MediaQueries.MD} {
-        width: 100%;
-        max-width: 50rem;
-        margin-top: 3rem;
-      }
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      column-gap: 2rem;
     }
+  }
 
-    .right-card {
-      border: 2px solid black;
-      text-align: center;
-      margin-bottom: auto;
+  .right-card {
+    justify-content: center;
+    max-width: 28.5rem;
+    margin: auto;
 
-      h4 {
-        padding: 1rem;
-      }
-
-      @media ${MediaQueries.MD} {
-        max-width: 27%;
-        margin-top: 3rem;
-      }
+    @media ${MediaQueries.MD} {
+      max-width: 38.5rem;
     }
   }
 `;

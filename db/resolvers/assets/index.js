@@ -198,7 +198,7 @@ export const AssetResolver = {
     }
   },
 
-  getGeckoAssetDetails: async (_, { symbol, time }) => {
+  getGeckoAssetDetails: async (_, { name, time }) => {
     try {
       // console.log({data})
       let data = {};
@@ -209,11 +209,8 @@ export const AssetResolver = {
       let coinList = await CoinGeckoClient.coins.list();
 
       let geckoProp = coinList?.data?.filter(
-        (asset) => symbol.toLowerCase() === asset.symbol.toLowerCase()
+        (asset) => name.toLowerCase() === asset.name.toLowerCase()
       );
-
-
-
 
       if (geckoProp) {
         let geckoData = await CoinGeckoClient.coins.fetch(geckoProp[0].id, {
@@ -223,20 +220,13 @@ export const AssetResolver = {
 
         data = geckoData?.data;
 
-
         console.log({ geckoProp, data });
-      
       }
-
-
-      console.log({ geckoProp, data });
-      
 
       // let zrx = "0xe41d2489571d322189246dafa5ebde1f4699f498";
       // let contract = await CoinGeckoClient.coins.fetchCoinContractInfo(zrx);
 
       // console.log({ contract });
-
 
       if (data) {
         return data;

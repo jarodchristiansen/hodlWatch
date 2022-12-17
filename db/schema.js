@@ -308,7 +308,7 @@ const typeDefs = gql`
     getAsset(symbol: String!): [Asset]
     getAssetPairs(symbol: String!): AssetPairResponse
     getAssetHistory(symbol: String!, time: Int): CryptoCompareHistory
-    getGeckoAssetDetails(symbol: String!, time: Int): GeckoAssetDetails
+    getGeckoAssetDetails(name: String!, time: Int): GeckoAssetDetails
     getAssetFinancialDetails(symbol: String!, time: Int): CryptoCompareHistory
     getUser(email: String): User
     getDifficultyRibbons(symbol: String, cut: Int): [DifficultyRibbonData]

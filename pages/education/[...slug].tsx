@@ -14,6 +14,7 @@ import { Colors } from "../../styles/Colors";
 import Head from "next/head";
 import client from "../../apollo-client";
 import { useRouter } from "next/router";
+import { FaFacebook, FaTwitter } from "react-icons/fa";
 
 const EducationArticle = ({ data }) => {
   const headerImage = useMemo(() => {
@@ -180,13 +181,45 @@ const EducationArticle = ({ data }) => {
 
         <InterstitialPlaceholder>
           CTA Placholder at bottom if no other at bottom
-          <button onClick={shareToFacebook}>FB Share</button>
-          <button onClick={shareToTwitter}>Twitter Share</button>
         </InterstitialPlaceholder>
+
+        <div className="share-button-container">
+          <ProviderButton onClick={shareToFacebook}>
+            <div className="button-content">
+              <FaFacebook size={28} data-testid="login-facebook" />
+            </div>
+          </ProviderButton>
+
+          <ProviderButton onClick={shareToTwitter}>
+            <div className="button-content">
+              <FaTwitter size={28} data-testid="login-twitter" />
+            </div>
+          </ProviderButton>
+        </div>
       </ContentContainer>
     </div>
   );
 };
+
+const ProviderButton = styled.button`
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  border: 2px solid black;
+  box-shadow: 2px 4px 8px gray;
+
+  .button-content {
+    display: flex;
+    white-space: nowrap;
+    gap: 1rem;
+    padding: 0.5rem 0.5rem;
+  }
+
+  :hover {
+    background-color: white;
+    color: black;
+  }
+`;
 
 const BackButton = styled.div`
   position: absolute;
@@ -217,6 +250,11 @@ const ContentContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 2rem 0;
+
+  .share-button-container {
+    display: flex;
+    gap: 1rem;
+  }
 
   .top-row {
     width: 100%;
@@ -267,12 +305,14 @@ const MarkdownContainer = styled.div`
   display: flex;
   flex-direction: column;
   border: 2px solid black;
+  border-radius: 12px;
   padding: 1rem;
   justify-content: center;
   margin-top: 2rem;
 
   a {
     color: blue;
+    text-decoration: underline;
   }
 
   h1,
@@ -290,6 +330,7 @@ const MarkdownContainer = styled.div`
 
   @media ${MediaQueries.MD} {
     border: unset;
+    border-radius: unset;
   }
 `;
 

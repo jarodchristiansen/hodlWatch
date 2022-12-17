@@ -2,13 +2,16 @@ import Link from "next/link";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useSession, signIn, signOut } from "next-auth/client";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import styled from "styled-components";
 
 function Header() {
   const [session, loading, status] = useSession();
+  const [selectedRoute, setSelectedRoute] = useState();
 
   const router = useRouter();
+  const { asPath } = router;
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -16,15 +19,95 @@ function Header() {
   };
   const handleSignout = (e) => {
     e.preventDefault();
+    setSelectedRoute("");
     signOut();
+  };
+
+  const handleSelect = (selectedKey) => {
+    setSelectedRoute(selectedKey);
   };
 
   let id = session?.user?.id;
 
+  const routes = [
+    { key: 1, route: "/assets", guarded: true, text: "Assets" },
+    { key: 2, route: `/user/${id}`, guarded: true, text: "Profile" },
+    { key: 3, route: "/news", guarded: true, text: "News" },
+    { key: 4, route: "/education", guarded: false, text: "Education" },
+    !session && {
+      key: 5,
+      route: "/auth?path=SignIn",
+      guarded: false,
+      text: "Sign In",
+    },
+  ];
+
+  useEffect(() => {
+    setRouterAsPath();
+  }, [asPath]);
+
+  const setRouterAsPath = () => {
+    let matchingRoute = routes.filter((item) => asPath.includes(item.route));
+
+    if (matchingRoute.length) {
+      setSelectedRoute(matchingRoute[0].key);
+    }
+  };
+
+  const routeObjects = useMemo(() => {
+    if (!routes?.length) return [];
+
+    return routes.map((route) => {
+      if (!route?.key) return;
+
+      return (
+        <>
+          {!!route.guarded && !!session && (
+            <Nav.Link eventKey={route.key.toString()} role={"link"}>
+              <TextContainer>
+                <Link href={route.route}>
+                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
+                    {route.text}
+                  </Navbar.Text>
+                </Link>
+
+                {selectedRoute == route.key && (
+                  <span className="active-underline-span"></span>
+                )}
+              </TextContainer>
+            </Nav.Link>
+          )}
+
+          {!route.guarded && (
+            <Nav.Link eventKey={route.key.toString()} role={"link"}>
+              <TextContainer>
+                <Link href={route.route}>
+                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
+                    {route.text}
+                  </Navbar.Text>
+                </Link>
+
+                {selectedRoute == route.key && (
+                  <span className="active-underline-span"></span>
+                )}
+              </TextContainer>
+            </Nav.Link>
+          )}
+        </>
+      );
+    });
+  }, [routes?.length, session, selectedRoute]);
+
   return (
-    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="light"
+      variant="light"
+      onSelect={handleSelect}
+    >
       <Container>
-        <Navbar.Brand>
+        <Navbar.Brand onClick={() => setSelectedRoute("")}>
           <Link href={"/"} passHref>
             <a>
               <Image
@@ -39,95 +122,23 @@ function Header() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            {session && (
-              <Nav.Link eventKey={"1"} role={"link"}>
-                <Link href="/assets">
-                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                    Assets
-                  </Navbar.Text>
-                </Link>
-              </Nav.Link>
-            )}
+          {routeObjects}
 
-            {session && (
-              <Nav.Link eventKey={"2"} role={"link"}>
-                <Link href={`/user/${id}`}>
-                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                    {"Profile"}
-                  </Navbar.Text>
-                </Link>
-              </Nav.Link>
-            )}
-
-            {session && (
-              <Nav.Link eventKey={"3"} role={"link"}>
-                <Link href={`/news`}>
-                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                    {"Newsfeed"}
-                  </Navbar.Text>
-                </Link>
-              </Nav.Link>
-            )}
-
-            <Nav.Link eventKey={"4"} role={"link"}>
-              <Link href={`/education`}>
-                <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                  {"Education"}
-                </Navbar.Text>
-              </Link>
+          {session && (
+            <Nav.Link
+              eventKey={"5"}
+              role={"link"}
+              onClick={handleSignout}
+              className={"pointer-link fw-bold"}
+            >
+              <SignOutSpan>{"Sign Out"}</SignOutSpan>
             </Nav.Link>
+          )}
 
-            {/* <Nav.Link eventKey={"3"} role={"link"}>
-              <Link href="/education">
-                <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                  Education
-                </Navbar.Text>
-              </Link>
-            </Nav.Link> */}
-
-            {!session ? (
-              <Nav.Link eventKey={"5"} role={"link"}>
-                <Link href="/auth?path=SignIn">
-                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                    {"Sign in"}
-                  </Navbar.Text>
-                </Link>
-              </Nav.Link>
-            ) : (
-              <Nav.Link
-                eventKey={"5"}
-                role={"link"}
-                onClick={handleSignout}
-                className={"pointer-link fw-bold"}
-              >
-                {"Sign Out"}
-              </Nav.Link>
-            )}
-            {/*{router?.route === "/assets" && (*/}
-            {/*  <div className={"position-relative"}>*/}
-            {/*    <CustomSearchComponent*/}
-            {/*      className={"position-absolute bottom-0 end-0"}*/}
-            {/*    />*/}
-            {/*  </div>*/}
-            {/*)}*/}
-            {/*<NavDropdown title="Dropdown" id="collasible-nav-dropdown">*/}
-            {/*  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>*/}
-            {/*  <NavDropdown.Item href="#action/3.2">*/}
-            {/*    Another action*/}
-            {/*  </NavDropdown.Item>*/}
-            {/*  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>*/}
-            {/*  <NavDropdown.Divider />*/}
-            {/*  <NavDropdown.Item href="#action/3.4">*/}
-            {/*    Separated link*/}
-            {/*  </NavDropdown.Item>*/}
-            {/*</NavDropdown>*/}
-          </Nav>
           <Nav>
             <div style={{ display: "flex", flexDirection: "row" }}>
               {session && (
                 <>
-                  {/*<p style={{marginTop: "5%"}}>{session.user.name ?? session.user.email}</p> <br />*/}
                   <img
                     src={session.user.image}
                     style={{ maxHeight: "50px", float: "end" }}
@@ -142,5 +153,21 @@ function Header() {
     </Navbar>
   );
 }
+
+const SignOutSpan = styled.span`
+  color: gray;
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  .active-underline-span {
+    margin-top: -0.4rem;
+    height: 2px;
+    color: gray;
+    background-color: gray;
+  }
+`;
 
 export default Header;

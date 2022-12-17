@@ -28,10 +28,14 @@ import rehypeRaw from "rehype-raw";
 const AssetDetailsPage = ({ deviceType }) => {
   const [assetFinancials, setAssetFinancials] = useState();
   const [timeQuery, setTimeQuery] = useState(14);
-  const [isMarkdownOpen, setIsMarkdownOpen] = useState(true);
 
   const router = useRouter();
+
   let id = router.query.id;
+  let symbol = router.query?.symbol;
+  let name = router.query?.name;
+
+  console.log({ router, id, symbol, name });
 
   const [getFinancials, { data, loading, error, refetch }] =
     useLazyQuery(GET_ASSET_HISTORY);
@@ -54,13 +58,11 @@ const AssetDetailsPage = ({ deviceType }) => {
 
     getDetails({
       variables: {
-        symbol: id || "BTC",
+        name: name || id || "BTC",
         time: timeQuery,
       },
     });
   }, [timeQuery, id]);
-
-  console.log({ GeckoDetails });
 
   const assetDetails = useMemo(() => {
     if (!GeckoDetails?.getGeckoAssetDetails) return [];
@@ -68,92 +70,92 @@ const AssetDetailsPage = ({ deviceType }) => {
     let data = GeckoDetails?.getGeckoAssetDetails;
 
     return (
-      <AssetDetailsRow>
-        {!!data?.description?.en && (
-          <button
-            className="standardized-button"
-            onClick={() => setIsMarkdownOpen(!isMarkdownOpen)}
-          >
-            {isMarkdownOpen ? "Close" : "Open"} Description
-          </button>
-        )}
+      <div className={"w-100"}>
+        <Accordion defaultActiveKey="1">
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>Asset Details</Accordion.Header>
+            <Accordion.Body>
+              <AssetDetailsRow>
+                <div className="top-row">
+                  <div>
+                    <h5>Name</h5>
+                    <span>{data?.name}</span>
+                  </div>
 
-        <div className="top-row">
-          <div>
-            <h5>Name</h5>
-            <span>{data?.name}</span>
-          </div>
+                  <div>
+                    <h5>Symbol</h5>
+                    <span>{data?.symbol.toUpperCase()}</span>
+                  </div>
+                </div>
 
-          <div>
-            <h5>Symbol</h5>
-            <span>{data?.symbol}</span>
-          </div>
-        </div>
+                <div className="mid-row">
+                  <div>
+                    <h5>Geneis Date</h5>
+                    <span>{data?.genesis_date}</span>
+                  </div>
 
-        <div className="mid-row">
-          <div>
-            <h5>Geneis Date</h5>
-            <span>{data?.genesis_date}</span>
-          </div>
+                  <div>
+                    <h5>Community Score</h5>
+                    <span>{data?.community_score}</span>
+                  </div>
 
-          <div>
-            <h5>Community Score</h5>
-            <span>{data?.community_score}</span>
-          </div>
+                  <div>
+                    <h5>Developer Score</h5>
+                    <span>{data?.developer_score}</span>
+                  </div>
 
-          <div>
-            <h5>Developer Score</h5>
-            <span>{data?.developer_score}</span>
-          </div>
+                  <div>
+                    <h5>Liquidity Score</h5>
+                    <span>{data?.liquidity_score}</span>
+                  </div>
 
-          <div>
-            <h5>Liquidity Score</h5>
-            <span>{data?.liquidity_score}</span>
-          </div>
+                  <div>
+                    <h5>Market Cap Rank</h5>
+                    <span>{data?.market_cap_rank}</span>
+                  </div>
 
-          <div>
-            <h5>Market Cap Rank</h5>
-            <span>{data?.market_cap_rank}</span>
-          </div>
+                  <div>
+                    <h5>Community Sentiment</h5>
+                    <span className="negative">
+                      {data?.sentiment_votes_down_percentage + "%"}
+                    </span>
+                    /
+                    <span className="positive">
+                      {data?.sentiment_votes_up_percentage + "%"}
+                    </span>
+                  </div>
+                </div>
 
-          <div>
-            <h5>Community Sentiment</h5>
-            <span className="negative">
-              {data?.sentiment_votes_down_percentage + "%"}
-            </span>
-            /
-            <span className="positive">
-              {data?.sentiment_votes_up_percentage + "%"}
-            </span>
-          </div>
-        </div>
-
-        {!!data?.description?.en && isMarkdownOpen && (
-          <div className="bottom-row">
-            <ReactMarkdown
-              children={data?.description?.en}
-              remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
-              rehypePlugins={[rehypeRaw]}
-              // key={markdownPiece + Math.random()}
-            />
-          </div>
-        )}
-      </AssetDetailsRow>
+                {!!data?.description?.en && (
+                  <div className="bottom-row">
+                    <ReactMarkdown
+                      children={data?.description?.en}
+                      remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
+                      rehypePlugins={[rehypeRaw]}
+                      // key={markdownPiece + Math.random()}
+                    />
+                  </div>
+                )}
+              </AssetDetailsRow>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+      </div>
     );
-  }, [GeckoDetails?.getGeckoAssetDetails, isMarkdownOpen]);
+  }, [GeckoDetails?.getGeckoAssetDetails]);
 
   return (
     <AssetDetailsPageContainer>
       <Head>
-        {/* <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" /> */}
+        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>{`Asset Details - ${id?.toUpperCase()}`}</title>
       </Head>
       {/* <PriceScreener /> */}
 
-      {GeckoDetails && !loading && assetDetails}
-
       {!loading && (
         <div className={"container text-center"}>
+          {GeckoDetails && !loading && assetDetails}
+
           {error && <div>Error {console.log({ error })}</div>}
 
           {id && (
@@ -220,15 +222,17 @@ const AssetDetailsPage = ({ deviceType }) => {
 };
 
 const AssetDetailsRow = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-  max-width: 70rem;
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid gray;
-  margin: 1rem;
+  padding: 0.5rem;
+
+  @media ${MediaQueries.MD} {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 70rem;
+    padding: 2rem;
+    margin: auto;
+  }
 
   button {
     max-width: 25rem;
