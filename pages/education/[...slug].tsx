@@ -108,7 +108,7 @@ const EducationArticle = ({ data }) => {
               data?.getPost?.post_content.slice(0, 255)
             }`}
           />
-          <meta property="og:image" content={data?.getPost?.post_header} />
+          <meta property="og:image" content={data.getPost.header_image} />
         </Head>
       )}
 
