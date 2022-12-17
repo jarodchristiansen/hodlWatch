@@ -31,7 +31,12 @@ const AssetDetailsPage = ({ deviceType }) => {
   const [isMarkdownOpen, setIsMarkdownOpen] = useState(true);
 
   const router = useRouter();
+
   let id = router.query.id;
+  let symbol = router.query?.symbol;
+  let name = router.query?.name;
+
+  console.log({ router, id, symbol, name });
 
   const [getFinancials, { data, loading, error, refetch }] =
     useLazyQuery(GET_ASSET_HISTORY);
@@ -54,13 +59,11 @@ const AssetDetailsPage = ({ deviceType }) => {
 
     getDetails({
       variables: {
-        symbol: id || "BTC",
+        name: name || id || "BTC",
         time: timeQuery,
       },
     });
   }, [timeQuery, id]);
-
-  console.log({ GeckoDetails });
 
   const assetDetails = useMemo(() => {
     if (!GeckoDetails?.getGeckoAssetDetails) return [];

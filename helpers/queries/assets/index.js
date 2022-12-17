@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_GECKO_DETAILS = gql`
-  query getGeckoAssetDetails($symbol: String!, $time: Int) {
-    getGeckoAssetDetails(symbol: $symbol, time: $time) {
+  query getGeckoAssetDetails($name: String!, $time: Int) {
+    getGeckoAssetDetails(name: $name, time: $time) {
       id
       symbol
       name
