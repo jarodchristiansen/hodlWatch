@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Colors } from "../../styles/Colors";
 import Head from "next/head";
 import client from "../../apollo-client";
+import { useRouter } from "next/router";
 
 const EducationArticle = ({ data }) => {
   const headerImage = useMemo(() => {
@@ -77,6 +78,34 @@ const EducationArticle = ({ data }) => {
       });
   }, [data?.getPost]);
 
+  const { asPath } = useRouter();
+
+  const shareToFacebook = () => {
+    const origin =
+      typeof window !== "undefined" && window.location.origin
+        ? window.location.origin
+        : "";
+
+    const URL = `${origin}${asPath}`;
+    console.log(URL);
+
+    const navUrl = "https://www.facebook.com/sharer/sharer.php?u=" + URL;
+    window.open(navUrl, "_blank");
+  };
+
+  const shareToTwitter = () => {
+    const origin =
+      typeof window !== "undefined" && window.location.origin
+        ? window.location.origin
+        : "";
+
+    const URL = `${origin}${asPath}`;
+    console.log(URL);
+
+    const navUrl = "https://twitter.com/intent/tweet?text=" + URL;
+    window.open(navUrl, "_blank");
+  };
+
   return (
     <div>
       {data?.getPost && (
@@ -96,11 +125,13 @@ const EducationArticle = ({ data }) => {
             }`}
           />
           <meta name="twitter:card" content={data?.getPost?.post_title} />
-
+          <meta name="twitter:title" content={data?.getPost?.post_title} />
           <meta
             name="twitter:site"
             content={`https://hodl-watch.vercel.app/education${data?.getPost?.slug}`}
           />
+          <meta property="twitter:image" content={data.getPost.header_image} />
+          <meta property="twitter:domain" content="hodl-watch.vercel.app" />
 
           <meta property="og:title" content={data?.getPost?.post_title} />
 
@@ -149,6 +180,8 @@ const EducationArticle = ({ data }) => {
 
         <InterstitialPlaceholder>
           CTA Placholder at bottom if no other at bottom
+          <button onClick={shareToFacebook}>FB Share</button>
+          <button onClick={shareToTwitter}>Twitter Share</button>
         </InterstitialPlaceholder>
       </ContentContainer>
     </div>
