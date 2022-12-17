@@ -273,6 +273,7 @@ const MarkdownContainer = styled.div`
 
   a {
     color: blue;
+    text-decoration: underline;
   }
 
   h1,
