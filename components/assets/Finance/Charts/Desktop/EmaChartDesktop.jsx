@@ -45,7 +45,7 @@ const EMAChartDesktop = ({ data }) => {
 
     let emas = [];
 
-    let threeEma = EMACalc(closeData, 3);
+    let thirtyEma = EMACalc(closeData, 30);
 
     let fiftyEma = EMACalc(closeData, 50);
     let oneHundredEma = EMACalc(closeData, 100);
@@ -54,7 +54,7 @@ const EMAChartDesktop = ({ data }) => {
     for (let i = 0; i < dateData.length; i++) {
       emas.push({
         close: closeData[i],
-        threeEma: threeEma[i],
+        thirtyEma: thirtyEma[i],
         fiftyEma: fiftyEma[i],
         oneHundredEma: oneHundredEma[i],
         twoHundredEma: twoHundredEma[i],
@@ -105,11 +105,11 @@ const EMAChartDesktop = ({ data }) => {
 
           <Line
             type="monotone"
-            dataKey="threeEma"
+            dataKey="thirtyEma"
             stroke="#b30000"
             dot={false}
             strokeWidth={2}
-            name="3 Day Ema"
+            name="30 Day Ema"
           />
 
           <Line
