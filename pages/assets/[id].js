@@ -84,7 +84,7 @@ const AssetDetailsPage = ({ deviceType }) => {
 
                   <div>
                     <h5>Symbol</h5>
-                    <span>{data?.symbol}</span>
+                    <span>{data?.symbol.toUpperCase()}</span>
                   </div>
                 </div>
 

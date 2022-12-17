@@ -22,8 +22,6 @@ const RelatedPostsRow = (props: RelatedPostsProps) => {
   const posts = useMemo(() => {
     const dummyPosts = [tempPost, tempPost, tempPost, tempPost, tempPost];
 
-    console.log({ tempPost });
-
     return dummyPosts.map((post, idx) => {
       if (!post?.slug) return "";
 
@@ -45,6 +43,7 @@ const RelatedPostsRow = (props: RelatedPostsProps) => {
 };
 
 const RelatedPostBlock = styled.div`
+  max-width: 33rem;
   text-align: center;
   border-top: 2px solid black;
   padding: 1rem 0;
