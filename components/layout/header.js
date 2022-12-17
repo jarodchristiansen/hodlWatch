@@ -131,7 +131,7 @@ function Header() {
               onClick={handleSignout}
               className={"pointer-link fw-bold"}
             >
-              {"Sign Out"}
+              <SignOutSpan>{"Sign Out"}</SignOutSpan>
             </Nav.Link>
           )}
 
@@ -154,6 +154,10 @@ function Header() {
   );
 }
 
+const SignOutSpan = styled.span`
+  color: gray;
+`;
+
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -161,8 +165,8 @@ const TextContainer = styled.div`
   .active-underline-span {
     margin-top: -0.4rem;
     height: 2px;
-    color: black;
-    background-color: black;
+    color: gray;
+    background-color: gray;
   }
 `;
 
