@@ -101,6 +101,9 @@ const EducationArticle = ({ data }) => {
             name="twitter:site"
             content={`https://hodl-watch.vercel.app/education${data?.getPost?.slug}`}
           />
+
+          <meta property="og:title" content={data?.getPost?.post_title} />
+
           <meta
             property="og:description"
             content={`${
@@ -109,6 +112,9 @@ const EducationArticle = ({ data }) => {
             }`}
           />
           <meta property="og:image" content={data.getPost.header_image} />
+
+          <meta property="og:image:width" content="400" />
+          <meta property="og:image:height" content="400" />
         </Head>
       )}
 
