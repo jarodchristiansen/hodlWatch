@@ -24,13 +24,13 @@ export const getServerSideProps = async ({ res }) => {
   //     return `${BASE_URL}/${staticPagePath}`;
   //   });
 
-  let query1 = await Post.find({});
+  //   let query1 = await Post.find({});
 
-  let postPaths = query1.map((post) => {
-    return `${BASE_URL}/${post.section.toLowerCase()}${post.slug}`;
-  });
+  //   let postPaths = query1.map((post) => {
+  //     return `${BASE_URL}/${post.section.toLowerCase()}${post.slug}`;
+  //   });
 
-  console.log({ postPaths });
+  //   console.log({ postPaths });
 
   const pagesDir = "pages/**/*.tsx";
   let pagesPaths = await glob.sync(pagesDir);
