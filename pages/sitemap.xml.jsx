@@ -22,17 +22,17 @@ export const getServerSideProps = async ({ res, context }) => {
 
   let data = null;
 
-  const response = await getSiteTitle(context); // any async promise here.
+  //   const response = await getSiteTitle(context); // any async promise here.
 
-  data = response?.data?.data?.getPosts;
+  //   data = response?.data?.data?.getPosts;
 
-  let postPaths;
+  //   let postPaths;
 
-  if (data) {
-    postPaths = data.map((post) => {
-      return `${BASE_URL}/${post.section.toLowerCase()}${post.slug}`;
-    });
-  }
+  //   if (data) {
+  //     postPaths = data.map((post) => {
+  //       return `${BASE_URL}/${post.section.toLowerCase()}${post.slug}`;
+  //     });
+  //   }
 
   const staticPaths = fs
     .readdirSync("pages")
