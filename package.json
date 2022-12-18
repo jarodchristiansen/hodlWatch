@@ -26,6 +26,7 @@
     "cryptr": "^6.0.3",
     "ethers": "^5.7.2",
     "framer-motion": "^6.5.1",
+    "fs": "0.0.1-security",
     "glob": "^8.0.3",
     "graphql": "^16.5.0",
     "lottie-react": "^2.3.1",
