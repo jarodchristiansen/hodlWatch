@@ -22,11 +22,6 @@
           {
             "key" : "Permissions-Policy",
             "value" : "geolocation=(self), microphone=()"
-          },
-          {
-            "key": "Content-Security-Policy",
-            "value":
-              "style-src 'self' 'unsafe-inline' *.gstatic.com *.googleapis.com https://*.icomoon.io; script-src 'self' 'https://www.googletagmanager.com/gtag/js?id=G-L0KCFED511' 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js' 'unsafe-eval' 'unsafe-inline' vitals.vercel-insights.com https://hodl-watch.vercel.app/ *.hodl-watch.vercel.app/"
           }
         ]
       }
