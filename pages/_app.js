@@ -41,6 +41,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       <Script
         strategy="afterInteractive"
         src="https://www.googletagmanager.com/gtag/js?id=G-L0KCFED511"
+        nonce="90123lkjasd,fmnsdljkasdpoi0"
       />
       <Script
         id="google-analytics"

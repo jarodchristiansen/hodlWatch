@@ -22,6 +22,11 @@
           {
             "key" : "Permissions-Policy",
             "value" : "geolocation=(self), microphone=()"
+          },
+          {
+            "key": "Content-Security-Policy",
+            "value":
+              "style-src 'self' 'unsafe-inline' *.gstatic.com *.googleapis.com https://*.icomoon.io; script-src 'self' ‘nonce-90123lkjasd,fmnsdljkasdpoi0’; img-src www.googletagmanager.com 'unsafe-eval' 'unsafe-inline' vitals.vercel-insights.com https://hodl-watch.vercel.app/ *.hodl-watch.vercel.app/"
           }
         ]
       }
