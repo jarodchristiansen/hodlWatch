@@ -20,7 +20,7 @@ const getSiteTitle = async (context) => {
 export const getServerSideProps = async ({ res, context }) => {
   const BASE_URL = process.env.BASE_URL;
 
-  let data = null;
+  //   let data = null;
 
   //   const response = await getSiteTitle(context); // any async promise here.
 
