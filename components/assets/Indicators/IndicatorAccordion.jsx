@@ -2,17 +2,17 @@ import { Accordion } from "react-bootstrap";
 import React, { useState, useEffect, useMemo } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import FibonacciRetracementChartDesktop from "../Finance/Charts/Desktop/FibonacciRetracementChartDesktop";
-import MarketDominanceChartDesktop from "../Finance/Charts/Desktop/MarketDominanceChartDesktop";
-import VolatilityChart from "../Finance/Charts/Desktop/VolatilityChartDesktop";
-import VolumeChartDesktop from "../Finance/Charts/Desktop/VolumeChartDesktop";
-import PercentChangeChartDesktop from "../Finance/Charts/Desktop/PercentChangeChartDesktop";
-import PriceBTCChartDesktop from "../Finance/Charts/Desktop/PriceBTCChartDesktop";
+// import FibonacciRetracementChartDesktop from "../Finance/Charts/Desktop/FibonacciRetracementChartDesktop";
+// import MarketDominanceChartDesktop from "../Finance/Charts/Desktop/MarketDominanceChartDesktop";
+// import VolatilityChart from "../Finance/Charts/Desktop/VolatilityChartDesktop";
+// import VolumeChartDesktop from "../Finance/Charts/Desktop/VolumeChartDesktop";
+// import PercentChangeChartDesktop from "../Finance/Charts/Desktop/PercentChangeChartDesktop";
+// import PriceBTCChartDesktop from "../Finance/Charts/Desktop/PriceBTCChartDesktop";
 import { useLazyQuery } from "@apollo/client";
-import GET_ASSET_FINANCIALS from "../../../helpers/queries/assets/getAssetFinancialDetails";
-import GET_DIFFICULTY_RIBBONS from "../../../helpers/queries/assets/GetDifficultyRibbons";
+// import GET_ASSET_FINANCIALS from "../../../helpers/queries/assets/getAssetFinancialDetails";
+import GET_DIFFICULTY_RIBBONS from "@/helpers/queries/assets/GetDifficultyRibbons";
 import DifficultyRibbonChartDesktop from "../Indicators/Charts/Desktop/DifficultyRibbonsChartDesktop";
-import { FormatUnixTime } from "../../../helpers/formatters/time";
+import { FormatUnixTime } from "@/helpers/formatters/time";
 import ActiveAddressesChart from "../Finance/Charts/Desktop/ActiveAddressesChart";
 
 const IndicatorAccordion = ({ timeQuery = 90, id, blockchainData }) => {
@@ -103,7 +103,9 @@ const IndicatorAccordion = ({ timeQuery = 90, id, blockchainData }) => {
             transitionBehavior={"smooth"}
           >
             {chartData?.map((string, idx) => (
-              <div className={"px-2 py-3"} key={idx}>{string}</div>
+              <div className={"px-2 py-3"} key={idx}>
+                {string}
+              </div>
             ))}
           </ScrollMenu>
         </Accordion.Body>

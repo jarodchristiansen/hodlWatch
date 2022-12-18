@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import { FormatUnixTime } from "../../../helpers/formatters/time";
-import ReadMoreButton from "../../commons/text/ReadMoreButton";
+import { FormatUnixTime } from "@/helpers/formatters/time";
+import ReadMoreButton from "@/components/commons/text/ReadMoreButton";
 
 interface NewsBlockProps {
   story: StoryType;

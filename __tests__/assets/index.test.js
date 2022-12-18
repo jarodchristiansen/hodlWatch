@@ -2,9 +2,6 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import AssetsPage from "../../pages/assets";
 import { MockedProvider } from "@apollo/client/testing";
-// import GET_ASSETS from "../../helpers/queries/assets/getAssets";
-import { GET_ASSETS } from "../../helpers/queries/assets/getAssets";
-import { GET_USER } from "../../helpers/queries/user";
 
 jest.mock("next-auth/client", () => {
   const originalModule = jest.requireActual("next-auth/client");

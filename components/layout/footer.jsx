@@ -2,8 +2,8 @@ import { useSession } from "next-auth/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { Colors } from "../../styles/Colors";
-import { MediaQueries } from "../../styles/MediaQueries";
+import { Colors } from "@/styles/Colors";
+import { MediaQueries } from "@/styles/MediaQueries";
 
 const Footer = () => {
   const router = useRouter();

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import SignInForm from "../components/forms/SignInForm";
-import { MediaQueries } from "../styles/MediaQueries";
+import { MediaQueries } from "@/styles/MediaQueries";
 
 const AuthPage = () => {
   const [providers, setProviders] = useState([]);

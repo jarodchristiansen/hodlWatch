@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Image } from "react-bootstrap";
 import AssetCardAnimationWrapper from "./AssetCardAnimationWrapper";
 import styled from "styled-components";
-import { ADD_FAVORITE, REMOVE_FAVORITE } from "../../helpers/mutations/user";
+import { ADD_FAVORITE, REMOVE_FAVORITE } from "@/helpers/mutations/user";
 import { useMutation } from "@apollo/client";
-import { GET_USER } from "../../helpers/queries/user";
+import { GET_USER } from "@/helpers/queries/user";
 
 const AssetCard = ({ asset, email, favorited }) => {
   const [assetDetails, setAssetDetails] = useState();

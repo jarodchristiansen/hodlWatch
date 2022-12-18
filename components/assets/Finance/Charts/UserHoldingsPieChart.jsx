@@ -8,7 +8,7 @@ import {
 } from "recharts";
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import { currencyFormat } from "../../../../helpers/formatters/currency";
+import { currencyFormat } from "@/helpers/formatters/currency";
 
 const UserHoldingsPieChart = ({ data, sum }) => {
   const COLORS = [

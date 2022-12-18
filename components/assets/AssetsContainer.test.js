@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
-import { GET_USER } from "../../helpers/queries/user";
-import AssetCard from "./AssetCard";
+import { GET_USER } from "@/helpers/queries/user";
+
 import AssetsContainer from "./AssetsContainer";
 
 describe("AssetsContainer", () => {
@@ -95,15 +95,5 @@ describe("AssetsContainer", () => {
     );
 
     expect(screen.getByTestId("assets-container")).toBeTruthy();
-  });
-
-  it("Should render the initial assets from the query", () => {
-    render(
-      <MockedProvider mocks={[...userMock]} addTypename={false}>
-        <AssetsContainer assets={assets} session={session} />
-      </MockedProvider>
-    );
-
-    expect(screen.getByTestId("data-loading")).toBeTruthy();
   });
 });

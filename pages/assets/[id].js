@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useRouter, withRouter } from "next/router";
-import FinancialAccordion from "../../components/assets/Finance/FinancialAccordion";
+import FinancialAccordion from "@/components/assets/Finance/FinancialAccordion";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import GET_ASSET_FINANCIALS, {
   GET_ASSET_HISTORY,
   GET_GECKO_HISTORY,
-} from "../../helpers/queries/assets/getAssetFinancialDetails";
+} from "@/helpers/queries/assets/getAssetFinancialDetails";
 import { Accordion } from "react-bootstrap";
-import IndicatorAccordion from "../../components/assets/Indicators/IndicatorAccordion";
-import TimeButtons from "../../components/commons/TimeButtons";
-import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
-import AssetDetailsHeader from "../../components/assets/AssetDetails/AssetDetailsHeader";
-import PriceScreener from "../../components/commons/screener";
+import IndicatorAccordion from "@/components/assets/Indicators/IndicatorAccordion";
+import TimeButtons from "@/components/commons/TimeButtons";
+import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import styled from "styled-components";
-import PairDetailsRow from "../../components/assets/Finance/PairDetails/index";
-import { MediaQueries } from "../../styles/MediaQueries";
+import PairDetailsRow from "@/components/assets/Finance/PairDetails/index";
+import { MediaQueries } from "@/styles/MediaQueries";
 import Head from "next/head";
 import { useSession, getSession } from "next-auth/client";
-import { GET_GECKO_DETAILS } from "../../helpers/queries/assets";
+import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
 import { useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";

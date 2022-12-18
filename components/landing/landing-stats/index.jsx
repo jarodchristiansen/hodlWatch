@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MediaQueries } from "../../../styles/MediaQueries";
+import { MediaQueries } from "@/styles/MediaQueries";
 
 const LandingStatsBanner = () => {
   return (
