@@ -39,7 +39,6 @@ export default async function handler(request, response) {
           return `
             <url>
               <loc>${url}</loc>
-              <lastmod>${new Date().toISOString()}</lastmod>
               <changefreq>monthly</changefreq>
               <priority>1.0</priority>
             </url>
