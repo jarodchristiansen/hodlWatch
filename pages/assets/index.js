@@ -3,7 +3,7 @@ import { getSession, useSession } from "next-auth/client";
 import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import AssetsContainer from "@/components/assets/AssetsContainer";
+import AssetsContainer from "../../components/assets/AssetsContainer";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import PaginationComponent from "@/components/commons/Pagination";
 import PriceScreener from "@/components/commons/screener";

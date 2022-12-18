@@ -96,14 +96,4 @@ describe("AssetsContainer", () => {
 
     expect(screen.getByTestId("assets-container")).toBeTruthy();
   });
-
-  it("Should render the initial assets from the query", () => {
-    render(
-      <MockedProvider mocks={[...userMock]} addTypename={false}>
-        <AssetsContainer assets={assets} session={session} />
-      </MockedProvider>
-    );
-
-    expect(screen.getByTestId("data-loading")).toBeTruthy();
-  });
 });
