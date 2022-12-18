@@ -49,8 +49,8 @@ export default async function handler(request, response) {
        
       `;
 
-  response.setHeader("Content-Type", "text/xml");
-  response.write(sitemap);
-  response.end();
-  response.status(200);
+  //   response.setHeader("Content-Type", "text/xml");
+  //   response.write(sitemap);
+  //   response.end();
+  response.status(200).send({ data: sitemap });
 }
