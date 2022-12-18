@@ -23,8 +23,17 @@ export const getServerSideProps = async ({ res, context }) => {
   let data = null;
 
   const response = await getSiteTitle(context); // any async promise here.
+  data = response?.data?.data?.getPosts;
 
-  console.log({ response });
+  let postPaths;
+
+  if (data) {
+    postPaths = data.map((post) => {
+      return `${BASE_URL}/${post.section.toLowerCase()}${post.slug}`;
+    });
+  }
+
+  console.log({ postPaths });
 
   // const staticPaths = fs
   //   .readdirSync("pages")
