@@ -51,21 +51,18 @@ export const getServerSideProps = async ({ res, context }) => {
 
   <url>
   <loc>https://hodl-watch.vercel.app/</loc>
-  <lastmod>2022-12-18T21:49:11.415Z</lastmod>
   <changefreq>monthly</changefreq>
   <priority>1.0</priority>
   </url>
 
   <url>
   <loc>https://hodl-watch.vercel.app/news</loc>
-  <lastmod>2022-12-18T21:49:11.415Z</lastmod>
   <changefreq>monthly</changefreq>
   <priority>1.0</priority>
   </url>
 
   <url>
   <loc>https://hodl-watch.vercel.app/education</loc>
-  <lastmod>2022-12-18T21:49:11.415Z</lastmod>
   <changefreq>monthly</changefreq>
   <priority>1.0</priority>
   </url>
@@ -76,7 +73,6 @@ export const getServerSideProps = async ({ res, context }) => {
       return `
         <url>
           <loc>${url}</loc>
-          <lastmod>${new Date().toISOString()}</lastmod>
           <changefreq>monthly</changefreq>
           <priority>1.0</priority>
         </url>
