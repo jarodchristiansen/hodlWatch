@@ -26,7 +26,7 @@
           {
             "key": "Content-Security-Policy",
             "value":
-              "data:; style-src 'self' 'unsafe-inline' *.gstatic.com *.googleapis.com https://*.icomoon.io; script-src 'self' 'unsafe-eval' 'unsafe-inline' vitals.vercel-insights.com https://hodl-watch.vercel.app/ *.hodl-watch.vercel.app/"
+              "style-src 'self' 'https://www.googletagmanager.com' 'unsafe-inline' *.gstatic.com *.googleapis.com https://*.icomoon.io; script-src 'self' 'unsafe-eval' 'unsafe-inline' vitals.vercel-insights.com https://hodl-watch.vercel.app/ *.hodl-watch.vercel.app/"
           }
         ]
       }
