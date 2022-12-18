@@ -1,11 +1,30 @@
 import glob from "glob";
+import { GET_POSTS } from "@/helpers/queries/posts";
+import client from "../apollo-client";
 
 const Sitemap = () => {
   return null;
 };
 
-export const getServerSideProps = async ({ res }) => {
+const getSiteTitle = async (context) => {
+  const result = await client.query({
+    query: GET_POSTS,
+    variables: {
+      filter: "Education",
+    },
+  });
+
+  return { data: result };
+};
+
+export const getServerSideProps = async ({ res, context }) => {
   const BASE_URL = process.env.BASE_URL;
+
+  let data = null;
+
+  const response = await getSiteTitle(context); // any async promise here.
+
+  console.log({ response });
 
   // const staticPaths = fs
   //   .readdirSync("pages")
