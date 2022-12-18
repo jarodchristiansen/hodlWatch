@@ -6,7 +6,7 @@ import VolatilityChart from "./Charts/Desktop/VolatilityChartDesktop";
 import VolumeChartDesktop from "./Charts/Desktop/VolumeChartDesktop";
 import PercentChangeChartDesktop from "./Charts/Desktop/PercentChangeChartDesktop";
 import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracementChartDesktop";
-import { FormatUnixTime } from "../../../helpers/formatters/time";
+import { FormatUnixTime } from "@/helpers/formatters/time";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import PriceBTCChartDesktop from "./Charts/Desktop/PriceBTCChartDesktop";
 import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";

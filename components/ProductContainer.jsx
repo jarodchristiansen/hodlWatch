@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import GET_PRODUCTS from "../helpers/queries/getProducts";
-import REMOVE_PRODUCT from "../helpers/mutations/removeProduct";
+import GET_PRODUCTS from "@/helpers/queries/getProducts";
+import REMOVE_PRODUCT from "@/helpers/mutations/removeProduct";
 
 const ProductContainer = ({ products }) => {
   const [items, setItems] = useState(products);

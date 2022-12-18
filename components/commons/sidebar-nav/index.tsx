@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { MediaQueries } from "../../../styles/MediaQueries";
+import { MediaQueries } from "@/styles/MediaQueries";
 
 const SideMenu = ({ navLinks }) => {
   //   constructor() {

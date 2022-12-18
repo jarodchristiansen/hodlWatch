@@ -1,4 +1,4 @@
-import { currencyFormat } from "../../../helpers/formatters/currency";
+import { currencyFormat } from "@/helpers/formatters/currency";
 
 const AssetDetailsHeader = ({ asset, time, assetData }) => {
   return (

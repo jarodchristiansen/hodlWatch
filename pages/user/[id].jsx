@@ -11,13 +11,13 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import PriceScreener from "../../components/commons/screener";
-import EditUserDetails from "../../components/user/edit-user-details";
-import { GET_USER } from "../../helpers/queries/user/index";
-import { Colors } from "../../styles/Colors";
-import { MediaQueries } from "../../styles/MediaQueries";
-import SideMenu from "../../components/commons/sidebar-nav";
-import PortfolioMain from "../../components/portfolio/PortfolioMain";
+import PriceScreener from "@/components/commons/screener";
+import EditUserDetails from "@/components/user/edit-user-details";
+import { GET_USER } from "@/helpers/queries/user/index";
+import { Colors } from "@/styles/Colors";
+import { MediaQueries } from "@/styles/MediaQueries";
+import SideMenu from "@/components/commons/sidebar-nav";
+import PortfolioMain from "@/components/portfolio/PortfolioMain";
 
 const ProfilePage = () => {
   const [session, loading] = useSession();
@@ -48,6 +48,7 @@ const ProfilePage = () => {
   });
 
   useEffect(() => {
+    console.log({ session, slug });
     if (session?.user) {
       setUser(session.user);
     }
@@ -153,7 +154,12 @@ const ProfilePage = () => {
                 <button className="standardized-button" onClick={routeEditUser}>
                   Edit User Profile
                 </button>
-                <button className="standardized-button" onClick={routeToPortfolio}>View Portfolio</button>
+                <button
+                  className="standardized-button"
+                  onClick={routeToPortfolio}
+                >
+                  View Portfolio
+                </button>
               </div>
 
               <UserDetailsCard>

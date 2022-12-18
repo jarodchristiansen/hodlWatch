@@ -11,7 +11,7 @@ import {
 } from "recharts";
 // import FinanceChartModal from "./FinanceChartModal";
 import React, { useEffect, useState } from "react";
-import { currencyFormat } from "../../../../../helpers/formatters/currency";
+import { currencyFormat } from "@/helpers/formatters/currency";
 import styled from "styled-components";
 
 const BollingerBandChart = ({ data }) => {

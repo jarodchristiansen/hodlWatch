@@ -3,15 +3,15 @@ import { getSession, useSession } from "next-auth/client";
 import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import AssetsContainer from "../../components/assets/AssetsContainer";
-import LoadingSpinner from "../../components/commons/animations/LoadingSpinner";
-import PaginationComponent from "../../components/commons/Pagination";
-import PriceScreener from "../../components/commons/screener";
-import SearchForm from "../../components/forms/SearchForm/SearchForm";
-import GET_ASSET from "../../helpers/queries/assets/getAsset";
-import { GET_ASSETS } from "../../helpers/queries/assets/getAssets";
-import { GET_USER } from "../../helpers/queries/user";
-import { MediaQueries } from "../../styles/MediaQueries";
+import AssetsContainer from "@/components/assets/AssetsContainer";
+import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
+import PaginationComponent from "@/components/commons/Pagination";
+import PriceScreener from "@/components/commons/screener";
+import SearchForm from "@/components/forms/SearchForm/SearchForm";
+import GET_ASSET from "@/helpers/queries/assets/getAsset";
+import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
+import { GET_USER } from "@/helpers/queries/user";
+import { MediaQueries } from "@/styles/MediaQueries";
 
 const AssetsPage = ({ userSession: session }) => {
   const [offsetState, setOffsetState] = useState(1);

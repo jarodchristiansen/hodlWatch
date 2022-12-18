@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
-import { Colors } from "../../../styles/Colors";
 
 interface LandingCardProps {
   headerText: string;

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { Colors } from "../../../styles/Colors";
+import { Colors } from "@/styles/Colors";
 
 const ReadMoreButton = ({ children }) => {
   const [currentText, setCurrentText] = useState();

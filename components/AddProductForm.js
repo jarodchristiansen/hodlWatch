@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import ADD_PRODUCT from "../helpers/mutations/addProduct";
+import ADD_PRODUCT from "@/helpers/mutations/addProduct";
 import { useMutation } from "@apollo/client";
-import GET_PRODUCTS from "../helpers/queries/getProducts";
+import GET_PRODUCTS from "@/helpers/queries/getProducts";
 
 const AddProductForm = () => {
   const [formIsValid, setFormIsValid] = useState(false);

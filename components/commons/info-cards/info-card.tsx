@@ -1,16 +1,18 @@
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
-import { Colors } from "../../../styles/Colors";
 
 interface InfoCardProps {
-  headerText: string
-  bodyText: string
-  renderButtons?: boolean
+  headerText: string;
+  bodyText: string;
+  renderButtons?: boolean;
 }
 
-
-const InfoCard = ({ headerText, bodyText, renderButtons = false }: InfoCardProps) => {
+const InfoCard = ({
+  headerText,
+  bodyText,
+  renderButtons = false,
+}: InfoCardProps) => {
   const router = useRouter();
 
   const routeToAuth = () => {

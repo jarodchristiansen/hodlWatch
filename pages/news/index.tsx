@@ -1,11 +1,11 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
-import { GET_NEWS_FEED } from "../../helpers/queries/news-feed";
+import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
 import styled from "styled-components";
-import PriceScreener from "../../components/commons/screener";
-import { MediaQueries } from "../../styles/MediaQueries";
+import PriceScreener from "@/components/commons/screener";
+import { MediaQueries } from "@/styles/MediaQueries";
 import Head from "next/head";
-import NewsBlock from "../../components/news/news-block";
+import NewsBlock from "@/components/news/news-block";
 import { useSession, getSession } from "next-auth/client";
 
 const NewsFeedPage = () => {

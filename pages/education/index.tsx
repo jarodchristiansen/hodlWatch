@@ -2,12 +2,12 @@ import { useLazyQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
-import { GET_POSTS } from "../../helpers/queries/posts/index";
+import { GET_POSTS } from "@/helpers/queries/posts/index";
 import styled from "styled-components";
-import { MediaQueries } from "../../styles/MediaQueries";
-import RelatedPostsRow from "../../components/posts/RelatedPosts";
+import { MediaQueries } from "@/styles/MediaQueries";
+import RelatedPostsRow from "@/components/posts/RelatedPosts";
 import { useSession, getSession } from "next-auth/client";
-import PriceScreener from "../../components/commons/screener";
+import PriceScreener from "@/components/commons/screener";
 
 const EducationPage = () => {
   const [getPosts, { data, loading: newsLoading, error, called, refetch }] =

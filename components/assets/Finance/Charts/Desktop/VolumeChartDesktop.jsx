@@ -11,7 +11,7 @@ import {
 // import FinanceChartModal from "./FinanceChartModal";
 import React from "react";
 import styled from "styled-components";
-import { currencyFormat } from "../../../../../helpers/formatters/currency";
+import { currencyFormat } from "@/helpers/formatters/currency";
 
 const VolumeChartDesktop = ({ data }) => {
   return (

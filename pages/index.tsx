@@ -7,8 +7,8 @@ import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import LandingCard from "../components/commons/info-cards/landing-card";
 import PriceScreener from "../components/commons/screener/index";
-import { GET_NEWS_FEED } from "../helpers/queries/news-feed";
-import { MediaQueries } from "../styles/MediaQueries";
+import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
+import { MediaQueries } from "@/styles/MediaQueries";
 
 export default function Home(props) {
   const [session, loading] = useSession();
