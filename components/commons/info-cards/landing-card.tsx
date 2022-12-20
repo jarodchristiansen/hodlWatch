@@ -41,7 +41,7 @@ const LandingCard = ({
       {!!renderSignIn && (
         <div className="button-container">
           <button
-            className="standardized-button"
+            className="secondary-button"
             onClick={() => routeToAuth("SignUp")}
           >
             Sign Up
@@ -61,13 +61,13 @@ const LandingCard = ({
             className="standardized-button"
             onClick={() => routeToEducation()}
           >
-            About Us
+            Our Story
           </button>
           <button
-            className="standardized-button"
+            className="secondary-button"
             onClick={() => routeToEducation()}
           >
-            About Web3
+            Web3
           </button>
         </div>
       )}

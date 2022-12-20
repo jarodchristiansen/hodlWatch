@@ -61,6 +61,9 @@ export default function Home(props) {
     });
   }, [data]);
 
+  // @ts-ignore type in next-auth v3 doesn't show id
+  let id = session?.user?.id;
+
   return (
     <AlternateHomePageWrapper>
       <Head>
@@ -158,8 +161,8 @@ export default function Home(props) {
               unoptimized={true}
             />
 
-            <Link href="/assets" className="pointer-link">
-              <span>
+            <Link href="/assets">
+              <span className="pointer-link">
                 <h5>Financial Indicators</h5>
                 Analyzing price points, common resistance/support levels, and
                 traditional methods
@@ -176,12 +179,13 @@ export default function Home(props) {
               layout="responsive"
               unoptimized={true}
             />
-
-            <span>
-              <h5>Portfolio Analysis</h5>
-              Connect your exchange account via our API and get insights into
-              your holdings
-            </span>
+            <Link href={`/user/${id}`}>
+              <span className="pointer-link">
+                <h5>Portfolio Analysis</h5>
+                Connect your exchange account via our API and get insights into
+                your holdings
+              </span>
+            </Link>
           </div>
         </div>
       </InterstitialRow>
@@ -254,6 +258,14 @@ const InterstitialRow = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    .pointer-link {
+      cursor: pointer;
+    }
+
+    .pointer-link:hover {
+      color: #8383f8;
+    }
   }
 `;
 
