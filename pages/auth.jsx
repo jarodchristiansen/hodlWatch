@@ -69,7 +69,6 @@ const Explainer = styled.div`
     margin: auto;
     background-color: white;
     width: fit-content;
-    /* padding: 2rem 2rem; */
     border-radius: 12px;
   }
 `;

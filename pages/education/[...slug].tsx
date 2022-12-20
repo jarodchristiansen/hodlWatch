@@ -1,20 +1,20 @@
-import { useEffect, useMemo } from "react";
+import RelatedPostsRow from "@/components/posts/RelatedPosts";
 import { GET_POST } from "@/helpers/queries/posts";
+import { Colors } from "@/styles/Colors";
+import { MediaQueries } from "@/styles/MediaQueries";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useMemo } from "react";
+import { FaFacebook, FaTwitter } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import rehypeRaw from "rehype-raw";
 import styled from "styled-components";
-import Image from "next/image";
-import { MediaQueries } from "@/styles/MediaQueries";
-import RelatedPostsRow from "@/components/posts/RelatedPosts";
-import Link from "next/link";
-import { Colors } from "@/styles/Colors";
-import Head from "next/head";
 import client from "../../apollo-client";
-import { useRouter } from "next/router";
-import { FaFacebook, FaTwitter } from "react-icons/fa";
 
 const EducationArticle = ({ data }) => {
   const headerImage = useMemo(() => {
