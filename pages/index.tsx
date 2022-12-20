@@ -1,3 +1,5 @@
+import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
+import { MediaQueries } from "@/styles/MediaQueries";
 import { useLazyQuery } from "@apollo/client";
 import { useSession } from "next-auth/client";
 import Head from "next/head";
@@ -7,8 +9,6 @@ import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import LandingCard from "../components/commons/info-cards/landing-card";
 import PriceScreener from "../components/commons/screener/index";
-import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
-import { MediaQueries } from "@/styles/MediaQueries";
 
 export default function Home(props) {
   const [session, loading] = useSession();
@@ -61,48 +61,6 @@ export default function Home(props) {
     });
   }, [data]);
 
-  const generatePartners = useMemo(() => {
-    const companies = [
-      {
-        name: "Dunder Mifflin",
-        logo: "/assets/dunder-mifflin.jpg",
-      },
-      {
-        name: "Initech",
-        logo: "/assets/Initech.png",
-      },
-      // {
-      //   name: "Cyberdyne Systems",
-      //   logo: "/assets/cyberdyne-systems.jpg",
-      // },
-      {
-        name: "Bluth Company",
-        logo: "/assets/bluth-company.png",
-      },
-      // {
-      //   name: "MomCorp",
-      //   logo: "https://www.google.com/url?sa=i&url=https%3A%2F%2Ffineartamerica.com%2Ffeatured%2Fthe-office-dunder-mifflin-logo-tv-show-andrea.html&psig=AOvVaw3bSv7-Yarmp5r-SpTa3kJU&ust=1669067977949000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCOiIqO_gvfsCFQAAAAAdAAAAABAG",
-      // },
-    ];
-
-    return companies.map((comp) => {
-      return (
-        <PartnerBlock>
-          <h4 className="partner-header">{comp.name}</h4>
-
-          <Image
-            src={comp.logo}
-            height={"140px"}
-            width={"190px"}
-            alt="block-logo"
-            className="partner-image"
-            unoptimized={true}
-          />
-        </PartnerBlock>
-      );
-    });
-  }, [session, loading]);
-
   return (
     <AlternateHomePageWrapper>
       <Head>
@@ -150,11 +108,92 @@ export default function Home(props) {
 
       <div className="top-row">
         <div className="left-card">
+          <div className={"landing-svg"}>
+            <Image
+              src={"/assets/charts.PNG"}
+              height={"550px"}
+              width={"800px"}
+              alt="block-logo"
+              unoptimized={true}
+            />
+            {/* <Image
+              src={"/assets/PieChart.PNG"}
+              height={"550px"}
+              width={"600px"}
+              alt="block-logo"
+              unoptimized={true}
+            /> */}
+          </div>
+        </div>
+
+        <div className="right-card">
+          <LandingCard
+            headerText={"What Is HodlWatch?"}
+            header2Text={"Making web3 a little more balanced"}
+            bodyText="At Hodlwatch, we feel that Bitcoin & web3 were built to balance the economic scales a bit by providing transparency, and a trustless guarantee via blockchain. Too long that data has been made a-symmetrical in its access behind paywalls and lack of community integration. We're working to solve that by democratizing access to blockchain data, but integrating your community to make it relevant to your every day choices."
+            renderSignIn={false}
+            renderLearnMore={true}
+          />
+        </div>
+      </div>
+
+      <InterstitialRow>
+        <div className="header-column">
+          <h2>Data Directly From The Blockchain</h2>
+
+          <span>
+            <h4>We believe in letting the data speak for itself</h4>
+            <h6>(but just in case, we add some descriptions)</h6>
+          </span>
+        </div>
+
+        <div className="image-row">
+          <div className="image-column">
+            <Image
+              src={"/assets/charts.PNG"}
+              height={"300px"}
+              width={"400px"}
+              alt="block-logo"
+              layout="responsive"
+              unoptimized={true}
+            />
+
+            <Link href="/assets" className="pointer-link">
+              <span>
+                <h5>Financial Indicators</h5>
+                Analyzing price points, common resistance/support levels, and
+                traditional methods
+              </span>
+            </Link>
+          </div>
+
+          <div className="image-column">
+            <Image
+              src={"/assets/PieChart.PNG"}
+              height={"300px"}
+              width={"400px"}
+              alt="block-logo"
+              layout="responsive"
+              unoptimized={true}
+            />
+
+            <span>
+              <h5>Portfolio Analysis</h5>
+              Connect your exchange account via our API and get insights into
+              your holdings
+            </span>
+          </div>
+        </div>
+      </InterstitialRow>
+
+      <div className="top-row">
+        <div className="left-card">
           <LandingCard
             headerText={"Get Involved"}
             header2Text={"Join the community"}
             bodyText="Sign up to join our community and gain more insights as you explore different assets."
-            renderButtons={true}
+            renderSignIn={true}
+            renderLearnMore={false}
           />
         </div>
 
@@ -178,17 +217,45 @@ export default function Home(props) {
 
         <div className="mid-row-body">{newsFeedContent}</div>
       </div>
-
-      {/* <div className="bottom-row">
-        <div className="bottom-row-heading">
-          <h3>Our Partners</h3>
-        </div>
-
-        <div className="bottom-row-body">{generatePartners}</div>
-      </div> */}
     </AlternateHomePageWrapper>
   );
 }
+
+const InterstitialRow = styled.div`
+  width: 100%;
+  background-color: #1a1919;
+  color: white;
+  padding: 2rem 2rem;
+  margin-top: 4rem;
+  border-top: 2px solid gray;
+  text-align: center;
+
+  .header-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .image-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 0;
+    max-width: 30rem;
+    margin: auto;
+    gap: 1rem;
+
+    @media ${MediaQueries.MD} {
+      max-width: 50rem;
+      gap: 3rem;
+    }
+  }
+
+  .image-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
 
 const AlternateHomePageWrapper = styled.div`
   display: flex;

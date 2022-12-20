@@ -6,19 +6,25 @@ interface LandingCardProps {
   headerText: string;
   header2Text: string;
   bodyText: string;
-  renderButtons: boolean;
+  renderSignIn: boolean;
+  renderLearnMore: boolean;
 }
 
 const LandingCard = ({
   headerText,
   header2Text,
   bodyText,
-  renderButtons = false,
+  renderSignIn = false,
+  renderLearnMore = false,
 }: LandingCardProps) => {
   const router = useRouter();
 
   const routeToAuth = (string) => {
     router.push(`/auth?path=${string}`);
+  };
+
+  const routeToEducation = () => {
+    router.push("/education");
   };
 
   return (
@@ -32,7 +38,7 @@ const LandingCard = ({
         <span className="body-text">{bodyText}</span>
       </div>
 
-      {!!renderButtons && (
+      {!!renderSignIn && (
         <div className="button-container">
           <button
             className="standardized-button"
@@ -45,6 +51,23 @@ const LandingCard = ({
             onClick={() => routeToAuth("SignIn")}
           >
             Sign In
+          </button>
+        </div>
+      )}
+
+      {!!renderLearnMore && (
+        <div className="button-container">
+          <button
+            className="standardized-button"
+            onClick={() => routeToEducation()}
+          >
+            About Us
+          </button>
+          <button
+            className="standardized-button"
+            onClick={() => routeToEducation()}
+          >
+            About Web3
           </button>
         </div>
       )}
