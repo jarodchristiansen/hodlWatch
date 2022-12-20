@@ -110,7 +110,7 @@ export default function Home(props) {
         <div className="left-card">
           <div className={"landing-svg"}>
             <Image
-              src={"/assets/charts.PNG"}
+              src={"/assets/charts.png"}
               height={"550px"}
               width={"800px"}
               alt="block-logo"
@@ -150,7 +150,7 @@ export default function Home(props) {
         <div className="image-row">
           <div className="image-column">
             <Image
-              src={"/assets/charts.PNG"}
+              src={"/assets/charts.png"}
               height={"300px"}
               width={"400px"}
               alt="block-logo"
