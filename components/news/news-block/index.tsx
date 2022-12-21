@@ -56,7 +56,7 @@ const NewsBlock = (props: NewsBlockProps) => {
           unoptimized={true}
         />
 
-        <ReadMoreButton>{story.body}</ReadMoreButton>
+        {story.body.slice(0, 160) + "..."}
       </div>
 
       <Link href={story?.guid} passHref>
