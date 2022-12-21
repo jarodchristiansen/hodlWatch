@@ -257,6 +257,7 @@ const InterstitialRow = styled.div`
 
     .pointer-link:hover {
       color: #8383f8;
+      text-decoration: underline;
     }
   }
 `;
@@ -368,18 +369,21 @@ const NewsItem = styled.div`
   gap: 1rem;
   box-shadow: 2px 4px 8px lightgray;
 
+  a:hover {
+    text-decoration: underline;
+  }
+
   .source-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 0.5rem;
     gap: 1rem;
     font-size: 18px;
-    margin-bottom: auto;
+    margin-top: auto;
   }
 
   @media ${MediaQueries.MD} {
-    max-height: 32rem;
+    max-height: 28rem;
     min-width: 22rem;
   }
 `;
