@@ -76,7 +76,9 @@ const EducationPage = () => {
         </InterstitialRow>
 
         {data?.getPosts && (
-          <div>
+          <div className="grid-holder">
+            <h1>Crypto Insights: Indicators & Background</h1>
+
             <div className="top-row">
               <div className="left-card">
                 {PostCards}
@@ -231,6 +233,11 @@ const PostRow = styled.div`
 const PageHolder = styled.div`
   display: grid;
   width: 100%;
+
+  .grid-holder {
+    text-align: center;
+    margin: 1rem;
+  }
 
   .top-row {
     width: 100%;

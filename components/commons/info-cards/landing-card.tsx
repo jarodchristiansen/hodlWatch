@@ -30,7 +30,7 @@ const LandingCard = ({
   return (
     <InfoCardContainer>
       <div className="info-card-header">
-        <h1 className="heading-text">{headerText}</h1>
+        <h2 className="heading-text">{headerText}</h2>
         <h2 className="subheading-text">{header2Text}</h2>
       </div>
 

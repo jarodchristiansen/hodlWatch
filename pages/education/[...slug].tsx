@@ -169,6 +169,8 @@ const EducationArticle = ({ data }) => {
         {headerImage}
         <div className="top-row">
           <div className="left-card">
+            <h1>{data?.getPost?.post_title}</h1>
+
             <MarkdownContainer>{markdown}</MarkdownContainer>
           </div>
 
@@ -271,6 +273,10 @@ const ContentContainer = styled.div`
     }
 
     .left-card {
+      h1 {
+        padding-left: 2rem;
+      }
+
       @media ${MediaQueries.MD} {
         width: 90%;
         margin-top: 3rem;
