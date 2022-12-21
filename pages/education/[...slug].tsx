@@ -121,7 +121,7 @@ const EducationArticle = ({ data }) => {
           <meta
             name="description"
             content={`${
-              data?.getPost?.meta_description ||
+              data?.getPost?.description ||
               data?.getPost?.post_content.slice(0, 255)
             }`}
           />

@@ -39,6 +39,10 @@ const EducationPage = () => {
             />
             <h2> {post.post_title}</h2>
             <span>Subject: {post.category}</span>
+            <span>
+              {post?.description?.length &&
+                post?.description?.slice(0, 125) + "..."}
+            </span>
             {/* 
           <div>{post.post_content}</div> */}
           </PostRow>

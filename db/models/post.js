@@ -28,6 +28,10 @@ const PostSchema = new Schema({
     type: String,
     trim: false,
   },
+  description: {
+    type: String,
+    trim: false,
+  },
   post_content: {
     type: String,
     trim: false,

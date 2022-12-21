@@ -213,6 +213,7 @@ const typeDefs = gql`
     header_image: String
     post_title: String
     post_content: String
+    description: String
   }
 
   input PostInput {
@@ -223,6 +224,7 @@ const typeDefs = gql`
     header_image: String
     post_title: String
     post_content: String
+    description: String
   }
 
   input UserExchangeInput {
