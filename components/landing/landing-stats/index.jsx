@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { MediaQueries } from "@/styles/MediaQueries";
 
+/**
+ *
+ * @returns Landing Stats Component showing user base/ components
+ */
 const LandingStatsBanner = () => {
   return (
     <LandingBannerContainer>

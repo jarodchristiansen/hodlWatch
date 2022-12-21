@@ -13,6 +13,11 @@ import {
 // import FinanceChartModal from "./FinanceChartModal";
 import React, { useState, useEffect } from "react";
 
+/**
+ *
+ * @param data: DifficultyRibbonData
+ * @returns Difficulty Ribbon chart that shows the network difficulty of BTC (PoW blockchains specifically)
+ */
 const DifficultyRibbonChartDesktop = ({ data }: any) => {
   const format = (num, decimals) =>
     num.toLocaleString("en-US", {

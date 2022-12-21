@@ -7,6 +7,13 @@ interface SearchFormProps {
   filterAssets: (e?: React.ChangeEvent<HTMLFormElement>) => Promise<void>;
 }
 
+/**
+ *
+ * @param queryValue: Current Search Term (Asset Symbol)
+ * @param setQueryValue: Sets Current Search Term (Asset Symbol)
+ * @param filterAssets: Function that filters the current asset shown in UI
+ * @returns searchForm compnent that allows users to search assets
+ */
 const SearchForm = ({
   queryValue,
   setQueryValue,

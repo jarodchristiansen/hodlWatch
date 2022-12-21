@@ -4,6 +4,11 @@ interface AssetCardAnimationWrapperProps {
   children: JSX.Element | JSX.Element[];
 }
 
+/**
+ *
+ * @param children: Digital Asset card that this wraps
+ * @returns AssetCardAnimationWrapper wraps digital asset card to allow it to expand
+ */
 const AssetCardAnimationWrapper = ({
   children,
 }: AssetCardAnimationWrapperProps) => {

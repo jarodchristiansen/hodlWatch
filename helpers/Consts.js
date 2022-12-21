@@ -1,5 +1,5 @@
 export const DeviceConsts = {
-  IS_MOBILE_QUERY: `(max-width: 920px)`,
+  IS_DESKTOP_QUERY: `(max-width: 920px)`,
 };
 
 export const SuccessMessageConsts = {

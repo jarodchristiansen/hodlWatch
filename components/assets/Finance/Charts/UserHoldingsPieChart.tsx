@@ -24,6 +24,12 @@ interface BalanceObjects {
   __typename: string;
 }
 
+/**
+ *
+ * @param data: User holding data
+ * @param sum: total user holdings combined
+ * @returns UserHoldingsPieChart shows associated holdings of users connected exchange account
+ */
 const UserHoldingsPieChart = ({ data, sum }: UserHoldingsPieChartProps) => {
   const COLORS = [
     "#8884d8",

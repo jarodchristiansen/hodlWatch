@@ -4,6 +4,12 @@ import styled from "styled-components";
 import { useLazyQuery } from "@apollo/client";
 import { GET_USER } from "@/helpers/queries/user";
 
+/**
+ *
+ * @param assets: Digital assets that are currently being renderered
+ * @param session: Signed in user's session
+ * @returns AssetsContainer that shows the digital assets currently searched
+ */
 const AssetsContainer = ({ assets, session }) => {
   const [currentAssets, setCurrentAssets] = useState(assets || null);
 

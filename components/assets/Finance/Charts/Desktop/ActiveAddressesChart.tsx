@@ -10,35 +10,26 @@ import {
 import React from "react";
 import styled from "styled-components";
 
+/**
+ *
+ * @param {data} data: ActiveAddress/NewAddress data
+ * @returns ActiveAddressesChart shows the new/active addresses for asset BTC/ETH
+ */
 const ActiveAddressesChart = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>
-          Active Addresses
-          {/*<span className={"ms-3"}>*/}
-          {/*  <FinanceChartModal />*/}
-          {/*</span>*/}
-        </h1>
+        <h1>Active Addresses</h1>
       </div>
 
       {data && (
         <ComposedChart data={data} height={500} width={500}>
           <CartesianGrid strokeDasharray="3 3" />
-          <YAxis
-            dataKey="active_addresses"
-            yAxisId="left-axis"
-            // domain={["auto", "auto"]}
-            // allowDataOverflow={true}
-            // width={0}
-          />
+          <YAxis dataKey="active_addresses" yAxisId="left-axis" />
           <YAxis
             dataKey="new_addresses"
             yAxisId="right-axis"
             orientation="right"
-            // domain={["auto", "auto"]}
-            // allowDataOverflow={true}
-            // width={0}
           />
           <XAxis dataKey="time" />
           <Tooltip />

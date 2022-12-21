@@ -28,6 +28,11 @@ interface SourceInfoType {
   name: string;
 }
 
+/**
+ *
+ * @param props NewsBlockProps: the components of the newsStory rendered in the block
+ * @returns NewsBlock: news post block in news feed
+ */
 const NewsBlock = (props: NewsBlockProps) => {
   const { story } = props;
 

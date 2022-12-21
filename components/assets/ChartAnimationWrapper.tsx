@@ -4,6 +4,11 @@ interface ChartAnimationWrapperProps {
   children: JSX.Element | JSX.Element[];
 }
 
+/**
+ *
+ * @param children: The chart that this component wraps
+ * @returns Chart wrapper that allows the transition to expand
+ */
 const ChartAnimationWrapper = ({ children }: ChartAnimationWrapperProps) => {
   return (
     <motion.div

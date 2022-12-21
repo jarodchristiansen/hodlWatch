@@ -12,6 +12,11 @@ import GET_ASSET from "@/helpers/queries/assets/getAsset";
 import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
 import { MediaQueries } from "@/styles/MediaQueries";
 
+/**
+ *
+ * @param userSession: session returned from Next-Auth ssr query
+ * @returns AssetPage that allows for searching/filtering of digital assets
+ */
 const AssetsPage = ({ userSession: session }) => {
   const [offsetState, setOffsetState] = useState<number>(1);
   const [limitState, setLimitState] = useState(9);

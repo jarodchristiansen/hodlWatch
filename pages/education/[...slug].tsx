@@ -16,6 +16,11 @@ import remarkRehype from "remark-rehype";
 import styled from "styled-components";
 import client from "../../apollo-client";
 
+/**
+ *
+ * @param data: Post Article that is returned from SSR query
+ * @returns EducationArticle from HodlWatch-Admin
+ */
 const EducationArticle = ({ data }) => {
   const headerImage = useMemo(() => {
     if (!data?.getPost?.header_image) return "";

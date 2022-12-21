@@ -6,6 +6,10 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 
+/**
+ *
+ * @returns Header component above pages
+ */
 function Header() {
   const [session, loading] = useSession();
   const [selectedRoute, setSelectedRoute] = useState<string | number>("");

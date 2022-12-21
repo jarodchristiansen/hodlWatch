@@ -1,21 +1,23 @@
 import {
+  Area,
   CartesianGrid,
+  ComposedChart,
+  Line,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  Legend,
-  LineChart,
-  Line,
-  Area,
-  ComposedChart,
 } from "recharts";
-// import FinanceChartModal from "./FinanceChartModal";
-import React, { useEffect, useState } from "react";
 import { currencyFormat } from "@/helpers/formatters/currency";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+/**
+ *
+ * @param data: CLosing data/time period for asset
+ * @returns EmaChart showing 30/50/100/200 Ema chart for asset over the given time period.
+ */
 const EMAChartDesktop = ({ data }) => {
-  const [emaData, setEmaData] = useState();
+  const [emaData, setEmaData] = useState<any>();
 
   useEffect(() => {
     processEmas(data);
@@ -78,14 +80,13 @@ const EMAChartDesktop = ({ data }) => {
             dataKey="close"
             domain={["auto", "auto"]}
             allowDataOverflow={true}
-            // tick={{ fill: "white" }}
             width={0}
-            formatter={(value) => currencyFormat(value)}
+            // @ts-ignore
+            formatter={(value: any) => currencyFormat(value.toString)}
           />
           <XAxis dataKey="time" />
 
           <Tooltip formatter={(value) => currencyFormat(value)} />
-          {/* <Legend /> */}
 
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

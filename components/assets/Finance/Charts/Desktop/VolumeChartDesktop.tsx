@@ -20,6 +20,11 @@ interface VolumeObjects {
   volumeTo: number;
 }
 
+/**
+ *
+ * @param data: volumeData
+ * @returns VolumeChart that shows to/from exchange volume of asset
+ */
 const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
   return (
     <ChartContainer>

@@ -19,6 +19,10 @@ import { MediaQueries } from "@/styles/MediaQueries";
 import SideMenu from "@/components/commons/sidebar-nav";
 import PortfolioMain from "@/components/portfolio/PortfolioMain";
 
+/**
+ *
+ * @returns User Profile Page with edit/profile pages connected as query strings
+ */
 const ProfilePage = () => {
   const [session, loading] = useSession();
   const { account, isReady } = useAccount();

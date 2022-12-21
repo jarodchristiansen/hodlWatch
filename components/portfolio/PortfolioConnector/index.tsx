@@ -7,6 +7,10 @@ import { currencyFormat } from "@/helpers/formatters/currency";
 import { MediaQueries } from "@/styles/MediaQueries";
 import UserHoldingsPieChart from "@/components/assets/Finance/Charts/UserHoldingsPieChart";
 
+/**
+ *
+ * @returns PortfolioConnector: Portal that allows user to connect via their exchange keys and explore their portfolio compared to other users
+ */
 const PortfolioConnector = () => {
   const [publicKeyValue, setPublicKeyValue] = useState("");
   const [privateKeyValue, setPrivateKeyValue] = useState("");

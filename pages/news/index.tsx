@@ -1,13 +1,17 @@
-import { useLazyQuery } from "@apollo/client";
-import { useEffect, useMemo, useState } from "react";
-import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
-import styled from "styled-components";
 import PriceScreener from "@/components/commons/screener";
-import { MediaQueries } from "@/styles/MediaQueries";
-import Head from "next/head";
 import NewsBlock from "@/components/news/news-block";
-import { useSession, getSession } from "next-auth/client";
+import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
+import { MediaQueries } from "@/styles/MediaQueries";
+import { useLazyQuery } from "@apollo/client";
+import { getSession } from "next-auth/client";
+import Head from "next/head";
+import { useEffect, useMemo, useState } from "react";
+import styled from "styled-components";
 
+/**
+ *
+ * @returns News Feed Page featuring data from coingecko/cryptocompare
+ */
 const NewsFeedPage = () => {
   const [
     fetchNewsFeed,
@@ -26,7 +30,7 @@ const NewsFeedPage = () => {
     if (!data?.getNewsFeed?.length) return [];
 
     return data.getNewsFeed.slice(0, articleLimit).map((story) => {
-      return <NewsBlock story={story} key={story.guid}/>;
+      return <NewsBlock story={story} key={story.guid} />;
     });
   }, [data, articleLimit]);
 

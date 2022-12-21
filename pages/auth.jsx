@@ -6,6 +6,11 @@ import styled from "styled-components";
 import SignInForm from "../components/forms/SignInForm";
 import { MediaQueries } from "@/styles/MediaQueries";
 
+
+/**
+ * 
+ * @returns Auth Page connecting to next-auth with oAuth google/github providers
+ */
 const AuthPage = () => {
   const [providers, setProviders] = useState([]);
 

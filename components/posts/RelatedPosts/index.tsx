@@ -16,6 +16,11 @@ export type Post = {
   post_content: String;
 };
 
+/**
+ *
+ * @param props Array of posts related to the current article
+ * @returns Row of posts related to the existing post in the article
+ */
 const RelatedPostsRow = (props: RelatedPostsProps) => {
   const { tempPost } = props;
 

@@ -38,6 +38,13 @@ interface BlockChainData {
   __typename: string;
 }
 
+/**
+ *
+ * @param timeQuery: how many days the data is rendered for
+ * @param id: the symbol of the asset currently being shown
+ * @param blockChainData: the indicator data (BTC or ETH related)
+ * @returns IndicatorAccordion the component rendering indicator charts
+ */
 const IndicatorAccordion = ({
   timeQuery = 90,
   id,

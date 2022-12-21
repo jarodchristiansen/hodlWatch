@@ -24,6 +24,13 @@ export type Asset = {
   image: { small: string; thumb: string };
 };
 
+/**
+ *
+ * @param asset: Digital asset BTC etc..
+ * @param email: User email
+ * @param favorited: Boolean after cross referencing user favorites to this asset
+ * @returns AssetCard component that allows users to favorite/expore the digital asset further
+ */
 const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
   const [assetDetails, setAssetDetails] = useState();
   const { title, name, description, symbol, imageUrl, image } = asset;

@@ -6,6 +6,11 @@ import styled from "styled-components";
 import ToggleSwitch from "../commons/switchers/toggle-switch";
 import ProviderContainer from "./ProviderContainer/ProviderContainer";
 
+/**
+ *
+ * @param providers: Sign In Providers github etc.
+ * @returns Sign In/Sign Up Forms
+ */
 const SignInForm = ({ providers }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -1,14 +1,16 @@
+import PriceScreener from "@/components/commons/screener";
+import { GET_POSTS } from "@/helpers/queries/posts/index";
+import { MediaQueries } from "@/styles/MediaQueries";
 import { useLazyQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
-import { GET_POSTS } from "@/helpers/queries/posts/index";
 import styled from "styled-components";
-import { MediaQueries } from "@/styles/MediaQueries";
-import RelatedPostsRow from "@/components/posts/RelatedPosts";
-import { useSession, getSession } from "next-auth/client";
-import PriceScreener from "@/components/commons/screener";
 
+/**
+ *
+ * @returns Education Page filtering the posts created from HodlWatch-Admin portal
+ */
 const EducationPage = () => {
   const [getPosts, { data, loading: newsLoading, error, called, refetch }] =
     useLazyQuery(GET_POSTS);

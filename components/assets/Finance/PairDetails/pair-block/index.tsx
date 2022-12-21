@@ -18,6 +18,12 @@ interface PairData {
   VOLUME24HOURTO: number;
 }
 
+/**
+ *
+ * @param data: The pair data associated with each pair compared to the main asset for the page
+ * @param id?: the id of the main asset we are comparing to
+ * @returns PairBlock that renders the volume of the trading pair compared to main asset.
+ */
 const PairBlock = (props: PairBlockProps) => {
   const { data, id } = props;
 

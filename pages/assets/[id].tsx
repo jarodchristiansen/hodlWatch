@@ -19,7 +19,11 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import styled from "styled-components";
 
-const AssetDetailsPage = ({ deviceType }) => {
+/**
+ *
+ * @returns AssetDetailsPage that includes the financial/social/details for digital asset
+ */
+const AssetDetailsPage = () => {
   const [timeQuery, setTimeQuery] = useState(14);
 
   const router = useRouter();

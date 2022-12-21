@@ -8,6 +8,11 @@ interface PairDetailsRowProps {
   id: string;
 }
 
+/**
+ *
+ * @param id: Symbol of the current asset to find the associated pairs
+ * @returns PairDetailsRow component that show strade volume of associated pairs
+ */
 const PairDetailsRow = ({ id }: PairDetailsRowProps) => {
   const [getPairs, { data, loading, error, refetch }] = useLazyQuery(
     GET_ASSET_PAIRS_24_HOURS

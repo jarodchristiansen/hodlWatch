@@ -4,6 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
+/**
+ *
+ * @returns Footer component below pages
+ */
 const Footer = () => {
   const router = useRouter();
   const [session, loading] = useSession();

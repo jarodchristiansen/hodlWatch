@@ -10,6 +10,13 @@ import LandingCard from "../components/commons/info-cards/landing-card";
 import PriceScreener from "../components/commons/screener/index";
 import client from "apollo-client";
 
+
+
+/**
+ * 
+ * @param data: Response from GetNewsFeed query, renders the news feed at bottom of landing page 
+ * @returns Landing page with Info/Sign Up Pages
+ */
 export default function Home({ data }) {
   const [session, loading] = useSession();
 
