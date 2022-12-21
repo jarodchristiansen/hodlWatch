@@ -141,7 +141,7 @@ const EducationArticle = ({ data }) => {
           <meta
             property="og:description"
             content={`${
-              data?.getPost?.meta_description ||
+              data?.getPost?.description ||
               data?.getPost?.post_content.slice(0, 255)
             }`}
           />
