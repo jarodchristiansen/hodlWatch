@@ -156,7 +156,7 @@ const ProfilePage = () => {
             <>
               <div className="switch-container">
                 <button className="standardized-button" onClick={routeEditUser}>
-                  Edit User Profile
+                  Edit Profile
                 </button>
                 <button
                   className="standardized-button"

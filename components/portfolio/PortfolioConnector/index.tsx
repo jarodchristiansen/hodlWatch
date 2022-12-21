@@ -88,8 +88,8 @@ const PortfolioConnector = () => {
     checkForUserKeys();
   }, []);
 
-  const HoldingsItems = useMemo(() => {
-    if (!holdingData?.getUserExchangeData?.balances?.length) return [];
+  useEffect(() => {
+    if (!holdingData?.getUserExchangeData?.balances?.length) return;
 
     let tempSum = 0;
 
@@ -98,6 +98,10 @@ const PortfolioConnector = () => {
     }
 
     setSum(tempSum);
+  }, [holdingData?.getUserExchangeData]);
+
+  const HoldingsItems = useMemo(() => {
+    if (!holdingData?.getUserExchangeData?.balances?.length) return [];
 
     let initialData = [...holdingData.getUserExchangeData.balances];
 
@@ -120,7 +124,11 @@ const PortfolioConnector = () => {
     }
 
     return data.map((item) => {
-      let ratio = Math.floor(((item.balance * item.usd) / sum) * 100);
+      let ratio;
+
+      if (sum) {
+        ratio = Math.floor(((item.balance * item.usd) / sum) * 100);
+      }
 
       return (
         <div className="holding-item-row" key={item.balance}>
@@ -139,7 +147,7 @@ const PortfolioConnector = () => {
         </div>
       );
     });
-  }, [holdingData?.getUserExchangeData, holdingSort]);
+  }, [holdingData?.getUserExchangeData, holdingSort, sum]);
 
   const analyticsData = useMemo(() => {
     if (!holdingData?.getUserExchangeData?.balances?.length || !sum) return [];
