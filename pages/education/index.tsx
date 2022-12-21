@@ -90,11 +90,13 @@ const EducationPage = () => {
             <InterstitialRow>
               <div className="header-column">
                 <span>
-                  <h4>More Related Articles</h4>
-                  <h6>
+                  <h4>
                     Remember, nothing in these articles should be interpreted as
-                    financial advice (we think we're pretty good, but we aren't
-                    financial advisors)
+                    financial advice
+                  </h4>
+                  <h6>
+                    (we think we're pretty good, but we aren't financial
+                    advisors)
                   </h6>
                 </span>
               </div>
@@ -160,7 +162,7 @@ const InterstitialRow = styled.div`
 
   .related-row {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 1rem;
     gap: 1rem;
 
@@ -168,6 +170,10 @@ const InterstitialRow = styled.div`
       background-color: white;
       color: black;
       border-radius: 12px;
+    }
+
+    @media ${MediaQueries.MD} {
+      flex-direction: row;
     }
   }
 `;
@@ -212,6 +218,13 @@ const PostRow = styled.div`
   span {
     color: gray;
     font-weight: bold;
+  }
+
+  h2:hover,
+  span:hover {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
   }
 `;
 
