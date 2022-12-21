@@ -13,6 +13,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import styled from "styled-components";
+import Image from "next/image";
+import Link from "next/link";
 
 const CustomizedDot = (props) => {
   const { cx, cy, stroke, payload, value } = props;
@@ -158,8 +160,19 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
 
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className={"label-row"}>
         <h1>Fibonacci Retracement</h1>
+
+        <Link href="/education/fibonacci-retracement-indicator" passHref>
+          <a target="#">
+            <Image
+              src={"/images/info-icon.svg"}
+              className={"pointer-link info-circle"}
+              height={"30px"}
+              width={"30px"}
+            />
+          </a>
+        </Link>
       </div>
       {fibonacciData && (
         <ComposedChart data={fibonacciData} height={500} width={500}>
@@ -252,6 +265,18 @@ const ChartContainer = styled.div`
   padding: 1rem 1rem;
   background-color: white;
   box-shadow: 2px 4px 8px lightgray;
+
+  .label-row {
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+    gap: 1rem;
+    justify-content: center;
+
+    .info-circle {
+      fill: green;
+    }
+  }
 `;
 
 export default FibonacciRetracementChartDesktop;
