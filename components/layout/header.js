@@ -57,41 +57,49 @@ function Header() {
   const routeObjects = useMemo(() => {
     if (!routes?.length) return [];
 
-    return routes.map((route) => {
+    return routes.map((route, idx) => {
       if (!route?.key) return;
 
       return (
         <>
           {!!route.guarded && !!session && (
-            <Nav.Link eventKey={route.key.toString()} role={"link"}>
-              <TextContainer>
-                <Link href={route.route}>
-                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                    {route.text}
-                  </Navbar.Text>
-                </Link>
+            <div key={idx}>
+              <Nav.Link eventKey={route.key.toString()} role={"link"}>
+                <TextContainer>
+                  <Link href={route.route}>
+                    <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
+                      {route.text}
+                    </Navbar.Text>
+                  </Link>
 
-                {selectedRoute == route.key && (
-                  <span className="active-underline-span"></span>
-                )}
-              </TextContainer>
-            </Nav.Link>
+                  {selectedRoute == route.key && (
+                    <span className="active-underline-span"></span>
+                  )}
+                </TextContainer>
+              </Nav.Link>
+            </div>
           )}
 
           {!route.guarded && (
-            <Nav.Link eventKey={route.key.toString()} role={"link"}>
-              <TextContainer>
-                <Link href={route.route}>
-                  <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                    {route.text}
-                  </Navbar.Text>
-                </Link>
+            <div key={idx}>
+              <Nav.Link
+                eventKey={route.key.toString()}
+                role={"link"}
+                key={route.key}
+              >
+                <TextContainer>
+                  <Link href={route.route}>
+                    <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
+                      {route.text}
+                    </Navbar.Text>
+                  </Link>
 
-                {selectedRoute == route.key && (
-                  <span className="active-underline-span"></span>
-                )}
-              </TextContainer>
-            </Nav.Link>
+                  {selectedRoute == route.key && (
+                    <span className="active-underline-span"></span>
+                  )}
+                </TextContainer>
+              </Nav.Link>
+            </div>
           )}
         </>
       );

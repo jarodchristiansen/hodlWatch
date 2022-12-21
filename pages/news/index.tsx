@@ -26,7 +26,7 @@ const NewsFeedPage = () => {
     if (!data?.getNewsFeed?.length) return [];
 
     return data.getNewsFeed.slice(0, articleLimit).map((story) => {
-      return <NewsBlock story={story} />;
+      return <NewsBlock story={story} key={story.guid}/>;
     });
   }, [data, articleLimit]);
 

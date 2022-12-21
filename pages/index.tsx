@@ -148,7 +148,6 @@ export default function Home({ data }) {
               height={"300px"}
               width={"400px"}
               alt="block-logo"
-              layout="responsive"
               unoptimized={true}
             />
 
@@ -162,14 +161,16 @@ export default function Home({ data }) {
           </div>
 
           <div className="image-column">
-            <Image
-              src={"/assets/PieChart.PNG"}
-              height={"300px"}
-              width={"400px"}
-              alt="block-logo"
-              layout="responsive"
-              unoptimized={true}
-            />
+            <div>
+              <Image
+                src={"/assets/PieChart.PNG"}
+                height={"300px"}
+                width={"400px"}
+                alt="block-logo"
+                unoptimized={true}
+              />
+            </div>
+
             <Link href={`/user/${id}`}>
               <span className="pointer-link">
                 <h5>Portfolio Analysis</h5>

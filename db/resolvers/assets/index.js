@@ -75,11 +75,6 @@ export const AssetResolver = {
   },
   getAssetFinancialDetails: async (_, { symbol, time }) => {
     try {
-      // const data = await fetch(
-      //   `https://api.lunarcrush.com/v2?data=assets&key=688o9wuzvzst3uybpg6eh&symbol=btc&data_points=365&interval=day`
-      // ).then((response) => response.json());
-
-      // console.log({data})
       const data = {};
 
       let priceData = await fetch(
@@ -96,38 +91,6 @@ export const AssetResolver = {
         data.blockchainData = blockchainData.Data.Data;
       }
 
-      // const data = await fetch(
-      //   `https://api.coingecko.com/api/v3/coins/${symbol}/ohlc/vs_currency=usd&days=${time}`
-      // ).then((response) => response.json());
-
-      // console.log({data})
-      // const asset = await Asset.find({ symbol });
-
-      // let assets = await CoinGeckoClient.coins.all();
-      // // const assets = await Asset.find({});
-
-      // return assets?.data.filter((e) =>
-      //   e.symbol.toLowerCase().includes(symbol.toLowerCase())
-      // );
-
-      // let glassnode;
-      // await Promise.all([
-      //   fetch(
-      //     `https://api.glassnode.com/v1/metrics/indicators/difficulty_ribbon?a=${symbol}&api_key=${process.env.GLASSNODE_KEY}`
-      //   ).then((resp) => resp.json()),
-      //   // fetch(
-      //   //   `https://api.glassnode.com/v1/metrics/indicators/sopr?a=${symbol}&api_key=${process.env.GLASSNODE_KEY}`
-      //   // ).then((resp) => resp.json()),
-      //   // // fetch(
-      //   // //   `https://api.glassnode.com/v1/metrics/indicators/stock_to_flow_ratio?a=${symbol}&api_key=${process.env.GLASSNODE_KEY}`
-      //   // // ).then((resp) => resp.json()),
-      //   // fetch(
-      //   //   `https://api.glassnode.com/v1/metrics/indicators/pi_cycle_top?a=${symbol}&api_key=${process.env.GLASSNODE_KEY}`
-      //   // ).then((resp) => resp.json()),
-      // ]).then((result) => {
-      //   glassnode = result;
-      // });
-
       if (data?.priceData) {
         return data;
       } else {
@@ -140,33 +103,7 @@ export const AssetResolver = {
 
   getAssetHistory: async (_, { symbol, time }) => {
     try {
-      // const data = await fetch(
-      //   `https://api.lunarcrush.com/v2?data=assets&key=688o9wuzvzst3uybpg6eh&symbol=btc&data_points=365&interval=day`
-      // ).then((response) => response.json());
-
-      // console.log({data})
       const data = {};
-
-      // // // How to get details on contracts from erc-20
-      // const CoinGeckoClient = new CoinGecko();
-
-      // let coinList = await CoinGeckoClient.coins.list();
-
-      // let geckoProp = coinList.data.filter(
-      //   (asset) => symbol.toLowerCase() === asset.symbol.toLowerCase()
-      // );
-
-      // console.log({ geckoProp });
-
-      // if (geckoProp) {
-      //   let geckoData = await CoinGeckoClient.coins.fetch(geckoProp[0].id, {});
-      //   console.log({ geckoData });
-      // }
-
-      // let zrx = "0xe41d2489571d322189246dafa5ebde1f4699f498";
-      // let contract = await CoinGeckoClient.coins.fetchCoinContractInfo(zrx);
-
-      // console.log({ contract });
 
       let priceData = await fetch(
         `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol.toUpperCase()}&tsym=USD&limit=${time}`
@@ -183,8 +120,6 @@ export const AssetResolver = {
         //   `https://min-api.cryptocompare.com/data/tradingsignals/intotheblock/latest?fsym=BTC&api_key=${process.env.CRYPTO_COMPARE_KEY}`
         // ).then((response) => response.json());
 
-        // console.log("IN GET ASSET HISTORY RESOLVER", { indicatorData });
-
         data.blockchainData = blockchainData.Data.Data;
       }
 
@@ -200,7 +135,6 @@ export const AssetResolver = {
 
   getGeckoAssetDetails: async (_, { name, time }) => {
     try {
-      // console.log({data})
       let data = {};
 
       // // How to get details on contracts from erc-20
@@ -219,8 +153,6 @@ export const AssetResolver = {
         });
 
         data = geckoData?.data;
-
-        console.log({ geckoProp, data });
       }
 
       // let zrx = "0xe41d2489571d322189246dafa5ebde1f4699f498";

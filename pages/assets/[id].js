@@ -33,8 +33,6 @@ const AssetDetailsPage = ({ deviceType }) => {
   let symbol = router.query?.symbol;
   let name = router.query?.name;
 
-  console.log({ router, id, symbol, name });
-
   const [getFinancials, { data, loading, error, refetch }] =
     useLazyQuery(GET_ASSET_HISTORY);
 

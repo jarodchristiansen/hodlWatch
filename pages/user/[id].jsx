@@ -48,7 +48,6 @@ const ProfilePage = () => {
   });
 
   useEffect(() => {
-    console.log({ session, slug });
     if (session?.user) {
       setUser(session.user);
     }
@@ -82,9 +81,9 @@ const ProfilePage = () => {
   const userFavoritesList = useMemo(() => {
     if (!data?.getUser?.favorites) return [];
 
-    return data.getUser.favorites.map((favorite) => {
+    return data.getUser.favorites.map((favorite, idx) => {
       return (
-        <div className="favorites-row">
+        <div className="favorites-row" key={favorite.title}>
           <Image
             src={favorite.image}
             height={"50px"}
