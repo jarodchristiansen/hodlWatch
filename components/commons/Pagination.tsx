@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Pagination } from "react-bootstrap";
 
+interface PaginationComponentProps {
+  active: number;
+  setOffsetState: (number) => void;
+  fetchMore: any;
+  refetch: any;
+}
+
 const PaginationComponent = ({
   active,
   setOffsetState,
   fetchMore,
   refetch,
-}) => {
+}: PaginationComponentProps) => {
   let items = [];
 
   let start = active > 2 ? active - 2 : 1;

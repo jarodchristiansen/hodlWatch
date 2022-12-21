@@ -48,6 +48,11 @@ interface ProvidersAsProps {
   };
 }
 
+/**
+ *
+ * @param providers: Auth Providers github etc...
+ * @returns ProviderContainer: Component that shows the sign in provider squares
+ */
 const ProviderContainer = ({ providers }: ProvidersAsProps) => {
   const signInOthers = async (e, provider) => {
     // console.log({ provider });

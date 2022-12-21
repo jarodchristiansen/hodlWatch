@@ -3,6 +3,11 @@ import Header from "./header";
 import Footer from "./footer";
 import styled from "styled-components";
 
+/**
+ *
+ * @param
+ * @returns Site Layout Wrapper
+ */
 function Layout(props) {
   return (
     <LayoutContainer>

@@ -2,6 +2,9 @@ import glob from "glob";
 import { GET_POSTS } from "@/helpers/queries/posts";
 import client from "../apollo-client";
 
+/**
+ * returns the dynamic sitemap with posts from apollo query
+ */
 const Sitemap = () => {
   return null;
 };
@@ -22,7 +25,7 @@ export const getServerSideProps = async ({ res, context }) => {
 
   let data = null;
 
-  const response = await getSiteTitle(context); // any async promise here.
+  const response = await getSiteTitle(context);
   data = response?.data?.data?.getPosts;
 
   let postPaths;
@@ -33,6 +36,7 @@ export const getServerSideProps = async ({ res, context }) => {
     });
   }
 
+  // PagesDir not currently working on Vercel, hence the hardcoded main pages
   const pagesDir = "pages/**/*.tsx";
   let pagesPaths = await glob.sync(pagesDir);
 

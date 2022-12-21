@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-const TimeButtons = ({ availTimes, setTimeQuery, refetch }) => {
+interface TimeButtonsProps {
+  availTimes: number[];
+  setTimeQuery: (time: number) => void;
+  refetch: any;
+}
+
+const TimeButtons = ({
+  availTimes,
+  setTimeQuery,
+  refetch,
+}: TimeButtonsProps) => {
   return (
     <div>
       {availTimes &&

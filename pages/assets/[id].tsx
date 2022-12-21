@@ -1,35 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { useRouter, withRouter } from "next/router";
 import FinancialAccordion from "@/components/assets/Finance/FinancialAccordion";
-import { useQuery, useLazyQuery } from "@apollo/client";
-import GET_ASSET_FINANCIALS, {
-  GET_ASSET_HISTORY,
-  GET_GECKO_HISTORY,
-} from "@/helpers/queries/assets/getAssetFinancialDetails";
-import { Accordion } from "react-bootstrap";
-import IndicatorAccordion from "@/components/assets/Indicators/IndicatorAccordion";
-import TimeButtons from "@/components/commons/TimeButtons";
-import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
-import styled from "styled-components";
 import PairDetailsRow from "@/components/assets/Finance/PairDetails/index";
-import { MediaQueries } from "@/styles/MediaQueries";
-import Head from "next/head";
-import { useSession, getSession } from "next-auth/client";
+import IndicatorAccordion from "@/components/assets/Indicators/IndicatorAccordion";
+import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
+import TimeButtons from "@/components/commons/TimeButtons";
 import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
-import { useMemo } from "react";
+import { GET_ASSET_HISTORY } from "@/helpers/queries/assets/getAssetFinancialDetails";
+import { MediaQueries } from "@/styles/MediaQueries";
+import { useLazyQuery } from "@apollo/client";
+import { getSession } from "next-auth/client";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import React, { useEffect, useMemo, useState } from "react";
+import { Accordion } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import rehypeRaw from "rehype-raw";
+import styled from "styled-components";
 
-const AssetDetailsPage = ({ deviceType }) => {
-  const [assetFinancials, setAssetFinancials] = useState();
+/**
+ *
+ * @returns AssetDetailsPage that includes the financial/social/details for digital asset
+ */
+const AssetDetailsPage = () => {
   const [timeQuery, setTimeQuery] = useState(14);
 
   const router = useRouter();
 
-  let id = router.query.id;
+  let id = "";
+
+  if (router?.query?.id) {
+    id = router.query.id as string;
+  }
+
   let symbol = router.query?.symbol;
   let name = router.query?.name;
 
@@ -45,12 +49,14 @@ const AssetDetailsPage = ({ deviceType }) => {
   const isBtcOrEth = id === "btc" || id === "eth";
 
   useEffect(() => {
-    getFinancials({
-      variables: {
-        symbol: id || "BTC",
-        time: timeQuery,
-      },
-    });
+    if (id) {
+      getFinancials({
+        variables: {
+          symbol: id || "BTC",
+          time: timeQuery,
+        },
+      });
+    }
 
     getDetails({
       variables: {
@@ -146,13 +152,10 @@ const AssetDetailsPage = ({ deviceType }) => {
         <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>{`Asset Details - ${id?.toUpperCase()}`}</title>
       </Head>
-      {/* <PriceScreener /> */}
 
       {!loading && (
         <div className={"container text-center"}>
           {GeckoDetails && !loading && assetDetails}
-
-          {error && <div>Error {console.log({ error })}</div>}
 
           {id && (
             <PairRowContainer>
@@ -219,6 +222,8 @@ const AssetDetailsPage = ({ deviceType }) => {
 
 const AssetDetailsRow = styled.div`
   padding: 0.5rem;
+  margin-right: -2rem;
+  margin-left: -0.5rem;
 
   @media ${MediaQueries.MD} {
     display: flex;
@@ -245,6 +250,11 @@ const AssetDetailsRow = styled.div`
       flex-direction: column;
       text-align: center;
       justify-content: center;
+      border: 1px solid black;
+      border-radius: 12px;
+      padding: 1rem;
+      background-color: #f6f3f7;
+      box-shadow: 2px 4px 8px lightgray;
     }
   }
 
@@ -255,10 +265,22 @@ const AssetDetailsRow = styled.div`
     padding-right: 1rem;
     text-align: center;
     justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 
     div {
       display: flex;
       flex-direction: column;
+      background-color: #f6f3f7;
+      border-radius: 12px;
+      justify-content: center;
+      padding: 1rem;
+      border: 1px solid black;
+      box-shadow: 2px 4px 8px lightgray;
+
+      span {
+        font-weight: bold;
+      }
     }
 
     .positive {

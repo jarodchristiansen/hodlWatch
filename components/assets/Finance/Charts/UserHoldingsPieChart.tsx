@@ -10,7 +10,27 @@ import React, { useMemo } from "react";
 import styled from "styled-components";
 import { currencyFormat } from "@/helpers/formatters/currency";
 
-const UserHoldingsPieChart = ({ data, sum }) => {
+interface UserHoldingsPieChartProps {
+  data: BalanceObjects[];
+  sum: number;
+}
+
+interface BalanceObjects {
+  balance: number;
+  relative_value: number;
+  symbol: string;
+  ticker: string;
+  usd: number;
+  __typename: string;
+}
+
+/**
+ *
+ * @param data: User holding data
+ * @param sum: total user holdings combined
+ * @returns UserHoldingsPieChart shows associated holdings of users connected exchange account
+ */
+const UserHoldingsPieChart = ({ data, sum }: UserHoldingsPieChartProps) => {
   const COLORS = [
     "#8884d8",
     "#82ca9d",

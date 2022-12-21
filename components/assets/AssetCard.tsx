@@ -7,7 +7,31 @@ import { ADD_FAVORITE, REMOVE_FAVORITE } from "@/helpers/mutations/user";
 import { useMutation } from "@apollo/client";
 import { GET_USER } from "@/helpers/queries/user";
 
-const AssetCard = ({ asset, email, favorited }) => {
+interface AssetCardProps {
+  asset: Asset;
+  key?: string;
+  email: string | null;
+  favorited: boolean;
+  refetchFavorites?: () => void;
+}
+
+export type Asset = {
+  title: string;
+  name: string;
+  description: string;
+  symbol: string;
+  imageUrl: string;
+  image: { small: string; thumb: string };
+};
+
+/**
+ *
+ * @param asset: Digital asset BTC etc..
+ * @param email: User email
+ * @param favorited: Boolean after cross referencing user favorites to this asset
+ * @returns AssetCard component that allows users to favorite/expore the digital asset further
+ */
+const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
   const [assetDetails, setAssetDetails] = useState();
   const { title, name, description, symbol, imageUrl, image } = asset;
   const { thumb, small } = image;
@@ -109,6 +133,7 @@ const AssetCard = ({ asset, email, favorited }) => {
               className="my-2"
               src={imageUrl || small}
               alt={name || title}
+              // @ts-ignore
               unoptimized={"true"}
             />
           </div>

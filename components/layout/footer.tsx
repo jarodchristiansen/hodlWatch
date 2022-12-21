@@ -1,21 +1,25 @@
+import { MediaQueries } from "@/styles/MediaQueries";
 import { useSession } from "next-auth/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { Colors } from "@/styles/Colors";
-import { MediaQueries } from "@/styles/MediaQueries";
 
+/**
+ *
+ * @returns Footer component below pages
+ */
 const Footer = () => {
   const router = useRouter();
   const [session, loading] = useSession();
 
+  //@ts-ignore: next-auth issue v3
   let id = session?.user?.id;
 
   const routerToProfile = (manage) => {
-    if (session?.user?.id && manage) {
-      router.push(`/user/${session.user.id}?view=edit_user`);
-    } else if (session?.user?.id) {
-      router.push(`/user/${session.user.id}`);
+    if (id && manage) {
+      router.push(`/user/${id}?view=edit_user`);
+    } else if (id) {
+      router.push(`/user/${id}`);
     } else {
       router.push("/auth?path=SignUp");
     }
@@ -81,7 +85,6 @@ const InfoColumnsContainer = styled.div`
 
 const FooterContainer = styled.div`
   width: 100%;
-  /* background-color: ${Colors.PrimaryButtonBackground}; */
   background-color: #1a1919;
   color: white;
   padding: 2rem 2rem;

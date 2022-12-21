@@ -95,8 +95,17 @@ const CustomizedDot = (props) => {
   }
 };
 
-const FibonacciRetracementChartDesktop = ({ data }) => {
-  const [fibonacciData, setFibonacciData] = useState();
+interface FibonacciProps {
+  data: CloseData[];
+}
+
+interface CloseData {
+  close: number;
+  time: string;
+}
+
+const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
+  const [fibonacciData, setFibonacciData] = useState<any>();
 
   useEffect(() => {
     processFibonacciData(data);

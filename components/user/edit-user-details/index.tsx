@@ -5,6 +5,12 @@ import styled from "styled-components";
 import { UPDATE_USERNAME } from "@/helpers/mutations/user";
 import { MediaQueries } from "@/styles/MediaQueries";
 
+/**
+ *
+ * @param user: User associated with the profile
+ * @param fetchedUser: User fetched from database to confirm user is associated user
+ * @returns EditUserDetails flow that allows user to update their profile components
+ */
 const EditUserDetails = ({ user, fetchedUser }) => {
   const [usernameInput, setUsernameInput] = useState("");
 

@@ -6,6 +6,11 @@ import styled from "styled-components";
 import ToggleSwitch from "../commons/switchers/toggle-switch";
 import ProviderContainer from "./ProviderContainer/ProviderContainer";
 
+/**
+ *
+ * @param providers: Sign In Providers github etc.
+ * @returns Sign In/Sign Up Forms
+ */
 const SignInForm = ({ providers }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +18,7 @@ const SignInForm = ({ providers }) => {
 
   const [isSignIn, setIsSignIn] = useState(router.query.path === "SignIn");
 
-  const handleSignInSubmit = async (e) => {
+  const handleSignInSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     await signIn("credentials", {
@@ -22,7 +27,7 @@ const SignInForm = ({ providers }) => {
     });
   };
 
-  const handleFormChange = (e) => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
 
     if (name) {

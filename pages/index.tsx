@@ -10,6 +10,13 @@ import LandingCard from "../components/commons/info-cards/landing-card";
 import PriceScreener from "../components/commons/screener/index";
 import client from "apollo-client";
 
+
+
+/**
+ * 
+ * @param data: Response from GetNewsFeed query, renders the news feed at bottom of landing page 
+ * @returns Landing page with Info/Sign Up Pages
+ */
 export default function Home({ data }) {
   const [session, loading] = useSession();
 
@@ -36,7 +43,7 @@ export default function Home({ data }) {
           />
 
           <div className="source-container">
-            <span>{story?.source_info?.name}</span>
+            <span className="source-name">{story?.source_info?.name}</span>
             <Image
               src={story.source_info?.img}
               height={"70px"}
@@ -380,6 +387,10 @@ const NewsItem = styled.div`
     gap: 1rem;
     font-size: 18px;
     margin-top: auto;
+
+    .source-name {
+      font-weight: bold;
+    }
   }
 
   @media ${MediaQueries.MD} {

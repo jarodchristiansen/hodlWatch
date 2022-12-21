@@ -10,13 +10,16 @@ import PriceScreener from "@/components/commons/screener";
 import SearchForm from "@/components/forms/SearchForm/SearchForm";
 import GET_ASSET from "@/helpers/queries/assets/getAsset";
 import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
-import { GET_USER } from "@/helpers/queries/user";
 import { MediaQueries } from "@/styles/MediaQueries";
 
+/**
+ *
+ * @param userSession: session returned from Next-Auth ssr query
+ * @returns AssetPage that allows for searching/filtering of digital assets
+ */
 const AssetsPage = ({ userSession: session }) => {
-  const [offsetState, setOffsetState] = useState(1);
+  const [offsetState, setOffsetState] = useState<number>(1);
   const [limitState, setLimitState] = useState(9);
-  // const { session, status } = useSession();
 
   const [fetchAssets, { data, loading, error, refetch, fetchMore }] =
     useLazyQuery(GET_ASSETS, {
@@ -39,7 +42,7 @@ const AssetsPage = ({ userSession: session }) => {
     setAssetData(data?.getAsset);
   }, [data?.getAsset]);
 
-  const filterAssets = async (e) => {
+  const filterAssets = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e?.preventDefault();
 
     const results = await getAsset({
@@ -49,7 +52,6 @@ const AssetsPage = ({ userSession: session }) => {
     if (error) {
       console.log(error);
     } else {
-      // return data;
       setAssetData(results.data.getAsset);
     }
   };
@@ -72,12 +74,12 @@ const AssetsPage = ({ userSession: session }) => {
     }
   }, [data, loading, assetData]);
 
-  const loadMoreFunction = () => {
-    // refetch({ offset: offsetState - 1 });
-    fetchMore({
-      offset: offsetState,
-    });
-  };
+  // const loadMoreFunction = () => {
+  //   // refetch({ offset: offsetState - 1 });
+  //   fetchMore({
+  //     offset: offsetState,
+  //   });
+  // };
 
   return (
     <PageWrapper>
@@ -123,7 +125,7 @@ const AssetsPage = ({ userSession: session }) => {
 
           {error && (
             <div>
-              Error Loading Assets, please refresh the page {console.log(error)}
+              <span>Error Loading Assets, please refresh the page</span>
             </div>
           )}
         </div>

@@ -12,10 +12,30 @@ import PriceBTCChartDesktop from "./Charts/Desktop/PriceBTCChartDesktop";
 import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
 import BollingerBandChart from "./Charts/Desktop/BollingerBandChartDesktop";
 
-const FinancialAccordion = ({ financialData, id }) => {
+interface FinancailAccordionProps {
+  financialData: FinancialDataType[];
+  id: string;
+}
+
+interface FinancialDataType {
+  close: number;
+  conversionSymbol: string;
+  conversionType: string;
+  high: number;
+  low: number;
+  open: number;
+  time: number;
+  volumefrom: number;
+  volumeto: number;
+  __typename: string;
+}
+
+const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
+  console.log({ financialData, id });
+
   const [isOpen, setIsOpen] = useState(false);
-  const [processedFinancialData, setProcessedFinancialData] = useState([]);
-  const [chartsToDisplay, setChartsToDisplay] = useState();
+  const [processedFinancialData, setProcessedFinancialData] = useState<any>([]);
+  const [chartsToDisplay, setChartsToDisplay] = useState<any>();
 
   useEffect(() => {
     financialData && processFinancialData(financialData);
@@ -149,7 +169,6 @@ const FinancialAccordion = ({ financialData, id }) => {
           size={24}
           color={"black"}
           className={"pointer-link me-4"}
-          disabled={isFirstItemVisible}
           onClick={() => scrollPrev()}
         />
 
@@ -157,7 +176,6 @@ const FinancialAccordion = ({ financialData, id }) => {
           size={24}
           color={"black"}
           className={"pointer-link ms-4"}
-          disabled={isLastItemVisible}
           onClick={() => scrollNext()}
         />
       </div>

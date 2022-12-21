@@ -4,15 +4,22 @@ import styled from "styled-components";
 interface SearchFormProps {
   queryValue: string;
   setQueryValue: React.Dispatch<React.SetStateAction<string>>;
-  filterAssets: (e?: string) => [];
+  filterAssets: (e?: React.ChangeEvent<HTMLFormElement>) => Promise<void>;
 }
 
+/**
+ *
+ * @param queryValue: Current Search Term (Asset Symbol)
+ * @param setQueryValue: Sets Current Search Term (Asset Symbol)
+ * @param filterAssets: Function that filters the current asset shown in UI
+ * @returns searchForm compnent that allows users to search assets
+ */
 const SearchForm = ({
   queryValue,
   setQueryValue,
   filterAssets,
 }: SearchFormProps) => {
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     filterAssets(e);

@@ -1,14 +1,17 @@
+import PriceScreener from "@/components/commons/screener";
+import RelatedPostsRow from "@/components/posts/RelatedPosts";
+import { GET_POSTS } from "@/helpers/queries/posts/index";
+import { MediaQueries } from "@/styles/MediaQueries";
 import { useLazyQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
-import { GET_POSTS } from "@/helpers/queries/posts/index";
 import styled from "styled-components";
-import { MediaQueries } from "@/styles/MediaQueries";
-import RelatedPostsRow from "@/components/posts/RelatedPosts";
-import { useSession, getSession } from "next-auth/client";
-import PriceScreener from "@/components/commons/screener";
 
+/**
+ *
+ * @returns Education Page filtering the posts created from HodlWatch-Admin portal
+ */
 const EducationPage = () => {
   const [getPosts, { data, loading: newsLoading, error, called, refetch }] =
     useLazyQuery(GET_POSTS);
@@ -58,6 +61,20 @@ const EducationPage = () => {
       </FilterBar>
 
       <PageHolder>
+        <InterstitialRow>
+          <div className="header-column">
+            <span>
+              <h4>
+                Remember, nothing in these articles should be interpreted as
+                financial advice
+              </h4>
+              <h6>
+                (we think we're pretty good, but we aren't financial advisors)
+              </h6>
+            </span>
+          </div>
+        </InterstitialRow>
+
         {data?.getPosts && (
           <div>
             <div className="top-row">
@@ -72,8 +89,6 @@ const EducationPage = () => {
 
             <InterstitialRow>
               <div className="header-column">
-                <h2>Check in on more recent updates</h2>
-
                 <span>
                   <h4>
                     Remember, nothing in these articles should be interpreted as
@@ -85,11 +100,11 @@ const EducationPage = () => {
                   </h6>
                 </span>
               </div>
-            </InterstitialRow>
 
-            {/* <div className="right-card">
-              <RelatedPostsRow tempPost={data.getPosts[0]} />
-            </div> */}
+              <div className="related-row">
+                <RelatedPostsRow tempPost={data.getPosts[0]} />
+              </div>
+            </InterstitialRow>
           </div>
         )}
       </PageHolder>
@@ -116,7 +131,6 @@ const InterstitialRow = styled.div`
   background-color: #1a1919;
   color: white;
   padding: 2rem 2rem;
-  margin-top: 4rem;
   border-top: 2px solid gray;
   text-align: center;
 
@@ -144,6 +158,23 @@ const InterstitialRow = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .related-row {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+
+    div {
+      background-color: white;
+      color: black;
+      border-radius: 12px;
+    }
+
+    @media ${MediaQueries.MD} {
+      flex-direction: row;
+    }
   }
 `;
 
@@ -182,18 +213,24 @@ const PostRow = styled.div`
   border-radius: 12px;
   box-shadow: 2px 4px 8px lightgray;
   gap: 1rem;
-  margin: 1rem;
+  margin: 1rem 0;
 
   span {
     color: gray;
     font-weight: bold;
+  }
+
+  h2:hover,
+  span:hover {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
   }
 `;
 
 const PageHolder = styled.div`
   display: grid;
   width: 100%;
-  padding: 2rem 0;
 
   .top-row {
     width: 100%;
@@ -203,16 +240,18 @@ const PageHolder = styled.div`
     @media ${MediaQueries.MD} {
       flex-direction: row;
       gap: 1rem;
-      padding: 0 2rem;
-      padding-bottom: 2rem;
+      padding: 2rem 2rem;
     }
 
     .left-card {
-      width: 100%;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       column-gap: 2rem;
+
+      @media ${MediaQueries.MD} {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      }
     }
   }
 

@@ -10,6 +10,12 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { pageview } from "../lib/gtag";
 
+/**
+ *
+ * @param {Component} : Page/Component that Layout/App wrap
+ * @param {pageProps} : session from Next-Auth, as well as server side props
+ * @returns
+ */
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   // const config = {
   //   projectId: `${process.env.WALLET_CONNECT_ID}`,

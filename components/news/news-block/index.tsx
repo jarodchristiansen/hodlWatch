@@ -28,6 +28,11 @@ interface SourceInfoType {
   name: string;
 }
 
+/**
+ *
+ * @param props NewsBlockProps: the components of the newsStory rendered in the block
+ * @returns NewsBlock: news post block in news feed
+ */
 const NewsBlock = (props: NewsBlockProps) => {
   const { story } = props;
 
@@ -51,7 +56,7 @@ const NewsBlock = (props: NewsBlockProps) => {
           unoptimized={true}
         />
 
-        <ReadMoreButton>{story.body}</ReadMoreButton>
+        {story.body.slice(0, 160) + "..."}
       </div>
 
       <Link href={story?.guid} passHref>
@@ -98,6 +103,10 @@ const NewsItem = styled.div`
     padding-top: 0.5rem;
     gap: 1rem;
     font-size: 18px;
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 `;
 

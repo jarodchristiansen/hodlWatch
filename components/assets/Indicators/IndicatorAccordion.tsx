@@ -12,9 +12,46 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import ActiveAddressesChart from "../Finance/Charts/Desktop/ActiveAddressesChart";
 
-const IndicatorAccordion = ({ timeQuery = 90, id, blockchainData }) => {
+interface IndicatorAccordion {
+  timeQuery: number;
+  id: string;
+  blockchainData: BlockChainData[];
+}
+
+interface BlockChainData {
+  active_addresses: number;
+  average_transaction_value: number;
+  block_height: number;
+  block_size: number;
+  block_time: number;
+  current_supply: number;
+  difficulty: number;
+  hashrate: number;
+  large_transaction_count: number;
+  new_addresses: number;
+  symbol: string;
+  time: number;
+  transaction_count: number;
+  transaction_count_all_time: number;
+  unique_addresses_all_time: number;
+  zero_balance_addresses_all_time: number;
+  __typename: string;
+}
+
+/**
+ *
+ * @param timeQuery: how many days the data is rendered for
+ * @param id: the symbol of the asset currently being shown
+ * @param blockChainData: the indicator data (BTC or ETH related)
+ * @returns IndicatorAccordion the component rendering indicator charts
+ */
+const IndicatorAccordion = ({
+  timeQuery = 90,
+  id,
+  blockchainData,
+}: IndicatorAccordion) => {
   const [ribbonData, setRibbonData] = useState();
-  const [chartData, setChartData] = useState();
+  const [chartData, setChartData] = useState<any>();
 
   // const [getRibbon, { data, loading, error, refetch }] = useLazyQuery(
   //   GET_DIFFICULTY_RIBBONS
@@ -74,7 +111,6 @@ const IndicatorAccordion = ({ timeQuery = 90, id, blockchainData }) => {
           size={24}
           color={"black"}
           className={"pointer-link me-4"}
-          disabled={isFirstItemVisible}
           onClick={() => scrollPrev()}
         />
 
@@ -82,7 +118,6 @@ const IndicatorAccordion = ({ timeQuery = 90, id, blockchainData }) => {
           size={24}
           color={"black"}
           className={"pointer-link ms-4"}
-          disabled={isLastItemVisible}
           onClick={() => scrollNext()}
         />
       </div>

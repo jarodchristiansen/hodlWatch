@@ -1,23 +1,20 @@
 import {
-  ComposedChart,
   CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  Legend,
-  Area,
-  Scatter,
-  ResponsiveContainer,
-  Brush,
-  Label,
-  LineChart,
-  Line,
 } from "recharts";
-import { useMediaQuery } from "react-responsive";
 // import { FaInfoCircle } from "react-icons/fa";
-import React from "react";
 // import FinanceChartModal from "./FinanceChartModal";
 
+/**
+ *
+ * @param {data} data: Volatility Data
+ * @returns VolatilityChart that shows the total vol for current period
+ */
 const VolatilityChart = ({ data }) => {
   const modalText = {
     modalHeader: "Volatility",
