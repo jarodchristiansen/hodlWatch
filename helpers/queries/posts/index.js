@@ -10,6 +10,7 @@ export const GET_POSTS = gql`
       publish_date
       section
       slug
+      description
     }
   }
 `;
@@ -24,6 +25,7 @@ export const GET_POST = gql`
       section
       slug
       post_title
+      description
     }
   }
 `;
