@@ -61,9 +61,9 @@ function Header() {
       if (!route?.key) return;
 
       return (
-        <>
+        <div key={route?.route}>
           {!!route.guarded && !!session && (
-            <div key={idx}>
+            <div>
               <Nav.Link eventKey={route.key.toString()} role={"link"}>
                 <TextContainer>
                   <Link href={route.route}>
@@ -81,7 +81,7 @@ function Header() {
           )}
 
           {!route.guarded && (
-            <div key={idx}>
+            <div>
               <Nav.Link
                 eventKey={route.key.toString()}
                 role={"link"}
@@ -101,7 +101,7 @@ function Header() {
               </Nav.Link>
             </div>
           )}
-        </>
+        </div>
       );
     });
   }, [routes?.length, session, selectedRoute]);
