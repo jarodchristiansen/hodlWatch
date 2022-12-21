@@ -104,6 +104,10 @@ const NewsItem = styled.div`
     gap: 1rem;
     font-size: 18px;
   }
+
+  a:hover {
+    text-decoration: underline;
+  }
 `;
 
 export default NewsBlock;
