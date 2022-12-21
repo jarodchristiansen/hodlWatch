@@ -3,6 +3,7 @@ import RelatedPostsRow from "@/components/posts/RelatedPosts";
 import { GET_POSTS } from "@/helpers/queries/posts/index";
 import { MediaQueries } from "@/styles/MediaQueries";
 import { useLazyQuery } from "@apollo/client";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
@@ -54,6 +55,48 @@ const EducationPage = () => {
 
   return (
     <div>
+      <Head>
+        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
+        <title>Cryptocurrency Explained - Blockchain Data Analysis</title>
+
+        <meta
+          name="description"
+          content={
+            "Have questions about cryptocurrency, 'like how many cryptocurrency exchanges are there?' but need some of the details explained? Click to learn more"
+          }
+        />
+        <meta
+          name="twitter:card"
+          content={"Cryptocurrency Explained - Blockchain Data Analysis"}
+        />
+        <meta
+          name="twitter:title"
+          content={"Cryptocurrency Explained - Blockchain Data Analysis"}
+        />
+        <meta
+          name="twitter:site"
+          content={`https://hodl-watch.vercel.app/education`}
+        />
+        <meta property="twitter:image" content={"/assets/PieChart.PNG"} />
+        <meta property="twitter:domain" content="hodl-watch.vercel.app" />
+
+        <meta
+          property="og:title"
+          content={"Cryptocurrency Explained - Blockchain Data Analysis"}
+        />
+
+        <meta
+          property="og:description"
+          content={
+            "Have questions about cryptocurrency, 'like how many cryptocurrency exchanges are there?' but need some of the details explained? Click to learn more"
+          }
+        />
+        <meta property="og:image" content={"/assets/PieChart.PNG"} />
+
+        <meta property="og:image:width" content="400" />
+        <meta property="og:image:height" content="400" />
+      </Head>
+
       <PriceScreener />
       <FilterBar>
         <label htmlFor="article_search">Article:</label>
@@ -76,7 +119,9 @@ const EducationPage = () => {
         </InterstitialRow>
 
         {data?.getPosts && (
-          <div>
+          <div className="grid-holder">
+            <h1>Crypto Insights: Indicators & Background</h1>
+
             <div className="top-row">
               <div className="left-card">
                 {PostCards}
@@ -111,20 +156,6 @@ const EducationPage = () => {
     </div>
   );
 };
-
-// const PairRowContainer = styled.div`
-//   display: flex;
-//   max-width: 100%;
-//   overflow: scroll;
-//   gap: 1rem;
-//   padding: 1rem 0;
-
-//   ::-webkit-scrollbar {
-//     display: none;
-//     -ms-overflow-style: none; /* IE and Edge */
-//     scrollbar-width: none; /* Firefox */
-//   }
-// `;
 
 const InterstitialRow = styled.div`
   width: 100%;
@@ -231,6 +262,11 @@ const PostRow = styled.div`
 const PageHolder = styled.div`
   display: grid;
   width: 100%;
+
+  .grid-holder {
+    text-align: center;
+    margin: 1rem;
+  }
 
   .top-row {
     width: 100%;
