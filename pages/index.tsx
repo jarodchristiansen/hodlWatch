@@ -36,7 +36,7 @@ export default function Home({ data }) {
           />
 
           <div className="source-container">
-            <span>{story?.source_info?.name}</span>
+            <span className="source-name">{story?.source_info?.name}</span>
             <Image
               src={story.source_info?.img}
               height={"70px"}
@@ -380,6 +380,10 @@ const NewsItem = styled.div`
     gap: 1rem;
     font-size: 18px;
     margin-top: auto;
+
+    .source-name {
+      font-weight: bold;
+    }
   }
 
   @media ${MediaQueries.MD} {

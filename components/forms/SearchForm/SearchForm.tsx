@@ -4,7 +4,7 @@ import styled from "styled-components";
 interface SearchFormProps {
   queryValue: string;
   setQueryValue: React.Dispatch<React.SetStateAction<string>>;
-  filterAssets: (e?: string) => [];
+  filterAssets: (e?: React.ChangeEvent<HTMLFormElement>) => Promise<void>;
 }
 
 const SearchForm = ({
@@ -12,7 +12,7 @@ const SearchForm = ({
   setQueryValue,
   filterAssets,
 }: SearchFormProps) => {
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     filterAssets(e);
