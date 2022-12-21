@@ -57,7 +57,7 @@ const EducationArticle = ({ data }) => {
         // Throughout the piece without interfering in headers or lists
         let renderRepetitionCondition =
           !!idx &&
-          idx % 3 === 0 &&
+          idx % 7 === 0 &&
           !noGoCharacters.some((char) => markdownPiece.includes(char));
 
         return (
