@@ -7,8 +7,8 @@ import Image from "next/image";
 import styled from "styled-components";
 
 function Header() {
-  const [session, loading, status] = useSession();
-  const [selectedRoute, setSelectedRoute] = useState();
+  const [session, loading] = useSession();
+  const [selectedRoute, setSelectedRoute] = useState<string | number>("");
 
   const router = useRouter();
   const { asPath } = router;
@@ -27,6 +27,7 @@ function Header() {
     setSelectedRoute(selectedKey);
   };
 
+  // @ts-ignore: next-auth type issue v3
   let id = session?.user?.id;
 
   const routes = [
@@ -149,7 +150,7 @@ function Header() {
                 <>
                   <img
                     src={session.user.image}
-                    style={{ maxHeight: "50px", float: "end" }}
+                    style={{ float: "inline-end", maxHeight: "50px" }}
                     alt=""
                   />
                 </>

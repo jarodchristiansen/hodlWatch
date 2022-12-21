@@ -13,7 +13,7 @@ const SignInForm = ({ providers }) => {
 
   const [isSignIn, setIsSignIn] = useState(router.query.path === "SignIn");
 
-  const handleSignInSubmit = async (e) => {
+  const handleSignInSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     await signIn("credentials", {
@@ -22,7 +22,7 @@ const SignInForm = ({ providers }) => {
     });
   };
 
-  const handleFormChange = (e) => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
 
     if (name) {

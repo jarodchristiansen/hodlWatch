@@ -1,47 +1,41 @@
 import {
+  Area,
   CartesianGrid,
+  ComposedChart,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  LineChart,
-  Line,
-  ComposedChart,
-  Area,
 } from "recharts";
 // import FinanceChartModal from "./FinanceChartModal";
-import React from "react";
-import styled from "styled-components";
 import { currencyFormat } from "@/helpers/formatters/currency";
+import styled from "styled-components";
 
-const VolumeChartDesktop = ({ data }) => {
+interface VolumeChartProps {
+  data: VolumeObjects[];
+}
+
+interface VolumeObjects {
+  time: string;
+  volumeFrom: number;
+  volumeTo: number;
+}
+
+const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>
-          Volume Chart
-          {/*<span className={"ms-3"}>*/}
-          {/*  <FinanceChartModal />*/}
-          {/*</span>*/}
-        </h1>
+        <h1>Volume Chart</h1>
       </div>
 
       {data && (
         <ComposedChart data={data} height={500} width={500}>
           <CartesianGrid strokeDasharray="3 3" />
-          <YAxis
-            dataKey="volumeTo"
-            yAxisId="left-axis"
-            // domain={["auto", "auto"]}
-            // allowDataOverflow={true}
-            // width={0}
-          />
+          <YAxis dataKey="volumeTo" yAxisId="left-axis" />
           <YAxis
             dataKey="volumeFrom"
             yAxisId="right-axis"
             orientation="right"
             tickFormatter={(value) => currencyFormat(value)}
-            // domain={["auto", "auto"]}
-            // allowDataOverflow={true}
             width={0}
           />
           <XAxis dataKey="time" />

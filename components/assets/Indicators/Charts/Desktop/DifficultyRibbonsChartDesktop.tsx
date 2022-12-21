@@ -13,7 +13,7 @@ import {
 // import FinanceChartModal from "./FinanceChartModal";
 import React, { useState, useEffect } from "react";
 
-const DifficultyRibbonChartDesktop = ({ data }) => {
+const DifficultyRibbonChartDesktop = ({ data }: any) => {
   const format = (num, decimals) =>
     num.toLocaleString("en-US", {
       minimumFractionDigits: 2,
@@ -43,7 +43,7 @@ const DifficultyRibbonChartDesktop = ({ data }) => {
             }
           />
 
-          <Tooltip formatter={(value) => format(value)} />
+          <Tooltip formatter={(value) => format(value, 2)} />
           <Legend />
           <Line
             type="monotone"

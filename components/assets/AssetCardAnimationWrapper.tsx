@@ -1,6 +1,12 @@
 import { motion, transform } from "framer-motion";
 
-const AssetCardAnimationWrapper = ({ children }) => {
+interface AssetCardAnimationWrapperProps {
+  children: JSX.Element | JSX.Element[];
+}
+
+const AssetCardAnimationWrapper = ({
+  children,
+}: AssetCardAnimationWrapperProps) => {
   return (
     <motion.div
       whileHover={{

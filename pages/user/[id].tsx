@@ -35,10 +35,10 @@ const ProfilePage = () => {
     return router.query.id;
   }, [router?.asPath]);
 
-  let id;
-
   // @ts-ignore next-auth v3 type structure issue
-  const isUsersProfile = session?.user?.id == slug;
+  let id = session?.user?.id;
+
+  const isUsersProfile = id == slug;
 
   const [
     fetchUserDetails,
@@ -115,18 +115,15 @@ const ProfilePage = () => {
   }, [router.query?.view]);
 
   const routeToMain = () => {
-    // @ts-ignore next-auth v3 type structure issue
-    router.push(`/user/${session.user.id}`);
+    router.push(`/user/${id}`);
   };
 
   const routeEditUser = () => {
-    // @ts-ignore next-auth v3 type structure issue
-    router.push(`/user/${session.user.id}?view=edit_user`);
+    router.push(`/user/${id}?view=edit_user`);
   };
 
   const routeToPortfolio = () => {
-    // @ts-ignore next-auth v3 type structure issue
-    router.push(`/user/${session.user.id}?view=portfolio`);
+    router.push(`/user/${id}?view=portfolio`);
   };
 
   const navLinks = [

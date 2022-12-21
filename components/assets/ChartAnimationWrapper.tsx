@@ -1,6 +1,10 @@
 import { motion, transform } from "framer-motion";
 
-const ChartAnimationWrapper = ({ children }) => {
+interface ChartAnimationWrapperProps {
+  children: JSX.Element | JSX.Element[];
+}
+
+const ChartAnimationWrapper = ({ children }: ChartAnimationWrapperProps) => {
   return (
     <motion.div
       whileHover={{
