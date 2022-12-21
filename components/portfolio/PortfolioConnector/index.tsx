@@ -41,7 +41,11 @@ const PortfolioConnector = () => {
     ];
 
     return list.map((exchange) => {
-      return <option value={exchange.value}>{exchange.name}</option>;
+      return (
+        <option value={exchange.value} key={exchange.name}>
+          {exchange.name}
+        </option>
+      );
     });
   }, []);
 
@@ -87,12 +91,6 @@ const PortfolioConnector = () => {
   const HoldingsItems = useMemo(() => {
     if (!holdingData?.getUserExchangeData?.balances?.length) return [];
 
-    // const tempSum = holdingData.getUserExchangeData.balances.reduce(
-    //   (accumulator, object) => {
-    //     return accumulator + object.usd;
-    //   },
-    //   0
-    // );
     let tempSum = 0;
 
     for (let asset of holdingData.getUserExchangeData.balances) {
@@ -105,11 +103,8 @@ const PortfolioConnector = () => {
 
     let data;
 
-    console.log({ holdingSort });
-
     switch (holdingSort) {
       case "Value":
-        console.log("In Value Sort");
         data = initialData.sort(
           (a, b) => a.balance * a.usd - b.balance * b.usd
         );
@@ -128,7 +123,7 @@ const PortfolioConnector = () => {
       let ratio = Math.floor(((item.balance * item.usd) / sum) * 100);
 
       return (
-        <div className="holding-item-row">
+        <div className="holding-item-row" key={item.balance}>
           <span className="item-symbol">{item.symbol}</span>
 
           <div className="holdings-column">

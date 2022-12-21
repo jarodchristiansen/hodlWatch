@@ -25,10 +25,8 @@ const EducationPage = () => {
     if (!data?.getPosts) return [];
 
     return data.getPosts.map((post) => {
-      console.log({ post });
-
       return (
-        <Link href={`/education${post.slug}`}>
+        <Link href={`/education${post.slug}`} key={post.slug}>
           <PostRow>
             <Image
               src={post.header_image}

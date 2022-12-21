@@ -1,6 +1,5 @@
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
 import { MediaQueries } from "@/styles/MediaQueries";
-import { useLazyQuery } from "@apollo/client";
 import { useSession } from "next-auth/client";
 import Head from "next/head";
 import Image from "next/image";
@@ -9,18 +8,10 @@ import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import LandingCard from "../components/commons/info-cards/landing-card";
 import PriceScreener from "../components/commons/screener/index";
+import client from "apollo-client";
 
-export default function Home(props) {
+export default function Home({ data }) {
   const [session, loading] = useSession();
-
-  const [
-    fetchNewsFeed,
-    { data, loading: newsLoading, error, called, refetch },
-  ] = useLazyQuery(GET_NEWS_FEED);
-
-  useEffect(() => {
-    fetchNewsFeed();
-  }, []);
 
   const newsFeedContent = useMemo(() => {
     if (!data?.getNewsFeed?.length) return [];
@@ -157,7 +148,6 @@ export default function Home(props) {
               height={"300px"}
               width={"400px"}
               alt="block-logo"
-              layout="responsive"
               unoptimized={true}
             />
 
@@ -171,14 +161,16 @@ export default function Home(props) {
           </div>
 
           <div className="image-column">
-            <Image
-              src={"/assets/PieChart.PNG"}
-              height={"300px"}
-              width={"400px"}
-              alt="block-logo"
-              layout="responsive"
-              unoptimized={true}
-            />
+            <div>
+              <Image
+                src={"/assets/PieChart.PNG"}
+                height={"300px"}
+                width={"400px"}
+                alt="block-logo"
+                unoptimized={true}
+              />
+            </div>
+
             <Link href={`/user/${id}`}>
               <span className="pointer-link">
                 <h5>Portfolio Analysis</h5>
@@ -392,40 +384,28 @@ const NewsItem = styled.div`
   }
 `;
 
-const PartnerBlock = styled.div`
-  border: 1.25px solid white;
-  display: flex;
-  flex-direction: column;
-  border-radius: 12px;
-  width: fit-content;
-  padding: 1rem 2rem;
-  justify-content: start;
+const getNewsFeed = async () => {
+  const result = await client.query({
+    query: GET_NEWS_FEED,
+  });
 
-  color: black;
-  background-color: #dfdee673;
-  margin: 0.5rem 0.5rem;
-  text-align: center;
-  min-width: 12rem;
-  outline: 0.5px solid gray;
-  gap: 1rem;
+  return { data: result };
+};
 
-  .partner-header {
-    font-weight: bold;
+export const getServerSideProps = async (context) => {
+  let data = null;
+
+  const response = await getNewsFeed(); // any async promise here.
+
+  data = response.data;
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
   }
 
-  .partner-image {
-    border-radius: 12px;
-  }
-`;
-
-// export async function getStaticProps() {
-//   const data = await client.query({
-//     query: GET_PRODUCTS,
-//   });
-//
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }
+  return {
+    props: data, // will be passed to the page component as props
+  };
+};

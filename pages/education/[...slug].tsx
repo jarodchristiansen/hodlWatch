@@ -57,16 +57,15 @@ const EducationArticle = ({ data }) => {
         // Throughout the piece without interfering in headers or lists
         let renderRepetitionCondition =
           !!idx &&
-          idx % 3 === 0 &&
+          idx % 7 === 0 &&
           !noGoCharacters.some((char) => markdownPiece.includes(char));
 
         return (
-          <div>
+          <div key={markdownPiece + Math.random()}>
             <ReactMarkdown
               children={markdownPiece}
               remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
               rehypePlugins={[rehypeRaw]}
-              key={markdownPiece + Math.random()}
             />
             {/* Adds interstitial on odd idx and prevents being under headings, within list,  */}
             {renderRepetitionCondition && (
@@ -88,7 +87,6 @@ const EducationArticle = ({ data }) => {
         : "";
 
     const URL = `${origin}${asPath}`;
-    console.log(URL);
 
     const navUrl = "https://www.facebook.com/sharer/sharer.php?u=" + URL;
     window.open(navUrl, "_blank");
@@ -101,7 +99,6 @@ const EducationArticle = ({ data }) => {
         : "";
 
     const URL = `${origin}${asPath}`;
-    console.log(URL);
 
     const navUrl = "https://twitter.com/intent/tweet?text=" + URL;
     window.open(navUrl, "_blank");

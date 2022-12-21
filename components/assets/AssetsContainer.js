@@ -35,8 +35,6 @@ const AssetsContainer = ({ assets, session }) => {
   const ref = useRef();
   // const isVisible = useOnScreen(ref, "100px");
 
-  console.log({ session });
-
   const AssetCards = useMemo(() => {
     if ((!currentAssets, !userData?.getUser?.favorites)) return [];
 

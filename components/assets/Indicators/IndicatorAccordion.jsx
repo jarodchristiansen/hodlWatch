@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from "react";
 import { Accordion } from "react-bootstrap";
-import React, { useState, useEffect, useMemo } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 // import FibonacciRetracementChartDesktop from "../Finance/Charts/Desktop/FibonacciRetracementChartDesktop";
@@ -8,10 +8,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 // import VolumeChartDesktop from "../Finance/Charts/Desktop/VolumeChartDesktop";
 // import PercentChangeChartDesktop from "../Finance/Charts/Desktop/PercentChangeChartDesktop";
 // import PriceBTCChartDesktop from "../Finance/Charts/Desktop/PriceBTCChartDesktop";
-import { useLazyQuery } from "@apollo/client";
 // import GET_ASSET_FINANCIALS from "../../../helpers/queries/assets/getAssetFinancialDetails";
-import GET_DIFFICULTY_RIBBONS from "@/helpers/queries/assets/GetDifficultyRibbons";
-import DifficultyRibbonChartDesktop from "../Indicators/Charts/Desktop/DifficultyRibbonsChartDesktop";
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import ActiveAddressesChart from "../Finance/Charts/Desktop/ActiveAddressesChart";
 
@@ -19,23 +16,23 @@ const IndicatorAccordion = ({ timeQuery = 90, id, blockchainData }) => {
   const [ribbonData, setRibbonData] = useState();
   const [chartData, setChartData] = useState();
 
-  const [getRibbon, { data, loading, error, refetch }] = useLazyQuery(
-    GET_DIFFICULTY_RIBBONS
-  );
+  // const [getRibbon, { data, loading, error, refetch }] = useLazyQuery(
+  //   GET_DIFFICULTY_RIBBONS
+  // );
 
   const availableTimes = [730, 365, 180, 90, 30, 14];
 
   useEffect(() => {
     formatData();
 
-    if (id === "btc") {
-      getRibbon({
-        variables: {
-          symbol: id || "BTC",
-          cut: timeQuery,
-        },
-      });
-    }
+    // if (id === "btc") {
+    //   getRibbon({
+    //     variables: {
+    //       symbol: id || "BTC",
+    //       cut: timeQuery,
+    //     },
+    //   });
+    // }
   }, [timeQuery]);
 
   const formatData = () => {

@@ -107,11 +107,11 @@ const options = {
     //   },
     //   from: process.env.EMAIL_FROM,
     // }),
-    Providers.Coinbase({
-      clientId: process.env.COINBASE_CLIENT_ID,
-      clientSecret: process.env.COINBASE_CLIENT_SECRET,
-      // scope: "wallet:accounts:read,wallet:transactions:read",
-    }),
+    // Providers.Coinbase({
+    //   clientId: process.env.COINBASE_CLIENT_ID,
+    //   clientSecret: process.env.COINBASE_CLIENT_SECRET,
+    //   // scope: "wallet:accounts:read,wallet:transactions:read",
+    // }),
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
@@ -144,14 +144,14 @@ const options = {
         // client.close();
       },
     }),
-    Providers.Facebook({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET,
-    }),
-    Providers.Twitter({
-      clientId: process.env.TWITTER_ID,
-      clientSecret: process.env.TWITTER_SECRET,
-    }),
+    // Providers.Facebook({
+    //   clientId: process.env.FACEBOOK_ID,
+    //   clientSecret: process.env.FACEBOOK_SECRET,
+    // }),
+    // Providers.Twitter({
+    //   clientId: process.env.TWITTER_ID,
+    //   clientSecret: process.env.TWITTER_SECRET,
+    // }),
   ],
   // ******** !!!! ADD BELOW LINE !!!! **********
   // Prevents localhost issue on vercel auth deployment
