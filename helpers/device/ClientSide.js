@@ -1,9 +1,9 @@
 import { useMediaQuery } from "react-responsive";
 import { DeviceConsts } from "../Consts";
 
-export const isMobile = () => {
+export const isDesktop = () => {
   const device = useMediaQuery({
-    query: DeviceConsts.IS_MOBILE_QUERY,
+    query: DeviceConsts.IS_DESKTOP_QUERY,
   });
 
   return device;

@@ -23,7 +23,7 @@ const ProfilePage = () => {
   const [session, loading] = useSession();
   const { account, isReady } = useAccount();
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<null | any>();
   //   const [walletIsConnected, setWalletIsConnected] = useState(false);
   const { isOpen, open, close } = useConnectModal();
 
@@ -35,15 +35,15 @@ const ProfilePage = () => {
     return router.query.id;
   }, [router?.asPath]);
 
+  let id;
+
+  // @ts-ignore next-auth v3 type structure issue
   const isUsersProfile = session?.user?.id == slug;
 
   const [
     fetchUserDetails,
     { data, loading: dataLoading, error, refetch, fetchMore },
   ] = useLazyQuery(GET_USER, {
-    variables: {
-      email: user?.email,
-    },
     fetchPolicy: "network-only",
   });
 
@@ -54,8 +54,12 @@ const ProfilePage = () => {
   }, [loading]);
 
   useEffect(() => {
-    if (user?.email) {
-      fetchUserDetails();
+    if (!!user && user?.email) {
+      fetchUserDetails({
+        variables: {
+          email: user?.email,
+        },
+      });
     }
   }, [user]);
 
@@ -111,14 +115,17 @@ const ProfilePage = () => {
   }, [router.query?.view]);
 
   const routeToMain = () => {
+    // @ts-ignore next-auth v3 type structure issue
     router.push(`/user/${session.user.id}`);
   };
 
   const routeEditUser = () => {
+    // @ts-ignore next-auth v3 type structure issue
     router.push(`/user/${session.user.id}?view=edit_user`);
   };
 
   const routeToPortfolio = () => {
+    // @ts-ignore next-auth v3 type structure issue
     router.push(`/user/${session.user.id}?view=portfolio`);
   };
 
@@ -126,8 +133,6 @@ const ProfilePage = () => {
     { name: "Profile", stateChanger: () => routeToMain() },
     { name: "Edit Account", stateChanger: () => routeEditUser() },
     { name: "Portfolio", stateChanger: () => routeToPortfolio() },
-    // { name: "Services" },
-    // { name: "Contact Us" },
   ];
 
   return (
@@ -241,14 +246,37 @@ const ProfilePage = () => {
                 </button>
               </div> */}
 
+              <div className="switch-container">
+                <button className="standardized-button" onClick={routeToMain}>
+                  View Profile
+                </button>
+                <button
+                  className="standardized-button"
+                  onClick={routeToPortfolio}
+                >
+                  View Portfolio
+                </button>
+              </div>
+
               <EditUserDetails user={user} fetchedUser={data?.getUser} />
             </>
           )}
 
           {viewState === "portfolio" && isUsersProfile && (
-            <div>
-              <PortfolioMain />
-            </div>
+            <>
+              <div className="switch-container">
+                <button className="standardized-button" onClick={routeToMain}>
+                  View Profile
+                </button>
+                <button className="standardized-button" onClick={routeEditUser}>
+                  Edit Profile
+                </button>
+              </div>
+
+              <div>
+                <PortfolioMain />
+              </div>
+            </>
           )}
         </div>
       </CentralWrapper>
@@ -262,8 +290,7 @@ const CentralWrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  /* justify-content: center;
-  align-items: center; */
+
   gap: 3rem;
 
   .side-menu-container {
@@ -298,11 +325,6 @@ const CentralWrapper = styled.div`
     color: ${Colors.PrimaryButtonBackground};
     font-weight: bold;
     font-size: 18px;
-
-    @media ${MediaQueries.MD} {
-      /* align-self: center;
-      padding-right: 30%; */
-    }
   }
 `;
 
