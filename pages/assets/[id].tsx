@@ -222,6 +222,8 @@ const AssetDetailsPage = () => {
 
 const AssetDetailsRow = styled.div`
   padding: 0.5rem;
+  margin-right: -2rem;
+  margin-left: -0.5rem;
 
   @media ${MediaQueries.MD} {
     display: flex;
@@ -248,6 +250,11 @@ const AssetDetailsRow = styled.div`
       flex-direction: column;
       text-align: center;
       justify-content: center;
+      border: 1px solid black;
+      border-radius: 12px;
+      padding: 1rem;
+      background-color: #f6f3f7;
+      box-shadow: 2px 4px 8px lightgray;
     }
   }
 
@@ -258,10 +265,22 @@ const AssetDetailsRow = styled.div`
     padding-right: 1rem;
     text-align: center;
     justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 
     div {
       display: flex;
       flex-direction: column;
+      background-color: #f6f3f7;
+      border-radius: 12px;
+      justify-content: center;
+      padding: 1rem;
+      border: 1px solid black;
+      box-shadow: 2px 4px 8px lightgray;
+
+      span {
+        font-weight: bold;
+      }
     }
 
     .positive {
