@@ -312,7 +312,7 @@ const typeDefs = gql`
     getAssetHistory(symbol: String!, time: Int): CryptoCompareHistory
     getGeckoAssetDetails(name: String!, time: Int): GeckoAssetDetails
     getAssetFinancialDetails(symbol: String!, time: Int): CryptoCompareHistory
-    getUser(email: String): User
+    getUser(email: String, id: String): User
     getDifficultyRibbons(symbol: String, cut: Int): [DifficultyRibbonData]
     getNewsFeed: [NewsFeedEntries]
     getPost(slug: String): Post

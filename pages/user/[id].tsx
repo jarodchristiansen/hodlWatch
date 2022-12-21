@@ -31,10 +31,25 @@ const ProfilePage = () => {
   //   const [walletIsConnected, setWalletIsConnected] = useState(false);
   const { isOpen, open, close } = useConnectModal();
 
+  const [
+    fetchUserDetails,
+    { data, loading: dataLoading, error, refetch, fetchMore },
+  ] = useLazyQuery(GET_USER, {
+    fetchPolicy: "network-only",
+  });
+
   const router = useRouter();
 
   const slug = useMemo(() => {
     if (!router?.query?.id) return "";
+
+    if (router?.query?.id) {
+      fetchUserDetails({
+        variables: {
+          id: router.query.id,
+        },
+      });
+    }
 
     return router.query.id;
   }, [router?.asPath]);
@@ -44,28 +59,11 @@ const ProfilePage = () => {
 
   const isUsersProfile = id == slug;
 
-  const [
-    fetchUserDetails,
-    { data, loading: dataLoading, error, refetch, fetchMore },
-  ] = useLazyQuery(GET_USER, {
-    fetchPolicy: "network-only",
-  });
-
   useEffect(() => {
-    if (session?.user) {
-      setUser(session.user);
+    if (data?.getUser) {
+      setUser(data.getUser);
     }
-  }, [loading]);
-
-  useEffect(() => {
-    if (!!user && user?.email) {
-      fetchUserDetails({
-        variables: {
-          email: user?.email,
-        },
-      });
-    }
-  }, [user]);
+  }, [data?.getUser]);
 
   const walletIsConnected = useMemo(() => {
     if (!account.status) return false;
@@ -130,11 +128,23 @@ const ProfilePage = () => {
     router.push(`/user/${id}?view=portfolio`);
   };
 
+  const redirectNonUser = () => {
+    if (viewState === "edit_user" || viewState === "portfolio") {
+      router.push("/");
+    }
+  };
+
   const navLinks = [
     { name: "Profile", stateChanger: () => routeToMain() },
     { name: "Edit Account", stateChanger: () => routeEditUser() },
     { name: "Portfolio", stateChanger: () => routeToPortfolio() },
   ];
+
+  useEffect(() => {
+    if (!isUsersProfile && !!user) {
+      redirectNonUser();
+    }
+  }, [isUsersProfile, viewState, user]);
 
   return (
     <PageWrapper>
