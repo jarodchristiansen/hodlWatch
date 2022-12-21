@@ -25,7 +25,7 @@ const RelatedPostsRow = (props: RelatedPostsProps) => {
   const { tempPost } = props;
 
   const posts = useMemo(() => {
-    const dummyPosts = [tempPost, tempPost, tempPost, tempPost, tempPost];
+    const dummyPosts = [tempPost, tempPost, tempPost, tempPost];
 
     return dummyPosts.map((post, idx) => {
       if (!post?.slug) return "";
@@ -44,7 +44,7 @@ const RelatedPostsRow = (props: RelatedPostsProps) => {
     });
   }, []);
 
-  return <div>{posts}</div>;
+  return <>{posts}</>;
 };
 
 const RelatedPostBlock = styled.div`
