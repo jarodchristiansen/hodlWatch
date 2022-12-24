@@ -14,6 +14,7 @@ import ProviderContainer from "./ProviderContainer/ProviderContainer";
 const SignInForm = ({ providers }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const router = useRouter();
 
   const [isSignIn, setIsSignIn] = useState(router.query.path === "SignIn");
@@ -21,10 +22,15 @@ const SignInForm = ({ providers }) => {
   const handleSignInSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await signIn("credentials", {
-      email,
-      password,
-    });
+    if (isSignIn) {
+      await signIn("credentials", {
+        email,
+        password,
+      });
+    } else {
+      // TODO: Add signUp method in graphQL with validation
+      // console.log({ email, password, passwordConfirm });
+    }
   };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +44,7 @@ const SignInForm = ({ providers }) => {
         case "password":
           setPassword(e.target.value);
         case "passwordConfirm":
+          setPasswordConfirm(e.target.value);
       }
     }
   };
@@ -56,7 +63,8 @@ const SignInForm = ({ providers }) => {
         setToggleState={setIsSignIn}
       />
 
-      {isSignIn ? (
+      {/* TODO: re-integrate credentials signup/in */}
+      {/* {isSignIn ? (
         <>
           <div className="input-container">
             <h2 className={"form-header"}>Sign In</h2>
@@ -105,9 +113,7 @@ const SignInForm = ({ providers }) => {
               onChange={handleFormChange}
               autoComplete={"false"}
             />
-            {/* <div id="emailHelp" className="form-text">
-              We'll never share your email with anyone else.
-            </div> */}
+ 
           </div>
           <div className="input-container">
             <label htmlFor="exampleInputPassword1" className="form-label">
@@ -129,7 +135,7 @@ const SignInForm = ({ providers }) => {
             </label>
             <StyledInput
               name={"passwordConfirm"}
-              type="passwordConfirm"
+              type="password"
               className="form-control"
               id="confirmPasswordInput"
               onChange={handleFormChange}
@@ -137,15 +143,7 @@ const SignInForm = ({ providers }) => {
             />
           </div>
 
-          {/* <div>
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
 
-            <label className="form-check-label">Check me out</label>
-          </div> */}
         </>
       )}
 
@@ -153,7 +151,7 @@ const SignInForm = ({ providers }) => {
         <button type="submit" className="standardized-button">
           Submit
         </button>
-      </SubmitWrapper>
+      </SubmitWrapper> */}
 
       <ProviderWrapper>
         <h6>Sign in with:</h6>
