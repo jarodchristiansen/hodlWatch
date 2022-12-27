@@ -31,6 +31,7 @@ const typeDefs = gql`
     name: String
     block_time_in_minutes: String
     image: ImageParts
+    favorite_count: Float
   }
 
   type LunarAssetDetails {
@@ -268,6 +269,7 @@ const typeDefs = gql`
     description: AssetGeckoDescription
     community_data: GeckoCommunityData
     devloper_data: GeckoDeveloperData
+    favorite_count: Float
   }
 
   type AssetGeckoDescription {

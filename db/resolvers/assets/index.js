@@ -1,4 +1,5 @@
 const CoinGecko = require("coingecko-api");
+import Asset from "../../models/asset";
 
 export const AssetResolver = {
   getAssets: async (_, { offset, limit, topListBy }) => {
@@ -146,6 +147,10 @@ export const AssetResolver = {
         (asset) => name.toLowerCase() === asset.name.toLowerCase()
       );
 
+      let dbAsset = await Asset.findOne({ name }).catch((err) =>
+        console.log(err)
+      );
+
       if (geckoProp) {
         let geckoData = await CoinGeckoClient.coins.fetch(geckoProp[0].id, {
           market_data: false,
@@ -155,10 +160,10 @@ export const AssetResolver = {
         data = geckoData?.data;
       }
 
+      data.favorite_count = dbAsset.favorite_count;
+
       // let zrx = "0xe41d2489571d322189246dafa5ebde1f4699f498";
       // let contract = await CoinGeckoClient.coins.fetchCoinContractInfo(zrx);
-
-      // console.log({ contract });
 
       if (data) {
         return data;

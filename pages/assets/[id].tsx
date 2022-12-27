@@ -157,6 +157,14 @@ const AssetDetailsPage = () => {
         <div className={"container text-center"}>
           {GeckoDetails && !loading && assetDetails}
 
+          <div className="favorite-container">
+            <h2>Collective Stats:</h2>
+            <h4>
+              Favorited by{" "}
+              {GeckoDetails?.getGeckoAssetDetails?.favorite_count || 0} users
+            </h4>
+          </div>
+
           {id && (
             <PairRowContainer>
               <PairDetailsRow id={id} />
@@ -234,7 +242,6 @@ const AssetDetailsRow = styled.div`
     padding: 2rem;
     margin: auto;
   }
-
   button {
     max-width: 25rem;
     margin: auto;
@@ -333,6 +340,10 @@ const AssetDetailsPageContainer = styled.div`
   align-items: center;
   gap: 3rem;
   min-height: 100vh;
+
+  .favorite-container {
+    padding: 2rem 0;
+  }
 `;
 
 export async function getServerSideProps(context) {
