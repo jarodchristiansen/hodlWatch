@@ -209,7 +209,9 @@ const PortfolioConnector = () => {
           </div>
 
           <div className="button-container">
-            <button type="submit">Save</button>
+            <button type="submit" className="standardized-button">
+              Save
+            </button>
           </div>
         </FormContainer>
       )}
