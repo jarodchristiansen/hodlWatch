@@ -1,9 +1,10 @@
 import { MediaQueries } from "@/styles/MediaQueries";
+import Link from "next/link";
 import { useMemo } from "react";
 import styled from "styled-components";
 
 interface TopAssetsRowProps {
-  topAssets: [TopAsset];
+  topAssets: TopAsset[];
 }
 
 interface TopAsset {
@@ -19,46 +20,78 @@ const TopAssetsRow = ({ topAssets }: TopAssetsRowProps) => {
 
     return topAssets.map((asset) => {
       return (
-        <TopAssetCard>
-          {asset.name}
-          {asset.symbol}
-          {asset.favorite_count}
-        </TopAssetCard>
+        <Link
+          href={`/assets/${asset.symbol}?name=${asset.name}`}
+          className="asset-link"
+          passHref
+        >
+          <a>
+            <TopAssetCard
+              data-testid={`top-asset-card-${asset.name}`}
+              key={asset.symbol}
+            >
+              <h4> {asset.name}</h4>
+              <h5>{asset?.symbol?.toUpperCase()}</h5>
+            </TopAssetCard>
+          </a>
+        </Link>
       );
     });
   }, [topAssets]);
 
   return (
-    <TopAssetContainer>
+    <TopAssetContainer data-testid="top-assets-container">
       <h4>Top Favorited Assets</h4>
 
-      <RowContainer>{topAssetCards}</RowContainer>
+      <div>
+        <RowContainer>{topAssetCards}</RowContainer>
+      </div>
     </TopAssetContainer>
   );
 };
 
 const TopAssetContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+  max-width: 28rem;
+  margin: auto;
+  padding: 1rem 0;
+
+  @media ${MediaQueries.MD} {
+    max-width: 40rem;
+  }
 `;
 
 const TopAssetCard = styled.div`
   display: flex;
   flex-direction: column;
+  border: 1px solid black;
+  padding: 1rem;
+  border-radius: 5px;
 `;
 
 const RowContainer = styled.div`
   display: flex;
-  gap: 1rem;
   overflow-x: scroll;
-  text-align: center;
-  justify-content: center;
   gap: 1rem;
-  padding 2rem;
 
   ::-webkit-scrollbar {
     display: none;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+  }
+
+  a {
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: purple;
+    text-decoration: underline;
   }
 `;
 

@@ -29,7 +29,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "helpers/queries/collective/index.js", "pages/api/favoritesManager.js"  ],
   "exclude": [
     "node_modules"
   ]

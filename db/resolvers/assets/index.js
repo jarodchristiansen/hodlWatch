@@ -151,6 +151,12 @@ export const AssetResolver = {
         console.log(err)
       );
 
+      if (!dbAsset) {
+        dbAsset = await Asset.findOne({ symbol: name }).catch((err) =>
+          console.log(err)
+        );
+      }
+
       if (geckoProp) {
         let geckoData = await CoinGeckoClient.coins.fetch(geckoProp[0].id, {
           market_data: false,
@@ -160,7 +166,7 @@ export const AssetResolver = {
         data = geckoData?.data;
       }
 
-      data.favorite_count = dbAsset.favorite_count;
+      data.favorite_count = dbAsset?.favorite_count;
 
       // let zrx = "0xe41d2489571d322189246dafa5ebde1f4699f498";
       // let contract = await CoinGeckoClient.coins.fetchCoinContractInfo(zrx);
