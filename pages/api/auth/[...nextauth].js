@@ -120,32 +120,30 @@ const options = {
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
-    // Providers.Credentials({
-    //   async authorize(credentials) {
-    //     const email = credentials.email;
+    Providers.Credentials({
+      async authorize(credentials) {
+        const email = credentials.email;
 
-    //     console.log("IN CREDENTIALS SIGN IN", { credentials });
+        const users = await User.find({ email });
 
-    //     let existingUser = await User.find({ _id: id })
-    //       .then((res) => res[0].toObject())
-    //       .catch((err) => console.log("IN GETUSER", { err }));
+        let existingUser = users.length ? users[0].toObject() : [];
 
-    //     if (!existingUser) {
-    //       throw new Error("No user found!");
-    //     }
-    //     const isValid = await verifyPassword(
-    //       credentials.password,
-    //       user.password
-    //     );
-    //     if (!isValid) {
-    //       throw new Error("Could not log you in");
-    //     }
-    //     // let userCopy = JSON.parse(JSON.stringify(user));
-    //     // delete userCopy["password"];
-    //     // return userCopy;
-    //     // client.close();
-    //   },
-    // }),
+        // if (!user) {
+        //   throw new Error("No user found!");
+        // }
+        // const isValid = await verifyPassword(
+        //   credentials.password,
+        //   user.password
+        // );
+        // if (!isValid) {
+        //   throw new Error("Could not log you in");
+        // }
+        // let userCopy = JSON.parse(JSON.stringify(user));
+        // delete userCopy["password"];
+        // return userCopy;
+        // client.close();
+      },
+    }),
     // Providers.Facebook({
     //   clientId: process.env.FACEBOOK_ID,
     //   clientSecret: process.env.FACEBOOK_SECRET,

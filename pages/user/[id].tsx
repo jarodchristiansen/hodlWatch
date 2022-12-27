@@ -18,7 +18,6 @@ import { Colors } from "@/styles/Colors";
 import { MediaQueries } from "@/styles/MediaQueries";
 import SideMenu from "@/components/commons/sidebar-nav";
 import PortfolioMain from "@/components/portfolio/PortfolioMain";
-import Avatar, { genConfig } from "react-nice-avatar";
 
 /**
  *
@@ -31,7 +30,6 @@ const ProfilePage = () => {
   const [user, setUser] = useState<null | any>();
   //   const [walletIsConnected, setWalletIsConnected] = useState(false);
   const { isOpen, open, close } = useConnectModal();
-  const [configValue, setConfigValue] = useState<any>();
 
   const [
     fetchUserDetails,
@@ -148,33 +146,6 @@ const ProfilePage = () => {
     }
   }, [isUsersProfile, viewState, user]);
 
-  const config = useMemo(() => {
-    if (!user) return;
-
-    let configValue = genConfig({
-      sex: "woman",
-      hairStyle: "mohawk",
-      faceColor: "yellow",
-      earSize: "small",
-      hairColor: "black",
-      hatColor: "",
-      hatStyle: "none",
-      eyeStyle: "oval",
-      glassesStyle: "none",
-      noseStyle: "short",
-      mouthStyle: "peace",
-      shirtStyle: "hoody",
-      shirtColor: "green",
-      bgColor: "red",
-      isGradient: false,
-      eyeBrowStyle: "up",
-    });
-
-    setConfigValue(configValue);
-
-    return configValue;
-  }, [user]);
-
   return (
     <PageWrapper>
       <Head>
@@ -194,13 +165,6 @@ const ProfilePage = () => {
         <div className="page-wrapper">
           {viewState === "Main" && (
             <>
-              {!!configValue && (
-                <Avatar
-                  style={{ width: "8rem", height: "8rem" }}
-                  {...configValue}
-                />
-              )}
-
               <div className="switch-container">
                 <button className="standardized-button" onClick={routeEditUser}>
                   Edit Profile
@@ -305,12 +269,7 @@ const ProfilePage = () => {
                 </button>
               </div>
 
-              <EditUserDetails
-                user={user}
-                fetchedUser={data?.getUser}
-                config={configValue}
-                setConfigValue={setConfigValue}
-              />
+              <EditUserDetails user={user} fetchedUser={data?.getUser} />
             </>
           )}
 
