@@ -31,8 +31,6 @@ interface FinancialDataType {
 }
 
 const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
-  console.log({ financialData, id });
-
   const [isOpen, setIsOpen] = useState(false);
   const [processedFinancialData, setProcessedFinancialData] = useState<any>([]);
   const [chartsToDisplay, setChartsToDisplay] = useState<any>();

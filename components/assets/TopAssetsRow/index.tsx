@@ -14,8 +14,6 @@ interface TopAsset {
 }
 
 const TopAssetsRow = ({ topAssets }: TopAssetsRowProps) => {
-  console.log({ topAssets });
-
   const topAssetCards = useMemo(() => {
     if (!topAssets.length) return [];
 

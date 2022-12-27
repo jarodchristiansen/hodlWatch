@@ -32,13 +32,9 @@ export default async function handler(request, response) {
       };
     });
 
-    console.log({ data }, data.top_assets);
-
     let collectiveData = new CollectiveStats(data);
 
     collectiveData.save();
-
-    console.log("FINISHED COLLECTIVE DATA UPDATE");
 
     response.status(200).json({
       body: { data },
