@@ -46,6 +46,7 @@ interface ProvidersAsProps {
       type: string;
     };
   };
+  isSubmitDisabled: boolean;
 }
 
 /**
@@ -53,7 +54,10 @@ interface ProvidersAsProps {
  * @param providers: Auth Providers github etc...
  * @returns ProviderContainer: Component that shows the sign in provider squares
  */
-const ProviderContainer = ({ providers }: ProvidersAsProps) => {
+const ProviderContainer = ({
+  providers,
+  isSubmitDisabled,
+}: ProvidersAsProps) => {
   const signInOthers = async (e, provider) => {
     // console.log({ provider });
     // e.preventDefault();
@@ -110,6 +114,7 @@ const ProviderContainer = ({ providers }: ProvidersAsProps) => {
             provider.name !== "Credentials" && (
               <div key={provider.name}>
                 <ProviderButton
+                  disabled={isSubmitDisabled}
                   onClick={(e) => {
                     signIn(provider.id, { redirect: true, callbackUrl: "/" })
                       .then(() => {})

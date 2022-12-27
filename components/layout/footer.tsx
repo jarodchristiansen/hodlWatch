@@ -37,6 +37,14 @@ const Footer = () => {
                 <h6>Newsfeed</h6>
               </a>
             </Link>
+
+
+
+            <Link href="/terms-of-service" passHref>
+              <a>
+                <h6>Terms of Service</h6>
+              </a>
+            </Link>
           </div>
           <div className="info-column">
             <h4>Resources</h4>
