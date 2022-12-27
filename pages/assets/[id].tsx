@@ -1,6 +1,7 @@
 import FinancialAccordion from "@/components/assets/Finance/FinancialAccordion";
 import PairDetailsRow from "@/components/assets/Finance/PairDetails/index";
 import IndicatorAccordion from "@/components/assets/Indicators/IndicatorAccordion";
+import CollectiveStatsId from "@/components/assets/collective/CollectiveStatsID";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import TimeButtons from "@/components/commons/TimeButtons";
 import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
@@ -23,7 +24,7 @@ import styled from "styled-components";
  *
  * @returns AssetDetailsPage that includes the financial/social/details for digital asset
  */
-const AssetDetailsPage = () => {
+const AssetDetailsPage = ({ session }) => {
   const [timeQuery, setTimeQuery] = useState(14);
 
   const router = useRouter();
@@ -157,13 +158,14 @@ const AssetDetailsPage = () => {
         <div className={"container text-center"}>
           {GeckoDetails && !loading && assetDetails}
 
-          <div className="favorite-container">
-            <h2>Collective Stats:</h2>
-            <h4>
-              Favorited by{" "}
-              {GeckoDetails?.getGeckoAssetDetails?.favorite_count || 0} users
-            </h4>
-          </div>
+          {
+            <CollectiveStatsId
+              favoriteCount={
+                GeckoDetails?.getGeckoAssetDetails?.favorite_count || 0
+              }
+              id={id}
+            />
+          }
 
           {id && (
             <PairRowContainer>
@@ -340,10 +342,6 @@ const AssetDetailsPageContainer = styled.div`
   align-items: center;
   gap: 3rem;
   min-height: 100vh;
-
-  .favorite-container {
-    padding: 2rem 0;
-  }
 `;
 
 export async function getServerSideProps(context) {

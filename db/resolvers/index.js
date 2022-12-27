@@ -2,6 +2,7 @@ import { PostResolver } from "./posts";
 import { NewsFeedResolver } from "./newsfeed";
 import { UserResolver } from "./user";
 import { AssetResolver } from "./assets";
+import { CollectiveResolver } from "./collective";
 
 const Product = require("../models/product");
 
@@ -15,6 +16,7 @@ const resolvers = {
     ...NewsFeedResolver,
     ...UserResolver.queries,
     ...AssetResolver,
+    ...CollectiveResolver,
 
     getProducts: async () => {
       try {
