@@ -154,12 +154,8 @@ export const UserResolver = {
                 item?.symbol?.toLowerCase() === asset.symbol.toLowerCase()
             )
           ) {
-            console.log("ALREADY IN FAVORITES", { user, asset });
-
             return;
           }
-
-          console.log("ADDING ASSET", { asset });
           user.favorites.push(asset);
 
           user.save();

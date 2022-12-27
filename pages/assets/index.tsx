@@ -3,9 +3,9 @@ import { getSession, useSession } from "next-auth/client";
 import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import AssetsContainer from "../../components/assets/AssetsContainer";
+import AssetsContainer from "../../components/assets/AssetsContainer/AssetsContainer";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
-import PaginationComponent from "@/components/commons/Pagination";
+import PaginationComponent from "@/components/commons/pagination/Pagination";
 import PriceScreener from "@/components/commons/screener";
 import SearchForm from "@/components/forms/SearchForm/SearchForm";
 import GET_ASSET from "@/helpers/queries/assets/getAsset";
@@ -89,7 +89,7 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
 
     let data = collectiveData?.data?.getCollectiveStats;
     return (
-      <CollectiveStatsHeader>
+      <CollectiveStatsHeader data-testid="collective-stats-header">
         <div>
           <h3>24hr Snapshot</h3>
         </div>
@@ -139,9 +139,11 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
         {!!collectiveDataComponents && collectiveDataComponents}
 
         {!!collectiveData?.data?.getCollectiveStats?.top_assets?.length && (
-          <TopAssetsRow
-            topAssets={collectiveData?.data?.getCollectiveStats?.top_assets}
-          />
+          <div data-testid="top-assets-row">
+            <TopAssetsRow
+              topAssets={collectiveData?.data?.getCollectiveStats?.top_assets}
+            />
+          </div>
         )}
 
         <div>

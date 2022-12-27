@@ -81,7 +81,9 @@ const ProfilePage = () => {
   } = useBalance({ addressOrName: account?.address });
 
   const navigateToAssetPage = (favorite) => {
-    router.push(`/assets/${favorite.symbol.toLowerCase()}`);
+    router.push(
+      `/assets/${favorite.symbol.toLowerCase()}?name=${favorite.title}`
+    );
   };
 
   const userFavoritesList = useMemo(() => {

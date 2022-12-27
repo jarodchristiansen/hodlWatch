@@ -20,6 +20,88 @@ jest.mock("next-auth/client", () => {
 
 const mocks = []; // We'll fill this in next
 
+describe("Collective Stats", () => {
+  const session = {
+    user: {
+      name: "Test Tester",
+      email: "testtester@gmail.com",
+      image:
+        "https://lh3.googleusercontent.com/a/A6a2d58d52dED2ID3Xe1yIQqm8bnu9cFWmwSTw7VHb_NEo2=s96-c",
+      emailVerified: null,
+      id: "jklfdljkaljapoooiddd",
+      createdAt: "2022-11-27T19:08:35.786Z",
+      updatedAt: "2022-11-27T19:08:35.786Z",
+    },
+    expires: "2023-01-26T17:54:55.056Z",
+  };
+
+  const collectiveData = {
+    data: {
+      getCollectiveStats: {
+        __typename: "DaysCollectiveStats",
+        user_count: 3,
+        asset_count: 12907,
+        followed_assets: 38,
+        top_assets: [
+          {
+            favorite_count: 2,
+            id: "63a7c664cbbb7b5c656f0be3",
+            name: "Bitcoin",
+            symbol: "btc",
+          },
+          {
+            favorite_count: 1,
+            id: "63a7c634cbbb7b5c656f0679",
+            name: "0x",
+            symbol: "zrx",
+          },
+          {
+            favorite_count: 1,
+            id: "63a7c637cbbb7b5c656f06cf",
+            name: "Aave",
+            symbol: "aave",
+          },
+          {
+            favorite_count: 1,
+            id: "63a7c63acbbb7b5c656f0728",
+            name: "Acala",
+            symbol: "aca",
+          },
+          {
+            favorite_count: 1,
+            id: "63a7c641cbbb7b5c656f07f1",
+            name: "Algorand",
+            symbol: "algo",
+          },
+        ],
+        date: 1672105567460,
+      },
+    },
+    loading: false,
+    networkStatus: 7,
+  };
+
+  it("Should render the collective stats header", () => {
+    render(
+      <MockedProvider mocks={[]} addTypename={false}>
+        <AssetsPage session={session} collectiveData={collectiveData} />
+      </MockedProvider>
+    );
+
+    expect(screen.getByTestId("collective-stats-header")).toBeTruthy();
+  });
+
+  it("Should render top assets row", () => {
+    render(
+      <MockedProvider mocks={[]} addTypename={false}>
+        <AssetsPage session={session} collectiveData={collectiveData} />
+      </MockedProvider>
+    );
+
+    expect(screen.getByTestId("top-assets-row")).toBeTruthy();
+  });
+});
+
 describe("Assets Page", () => {
   it("Should render the loading component initially", () => {
     const component = render(
@@ -56,97 +138,4 @@ describe("Assets Page", () => {
 
     expect(searchForm).toBeTruthy();
   });
-
-  // it("Should render assets-container after loaded", async () => {
-  //   let assetMock = [
-  //     {
-  //       request: {
-  //         query: GET_ASSETS,
-  //         variables: { offset: 1, limit: 9 },
-  //       },
-  //       result: {
-  //         data: {
-  //           getAssets: [
-  //             {
-  //               id: "bitcoin",
-  //               name: "Bitcoin",
-  //               symbol: "btc",
-  //               image: {
-  //                 thumb:
-  //                   "https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579",
-  //                 small:
-  //                   "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
-  //                 __typename: "ImageParts",
-  //               },
-  //             },
-  //             {
-  //               id: "ethereum",
-  //               name: "Ethereum",
-  //               symbol: "eth",
-  //               image: {
-  //                 thumb:
-  //                   "https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880",
-  //                 small:
-  //                   "https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880",
-  //                 __typename: "ImageParts",
-  //               },
-  //             },
-  //           ],
-  //         },
-  //       },
-  //     },
-  //   ];
-
-  //   let userMock = [
-  //     {
-  //       request: {
-  //         query: GET_USER,
-  //         variables: { email: "testtesterson@gmail.com" },
-  //       },
-  //       result: {
-  //         data: {
-  //           getUser: {
-  //             createAt: 167099839030389,
-  //             email: "testtesterson@gmail.com",
-  //             favorites: [
-  //               {
-  //                 title: "Bitcoin",
-  //                 symbol: "BTC",
-  //                 image:
-  //                   "https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579",
-  //                 __typename: "FavoritesData",
-  //               },
-  //               {
-  //                 title: "Astar",
-  //                 symbol: "ASTR",
-  //                 image:
-  //                   "https://assets.coingecko.com/coins/images/22617/small/astr.png?1642314057",
-  //                 __typename: "FavoritesData",
-  //               },
-  //             ],
-  //             image:
-  //               "https://lh3.googleusercontent.com/a/ALm5wu2dED2ID3Xe1yIQqm8bnu9cFWmwSTw7VHb_NEo2=s96-c",
-  //             name: "Test Testerson",
-  //             username: "Tester",
-  //             __typename: "User",
-  //           },
-  //         },
-  //       },
-  //     },
-  //   ];
-
-  //   render(
-  //     <MockedProvider mocks={[...assetMock, ...userMock]} addTypename={false}>
-  //       <AssetsPage />
-  //     </MockedProvider>
-  //   );
-
-  //   const container = screen.getByTestId("loading-element");
-
-  //   expect(container).toBeTruthy();
-  //   expect(await screen.findByText("BTC")).toBeInTheDocument();
-
-  //   const assets = await screen.getByTestId("assets-container");
-  //   expect(assets).toBeTruthy();
-  // });
 });
