@@ -30,7 +30,7 @@ const PairBlock = (props: PairBlockProps) => {
   const router = useRouter();
 
   const routeUser = () => {
-    router.push(`/assets/${data?.SYMBOL.toLowerCase()}`);
+    router.push(`/assets/${data?.SYMBOL.toLowerCase()}/?name=${data?.NAME}`);
   };
 
   return (

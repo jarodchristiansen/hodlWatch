@@ -1,5 +1,6 @@
 import { GET_COLLECTIVE_STATS } from "@/helpers/queries/collective";
 import { useLazyQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 
@@ -17,6 +18,8 @@ const CollectiveStatsId = ({ favoriteCount, id }: CollectiveStatsIdProps) => {
   useEffect(() => {
     fetchCollectiveStats();
   }, []);
+
+  const router = useRouter();
 
   const [favoriteToUserRatio, favoriteToFollowedRatio, isTopAsset] =
     useMemo(() => {
@@ -36,7 +39,7 @@ const CollectiveStatsId = ({ favoriteCount, id }: CollectiveStatsIdProps) => {
         favoriteFollowedRatio * 100,
         !!foundTopAsset.length,
       ];
-    }, [data?.getCollectiveStats]);
+    }, [data?.getCollectiveStats, router?.asPath, favoriteCount]);
 
   return (
     <CommunityStatsContainer>
