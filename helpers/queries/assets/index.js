@@ -18,6 +18,7 @@ export const GET_GECKO_DETAILS = gql`
       developer_score
       community_score
       liquidity_score
+      favorite_count
       description {
         en
       }

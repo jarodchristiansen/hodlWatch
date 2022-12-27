@@ -50,6 +50,10 @@ const AssetsSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  favorite_count: {
+    type: Number,
+    default: 0,
+  },
 });
 
 AssetsSchema.index({ name: "text" });
