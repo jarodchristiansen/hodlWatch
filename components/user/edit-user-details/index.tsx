@@ -1,9 +1,10 @@
 import { useMutation } from "@apollo/client";
 import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "styled-components";
 import { UPDATE_USERNAME } from "@/helpers/mutations/user";
 import { MediaQueries } from "@/styles/MediaQueries";
+import Avatar, { genConfig } from "react-nice-avatar";
 
 /**
  *
@@ -11,12 +12,13 @@ import { MediaQueries } from "@/styles/MediaQueries";
  * @param fetchedUser: User fetched from database to confirm user is associated user
  * @returns EditUserDetails flow that allows user to update their profile components
  */
-const EditUserDetails = ({ user, fetchedUser }) => {
+const EditUserDetails = ({ user, fetchedUser, config, setConfigValue }) => {
   const [usernameInput, setUsernameInput] = useState("");
 
   const [updateUsername, { loading, error }] = useMutation(UPDATE_USERNAME);
 
   const [viewState, setViewState] = useState("Main");
+  const [avatarView, setAvatarView] = useState("");
 
   const setEditUsername = () => {
     setViewState("Username");
@@ -24,6 +26,10 @@ const EditUserDetails = ({ user, fetchedUser }) => {
 
   const setEditMain = () => {
     setViewState("Main");
+  };
+
+  const setEditAvatar = () => {
+    setViewState("Avatar");
   };
 
   const submitUsernameChange = () => {
@@ -39,9 +45,53 @@ const EditUserDetails = ({ user, fetchedUser }) => {
 
   const viewIsMain = viewState === "Main";
   const viewIsUsername = viewState === "Username";
+  const viewisAvatar = viewState === "Avatar";
+
+  const setAvatarState = (e: any) => {
+    let value = e.target.value;
+
+    console.log("In set Avatar State", { value });
+
+    setAvatarView(value);
+  };
+
+  const avatarCards = useMemo(() => {
+    if (!config || !avatarView) return [];
+
+    let options = [];
+
+    if (avatarView === "gender") {
+      options = [
+        genConfig({ ...config, sex: "man" }),
+        genConfig({ ...config, sex: "woman", hairStyle: "" }),
+      ];
+    }
+
+    return options.map((element) => {
+      return (
+        <AvatarCard onClick={() => setConfigAsSelection(element)}>
+          <Avatar style={{ width: "8rem", height: "8rem" }} {...element} />
+        </AvatarCard>
+      );
+    });
+  }, [avatarView]);
+
+  const setConfigAsSelection = (value: any) => {
+    console.log("In setConfigAsSelection", { value });
+    config = value;
+
+    setConfigValue(value);
+  };
 
   return (
     <>
+      {!!config && (
+        <>
+          <span onClick={setEditAvatar}>Edit</span>
+          <Avatar style={{ width: "8rem", height: "8rem" }} {...config} />
+        </>
+      )}
+
       {viewIsMain && (
         <UserDetailsCard>
           <div className="detail-header">
@@ -130,9 +180,98 @@ const EditUserDetails = ({ user, fetchedUser }) => {
           <button onClick={submitUsernameChange}>Submit</button>
         </UserDetailsCard>
       )}
+
+      {viewisAvatar && (
+        <AvatarEditPanel>
+          <div className="attribute-row">
+            <button value="gender" onClick={setAvatarState}>
+              Gender
+            </button>
+            {/* <span>Hair Style</span>
+            <span>Hair Color</span> */}
+            <button value="hair" onClick={setAvatarState}>
+              Hair
+            </button>
+            <button value="face" onClick={setAvatarState}>
+              Face
+            </button>
+            {/* <span>Hat Style</span>
+            <span>Hat Color</span> */}
+            <button value="hat" onClick={setAvatarState}>
+              Hat
+            </button>
+            <button value="eyes" onClick={setAvatarState}>
+              Eyes
+            </button>
+            <button value="glasses" onClick={setAvatarState}>
+              Glasses
+            </button>
+            <button value="nose" onClick={setAvatarState}>
+              Nose
+            </button>
+            <button value="mouth" onClick={setAvatarState}>
+              Mouth
+            </button>
+
+            <button value="shirt" onClick={setAvatarState}>
+              Shirt
+            </button>
+            {/* <span>Shirt Style</span>
+            <span>Shirt Color</span> */}
+            <button value="bg" onClick={setAvatarState}>
+              BG
+            </button>
+          </div>
+
+          <div className="view-header">
+            {!!avatarView && (
+              <h3>{avatarView[0].toUpperCase() + avatarView.slice(1)}</h3>
+            )}
+          </div>
+
+          <div className="options-grid">
+            {!!avatarCards?.length && avatarCards}
+          </div>
+        </AvatarEditPanel>
+      )}
     </>
   );
 };
+
+const AvatarCard = styled.div`
+  max-width: 8rem;
+  border: 1px solid black;
+`;
+
+const AvatarEditPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid black;
+
+  .view-header {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .attribute-row {
+    text-align: center;
+
+    @media ${MediaQueries.MD} {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0rem 7rem;
+    }
+  }
+
+  .options-grid {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    column-gap: 0rem;
+  }
+`;
 
 const UserNameInput = styled.input`
   padding: 1rem 1rem;
