@@ -17,7 +17,7 @@ const CollectiveStatSchema = new Schema({
     type: Number,
     default: 0,
   },
-  topAssets: {
+  top_assets: {
     type: [
       { id: String, symbol: String, name: String, favorite_count: Number },
     ],

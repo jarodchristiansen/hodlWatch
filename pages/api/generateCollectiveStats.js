@@ -23,9 +23,16 @@ export default async function handler(request, response) {
     data.user_count = users.length;
     data.asset_count = assets.length;
     data.followed_assets = topAssets.length;
-    data.top_assets = topAssets?.slice(0, 5);
+    data.top_assets = topAssets?.slice(0, 5).map((asset) => {
+      return {
+        id: asset.id,
+        symbol: asset.symbol,
+        name: asset.name,
+        favorite_count: asset.favorite_count,
+      };
+    });
 
-    console.log({ data });
+    console.log({ data }, data.top_assets);
 
     let collectiveData = new CollectiveStats(data);
 
