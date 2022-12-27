@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import AssetCard from "./AssetCard";
+import AssetCard from "../AssetCard/AssetCard";
 import styled from "styled-components";
 import { useLazyQuery } from "@apollo/client";
 import { GET_USER } from "@/helpers/queries/user";
