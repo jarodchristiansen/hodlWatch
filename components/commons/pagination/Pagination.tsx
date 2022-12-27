@@ -28,6 +28,7 @@ const PaginationComponent = ({
           refetch({ offset: number });
           setOffsetState(number);
         }}
+        data-testid={`pagination-key-${number}`}
       >
         {number}
       </Pagination.Item>
@@ -42,6 +43,7 @@ const PaginationComponent = ({
             refetch({ offset: active - 1 });
             setOffsetState(active - 1);
           }}
+          data-testid={"pagination-key-previous"}
         />
         {items}
         <Pagination.Next
@@ -49,6 +51,7 @@ const PaginationComponent = ({
             refetch({ offset: active + 1 });
             setOffsetState(active + 1);
           }}
+          data-testid={"pagination-key-next"}
         />
       </Pagination>
       <br />

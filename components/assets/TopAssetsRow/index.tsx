@@ -24,12 +24,10 @@ const TopAssetsRow = ({ topAssets }: TopAssetsRowProps) => {
           href={`/assets/${asset.symbol}?name=${asset.name}`}
           className="asset-link"
           passHref
+          key={asset.symbol}
         >
           <a>
-            <TopAssetCard
-              data-testid={`top-asset-card-${asset.name}`}
-              key={asset.symbol}
-            >
+            <TopAssetCard data-testid={`top-asset-card-${asset.name}`}>
               <h4> {asset.name}</h4>
               <h5>{asset?.symbol?.toUpperCase()}</h5>
             </TopAssetCard>

@@ -22,15 +22,18 @@ const AssetsContainer = ({ assets, session }) => {
       refetch: refetchUser,
     },
   ] = useLazyQuery(GET_USER, {
-    variables: {
-      email: session?.user?.email,
-    },
     fetchPolicy: "network-only",
   });
 
   useEffect(() => {
     if (session?.user?.email) {
-      fetchUserDetails();
+      console.log({ session }, "ABOVE FETCH USER DETAILS");
+
+      fetchUserDetails({
+        variables: {
+          email: session.user.email,
+        },
+      });
     }
   }, [session?.user?.email]);
 
@@ -48,35 +51,27 @@ const AssetsContainer = ({ assets, session }) => {
 
     return currentAssets.map((asset) => {
       return (
-        <AssetCard
-          asset={asset}
-          key={asset.id}
-          email={session?.user?.email}
-          favorited={favorites.some(
-            (e) => e.symbol.toLowerCase() === asset.symbol.toLowerCase()
-          )}
-          refetchFavorites={() => refetchUser()}
-        />
+        <div data-test-id={`asset-card-${asset.symbol}`} key={asset.id}>
+          <AssetCard
+            asset={asset}
+            email={session?.user?.email}
+            favorited={favorites.some(
+              (e) => e.symbol.toLowerCase() === asset.symbol.toLowerCase()
+            )}
+            refetchFavorites={() => refetchUser()}
+          />
+        </div>
       );
     });
-  }, [currentAssets, userData?.getUser?.favorites]);
+  }, [currentAssets, userData?.getUser?.favorites, dataLoading]);
 
   return (
     <div data-testid={"assets-container"}>
+      {dataLoading && <div data-testid="loading-component" />}
+
       <div className={"w-100"}>
         {currentAssets && currentAssets.length > 1 && (
-          <GridComponent ref={ref}>
-            {/* {currentAssets.map((asset) => {
-              return (
-                <AssetCard
-                  asset={asset}
-                  key={asset.id}
-                  email={session?.user?.email}
-                />
-              );
-            })} */}
-            {AssetCards}
-          </GridComponent>
+          <GridComponent ref={ref}>{AssetCards}</GridComponent>
         )}
       </div>
 
