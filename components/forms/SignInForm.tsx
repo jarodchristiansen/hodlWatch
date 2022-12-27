@@ -5,6 +5,7 @@ import { ToastContainer } from "react-nextjs-toast";
 import styled from "styled-components";
 import ToggleSwitch from "../commons/switchers/toggle-switch";
 import ProviderContainer from "./ProviderContainer/ProviderContainer";
+import Link from "next/link";
 
 /**
  *
@@ -17,6 +18,7 @@ const SignInForm = ({ providers }) => {
   const router = useRouter();
 
   const [isSignIn, setIsSignIn] = useState(router.query.path === "SignIn");
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   const handleSignInSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,7 +57,7 @@ const SignInForm = ({ providers }) => {
         toggleState={isSignIn}
         setToggleState={setIsSignIn}
       />
-
+      {/* 
       {isSignIn ? (
         <>
           <div className="input-container">
@@ -105,9 +107,6 @@ const SignInForm = ({ providers }) => {
               onChange={handleFormChange}
               autoComplete={"false"}
             />
-            {/* <div id="emailHelp" className="form-text">
-              We'll never share your email with anyone else.
-            </div> */}
           </div>
           <div className="input-container">
             <label htmlFor="exampleInputPassword1" className="form-label">
@@ -136,24 +135,32 @@ const SignInForm = ({ providers }) => {
               autoComplete={"false"}
             />
           </div>
-
-          {/* <div>
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-
-            <label className="form-check-label">Check me out</label>
-          </div> */}
         </>
-      )}
+      )} */}
 
-      <SubmitWrapper>
+      {/* <SubmitWrapper>
         <button type="submit" className="standardized-button">
           Submit
         </button>
-      </SubmitWrapper>
+      </SubmitWrapper> */}
+
+      <CheckMarkContainer>
+        <input
+          type="checkbox"
+          className="form-check-input"
+          id="exampleCheck1"
+          onChange={() => setIsSubmitDisabled(!isSubmitDisabled)}
+        />
+
+        <label className="form-check-label">
+          You agree to our{" "}
+          <Link href="/terms-of-service" passHref>
+            <a target="#">
+              <span className="term-text">Terms of Service</span>
+            </a>
+          </Link>
+        </label>
+      </CheckMarkContainer>
 
       <ProviderWrapper>
         <h6>Sign in with:</h6>
@@ -163,7 +170,10 @@ const SignInForm = ({ providers }) => {
           account
         </span>
 
-        <ProviderContainer providers={providers} />
+        <ProviderContainer
+          providers={providers}
+          isSubmitDisabled={isSubmitDisabled}
+        />
       </ProviderWrapper>
       <ToastContainer position={"bottom"} />
 
@@ -171,6 +181,20 @@ const SignInForm = ({ providers }) => {
     </FormStyling>
   );
 };
+
+const CheckMarkContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  text-align: center;
+  justify-content: center;
+  padding-top: 1rem;
+
+  .term-text {
+    color: blue;
+    text-decoration: underline;
+  }
+`;
 
 const StyledInput = styled.input`
   border: 1.5px solid black;
