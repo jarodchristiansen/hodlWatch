@@ -23,7 +23,7 @@ import styled from "styled-components";
  *
  * @returns AssetDetailsPage that includes the financial/social/details for digital asset
  */
-const AssetDetailsPage = () => {
+const AssetDetailsPage = ({ session }) => {
   const [timeQuery, setTimeQuery] = useState(14);
 
   const router = useRouter();

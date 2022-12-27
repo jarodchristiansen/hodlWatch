@@ -305,6 +305,21 @@ const typeDefs = gql`
     email: String
   }
 
+  type DaysCollectiveStats {
+    user_count: Float
+    asset_count: Float
+    followed_assets: Float
+    top_assets: [TopAsset]
+    date: Date
+  }
+
+  type TopAsset {
+    id: String
+    symbol: String
+    name: String
+    favorite_count: Float
+  }
+
   type Query {
     getProducts: [Product]
     getProduct(id: ID!): Product
@@ -324,6 +339,7 @@ const typeDefs = gql`
       exchange_data: UserExchangeInput
     ): [PriceObject]
     getUserExchangeData(input: UserExchangeInput): Balance
+    getCollectiveStats: DaysCollectiveStats
   }
 
   type Mutation {

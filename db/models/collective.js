@@ -29,7 +29,7 @@ const CollectiveStatSchema = new Schema({
   },
 });
 
-CollectiveStatSchema.index({ name: "date" });
+CollectiveStatSchema.index({ name: "text" });
 
 module.exports =
   mongoose.models.CollectiveStats ||

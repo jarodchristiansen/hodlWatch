@@ -11,13 +11,18 @@ import SearchForm from "@/components/forms/SearchForm/SearchForm";
 import GET_ASSET from "@/helpers/queries/assets/getAsset";
 import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
 import { MediaQueries } from "@/styles/MediaQueries";
+import { GET_COLLECTIVE_STATS } from "../../helpers/queries/collective";
+import client from "../../apollo-client";
+import TopAssetsRow from "@/components/assets/TopAssetsRow";
 
 /**
  *
  * @param userSession: session returned from Next-Auth ssr query
  * @returns AssetPage that allows for searching/filtering of digital assets
  */
-const AssetsPage = ({ userSession: session }) => {
+const AssetsPage = ({ userSession: session, collectiveData }) => {
+  console.log({ collectiveData });
+
   const [offsetState, setOffsetState] = useState<number>(1);
   const [limitState, setLimitState] = useState(9);
 
@@ -81,6 +86,34 @@ const AssetsPage = ({ userSession: session }) => {
   //   });
   // };
 
+  const collectiveDataComponents = useMemo(() => {
+    if (!collectiveData?.data?.getCollectiveStats?.asset_count) return [];
+
+    let data = collectiveData?.data?.getCollectiveStats;
+    return (
+      <CollectiveStatsHeader>
+        <div>
+          <h3>24hr Snapshot</h3>
+        </div>
+
+        <div className="mid-row">
+          <div>
+            <h5>User Count</h5>
+            <span>{data.user_count}</span>
+          </div>
+          <div>
+            <h5>Followed Assets</h5>
+            <span>{data.followed_assets}</span>
+          </div>
+          <div>
+            <h5>Number of Assets</h5>
+            <span>{data.asset_count}</span>
+          </div>
+        </div>
+      </CollectiveStatsHeader>
+    );
+  }, [collectiveData]);
+
   return (
     <PageWrapper>
       <Head>
@@ -104,6 +137,14 @@ const AssetsPage = ({ userSession: session }) => {
             filterAssets={(e) => filterAssets(e)}
           />
         </FilterBar>
+
+        {!!collectiveDataComponents && collectiveDataComponents}
+
+        {!!collectiveData?.data?.getCollectiveStats?.top_assets?.length && (
+          <TopAssetsRow
+            topAssets={collectiveData?.data?.getCollectiveStats?.top_assets}
+          />
+        )}
 
         <div>
           {!!renderedAssets && renderedAssets}
@@ -133,6 +174,53 @@ const AssetsPage = ({ userSession: session }) => {
     </PageWrapper>
   );
 };
+
+const CollectiveStatsHeader = styled.div`
+  padding: 2rem;
+  background-color: #faf5ff;
+  text-align: center;
+  justify-content: center;
+
+.mid-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: scroll;
+  text-align: center;
+  justify-content: center;
+  gap: 1rem;
+  padding 2rem;
+
+  margin-left: -2rem;
+  margin-right: -2rem;
+
+  @media ${MediaQueries.MD} {
+    margin-left: unset;
+    margin-right: unset;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 8px;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid black;
+    box-shadow: 2px 4px 8px lightgray;
+
+    span {
+      font-weight: bold;
+    }
+  }
+}
+ 
+`;
 
 const PageWrapper = styled.div`
   min-height: 100vh;
@@ -169,6 +257,14 @@ const AssetContainerWrapper = styled.div`
   }
 `;
 
+const getCollectiveStats = async (context) => {
+  const result = await client.query({
+    query: GET_COLLECTIVE_STATS,
+  });
+
+  return { data: result };
+};
+
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
@@ -181,8 +277,14 @@ export async function getServerSideProps(context) {
     };
   }
 
+  let data = null;
+
+  const response = await getCollectiveStats(context);
+
+  data = response.data;
+
   return {
-    props: { userSession: session },
+    props: { userSession: session, collectiveData: data },
   };
 }
 
