@@ -27,8 +27,6 @@ const AssetsContainer = ({ assets, session }) => {
 
   useEffect(() => {
     if (session?.user?.email) {
-      console.log({ session }, "ABOVE FETCH USER DETAILS");
-
       fetchUserDetails({
         variables: {
           email: session.user.email,

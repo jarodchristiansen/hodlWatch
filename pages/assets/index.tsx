@@ -21,8 +21,6 @@ import TopAssetsRow from "@/components/assets/TopAssetsRow";
  * @returns AssetPage that allows for searching/filtering of digital assets
  */
 const AssetsPage = ({ userSession: session, collectiveData }) => {
-  console.log({ session, collectiveData });
-
   const [offsetState, setOffsetState] = useState<number>(1);
   const [limitState, setLimitState] = useState(9);
 
