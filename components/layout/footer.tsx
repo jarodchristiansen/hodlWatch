@@ -38,8 +38,6 @@ const Footer = () => {
               </a>
             </Link>
 
-
-
             <Link href="/terms-of-service" passHref>
               <a>
                 <h6>Terms of Service</h6>
@@ -80,6 +78,7 @@ const InfoColumnsContainer = styled.div`
   display: flex;
   gap: 3rem;
   justify-content: center;
+  padding-top: 2rem;
 
   @media ${MediaQueries.MD} {
     gap: 9rem;
@@ -88,12 +87,20 @@ const InfoColumnsContainer = styled.div`
   .info-column {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
   }
 `;
 
 const FooterContainer = styled.div`
   width: 100%;
-  background-color: #1a1919;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    131deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(46, 46, 46, 1) 48%,
+    rgba(0, 0, 0, 1) 100%
+  );
+
   color: white;
   padding: 2rem 2rem;
   margin-top: 4rem;
@@ -107,6 +114,10 @@ const FooterContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 1rem;
+
+    h4 {
+      font-weight: bold;
+    }
   }
 
   .social-row {

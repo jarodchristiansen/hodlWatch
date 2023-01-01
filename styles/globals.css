@@ -2,8 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 a {
@@ -54,15 +53,11 @@ a {
 }
 
 .accordion-button:not(.collapsed) {
- /*background-color: yellow;*/
-  /* border-radius: 0.5rem; */
   background-color: #806cfe;
-  /*background: linear-gradient(131deg, rgba(6,1,13,1) 0%, rgba(30,9,60,1) 48%, rgba(50,18,97,1) 100%);*/
   color: white;
   font-weight: bold;
 }
 .accordion-button.collapsed {
-  /* border-radius: 0.5rem; */
   background-color: #3b3274;
   color: white;
   font-weight: bold;
@@ -79,7 +74,7 @@ a {
   font-weight: bolder;
   border-radius: 10px;
   padding: 0.5rem 1rem;
-  box-shadow: 2px 4px 6px gray;
+  box-shadow: 0px 4px 10px #7f6cfed3;
 }
 
 .standardized-button:hover {
@@ -88,7 +83,7 @@ a {
   font-weight: bolder;
   border-radius: 10px;
   padding: 0.5rem 1rem;
-  box-shadow: 2px 4px 6px gray;
+  box-shadow: 0px 4px 10px #7f6cfe83;
 }
 
 .secondary-button {
@@ -97,7 +92,7 @@ a {
   font-weight: bolder;
   border-radius: 10px;
   padding: 0.5rem 1rem;
-  box-shadow: 2px 4px 6px gray;
+  box-shadow: 0px 4px 10px #7f6cfe83;
 }
 
 .secondary-button:hover {
@@ -107,7 +102,7 @@ a {
   font-weight: bolder;
   border-radius: 10px;
   padding: 0.5rem 1rem;
-  box-shadow: 2px 4px 6px gray;
+  box-shadow: 0px 4px 10px #7f6cfe83;
 }
 
 

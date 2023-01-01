@@ -10,11 +10,9 @@ import LandingCard from "../components/commons/info-cards/landing-card";
 import PriceScreener from "../components/commons/screener/index";
 import client from "apollo-client";
 
-
-
 /**
- * 
- * @param data: Response from GetNewsFeed query, renders the news feed at bottom of landing page 
+ *
+ * @param data: Response from GetNewsFeed query, renders the news feed at bottom of landing page
  * @returns Landing page with Info/Sign Up Pages
  */
 export default function Home({ data }) {
@@ -28,32 +26,37 @@ export default function Home({ data }) {
         <NewsItem key={story?.guid}>
           <Link href={story?.guid} passHref>
             <a target="_blank">
-              <h4 className="partner-header">{story.title}</h4>
+              <h4 className="partner-header">
+                {story.title.slice(0, 40) + "..."}
+              </h4>
             </a>
           </Link>
+
+          <div className="source-container">
+            <div className="image-container">
+              <Image
+                src={story.source_info?.img}
+                height={"70px"}
+                width={"70px"}
+                alt="block-logo"
+                className="source-image"
+                layout="fixed"
+                unoptimized={true}
+              />
+            </div>
+
+            <span className="source-name">{story?.source_info?.name}</span>
+          </div>
 
           <Image
             src={story.imageurl}
             height={"190px"}
             width={"190px"}
             alt="block-logo"
-            className="partner-image"
+            className="article-image"
             layout="fixed"
             unoptimized={true}
           />
-
-          <div className="source-container">
-            <span className="source-name">{story?.source_info?.name}</span>
-            <Image
-              src={story.source_info?.img}
-              height={"70px"}
-              width={"70px"}
-              alt="block-logo"
-              className="partner-image"
-              layout="fixed"
-              unoptimized={true}
-            />
-          </div>
         </NewsItem>
       );
     });
@@ -67,7 +70,7 @@ export default function Home({ data }) {
       <Head>
         <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>
-          HodlWatch - Web3 data explorer platform utilizing blockchain
+          HodlWatch - Blockchain, Crypto, Web3 Data Explorer and Community
         </title>
         <meta
           name="google-site-verification"
@@ -84,7 +87,7 @@ export default function Home({ data }) {
         <meta
           property="og:title"
           content={
-            "Crypto & Web3 data aggregation platform utilizing blockchain. "
+            "HodlWatch - Blockchain, Crypto, Web3 Data Explorer and Community"
           }
         />
 
@@ -161,8 +164,10 @@ export default function Home({ data }) {
             <Link href="/assets">
               <span className="pointer-link">
                 <h5>Financial Indicators</h5>
-                Analyzing price points, common resistance/support levels, and
-                traditional methods
+                <span>
+                  Analyzing price points, common resistance/support levels, and
+                  traditional methods
+                </span>
               </span>
             </Link>
           </div>
@@ -181,8 +186,10 @@ export default function Home({ data }) {
             <Link href={`/user/${id}`}>
               <span className="pointer-link">
                 <h5>Portfolio Analysis</h5>
-                Connect your exchange account via our API and get insights into
-                your holdings
+                <span>
+                  Connect your exchange account via our API and get insights
+                  into your holdings
+                </span>
               </span>
             </Link>
           </div>
@@ -215,7 +222,7 @@ export default function Home({ data }) {
 
       <div className="mid-row">
         <div className="mid-row-heading">
-          <h3>News Stories</h3>
+          <h3>Recent Updates</h3>
         </div>
 
         <div className="mid-row-body">{newsFeedContent}</div>
@@ -226,7 +233,13 @@ export default function Home({ data }) {
 
 const InterstitialRow = styled.div`
   width: 100%;
-  background-color: #1a1919;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    131deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(46, 46, 46, 1) 48%,
+    rgba(0, 0, 0, 1) 100%
+  );
   color: white;
   padding: 2rem 2rem;
   margin-top: 4rem;
@@ -237,6 +250,12 @@ const InterstitialRow = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding: 1rem;
+
+    h2 {
+      text-transform: uppercase;
+      letter-spacing: 0.01rem;
+    }
   }
 
   .image-row {
@@ -256,10 +275,17 @@ const InterstitialRow = styled.div`
   .image-column {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
+
+    h5 {
+      text-transform: uppercase;
+      letter-spacing: 0.05rem;
+    }
 
     .pointer-link {
       cursor: pointer;
+      line-height: 1.8rem;
+      font-weight: 400;
     }
 
     .pointer-link:hover {
@@ -277,24 +303,37 @@ const AlternateHomePageWrapper = styled.div`
   align-items: center;
 
   .top-row {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+    gap: 2rem;
+    /* margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
 
-    @media ${MediaQueries.MD} {
-      padding: 0 4rem;
+    @media ${MediaQueries.LG} {
+      flex-direction: row;
+      width: 80%;
       padding-bottom: 2rem;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .left-card {
-      @media ${MediaQueries.MD} {
+      @media ${MediaQueries.LG} {
+        min-width: 30rem;
         margin-top: 3rem;
       }
     }
 
     .right-card {
-      @media ${MediaQueries.MD} {
+      border-top: 2px solid lightgray;
+
+      @media ${MediaQueries.LG} {
+        border-top: unset;
+        max-width: 40rem;
         margin-top: 3rem;
       }
     }
@@ -304,7 +343,7 @@ const AlternateHomePageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 1rem 1rem;
+    padding: 1rem 0;
     border-top: 2px solid lightgray;
 
     @media ${MediaQueries.MD} {
@@ -314,6 +353,9 @@ const AlternateHomePageWrapper = styled.div`
     .mid-row-heading {
       font-size: 28px;
       padding: 1rem 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05rem;
     }
 
     .mid-row-body {
@@ -326,6 +368,10 @@ const AlternateHomePageWrapper = styled.div`
         display: none;
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
+      }
+
+      @media ${MediaQueries.MD} {
+        gap: 1.5rem;
       }
     }
   }
@@ -363,21 +409,37 @@ const AlternateHomePageWrapper = styled.div`
 `;
 
 const NewsItem = styled.div`
-  border: 2px solid black;
+  border: 1.5px solid gray;
   display: flex;
   flex-direction: column;
   border-radius: 12px;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   justify-content: start;
-  max-height: 22rem;
+  max-height: 28rem;
   min-width: 20rem;
   text-align: center;
   align-items: center;
   gap: 1rem;
-  box-shadow: 2px 4px 8px lightgray;
+  box-shadow: 2px 4px 10px #b9b7b7;
+  position: relative;
+
+  cursor: grab;
+
+  .partner-header {
+    background-color: #e9e9e937;
+    border-radius: 8px;
+  }
+
+  h4 {
+    font-weight: 500;
+  }
 
   a:hover {
     text-decoration: underline;
+  }
+
+  .article-image {
+    border-radius: 12px;
   }
 
   .source-container {
@@ -386,15 +448,23 @@ const NewsItem = styled.div`
     justify-content: center;
     gap: 1rem;
     font-size: 18px;
-    margin-top: auto;
+    max-height: 8rem;
+    border-bottom: 1px solid lightgray;
+    width: 100%;
 
     .source-name {
       font-weight: bold;
     }
+
+    .source-image {
+      position: absolute;
+      right: 0;
+      border-radius: 50%;
+    }
   }
 
   @media ${MediaQueries.MD} {
-    max-height: 28rem;
+    max-height: 30rem;
     min-width: 22rem;
   }
 `;

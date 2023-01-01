@@ -1,3 +1,4 @@
+import { MediaQueries } from "@/styles/MediaQueries";
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
@@ -77,13 +78,13 @@ const LandingCard = ({
 
 const InfoCardContainer = styled.div`
   animation: "fade-in";
-  padding: 2rem 2rem;
-  margin: 2rem;
+  padding: 2rem 0;
+  padding: 0 2rem;
   min-width: 18rem;
 
   .info-card-header {
     text-align: center;
-    padding: 1rem 0;
+    padding: 2rem 0;
 
     .heading-text {
       font-size: 48px;
@@ -106,6 +107,10 @@ const InfoCardContainer = styled.div`
     justify-content: center;
     gap: 2rem;
     padding: 1rem 0;
+  }
+
+  @media ${MediaQueries.LG} {
+    padding: 2rem 2rem;
   }
 `;
 
