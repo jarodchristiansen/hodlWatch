@@ -18,8 +18,6 @@ import client from "apollo-client";
 export default function Home({ data }: any) {
   const [session, loading] = useSession();
 
-  console.log({ data });
-
   const newsFeedContent = useMemo(() => {
     if (!data?.getNewsFeed?.length) return [];
 
