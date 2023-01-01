@@ -15,13 +15,15 @@ import client from "apollo-client";
  * @param data: Response from GetNewsFeed query, renders the news feed at bottom of landing page
  * @returns Landing page with Info/Sign Up Pages
  */
-export default function Home({ data }) {
+export default function Home({ data }: any) {
   const [session, loading] = useSession();
+
+  console.log({ data });
 
   const newsFeedContent = useMemo(() => {
     if (!data?.getNewsFeed?.length) return [];
 
-    return data.getNewsFeed.slice(0, 5).map((story) => {
+    return data.getNewsFeed.slice(0, 5).map((story: any) => {
       return (
         <NewsItem key={story?.guid}>
           <Link href={story?.guid} passHref>
@@ -477,7 +479,7 @@ const getNewsFeed = async () => {
   return { data: result };
 };
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async () => {
   let data = null;
 
   const response = await getNewsFeed(); // any async promise here.

@@ -15,7 +15,7 @@ const Footer = () => {
   //@ts-ignore: next-auth issue v3
   let id = session?.user?.id;
 
-  const routerToProfile = (manage) => {
+  const routerToProfile = (manage: Boolean) => {
     if (id && manage) {
       router.push(`/user/${id}?view=edit_user`);
     } else if (id) {

@@ -14,7 +14,7 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,
@@ -32,5 +32,5 @@
 , "helpers/queries/collective/index.js", "pages/api/favoritesManager.js", "pages/assets/index.test.jsx"  ],
   "exclude": [
     "node_modules"
-  ]
+  ],
 }
