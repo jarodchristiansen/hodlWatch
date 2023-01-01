@@ -136,7 +136,7 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
           />
         </FilterBar>
 
-        {!!collectiveDataComponents && collectiveDataComponents}
+        {/* {!!collectiveDataComponents && collectiveDataComponents} */}
 
         {!!collectiveData?.data?.getCollectiveStats?.top_assets?.length && (
           <div data-testid="top-assets-row">

@@ -81,15 +81,15 @@ describe("Collective Stats", () => {
     networkStatus: 7,
   };
 
-  it("Should render the collective stats header", () => {
-    render(
-      <MockedProvider mocks={[]} addTypename={false}>
-        <AssetsPage session={session} collectiveData={collectiveData} />
-      </MockedProvider>
-    );
+  // it("Should render the collective stats header", () => {
+  //   render(
+  //     <MockedProvider mocks={[]} addTypename={false}>
+  //       <AssetsPage session={session} collectiveData={collectiveData} />
+  //     </MockedProvider>
+  //   );
 
-    expect(screen.getByTestId("collective-stats-header")).toBeTruthy();
-  });
+  //   expect(screen.getByTestId("collective-stats-header")).toBeTruthy();
+  // });
 
   it("Should render top assets row", () => {
     render(

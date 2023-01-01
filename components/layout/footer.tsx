@@ -3,6 +3,12 @@ import { useSession } from "next-auth/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import {
+  FaInstagram,
+  FaFacebook,
+  FaTwitter,
+  FaInstagramSquare,
+} from "react-icons/fa";
 
 /**
  *
@@ -63,9 +69,9 @@ const Footer = () => {
         </InfoColumnsContainer>
 
         <div className="social-row">
-          <span>Insta</span>
-          <span>FB</span>
-          <span>Twitter</span>
+          <FaInstagram size={36} />
+          <FaFacebook size={36} />
+          <FaTwitter size={36} />
         </div>
       </div>
     </FooterContainer>

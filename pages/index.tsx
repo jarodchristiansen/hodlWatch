@@ -9,6 +9,7 @@ import styled from "styled-components";
 import LandingCard from "../components/commons/info-cards/landing-card";
 import PriceScreener from "../components/commons/screener/index";
 import client from "apollo-client";
+import { FormatUnixTime } from "@/helpers/formatters/time";
 
 /**
  *
@@ -57,6 +58,8 @@ export default function Home({ data }) {
             layout="fixed"
             unoptimized={true}
           />
+
+          <span>Published: {FormatUnixTime(story?.published_on)}</span>
         </NewsItem>
       );
     });
@@ -309,9 +312,6 @@ const AlternateHomePageWrapper = styled.div`
     text-align: center;
     justify-content: center;
     gap: 2rem;
-    /* margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
 
     @media ${MediaQueries.LG} {
       flex-direction: row;
@@ -461,6 +461,10 @@ const NewsItem = styled.div`
       right: 0;
       border-radius: 50%;
     }
+  }
+
+  span {
+    font-weight: 600;
   }
 
   @media ${MediaQueries.MD} {

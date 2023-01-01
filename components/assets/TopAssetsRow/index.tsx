@@ -1,3 +1,4 @@
+import { Colors } from "@/styles/Colors";
 import { MediaQueries } from "@/styles/MediaQueries";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -18,6 +19,8 @@ const TopAssetsRow = ({ topAssets }: TopAssetsRowProps) => {
   const topAssetCards = useMemo(() => {
     if (!topAssets.length) return [];
 
+    console.log({ topAssets });
+
     return topAssets.map((asset) => {
       return (
         <Link
@@ -28,8 +31,14 @@ const TopAssetsRow = ({ topAssets }: TopAssetsRowProps) => {
         >
           <a>
             <TopAssetCard data-testid={`top-asset-card-${asset.name}`}>
-              <h4> {asset.name}</h4>
-              <h5>{asset?.symbol?.toUpperCase()}</h5>
+              <FavoriteCountCircle>
+                <span>{asset.favorite_count}</span>
+              </FavoriteCountCircle>
+
+              <div className="card-text">
+                <h4> {asset.name}</h4>
+                <span>{asset?.symbol?.toUpperCase()}</span>
+              </div>
             </TopAssetCard>
           </a>
         </Link>
@@ -48,11 +57,26 @@ const TopAssetsRow = ({ topAssets }: TopAssetsRowProps) => {
   );
 };
 
+const FavoriteCountCircle = styled.div`
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.2rem;
+  border-radius: 50%;
+  background-color: ${Colors.PrimaryButtonBackground};
+  color: white;
+  font-weight: 600;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1rem;
+  border: 2px solid black;
+`;
+
 const TopAssetContainer = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
   justify-content: center;
+
   width: 100%;
   gap: 1rem;
   max-width: 28rem;
@@ -60,7 +84,8 @@ const TopAssetContainer = styled.div`
   padding: 1rem 0;
 
   @media ${MediaQueries.MD} {
-    max-width: 40rem;
+    align-items: center;
+    max-width: 70rem;
   }
 `;
 
@@ -68,14 +93,22 @@ const TopAssetCard = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid black;
-  padding: 1rem;
-  border-radius: 5px;
+  width: fit-content;
+  border-radius: 12px;
+  position: relative;
+
+  box-shadow: 0px 4px 12px gray;
+
+  .card-text {
+    padding: 1rem 3rem;
+  }
 `;
 
 const RowContainer = styled.div`
   display: flex;
   overflow-x: scroll;
   gap: 1rem;
+  padding: 1rem 0;
 
   ::-webkit-scrollbar {
     display: none;
@@ -90,6 +123,9 @@ const RowContainer = styled.div`
   a:hover {
     color: purple;
     text-decoration: underline;
+  }
+  @media ${MediaQueries.MD} {
+    padding: 1rem;
   }
 `;
 

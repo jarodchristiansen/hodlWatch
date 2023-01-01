@@ -74,7 +74,7 @@ a {
   font-weight: bolder;
   border-radius: 10px;
   padding: 0.5rem 1rem;
-  box-shadow: 0px 4px 10px #7f6cfed3;
+  box-shadow: 0px 4px 10px #b9affcd3;
 }
 
 .standardized-button:hover {
@@ -83,7 +83,7 @@ a {
   font-weight: bolder;
   border-radius: 10px;
   padding: 0.5rem 1rem;
-  box-shadow: 0px 4px 10px #7f6cfe83;
+  box-shadow: 0px 4px 10px #b9affcd3;
 }
 
 .secondary-button {
@@ -92,7 +92,7 @@ a {
   font-weight: bolder;
   border-radius: 10px;
   padding: 0.5rem 1rem;
-  box-shadow: 0px 4px 10px #7f6cfe83;
+  box-shadow: 0px 4px 10px #b9affcd3;
 }
 
 .secondary-button:hover {
@@ -102,7 +102,7 @@ a {
   font-weight: bolder;
   border-radius: 10px;
   padding: 0.5rem 1rem;
-  box-shadow: 0px 4px 10px #7f6cfe83;
+  box-shadow: 0px 4px 10px #b9affcd3;
 }
 
 
