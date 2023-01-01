@@ -309,9 +309,6 @@ const AlternateHomePageWrapper = styled.div`
     text-align: center;
     justify-content: center;
     gap: 2rem;
-    /* margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
 
     @media ${MediaQueries.LG} {
       flex-direction: row;
