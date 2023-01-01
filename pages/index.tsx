@@ -332,6 +332,7 @@ const AlternateHomePageWrapper = styled.div`
       border-top: 2px solid lightgray;
 
       @media ${MediaQueries.LG} {
+        border-top: unset;
         max-width: 40rem;
         margin-top: 3rem;
       }
