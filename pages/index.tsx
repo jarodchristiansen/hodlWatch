@@ -10,11 +10,9 @@ import LandingCard from "../components/commons/info-cards/landing-card";
 import PriceScreener from "../components/commons/screener/index";
 import client from "apollo-client";
 
-
-
 /**
- * 
- * @param data: Response from GetNewsFeed query, renders the news feed at bottom of landing page 
+ *
+ * @param data: Response from GetNewsFeed query, renders the news feed at bottom of landing page
  * @returns Landing page with Info/Sign Up Pages
  */
 export default function Home({ data }) {
@@ -28,7 +26,9 @@ export default function Home({ data }) {
         <NewsItem key={story?.guid}>
           <Link href={story?.guid} passHref>
             <a target="_blank">
-              <h4 className="partner-header">{story.title}</h4>
+              <h4 className="partner-header">
+                {story.title.slice(0, 40) + "..."}
+              </h4>
             </a>
           </Link>
 
@@ -44,15 +44,17 @@ export default function Home({ data }) {
 
           <div className="source-container">
             <span className="source-name">{story?.source_info?.name}</span>
-            <Image
-              src={story.source_info?.img}
-              height={"70px"}
-              width={"70px"}
-              alt="block-logo"
-              className="partner-image"
-              layout="fixed"
-              unoptimized={true}
-            />
+            <div>
+              <Image
+                src={story.source_info?.img}
+                height={"70px"}
+                width={"70px"}
+                alt="block-logo"
+                className="source-image"
+                layout="fixed"
+                unoptimized={true}
+              />
+            </div>
           </div>
         </NewsItem>
       );
@@ -161,8 +163,10 @@ export default function Home({ data }) {
             <Link href="/assets">
               <span className="pointer-link">
                 <h5>Financial Indicators</h5>
-                Analyzing price points, common resistance/support levels, and
-                traditional methods
+                <span>
+                  Analyzing price points, common resistance/support levels, and
+                  traditional methods
+                </span>
               </span>
             </Link>
           </div>
@@ -181,8 +185,10 @@ export default function Home({ data }) {
             <Link href={`/user/${id}`}>
               <span className="pointer-link">
                 <h5>Portfolio Analysis</h5>
-                Connect your exchange account via our API and get insights into
-                your holdings
+                <span>
+                  Connect your exchange account via our API and get insights
+                  into your holdings
+                </span>
               </span>
             </Link>
           </div>
@@ -226,7 +232,13 @@ export default function Home({ data }) {
 
 const InterstitialRow = styled.div`
   width: 100%;
-  background-color: #1a1919;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    131deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(46, 46, 46, 1) 48%,
+    rgba(0, 0, 0, 1) 100%
+  );
   color: white;
   padding: 2rem 2rem;
   margin-top: 4rem;
@@ -237,6 +249,12 @@ const InterstitialRow = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding: 1rem;
+
+    h2 {
+      text-transform: uppercase;
+      letter-spacing: 0.01rem;
+    }
   }
 
   .image-row {
@@ -256,10 +274,17 @@ const InterstitialRow = styled.div`
   .image-column {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
+
+    h5 {
+      text-transform: uppercase;
+      letter-spacing: 0.05rem;
+    }
 
     .pointer-link {
       cursor: pointer;
+      line-height: 1.8rem;
+      font-weight: 400;
     }
 
     .pointer-link:hover {
@@ -277,24 +302,33 @@ const AlternateHomePageWrapper = styled.div`
   align-items: center;
 
   .top-row {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+    /* margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
 
-    @media ${MediaQueries.MD} {
-      padding: 0 4rem;
+    @media ${MediaQueries.LG} {
+      flex-direction: row;
+      width: 90%;
       padding-bottom: 2rem;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .left-card {
-      @media ${MediaQueries.MD} {
+      @media ${MediaQueries.LG} {
+        min-width: 30rem;
         margin-top: 3rem;
       }
     }
 
     .right-card {
-      @media ${MediaQueries.MD} {
+      @media ${MediaQueries.LG} {
+        max-width: 40rem;
         margin-top: 3rem;
       }
     }
@@ -367,14 +401,24 @@ const NewsItem = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 12px;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   justify-content: start;
   max-height: 22rem;
   min-width: 20rem;
   text-align: center;
   align-items: center;
   gap: 1rem;
-  box-shadow: 2px 4px 8px lightgray;
+  box-shadow: 2px 4px 12px lightgray;
+  position: relative;
+
+  .partner-header {
+    background-color: #e9e9e937;
+    border-radius: 5px;
+  }
+
+  h4 {
+    font-weight: 500;
+  }
 
   a:hover {
     text-decoration: underline;
@@ -390,6 +434,14 @@ const NewsItem = styled.div`
 
     .source-name {
       font-weight: bold;
+    }
+
+    .source-image {
+      position: absolute;
+      right: 0;
+      border-radius: 50%;
+      /* border: 2px solid gray;
+      box-shadow: 2px 4px 10px gray; */
     }
   }
 
