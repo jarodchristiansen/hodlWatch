@@ -32,19 +32,8 @@ export default function Home({ data }) {
             </a>
           </Link>
 
-          <Image
-            src={story.imageurl}
-            height={"190px"}
-            width={"190px"}
-            alt="block-logo"
-            className="partner-image"
-            layout="fixed"
-            unoptimized={true}
-          />
-
           <div className="source-container">
-            <span className="source-name">{story?.source_info?.name}</span>
-            <div>
+            <div className="image-container">
               <Image
                 src={story.source_info?.img}
                 height={"70px"}
@@ -55,7 +44,19 @@ export default function Home({ data }) {
                 unoptimized={true}
               />
             </div>
+
+            <span className="source-name">{story?.source_info?.name}</span>
           </div>
+
+          <Image
+            src={story.imageurl}
+            height={"190px"}
+            width={"190px"}
+            alt="block-logo"
+            className="article-image"
+            layout="fixed"
+            unoptimized={true}
+          />
         </NewsItem>
       );
     });
@@ -69,7 +70,7 @@ export default function Home({ data }) {
       <Head>
         <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>
-          HodlWatch - Web3 data explorer platform utilizing blockchain
+          HodlWatch - Blockchain, Crypto, Web3 Data Explorer and Community
         </title>
         <meta
           name="google-site-verification"
@@ -86,7 +87,7 @@ export default function Home({ data }) {
         <meta
           property="og:title"
           content={
-            "Crypto & Web3 data aggregation platform utilizing blockchain. "
+            "HodlWatch - Blockchain, Crypto, Web3 Data Explorer and Community"
           }
         />
 
@@ -221,7 +222,7 @@ export default function Home({ data }) {
 
       <div className="mid-row">
         <div className="mid-row-heading">
-          <h3>News Stories</h3>
+          <h3>Recent Updates</h3>
         </div>
 
         <div className="mid-row-body">{newsFeedContent}</div>
@@ -307,13 +308,14 @@ const AlternateHomePageWrapper = styled.div`
     width: 100%;
     text-align: center;
     justify-content: center;
+    gap: 2rem;
     /* margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
 
     @media ${MediaQueries.LG} {
       flex-direction: row;
-      width: 90%;
+      width: 80%;
       padding-bottom: 2rem;
       align-items: center;
       justify-content: space-between;
@@ -327,6 +329,8 @@ const AlternateHomePageWrapper = styled.div`
     }
 
     .right-card {
+      border-top: 2px solid lightgray;
+
       @media ${MediaQueries.LG} {
         max-width: 40rem;
         margin-top: 3rem;
@@ -338,7 +342,7 @@ const AlternateHomePageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 1rem 1rem;
+    padding: 1rem 0;
     border-top: 2px solid lightgray;
 
     @media ${MediaQueries.MD} {
@@ -348,6 +352,9 @@ const AlternateHomePageWrapper = styled.div`
     .mid-row-heading {
       font-size: 28px;
       padding: 1rem 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05rem;
     }
 
     .mid-row-body {
@@ -360,6 +367,10 @@ const AlternateHomePageWrapper = styled.div`
         display: none;
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
+      }
+
+      @media ${MediaQueries.MD} {
+        gap: 1.5rem;
       }
     }
   }
@@ -397,23 +408,25 @@ const AlternateHomePageWrapper = styled.div`
 `;
 
 const NewsItem = styled.div`
-  border: 2px solid black;
+  border: 1.5px solid gray;
   display: flex;
   flex-direction: column;
   border-radius: 12px;
   padding: 1rem 1rem;
   justify-content: start;
-  max-height: 22rem;
+  max-height: 28rem;
   min-width: 20rem;
   text-align: center;
   align-items: center;
   gap: 1rem;
-  box-shadow: 2px 4px 12px lightgray;
+  box-shadow: 2px 4px 10px #b9b7b7;
   position: relative;
+
+  cursor: grab;
 
   .partner-header {
     background-color: #e9e9e937;
-    border-radius: 5px;
+    border-radius: 8px;
   }
 
   h4 {
@@ -424,13 +437,19 @@ const NewsItem = styled.div`
     text-decoration: underline;
   }
 
+  .article-image {
+    border-radius: 12px;
+  }
+
   .source-container {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
     font-size: 18px;
-    margin-top: auto;
+    max-height: 8rem;
+    border-bottom: 1px solid lightgray;
+    width: 100%;
 
     .source-name {
       font-weight: bold;
@@ -440,13 +459,11 @@ const NewsItem = styled.div`
       position: absolute;
       right: 0;
       border-radius: 50%;
-      /* border: 2px solid gray;
-      box-shadow: 2px 4px 10px gray; */
     }
   }
 
   @media ${MediaQueries.MD} {
-    max-height: 28rem;
+    max-height: 30rem;
     min-width: 22rem;
   }
 `;
