@@ -12,6 +12,9 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 // import GET_ASSET_FINANCIALS from "../../../helpers/queries/assets/getAssetFinancialDetails";
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import ActiveAddressesChart from "../Finance/Charts/Desktop/ActiveAddressesChart";
+import TransactionSizeChart from "../Finance/Charts/Desktop/TransactionSizeChart";
+import AverageTransactionValueChart from "../Finance/Charts/Desktop/AverageTransactionValueChart";
+import HashRateDifficultyChart from "../Finance/Charts/Desktop/HashRateDifficultyChart";
 
 interface IndicatorAccordion {
   timeQuery: number;
@@ -77,6 +80,9 @@ const IndicatorAccordion = ({
     if (!blockchainData) return [];
 
     let addresses = [];
+    let averageTransValue = [];
+    let transactionCountRatios = [];
+    let difficulty = [];
 
     for (let i of blockchainData) {
       addresses.push({
@@ -84,15 +90,44 @@ const IndicatorAccordion = ({
         active_addresses: i.active_addresses,
         time: FormatUnixTime(i.time),
       });
+      averageTransValue.push({
+        symbol: i.symbol,
+        average_transaction_value: i.average_transaction_value,
+        time: FormatUnixTime(i.time),
+      });
+
+      transactionCountRatios.push({
+        transaction_count: i.transaction_count,
+        large_transaction_count: i.large_transaction_count,
+        time: FormatUnixTime(i.time),
+      });
+
+      difficulty.push({
+        difficulty: i.difficulty,
+        hash_rate: i.hashrate,
+        time: FormatUnixTime(i.time),
+      });
     }
 
     const formatData = {
       addresses,
+      averageTransValue,
+      transactionCountRatios,
+      difficulty,
     };
 
     const charts = [
       formatData?.addresses && (
         <ActiveAddressesChart data={formatData.addresses} />
+      ),
+      formatData?.transactionCountRatios && (
+        <TransactionSizeChart data={formatData.transactionCountRatios} />
+      ),
+      formatData?.averageTransValue && (
+        <AverageTransactionValueChart data={formatData.averageTransValue} />
+      ),
+      formatData?.difficulty && (
+        <HashRateDifficultyChart data={formatData.difficulty} />
       ),
     ];
 
