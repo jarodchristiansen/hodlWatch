@@ -1,5 +1,7 @@
 import Cors from "micro-cors";
-import { ApolloServer, gql } from "apollo-server-micro";
+import { ApolloServer } from "apollo-server-micro";
+// import { ApolloServer } from "@apollo/server";
+
 import typeDefs from "../../db/schema";
 import resolvers from "../../db/resolvers/index";
 import connectDb from "../../db/config";

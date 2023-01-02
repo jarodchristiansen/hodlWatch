@@ -1,12 +1,12 @@
 import { useLazyQuery } from "@apollo/client";
-import { getSession, useSession } from "next-auth/client";
+// import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import AssetsContainer from "../../components/assets/AssetsContainer/AssetsContainer";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import PaginationComponent from "@/components/commons/pagination/Pagination";
-import PriceScreener from "@/components/commons/screener";
+// import PriceScreener from "@/components/commons/screener";
 import SearchForm from "@/components/forms/SearchForm/SearchForm";
 import GET_ASSET from "@/helpers/queries/assets/getAsset";
 import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
@@ -20,7 +20,10 @@ import TopAssetsRow from "@/components/assets/TopAssetsRow";
  * @param userSession: session returned from Next-Auth ssr query
  * @returns AssetPage that allows for searching/filtering of digital assets
  */
-const AssetsPage = ({ userSession: session, collectiveData }) => {
+const AssetsPage = ({
+  // userSession: session,
+  collectiveData,
+}) => {
   const [offsetState, setOffsetState] = useState<number>(1);
   const [limitState, setLimitState] = useState(9);
 
@@ -69,7 +72,7 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
         <AssetContainerWrapper>
           <AssetsContainer
             assets={assetData || data?.getAssets}
-            session={session}
+            session={""}
             // loadMore={loadMoreFunction}
           />
         </AssetContainerWrapper>
@@ -119,7 +122,7 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
         <title>Assets</title>
       </Head>
 
-      <PriceScreener />
+      {/* <PriceScreener /> */}
 
       {loading && (
         <div className={"container text-center"}>
@@ -136,7 +139,7 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
           />
         </FilterBar>
 
-        {/* {!!collectiveDataComponents && collectiveDataComponents} */}
+        {!!collectiveDataComponents && collectiveDataComponents}
 
         {!!collectiveData?.data?.getCollectiveStats?.top_assets?.length && (
           <div data-testid="top-assets-row">
@@ -266,16 +269,16 @@ const getCollectiveStats = async (context) => {
 };
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
+  // const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth",
-        permanent: false,
-      },
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/auth",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   let data = null;
 
@@ -284,7 +287,10 @@ export async function getServerSideProps(context) {
   data = response.data;
 
   return {
-    props: { userSession: session, collectiveData: data },
+    props: {
+      // userSession: session,
+      collectiveData: data,
+    },
   };
 }
 

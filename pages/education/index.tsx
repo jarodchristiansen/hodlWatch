@@ -34,8 +34,8 @@ const EducationPage = () => {
           <PostRow>
             <Image
               src={post.header_image}
-              height={"300px"}
-              width={"100px"}
+              height={300}
+              width={100}
               alt="block-logo"
               unoptimized={true}
             />
@@ -97,7 +97,7 @@ const EducationPage = () => {
         <meta property="og:image:height" content="400" />
       </Head>
 
-      <PriceScreener />
+      {/* <PriceScreener /> */}
       <FilterBar>
         <label htmlFor="article_search">Article:</label>
         <input type="text" name="article_search" />

@@ -8,7 +8,7 @@ import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
 import { GET_ASSET_HISTORY } from "@/helpers/queries/assets/getAssetFinancialDetails";
 import { MediaQueries } from "@/styles/MediaQueries";
 import { useLazyQuery } from "@apollo/client";
-import { getSession } from "next-auth/client";
+// import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
@@ -344,21 +344,21 @@ const AssetDetailsPageContainer = styled.div`
   min-height: 100vh;
 `;
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
+// export async function getServerSideProps(context) {
+//   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth",
-        permanent: false,
-      },
-    };
-  }
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/auth",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: { session },
-  };
-}
+//   return {
+//     props: { session },
+//   };
+// }
 
 export default AssetDetailsPage;

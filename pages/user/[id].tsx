@@ -1,11 +1,11 @@
 import { useLazyQuery } from "@apollo/client";
-import {
-  useAccount,
-  useBalance,
-  useConnectModal,
-  Web3Button,
-} from "@web3modal/react";
-import { useSession, getSession } from "next-auth/client";
+// import {
+//   useAccount,
+//   useBalance,
+//   useConnectModal,
+//   Web3Button,
+// } from "@web3modal/react";
+import { useSession, getSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -24,12 +24,12 @@ import PortfolioMain from "@/components/portfolio/PortfolioMain";
  * @returns User Profile Page with edit/profile pages connected as query strings
  */
 const ProfilePage = () => {
-  const [session, loading] = useSession();
-  const { account, isReady } = useAccount();
+  const { data: session, status } = useSession();
+  // const { account, isReady } = useAccount();
 
   const [user, setUser] = useState<null | any>();
   //   const [walletIsConnected, setWalletIsConnected] = useState(false);
-  const { isOpen, open, close } = useConnectModal();
+  // const { isOpen, open, close } = useConnectModal();
 
   const [
     fetchUserDetails,
@@ -65,20 +65,20 @@ const ProfilePage = () => {
     }
   }, [data?.getUser]);
 
-  const walletIsConnected = useMemo(() => {
-    if (!account.status) return false;
+  // const walletIsConnected = useMemo(() => {
+  //   if (!account.status) return false;
 
-    return account.status !== "disconnected" && account.status !== "connecting"
-      ? true
-      : false;
-  }, [account]);
+  //   return account.status !== "disconnected" && account.status !== "connecting"
+  //     ? true
+  //     : false;
+  // }, [account]);
 
-  const {
-    data: tokenData,
-    error: fetchTokenError,
-    isLoading: fetchTokensLoading,
-    refetch: refetchTokoenData,
-  } = useBalance({ addressOrName: account?.address });
+  // const {
+  //   data: tokenData,
+  //   error: fetchTokenError,
+  //   isLoading: fetchTokensLoading,
+  //   refetch: refetchTokoenData,
+  // } = useBalance({ addressOrName: account?.address });
 
   const navigateToAssetPage = (favorite) => {
     router.push(

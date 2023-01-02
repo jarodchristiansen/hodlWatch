@@ -26,6 +26,7 @@ const TopAssetsRow = ({ topAssets }: TopAssetsRowProps) => {
           className="asset-link"
           passHref
           key={asset.symbol}
+          legacyBehavior
         >
           <a>
             <TopAssetCard data-testid={`top-asset-card-${asset.name}`}>

@@ -1,5 +1,5 @@
 import { MediaQueries } from "@/styles/MediaQueries";
-import { useSession } from "next-auth/client";
+// import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -16,19 +16,19 @@ import {
  */
 const Footer = () => {
   const router = useRouter();
-  const [session, loading] = useSession();
+  // const { data: session, status } = useSession();
 
   //@ts-ignore: next-auth issue v3
-  let id = session?.user?.id;
+  // let id = session?.user?.id;
 
   const routerToProfile = (manage) => {
-    if (id && manage) {
-      router.push(`/user/${id}?view=edit_user`);
-    } else if (id) {
-      router.push(`/user/${id}`);
-    } else {
-      router.push("/auth?path=SignUp");
-    }
+    // if (id && manage) {
+    //   router.push(`/user/${id}?view=edit_user`);
+    // } else if (id) {
+    //   router.push(`/user/${id}`);
+    // } else {
+    //   router.push("/auth?path=SignUp");
+    // }
   };
 
   return (
@@ -38,13 +38,13 @@ const Footer = () => {
           <div className="info-column">
             <h4>News & Info</h4>
 
-            <Link href="/news" passHref>
+            <Link href="/news" passHref legacyBehavior>
               <a>
                 <h6>Newsfeed</h6>
               </a>
             </Link>
 
-            <Link href="/terms-of-service" passHref>
+            <Link href="/terms-of-service" passHref legacyBehavior>
               <a>
                 <h6>Terms of Service</h6>
               </a>

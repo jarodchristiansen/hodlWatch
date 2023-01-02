@@ -1,15 +1,15 @@
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
 import { MediaQueries } from "@/styles/MediaQueries";
-import { useSession } from "next-auth/client";
+// import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
-import LandingCard from "../components/commons/info-cards/landing-card";
-import PriceScreener from "../components/commons/screener/index";
+// import LandingCard from "../components/commons/info-cards/landing-card";
+// import PriceScreener from "../components/commons/screener/index";
 import client from "apollo-client";
-import { FormatUnixTime } from "@/helpers/formatters/time";
+// import { FormatUnixTime } from "@/helpers/formatters/time";
 
 /**
  *
@@ -17,7 +17,7 @@ import { FormatUnixTime } from "@/helpers/formatters/time";
  * @returns Landing page with Info/Sign Up Pages
  */
 export default function Home({ data }) {
-  const [session, loading] = useSession();
+  // const { data: session, status } = useSession();
 
   const newsFeedContent = useMemo(() => {
     if (!data?.getNewsFeed?.length) return [];
@@ -25,7 +25,7 @@ export default function Home({ data }) {
     return data.getNewsFeed.slice(0, 5).map((story) => {
       return (
         <NewsItem key={story?.guid}>
-          <Link href={story?.guid} passHref>
+          <Link href={story?.guid} passHref legacyBehavior>
             <a target="_blank">
               <h4 className="partner-header">
                 {story.title.slice(0, 40) + "..."}
@@ -37,8 +37,8 @@ export default function Home({ data }) {
             <div className="image-container">
               <Image
                 src={story.source_info?.img}
-                height={"70px"}
-                width={"70px"}
+                height={70}
+                width={70}
                 alt="block-logo"
                 className="source-image"
                 layout="fixed"
@@ -51,22 +51,22 @@ export default function Home({ data }) {
 
           <Image
             src={story.imageurl}
-            height={"190px"}
-            width={"190px"}
+            height={190}
+            width={190}
             alt="block-logo"
             className="article-image"
             layout="fixed"
             unoptimized={true}
           />
-
-          <span>Published: {FormatUnixTime(story?.published_on)}</span>
+          {/* 
+          <span>Published: {FormatUnixTime(story?.published_on)}</span> */}
         </NewsItem>
       );
     });
   }, [data]);
 
   // @ts-ignore type in next-auth v3 doesn't show id
-  let id = session?.user?.id;
+  // let id = session?.user?.id;
 
   return (
     <AlternateHomePageWrapper>
@@ -111,15 +111,15 @@ export default function Home({ data }) {
         <meta property="og:image" content={"/assets/assets-page.png"} />
       </Head>
 
-      <PriceScreener />
+      {/* <PriceScreener /> */}
 
       <div className="top-row">
         <div className="left-card">
           <div className={"landing-svg"}>
             <Image
               src={"/assets/charts.png"}
-              height={"550px"}
-              width={"800px"}
+              height={550}
+              width={800}
               alt="block-logo"
               unoptimized={true}
             />
@@ -134,13 +134,13 @@ export default function Home({ data }) {
         </div>
 
         <div className="right-card">
-          <LandingCard
+          {/* <LandingCard
             headerText={"What Is HodlWatch?"}
             header2Text={"Making web3 a little more balanced"}
             bodyText="At Hodlwatch, we feel that Bitcoin & web3 were built to balance the economic scales a bit by providing transparency, and a trustless guarantee via blockchain. Too long that data has been made a-symmetrical in its access behind paywalls and lack of community integration. We're working to solve that by democratizing access to blockchain data, but integrating your community to make it relevant to your every day choices."
             renderSignIn={false}
             renderLearnMore={true}
-          />
+          /> */}
         </div>
       </div>
 
@@ -158,8 +158,8 @@ export default function Home({ data }) {
           <div className="image-column">
             <Image
               src={"/assets/charts.png"}
-              height={"300px"}
-              width={"400px"}
+              height={300}
+              width={400}
               alt="block-logo"
               unoptimized={true}
             />
@@ -179,14 +179,14 @@ export default function Home({ data }) {
             <div>
               <Image
                 src={"/assets/PieChart.PNG"}
-                height={"300px"}
-                width={"400px"}
+                height={300}
+                width={400}
                 alt="block-logo"
                 unoptimized={true}
               />
             </div>
 
-            <Link href={`/user/${id}`}>
+            {/* <Link href={`/user/${id}`}>
               <span className="pointer-link">
                 <h5>Portfolio Analysis</h5>
                 <span>
@@ -194,28 +194,28 @@ export default function Home({ data }) {
                   into your holdings
                 </span>
               </span>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </InterstitialRow>
 
       <div className="top-row">
         <div className="left-card">
-          <LandingCard
+          {/* <LandingCard
             headerText={"Get Involved"}
             header2Text={"Join the community"}
             bodyText="Sign up to join our community and gain more insights as you explore different assets."
             renderSignIn={true}
             renderLearnMore={false}
-          />
+          /> */}
         </div>
 
         <div className="right-card">
           <div className={"landing-svg"}>
             <Image
               src={"/assets/landing-page.png"}
-              height={"550px"}
-              width={"600px"}
+              height={550}
+              width={600}
               alt="block-logo"
               unoptimized={true}
             />

@@ -41,7 +41,7 @@ const NewsBlock = (props: NewsBlockProps) => {
       <div className="news-text-column">
         <span>{FormatUnixTime(story.published_on)}</span>
 
-        <Link href={story?.guid} passHref>
+        <Link href={story?.guid} passHref legacyBehavior>
           <a target="_blank">
             <h4 className="article-header">{story.title}</h4>
           </a>
@@ -49,8 +49,8 @@ const NewsBlock = (props: NewsBlockProps) => {
 
         <Image
           src={story.imageurl}
-          height={"0px"}
-          width={"100px"}
+          height={0}
+          width={100}
           alt="block-logo"
           layout="responsive"
           unoptimized={true}
@@ -59,14 +59,14 @@ const NewsBlock = (props: NewsBlockProps) => {
         {story.body.slice(0, 160) + "..."}
       </div>
 
-      <Link href={story?.guid} passHref>
+      <Link href={story?.guid} passHref legacyBehavior>
         <a target="_blank">
           <div className="source-row">
             <span>{story?.source_info?.name}</span>
             <Image
               src={story.source_info?.img}
-              height={"50px"}
-              width={"50px"}
+              height={50}
+              width={50}
               alt="block-logo"
               layout="fixed"
               unoptimized={true}

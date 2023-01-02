@@ -163,13 +163,18 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
       <div className={"label-row"}>
         <h1>Fibonacci Retracement</h1>
 
-        <Link href="/education/fibonacci-retracement-indicator" passHref>
+        <Link
+          href="/education/fibonacci-retracement-indicator"
+          passHref
+          legacyBehavior
+        >
           <a target="#">
             <Image
               src={"/images/info-icon.svg"}
               className={"pointer-link info-circle"}
-              height={"30px"}
-              width={"30px"}
+              height={30}
+              width={30}
+              alt="info-icon"
             />
           </a>
         </Link>
