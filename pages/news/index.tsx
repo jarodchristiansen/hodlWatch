@@ -57,7 +57,7 @@ const NewsFeedPage = () => {
         <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>HodlWatch- NewsFeed</title>
       </Head>
-      <PriceScreener />
+      {/* <PriceScreener /> */}
       {/* <FilterBar>
         <button className="standardized-button">All</button>
         <button className="standardized-button">All</button>
