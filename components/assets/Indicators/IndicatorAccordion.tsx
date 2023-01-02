@@ -76,11 +76,32 @@ const IndicatorAccordion = ({
     if (!blockchainData) return [];
 
     let addresses = [];
+    let averageTransValue = [];
+    let transactionCountRatios = [];
+    let difficulty = [];
 
     for (let i of blockchainData) {
       addresses.push({
         new_addresses: i.new_addresses,
         active_addresses: i.active_addresses,
+        time: FormatUnixTime(i.time),
+      });
+
+      averageTransValue.push({
+        symbol: i.symbol,
+        average_transaction_value: i.average_transaction_value,
+        time: FormatUnixTime(i.time),
+      });
+
+      transactionCountRatios.push({
+        transaction_count: i.transaction_count,
+        large_transaction_count: i.large_transaction_count,
+        time: FormatUnixTime(i.time),
+      });
+
+      difficulty.push({
+        difficulty: i.difficulty,
+        hash_rate: i.hashrate,
         time: FormatUnixTime(i.time),
       });
     }
