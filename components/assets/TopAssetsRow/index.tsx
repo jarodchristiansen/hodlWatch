@@ -19,8 +19,6 @@ const TopAssetsRow = ({ topAssets }: TopAssetsRowProps) => {
   const topAssetCards = useMemo(() => {
     if (!topAssets.length) return [];
 
-    console.log({ topAssets });
-
     return topAssets.map((asset) => {
       return (
         <Link
