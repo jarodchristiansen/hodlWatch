@@ -11,7 +11,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import PriceScreener from "@/components/commons/screener";
+// import PriceScreener from "@/components/commons/screener";
 import EditUserDetails from "@/components/user/edit-user-details";
 import { GET_USER } from "@/helpers/queries/user/index";
 import { Colors } from "@/styles/Colors";
@@ -94,8 +94,8 @@ const ProfilePage = () => {
         <div className="favorites-row" key={favorite.title}>
           <Image
             src={favorite.image}
-            height={"50px"}
-            width={"50px"}
+            height={50}
+            width={50}
             alt="block-logo"
             className="pointer-link favorites-image"
             onClick={() => navigateToAssetPage(favorite)}
@@ -155,7 +155,7 @@ const ProfilePage = () => {
         <title>Profile</title>
       </Head>
 
-      <PriceScreener />
+      {/* <PriceScreener /> */}
 
       <CentralWrapper>
         {isUsersProfile && (
@@ -205,8 +205,8 @@ const ProfilePage = () => {
                       <h4>Profile Pic:</h4>
                       <Image
                         src={data.getUser?.image}
-                        height={"50px"}
-                        width={"50px"}
+                        height={50}
+                        width={50}
                         alt="block-logo"
                         layout="fixed"
                         unoptimized={true}

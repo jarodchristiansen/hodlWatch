@@ -1,4 +1,4 @@
-// import { signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 // import { ToastContainer } from "react-nextjs-toast";
@@ -23,10 +23,10 @@ const SignInForm = ({ providers }) => {
   const handleSignInSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // await signIn("credentials", {
-    //   email,
-    //   password,
-    // });
+    await signIn("credentials", {
+      email,
+      password,
+    });
   };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {

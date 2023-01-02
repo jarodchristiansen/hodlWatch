@@ -1,17 +1,18 @@
 import Link from "next/link";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-// import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
+import { MediaQueries } from "@/styles/MediaQueries";
 
 /**
  *
  * @returns Header component above pages
  */
 function Header() {
-  // const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
   const [selectedRoute, setSelectedRoute] = useState<string | number>("");
 
   const router = useRouter();
@@ -19,12 +20,12 @@ function Header() {
 
   const handleSignin = (e) => {
     e.preventDefault();
-    // signIn();
+    signIn();
   };
   const handleSignout = (e) => {
     e.preventDefault();
     setSelectedRoute("");
-    // signOut();
+    signOut();
   };
 
   const handleSelect = (selectedKey) => {
@@ -32,32 +33,32 @@ function Header() {
   };
 
   // @ts-ignore: next-auth type issue v3
-  // let id = session?.user?.id;
+  let id = session?.user?.id;
 
   const routes = [
     { key: 1, route: "/assets", guarded: true, text: "Assets" },
-    // { key: 2, route: `/user/${id}`, guarded: true, text: "Profile" },
+    { key: 2, route: `/user/${id}`, guarded: true, text: "Profile" },
     { key: 3, route: "/news", guarded: true, text: "News" },
     { key: 4, route: "/education", guarded: false, text: "Education" },
-    // !session && {
-    //   key: 5,
-    //   route: "/auth?path=SignIn",
-    //   guarded: false,
-    //   text: "Sign In",
-    // },
+    !session && {
+      key: 5,
+      route: "/auth?path=SignIn",
+      guarded: false,
+      text: "Sign In",
+    },
   ];
 
-  useEffect(() => {
-    setRouterAsPath();
-  }, [asPath]);
+  // useEffect(() => {
+  //   setRouterAsPath();
+  // }, [asPath]);
 
-  const setRouterAsPath = () => {
-    let matchingRoute = routes.filter((item) => asPath.includes(item.route));
+  // const setRouterAsPath = () => {
+  //   let matchingRoute = routes.filter((item) => asPath.includes(item.route));
 
-    if (matchingRoute.length) {
-      setSelectedRoute(matchingRoute[0].key);
-    }
-  };
+  //   if (matchingRoute.length) {
+  //     setSelectedRoute(matchingRoute[0].key);
+  //   }
+  // };
 
   const routeObjects = useMemo(() => {
     if (!routes?.length) return [];
@@ -67,23 +68,29 @@ function Header() {
 
       return (
         <div key={route?.route}>
-          {/* {!!route.guarded && !!session && (
-            <div>
-              <Nav.Link eventKey={route.key.toString()} role={"link"}>
-                <TextContainer>
-                  <Link href={route.route}>
-                    <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                      {route.text}
-                    </Navbar.Text>
-                  </Link>
+          {!!route.guarded && !!session && (
+            <Link href={route.route}>
+              {/* <Navbar.Text className={"pointer-link mx-1 fw-bold"}> */}
+              {route.text}
+              {/* </Navbar.Text> */}
+            </Link>
 
-                  {selectedRoute == route.key && (
-                    <span className="active-underline-span"></span>
-                  )}
-                </TextContainer>
-              </Nav.Link>
-            </div>
-          )} */}
+            // <div>
+            //   <Nav.Link eventKey={route.key.toString()} role={"link"}>
+            //     <TextContainer>
+            //       <Link href={route.route}>
+            //         <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
+            //           {route.text}
+            //         </Navbar.Text>
+            //       </Link>
+
+            //       {selectedRoute == route.key && (
+            //         <span className="active-underline-span"></span>
+            //       )}
+            //     </TextContainer>
+            //   </Nav.Link>
+            // </div>
+          )}
 
           {!route.guarded && (
             <Link href={route.route}>{route.text}</Link>
@@ -105,11 +112,7 @@ function Header() {
         </div>
       );
     });
-  }, [
-    routes?.length,
-    selectedRoute,
-    // session,
-  ]);
+  }, [routes?.length, selectedRoute, session]);
 
   return (
     <Navbar
@@ -133,9 +136,9 @@ function Header() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          {routeObjects}
+          <RouteRow>{routeObjects}</RouteRow>
 
-          {/* {session && (
+          {session && (
             <Nav.Link
               eventKey={"5"}
               role={"link"}
@@ -144,12 +147,22 @@ function Header() {
             >
               <SignOutSpan>{"Sign Out"}</SignOutSpan>
             </Nav.Link>
-          )} */}
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 }
+
+const RouteRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media ${MediaQueries.MD} {
+    flex-direction: row;
+  }
+`;
 
 const SignOutSpan = styled.span`
   color: gray;

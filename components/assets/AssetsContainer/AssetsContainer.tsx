@@ -25,15 +25,15 @@ const AssetsContainer = ({ assets, session }) => {
     fetchPolicy: "network-only",
   });
 
-  // useEffect(() => {
-  //   if (session?.user?.email) {
-  //     fetchUserDetails({
-  //       variables: {
-  //         email: session.user.email,
-  //       },
-  //     });
-  //   }
-  // }, [session?.user?.email]);
+  useEffect(() => {
+    if (session?.user?.email) {
+      fetchUserDetails({
+        variables: {
+          email: session.user.email,
+        },
+      });
+    }
+  }, [session?.user?.email]);
 
   useEffect(() => {
     setCurrentAssets(assets);
@@ -52,7 +52,7 @@ const AssetsContainer = ({ assets, session }) => {
         <div data-test-id={`asset-card-${asset.symbol}`} key={asset.id}>
           <AssetCard
             asset={asset}
-            email={""}
+            email={session?.user?.email}
             favorited={favorites.some(
               (e) => e.symbol.toLowerCase() === asset.symbol.toLowerCase()
             )}
@@ -76,7 +76,7 @@ const AssetsContainer = ({ assets, session }) => {
       {currentAssets && currentAssets.length === 1 && (
         <AssetCard
           asset={currentAssets[0]}
-          email={""}
+          email={session?.user?.email}
           favorited={userData?.getUser?.favorites.some(
             (e) =>
               e.symbol.toLowerCase() === currentAssets[0].symbol.toLowerCase()

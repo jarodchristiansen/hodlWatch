@@ -1,12 +1,12 @@
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
 import { MediaQueries } from "@/styles/MediaQueries";
-// import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
-// import LandingCard from "../components/commons/info-cards/landing-card";
+import LandingCard from "../components/commons/info-cards/landing-card";
 // import PriceScreener from "../components/commons/screener/index";
 import client from "apollo-client";
 // import { FormatUnixTime } from "@/helpers/formatters/time";
@@ -17,7 +17,9 @@ import client from "apollo-client";
  * @returns Landing page with Info/Sign Up Pages
  */
 export default function Home({ data }) {
-  // const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
+
+  console.log({ session });
 
   const newsFeedContent = useMemo(() => {
     if (!data?.getNewsFeed?.length) return [];
@@ -66,7 +68,7 @@ export default function Home({ data }) {
   }, [data]);
 
   // @ts-ignore type in next-auth v3 doesn't show id
-  // let id = session?.user?.id;
+  let id = session?.user?.id;
 
   return (
     <AlternateHomePageWrapper>
@@ -134,13 +136,13 @@ export default function Home({ data }) {
         </div>
 
         <div className="right-card">
-          {/* <LandingCard
+          <LandingCard
             headerText={"What Is HodlWatch?"}
             header2Text={"Making web3 a little more balanced"}
             bodyText="At Hodlwatch, we feel that Bitcoin & web3 were built to balance the economic scales a bit by providing transparency, and a trustless guarantee via blockchain. Too long that data has been made a-symmetrical in its access behind paywalls and lack of community integration. We're working to solve that by democratizing access to blockchain data, but integrating your community to make it relevant to your every day choices."
             renderSignIn={false}
             renderLearnMore={true}
-          /> */}
+          />
         </div>
       </div>
 
@@ -186,7 +188,7 @@ export default function Home({ data }) {
               />
             </div>
 
-            {/* <Link href={`/user/${id}`}>
+            <Link href={`/user/${id}`}>
               <span className="pointer-link">
                 <h5>Portfolio Analysis</h5>
                 <span>
@@ -194,20 +196,20 @@ export default function Home({ data }) {
                   into your holdings
                 </span>
               </span>
-            </Link> */}
+            </Link>
           </div>
         </div>
       </InterstitialRow>
 
       <div className="top-row">
         <div className="left-card">
-          {/* <LandingCard
+          <LandingCard
             headerText={"Get Involved"}
             header2Text={"Join the community"}
             bodyText="Sign up to join our community and gain more insights as you explore different assets."
             renderSignIn={true}
             renderLearnMore={false}
-          /> */}
+          />
         </div>
 
         <div className="right-card">

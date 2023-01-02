@@ -1,5 +1,5 @@
 import { useLazyQuery } from "@apollo/client";
-// import { getSession, useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
@@ -20,12 +20,11 @@ import TopAssetsRow from "@/components/assets/TopAssetsRow";
  * @param userSession: session returned from Next-Auth ssr query
  * @returns AssetPage that allows for searching/filtering of digital assets
  */
-const AssetsPage = ({
-  // userSession: session,
-  collectiveData,
-}) => {
+const AssetsPage = ({ userSession: session, collectiveData }) => {
   const [offsetState, setOffsetState] = useState<number>(1);
   const [limitState, setLimitState] = useState(9);
+
+  console.log({ session }, "in assets");
 
   const [fetchAssets, { data, loading, error, refetch, fetchMore }] =
     useLazyQuery(GET_ASSETS, {
@@ -72,7 +71,7 @@ const AssetsPage = ({
         <AssetContainerWrapper>
           <AssetsContainer
             assets={assetData || data?.getAssets}
-            session={""}
+            session={session}
             // loadMore={loadMoreFunction}
           />
         </AssetContainerWrapper>
@@ -139,7 +138,7 @@ const AssetsPage = ({
           />
         </FilterBar>
 
-        {!!collectiveDataComponents && collectiveDataComponents}
+        {/* {!!collectiveDataComponents && collectiveDataComponents} */}
 
         {!!collectiveData?.data?.getCollectiveStats?.top_assets?.length && (
           <div data-testid="top-assets-row">
@@ -269,16 +268,16 @@ const getCollectiveStats = async (context) => {
 };
 
 export async function getServerSideProps(context) {
-  // const session = await getSession(context);
+  const session = await getSession(context);
 
-  // if (!session) {
-  //   return {
-  //     redirect: {
-  //       destination: "/auth",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
 
   let data = null;
 
@@ -287,10 +286,7 @@ export async function getServerSideProps(context) {
   data = response.data;
 
   return {
-    props: {
-      // userSession: session,
-      collectiveData: data,
-    },
+    props: { userSession: session, collectiveData: data },
   };
 }
 
