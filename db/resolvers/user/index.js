@@ -89,8 +89,11 @@ export const UserResolver = {
     getUser: async (_, { email, id }) => {
       // Searches for user profile based on id for profile page, needs update
       let user;
+
+      console.log("In get User", { email, id });
+
       if (id) {
-        user = await User.find({ _id: id })
+        user = await User.find({ username: id })
           .then((res) => res[0].toObject())
           .catch((err) => console.log("IN GETUSER", { err }));
       } else if (email) {

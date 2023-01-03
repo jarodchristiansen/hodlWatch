@@ -40,22 +40,25 @@ const ProfilePage = () => {
 
   const router = useRouter();
 
-  const slug = useMemo(() => {
-    if (!router?.query?.id) return "";
+  console.log({ router });
 
-    if (router?.query?.id) {
+  const slug = useMemo(() => {
+    if (!router?.query?.username) return "";
+
+    if (router?.query?.username) {
       fetchUserDetails({
         variables: {
-          id: router.query.id,
+          id: router.query.username,
         },
       });
     }
 
-    return router.query.id;
-  }, [router?.asPath]);
+    return router.query.username;
+    // @ts-ignore: username customized to be in session from database strategy
+  }, [router?.asPath, session?.user?.username]);
 
   // @ts-ignore next-auth v3 type structure issue
-  let id = session?.user?.id;
+  let id = session?.user?.username;
 
   const isUsersProfile = id == slug;
 

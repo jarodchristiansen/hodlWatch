@@ -195,6 +195,18 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 // import AppleProvider from "next-auth/providers/apple"
 // import EmailProvider from "next-auth/providers/email"
 import clientPromise from "../../../lib/mongodb";
+import User from "../../../db/models/user";
+
+function makeid(length) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -248,61 +260,30 @@ export const authOptions = {
       token.userRole = "admin";
       return token;
     },
-    async signIn(user, account, metadata) {
-      let emails;
-      let primaryEmail;
+    async session({ session, token, user }) {
+      session.user.username = user.username;
+      session.user.favorites = user.favorites;
 
-      console.log("In sign In!", { user, account, metadata });
+      return session;
+    },
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log({ user, account, profile, email, credentials });
 
-      // if (account?.provider === "github") {
-      //   const emailRes = await fetch("https://api.github.com/user/emails", {
-      //     headers: {
-      //       Authorization: `token ${account.accessToken}`,
-      //     },
-      //   });
-      //   emails = await emailRes.json();
-      //   primaryEmail = emails.find((e) => e.primary).email;
+      let userEmail = user?.email;
+      let existingUser = await User.findOne({ email: userEmail });
 
-      //   user.email = primaryEmail;
-      // }
+      console.log({ existingUser }, "jfound user");
+      if (existingUser) {
+        if (!existingUser?.username) {
+          let newId = makeid(12).toString() + "!@$";
+          existingUser.username = newId;
+          await existingUser.save();
+        }
+      } else if (!existingUser) {
+        return;
+      }
 
-      // const email = user?.email;
-
-      // const users = await User.find({ email });
-
-      // let existingUser = users.length ? users[0].toObject() : [];
-
-      // if (!Object.keys(existingUser)?.length) {
-      //   await User.create(user);
-      // } else {
-      //   user = existingUser;
-      // }
-
-      // if (existingUser) {
-      //   user.favorites = existingUser?.favorites;
-
-      //   if (!existingUser?.username) {
-      //     let newId = makeid(12).toString() + "!@$";
-      //     user.username = newId;
-
-      //     const result = await usersCollection.updateOne(
-      //       { email: user?.email },
-      //       { $set: { username: newId } }
-      //     );
-      //   } else {
-      //     user.username = existingUser?.username;
-      //   }
-      // } else {
-      //   let tempId = makeid(12).toString() + "!@$";
-
-      //   const result = await db.collection("users").insertOne({
-      //     email: user?.email,
-      //     name: user?.name,
-      //     image: user?.image,
-      //     username: tempId,
-      //   });
-      //   user.username = tempId;
-      // }
+      return user;
     },
   },
   secret: "PLACE-HERE-ANY-STRING",

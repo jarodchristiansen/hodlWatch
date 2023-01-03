@@ -33,7 +33,7 @@ function Header() {
   };
 
   // @ts-ignore: next-auth type issue v3
-  let id = session?.user?.id;
+  let id = session?.user?.username;
 
   const routes = [
     { key: 1, route: "/assets", guarded: true, text: "Assets" },
