@@ -191,13 +191,16 @@ import FacebookProvider from "next-auth/providers/facebook";
 import GithubProvider from "next-auth/providers/github";
 import TwitterProvider from "next-auth/providers/twitter";
 import Auth0Provider from "next-auth/providers/auth0";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 // import AppleProvider from "next-auth/providers/apple"
 // import EmailProvider from "next-auth/providers/email"
+import clientPromise from "../../../lib/mongodb";
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export const authOptions = {
   // https://next-auth.js.org/configuration/providers/oauth
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     /* EmailProvider({
          server: process.env.EMAIL_SERVER,
@@ -245,9 +248,64 @@ export const authOptions = {
       token.userRole = "admin";
       return token;
     },
+    async signIn(user, account, metadata) {
+      let emails;
+      let primaryEmail;
+
+      console.log("In sign In!", { user, account, metadata });
+
+      // if (account?.provider === "github") {
+      //   const emailRes = await fetch("https://api.github.com/user/emails", {
+      //     headers: {
+      //       Authorization: `token ${account.accessToken}`,
+      //     },
+      //   });
+      //   emails = await emailRes.json();
+      //   primaryEmail = emails.find((e) => e.primary).email;
+
+      //   user.email = primaryEmail;
+      // }
+
+      // const email = user?.email;
+
+      // const users = await User.find({ email });
+
+      // let existingUser = users.length ? users[0].toObject() : [];
+
+      // if (!Object.keys(existingUser)?.length) {
+      //   await User.create(user);
+      // } else {
+      //   user = existingUser;
+      // }
+
+      // if (existingUser) {
+      //   user.favorites = existingUser?.favorites;
+
+      //   if (!existingUser?.username) {
+      //     let newId = makeid(12).toString() + "!@$";
+      //     user.username = newId;
+
+      //     const result = await usersCollection.updateOne(
+      //       { email: user?.email },
+      //       { $set: { username: newId } }
+      //     );
+      //   } else {
+      //     user.username = existingUser?.username;
+      //   }
+      // } else {
+      //   let tempId = makeid(12).toString() + "!@$";
+
+      //   const result = await db.collection("users").insertOne({
+      //     email: user?.email,
+      //     name: user?.name,
+      //     image: user?.image,
+      //     username: tempId,
+      //   });
+      //   user.username = tempId;
+      // }
+    },
   },
   secret: "PLACE-HERE-ANY-STRING",
-  database: process.env.MONGODB_URI,
   pages: {
     signIn: "/auth",
   },
