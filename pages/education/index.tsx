@@ -34,9 +34,10 @@ const EducationPage = () => {
           <PostRow>
             <Image
               src={post.header_image}
-              height={"300px"}
-              width={"100px"}
+              height={300}
+              width={100}
               alt="block-logo"
+              layout="responsive"
               unoptimized={true}
             />
             <h2> {post.post_title}</h2>
@@ -97,7 +98,7 @@ const EducationPage = () => {
         <meta property="og:image:height" content="400" />
       </Head>
 
-      <PriceScreener />
+      {/* <PriceScreener /> */}
       <FilterBar>
         <label htmlFor="article_search">Article:</label>
         <input type="text" name="article_search" />
@@ -213,7 +214,7 @@ const FilterBar = styled.div`
   display: flex;
   flex-direction: row;
   position: sticky;
-  top: 4.5rem;
+  top: 0rem;
   z-index: 100;
   border-bottom: 1px solid gray;
   box-shadow: 2px 4px 8px gray;
@@ -230,7 +231,7 @@ const FilterBar = styled.div`
 
   @media ${MediaQueries.MD} {
     justify-content: flex-end;
-    top: 2.8rem;
+    top: 0rem;
     padding: 1.5rem 6rem;
   }
 `;

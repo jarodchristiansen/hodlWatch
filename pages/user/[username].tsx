@@ -1,17 +1,17 @@
 import { useLazyQuery } from "@apollo/client";
-import {
-  useAccount,
-  useBalance,
-  useConnectModal,
-  Web3Button,
-} from "@web3modal/react";
-import { useSession, getSession } from "next-auth/client";
+// import {
+//   useAccount,
+//   useBalance,
+//   useConnectModal,
+//   Web3Button,
+// } from "@web3modal/react";
+import { useSession, getSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import PriceScreener from "@/components/commons/screener";
+// import PriceScreener from "@/components/commons/screener";
 import EditUserDetails from "@/components/user/edit-user-details";
 import { GET_USER } from "@/helpers/queries/user/index";
 import { Colors } from "@/styles/Colors";
@@ -24,12 +24,12 @@ import PortfolioMain from "@/components/portfolio/PortfolioMain";
  * @returns User Profile Page with edit/profile pages connected as query strings
  */
 const ProfilePage = () => {
-  const [session, loading] = useSession();
-  const { account, isReady } = useAccount();
+  const { data: session, status } = useSession();
+  // const { account, isReady } = useAccount();
 
   const [user, setUser] = useState<null | any>();
   //   const [walletIsConnected, setWalletIsConnected] = useState(false);
-  const { isOpen, open, close } = useConnectModal();
+  // const { isOpen, open, close } = useConnectModal();
 
   const [
     fetchUserDetails,
@@ -41,21 +41,22 @@ const ProfilePage = () => {
   const router = useRouter();
 
   const slug = useMemo(() => {
-    if (!router?.query?.id) return "";
+    if (!router?.query?.username) return "";
 
-    if (router?.query?.id) {
+    if (router?.query?.username) {
       fetchUserDetails({
         variables: {
-          id: router.query.id,
+          id: router.query.username,
         },
       });
     }
 
-    return router.query.id;
-  }, [router?.asPath]);
+    return router.query.username;
+    // @ts-ignore: username customized to be in session from database strategy
+  }, [router?.asPath, session?.user?.username]);
 
   // @ts-ignore next-auth v3 type structure issue
-  let id = session?.user?.id;
+  let id = session?.user?.username;
 
   const isUsersProfile = id == slug;
 
@@ -65,20 +66,20 @@ const ProfilePage = () => {
     }
   }, [data?.getUser]);
 
-  const walletIsConnected = useMemo(() => {
-    if (!account.status) return false;
+  // const walletIsConnected = useMemo(() => {
+  //   if (!account.status) return false;
 
-    return account.status !== "disconnected" && account.status !== "connecting"
-      ? true
-      : false;
-  }, [account]);
+  //   return account.status !== "disconnected" && account.status !== "connecting"
+  //     ? true
+  //     : false;
+  // }, [account]);
 
-  const {
-    data: tokenData,
-    error: fetchTokenError,
-    isLoading: fetchTokensLoading,
-    refetch: refetchTokoenData,
-  } = useBalance({ addressOrName: account?.address });
+  // const {
+  //   data: tokenData,
+  //   error: fetchTokenError,
+  //   isLoading: fetchTokensLoading,
+  //   refetch: refetchTokoenData,
+  // } = useBalance({ addressOrName: account?.address });
 
   const navigateToAssetPage = (favorite) => {
     router.push(
@@ -94,8 +95,8 @@ const ProfilePage = () => {
         <div className="favorites-row" key={favorite.title}>
           <Image
             src={favorite.image}
-            height={"50px"}
-            width={"50px"}
+            height={50}
+            width={50}
             alt="block-logo"
             className="pointer-link favorites-image"
             onClick={() => navigateToAssetPage(favorite)}
@@ -155,7 +156,7 @@ const ProfilePage = () => {
         <title>Profile</title>
       </Head>
 
-      <PriceScreener />
+      {/* <PriceScreener /> */}
 
       <CentralWrapper>
         {isUsersProfile && (
@@ -205,8 +206,8 @@ const ProfilePage = () => {
                       <h4>Profile Pic:</h4>
                       <Image
                         src={data.getUser?.image}
-                        height={"50px"}
-                        width={"50px"}
+                        height={50}
+                        width={50}
                         alt="block-logo"
                         layout="fixed"
                         unoptimized={true}

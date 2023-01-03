@@ -28,8 +28,8 @@ const EducationArticle = ({ data }) => {
     return (
       <Image
         src={data.getPost.header_image}
-        height={"400px"}
-        width={"700px"}
+        height={400}
+        width={700}
         alt="block-logo"
         // layout="responsive"
         unoptimized={true}

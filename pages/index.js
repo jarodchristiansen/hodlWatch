@@ -1,15 +1,15 @@
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
 import { MediaQueries } from "@/styles/MediaQueries";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import LandingCard from "../components/commons/info-cards/landing-card";
-import PriceScreener from "../components/commons/screener/index";
+// import PriceScreener from "../components/commons/screener/index";
 import client from "apollo-client";
-import { FormatUnixTime } from "@/helpers/formatters/time";
+// import { FormatUnixTime } from "@/helpers/formatters/time";
 
 /**
  *
@@ -17,7 +17,7 @@ import { FormatUnixTime } from "@/helpers/formatters/time";
  * @returns Landing page with Info/Sign Up Pages
  */
 export default function Home({ data }) {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
 
   const newsFeedContent = useMemo(() => {
     if (!data?.getNewsFeed?.length) return [];
@@ -25,7 +25,7 @@ export default function Home({ data }) {
     return data.getNewsFeed.slice(0, 5).map((story) => {
       return (
         <NewsItem key={story?.guid}>
-          <Link href={story?.guid} passHref>
+          <Link href={story?.guid} passHref legacyBehavior>
             <a target="_blank">
               <h4 className="partner-header">
                 {story.title.slice(0, 40) + "..."}
@@ -37,8 +37,8 @@ export default function Home({ data }) {
             <div className="image-container">
               <Image
                 src={story.source_info?.img}
-                height={"70px"}
-                width={"70px"}
+                height={70}
+                width={70}
                 alt="block-logo"
                 className="source-image"
                 layout="fixed"
@@ -51,15 +51,15 @@ export default function Home({ data }) {
 
           <Image
             src={story.imageurl}
-            height={"190px"}
-            width={"190px"}
+            height={190}
+            width={190}
             alt="block-logo"
             className="article-image"
             layout="fixed"
             unoptimized={true}
           />
-
-          <span>Published: {FormatUnixTime(story?.published_on)}</span>
+          {/* 
+          <span>Published: {FormatUnixTime(story?.published_on)}</span> */}
         </NewsItem>
       );
     });
@@ -111,16 +111,17 @@ export default function Home({ data }) {
         <meta property="og:image" content={"/assets/assets-page.png"} />
       </Head>
 
-      <PriceScreener />
+      {/* <PriceScreener /> */}
 
       <div className="top-row">
         <div className="left-card">
           <div className={"landing-svg"}>
             <Image
               src={"/assets/charts.png"}
-              height={"550px"}
-              width={"800px"}
+              height={550}
+              width={600}
               alt="block-logo"
+              layout="responsive"
               unoptimized={true}
             />
             {/* <Image
@@ -158,9 +159,10 @@ export default function Home({ data }) {
           <div className="image-column">
             <Image
               src={"/assets/charts.png"}
-              height={"300px"}
-              width={"400px"}
+              height={300}
+              width={400}
               alt="block-logo"
+              layout="responsive"
               unoptimized={true}
             />
 
@@ -179,9 +181,10 @@ export default function Home({ data }) {
             <div>
               <Image
                 src={"/assets/PieChart.PNG"}
-                height={"300px"}
-                width={"400px"}
+                height={300}
+                width={400}
                 alt="block-logo"
+                layout="responsive"
                 unoptimized={true}
               />
             </div>
@@ -214,9 +217,10 @@ export default function Home({ data }) {
           <div className={"landing-svg"}>
             <Image
               src={"/assets/landing-page.png"}
-              height={"550px"}
-              width={"600px"}
+              height={550}
+              width={600}
               alt="block-logo"
+              layout="responsive"
               unoptimized={true}
             />
           </div>
@@ -457,8 +461,6 @@ const NewsItem = styled.div`
     }
 
     .source-image {
-      position: absolute;
-      right: 0;
       border-radius: 50%;
     }
   }

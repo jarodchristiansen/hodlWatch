@@ -72,8 +72,8 @@ const EditUserDetails = ({ user, fetchedUser }) => {
                 <h4>Profile Pic:</h4>
                 <Image
                   src={fetchedUser?.image}
-                  height={"50px"}
-                  width={"50px"}
+                  height={50}
+                  width={50}
                   alt="block-logo"
                   layout="fixed"
                   unoptimized={true}
@@ -117,8 +117,8 @@ const EditUserDetails = ({ user, fetchedUser }) => {
                 <h4>Profile Pic:</h4>
                 <Image
                   src={fetchedUser?.image}
-                  height={"50px"}
-                  width={"50px"}
+                  height={50}
+                  width={50}
                   alt="block-logo"
                   layout="fixed"
                   unoptimized={true}

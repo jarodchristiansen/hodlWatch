@@ -1,4 +1,4 @@
-import { getProviders, getSession } from "next-auth/client";
+import { getProviders, getSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -6,9 +6,8 @@ import styled from "styled-components";
 import SignInForm from "../components/forms/SignInForm";
 import { MediaQueries } from "@/styles/MediaQueries";
 
-
 /**
- * 
+ *
  * @returns Auth Page connecting to next-auth with oAuth google/github providers
  */
 const AuthPage = () => {

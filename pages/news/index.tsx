@@ -3,7 +3,7 @@ import NewsBlock from "@/components/news/news-block";
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
 import { MediaQueries } from "@/styles/MediaQueries";
 import { useLazyQuery } from "@apollo/client";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
@@ -57,7 +57,7 @@ const NewsFeedPage = () => {
         <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>HodlWatch- NewsFeed</title>
       </Head>
-      <PriceScreener />
+      {/* <PriceScreener /> */}
       {/* <FilterBar>
         <button className="standardized-button">All</button>
         <button className="standardized-button">All</button>

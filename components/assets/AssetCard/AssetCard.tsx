@@ -43,19 +43,13 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
 
   const [addFavorite, { loading, error }] = useMutation(ADD_FAVORITE, {
     // TEMP SOLUTION UNTIL CACHING FIXED
-    refetchQueries: [
-      { query: GET_USER, variables: { email: email } },
-      "getUser",
-    ],
+    refetchQueries: [{ query: GET_USER, variables: { email: email } }],
   });
 
   const [removeFavorite, { loading: removeLoading, error: removeError }] =
     useMutation(REMOVE_FAVORITE, {
       // TEMP SOLUTION UNTIL CACHING FIXED
-      refetchQueries: [
-        { query: GET_USER, variables: { email: email } },
-        "getUser",
-      ],
+      refetchQueries: [{ query: GET_USER, variables: { email: email } }],
     });
 
   const removeFromFavorites = () => {

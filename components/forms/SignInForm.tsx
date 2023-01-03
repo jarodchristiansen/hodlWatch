@@ -1,7 +1,7 @@
-import { signIn } from "next-auth/client";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { ToastContainer } from "react-nextjs-toast";
+// import { ToastContainer } from "react-nextjs-toast";
 import styled from "styled-components";
 import ToggleSwitch from "../commons/switchers/toggle-switch";
 import ProviderContainer from "./ProviderContainer/ProviderContainer";
@@ -154,7 +154,7 @@ const SignInForm = ({ providers }) => {
 
         <label className="form-check-label">
           You agree to our{" "}
-          <Link href="/terms-of-service" passHref>
+          <Link href="/terms-of-service" passHref legacyBehavior>
             <a target="#">
               <span className="term-text">Terms of Service</span>
             </a>
@@ -175,7 +175,7 @@ const SignInForm = ({ providers }) => {
           isSubmitDisabled={isSubmitDisabled}
         />
       </ProviderWrapper>
-      <ToastContainer position={"bottom"} />
+      {/* <ToastContainer position={"bottom"} /> */}
 
       {/*<ToastHolder />*/}
     </FormStyling>

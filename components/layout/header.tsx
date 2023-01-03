@@ -1,17 +1,18 @@
 import Link from "next/link";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { useSession, signIn, signOut } from "next-auth/client";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
+import { MediaQueries } from "@/styles/MediaQueries";
 
 /**
  *
  * @returns Header component above pages
  */
 function Header() {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
   const [selectedRoute, setSelectedRoute] = useState<string | number>("");
 
   const router = useRouter();
@@ -32,7 +33,7 @@ function Header() {
   };
 
   // @ts-ignore: next-auth type issue v3
-  let id = session?.user?.id;
+  let id = session?.user?.username;
 
   const routes = [
     { key: 1, route: "/assets", guarded: true, text: "Assets" },
@@ -47,17 +48,17 @@ function Header() {
     },
   ];
 
-  useEffect(() => {
-    setRouterAsPath();
-  }, [asPath]);
+  // useEffect(() => {
+  //   setRouterAsPath();
+  // }, [asPath]);
 
-  const setRouterAsPath = () => {
-    let matchingRoute = routes.filter((item) => asPath.includes(item.route));
+  // const setRouterAsPath = () => {
+  //   let matchingRoute = routes.filter((item) => asPath.includes(item.route));
 
-    if (matchingRoute.length) {
-      setSelectedRoute(matchingRoute[0].key);
-    }
-  };
+  //   if (matchingRoute.length) {
+  //     setSelectedRoute(matchingRoute[0].key);
+  //   }
+  // };
 
   const routeObjects = useMemo(() => {
     if (!routes?.length) return [];
@@ -68,48 +69,53 @@ function Header() {
       return (
         <div key={route?.route}>
           {!!route.guarded && !!session && (
-            <div>
-              <Nav.Link eventKey={route.key.toString()} role={"link"}>
-                <TextContainer>
-                  <Link href={route.route}>
-                    <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                      {route.text}
-                    </Navbar.Text>
-                  </Link>
+            <TextContainer>
+              <Link href={route.route}>
+                {/* <Navbar.Text className={"pointer-link mx-1 fw-bold"}> */}
+                {route.text}
+                {/* </Navbar.Text> */}
+              </Link>
+            </TextContainer>
+            // <div>
+            //   <Nav.Link eventKey={route.key.toString()} role={"link"}>
 
-                  {selectedRoute == route.key && (
-                    <span className="active-underline-span"></span>
-                  )}
-                </TextContainer>
-              </Nav.Link>
-            </div>
+            //       <Link href={route.route}>
+            //         <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
+            //           {route.text}
+            //         </Navbar.Text>
+            //       </Link>
+
+            //       {selectedRoute == route.key && (
+            //         <span className="active-underline-span"></span>
+            //       )}
+            //     </TextContainer>
+            //   </Nav.Link>
+            // </div>
           )}
 
           {!route.guarded && (
-            <div>
-              <Nav.Link
-                eventKey={route.key.toString()}
-                role={"link"}
-                key={route.key}
-              >
-                <TextContainer>
-                  <Link href={route.route}>
-                    <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-                      {route.text}
-                    </Navbar.Text>
-                  </Link>
+            <TextContainer>
+              <Link href={route.route}>{route.text}</Link>
+            </TextContainer>
 
-                  {selectedRoute == route.key && (
-                    <span className="active-underline-span"></span>
-                  )}
-                </TextContainer>
-              </Nav.Link>
-            </div>
+            // <div>
+            //   <Link href={route.route}>
+            //     <Nav.Link
+            //       eventKey={route.key.toString()}
+            //       role={"link"}
+            //       key={route.key}
+            //     >
+            //       <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
+            //         {route.text}
+            //       </Navbar.Text>
+            //     </Nav.Link>
+            //   </Link>
+            // </div>
           )}
         </div>
       );
     });
-  }, [routes?.length, session, selectedRoute]);
+  }, [routes?.length, selectedRoute, session]);
 
   return (
     <Navbar
@@ -121,21 +127,19 @@ function Header() {
     >
       <Container>
         <Navbar.Brand onClick={() => setSelectedRoute("")}>
-          <Link href={"/"} passHref>
-            <a>
-              <Image
-                src={"/assets/cube-svgrepo-com.svg"}
-                className={"pointer-link"}
-                height={"50px"}
-                width={"50px"}
-                alt="block-logo"
-              />
-            </a>
+          <Link href={"/"} passHref legacyBehavior>
+            <Image
+              src={"/assets/cube-svgrepo-com.svg"}
+              className={"pointer-link"}
+              height={50}
+              width={50}
+              alt="block-logo"
+            />
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          {routeObjects}
+          <RouteRow>{routeObjects}</RouteRow>
 
           {session && (
             <Nav.Link
@@ -147,27 +151,24 @@ function Header() {
               <SignOutSpan>{"Sign Out"}</SignOutSpan>
             </Nav.Link>
           )}
-
-          <Nav>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              {session && (
-                <>
-                  <img
-                    src={session.user.image}
-                    style={{ float: "inline-end", maxHeight: "50px" }}
-                    alt=""
-                  />
-                </>
-              )}
-            </div>
-          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 }
 
+const RouteRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media ${MediaQueries.MD} {
+    flex-direction: row;
+  }
+`;
+
 const SignOutSpan = styled.span`
+  padding-left: 1rem;
   color: gray;
 `;
 

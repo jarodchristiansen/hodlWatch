@@ -1,12 +1,12 @@
 import { useLazyQuery } from "@apollo/client";
-import { getSession, useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import AssetsContainer from "../../components/assets/AssetsContainer/AssetsContainer";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import PaginationComponent from "@/components/commons/pagination/Pagination";
-import PriceScreener from "@/components/commons/screener";
+// import PriceScreener from "@/components/commons/screener";
 import SearchForm from "@/components/forms/SearchForm/SearchForm";
 import GET_ASSET from "@/helpers/queries/assets/getAsset";
 import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
@@ -119,7 +119,7 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
         <title>Assets</title>
       </Head>
 
-      <PriceScreener />
+      {/* <PriceScreener /> */}
 
       {loading && (
         <div className={"container text-center"}>
@@ -230,7 +230,7 @@ const FilterBar = styled.div`
   display: flex;
   flex-direction: row;
   position: sticky;
-  top: 4.5rem;
+  top: 0rem;
   z-index: 100;
   border-bottom: 1px solid gray;
   box-shadow: 2px 4px 8px gray;
@@ -244,7 +244,7 @@ const FilterBar = styled.div`
   width: 100%;
 
   @media ${MediaQueries.MD} {
-    top: 2.8rem;
+    top: 0rem;
     padding: 1.5rem 6rem;
   }
 `;
@@ -268,14 +268,14 @@ const getCollectiveStats = async (context) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth",
-        permanent: false,
-      },
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/auth",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   let data = null;
 
