@@ -69,15 +69,16 @@ function Header() {
       return (
         <div key={route?.route}>
           {!!route.guarded && !!session && (
-            <Link href={route.route}>
-              {/* <Navbar.Text className={"pointer-link mx-1 fw-bold"}> */}
-              {route.text}
-              {/* </Navbar.Text> */}
-            </Link>
-
+            <TextContainer>
+              <Link href={route.route}>
+                {/* <Navbar.Text className={"pointer-link mx-1 fw-bold"}> */}
+                {route.text}
+                {/* </Navbar.Text> */}
+              </Link>
+            </TextContainer>
             // <div>
             //   <Nav.Link eventKey={route.key.toString()} role={"link"}>
-            //     <TextContainer>
+
             //       <Link href={route.route}>
             //         <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
             //           {route.text}
@@ -93,7 +94,9 @@ function Header() {
           )}
 
           {!route.guarded && (
-            <Link href={route.route}>{route.text}</Link>
+            <TextContainer>
+              <Link href={route.route}>{route.text}</Link>
+            </TextContainer>
 
             // <div>
             //   <Link href={route.route}>
@@ -165,6 +168,7 @@ const RouteRow = styled.div`
 `;
 
 const SignOutSpan = styled.span`
+  padding-left: 1rem;
   color: gray;
 `;
 
