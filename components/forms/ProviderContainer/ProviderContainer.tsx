@@ -58,10 +58,6 @@ const ProviderContainer = ({
   providers,
   isSubmitDisabled,
 }: ProvidersAsProps) => {
-
-
-  console.log({providers})
-
   const signInOthers = async (e, provider) => {
     // console.log({ provider });
     // e.preventDefault();
@@ -81,8 +77,6 @@ const ProviderContainer = ({
   };
 
   const selectIcon = (name) => {
-    console.log({ name });
-
     switch (name) {
       case "GitHub":
         return <FaGithub size={28} data-testid="login-github" />;

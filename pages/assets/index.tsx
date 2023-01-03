@@ -24,8 +24,6 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
   const [offsetState, setOffsetState] = useState<number>(1);
   const [limitState, setLimitState] = useState(9);
 
-  console.log({ session }, "in assets");
-
   const [fetchAssets, { data, loading, error, refetch, fetchMore }] =
     useLazyQuery(GET_ASSETS, {
       variables: {

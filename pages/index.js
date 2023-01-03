@@ -19,8 +19,6 @@ import client from "apollo-client";
 export default function Home({ data }) {
   const { data: session, status } = useSession();
 
-  console.log({ session });
-
   const newsFeedContent = useMemo(() => {
     if (!data?.getNewsFeed?.length) return [];
 
@@ -463,8 +461,6 @@ const NewsItem = styled.div`
     }
 
     .source-image {
-      position: absolute;
-      right: 0;
       border-radius: 50%;
     }
   }

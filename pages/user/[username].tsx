@@ -40,8 +40,6 @@ const ProfilePage = () => {
 
   const router = useRouter();
 
-  console.log({ router });
-
   const slug = useMemo(() => {
     if (!router?.query?.username) return "";
 
