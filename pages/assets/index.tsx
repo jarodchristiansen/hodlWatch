@@ -270,14 +270,14 @@ const getCollectiveStats = async (context) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth",
-        permanent: false,
-      },
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/auth",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   let data = null;
 
