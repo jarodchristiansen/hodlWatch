@@ -232,7 +232,7 @@ const FilterBar = styled.div`
   display: flex;
   flex-direction: row;
   position: sticky;
-  top: 4.5rem;
+  top: 0rem;
   z-index: 100;
   border-bottom: 1px solid gray;
   box-shadow: 2px 4px 8px gray;
@@ -246,7 +246,7 @@ const FilterBar = styled.div`
   width: 100%;
 
   @media ${MediaQueries.MD} {
-    top: 2.8rem;
+    top: 0rem;
     padding: 1.5rem 6rem;
   }
 `;
