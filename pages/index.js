@@ -118,13 +118,13 @@ export default function Home({ data }) {
       <div className="top-row">
         <div className="left-card">
           <div className={"landing-svg"}>
-            <Image
+            {/* <Image
               src={"/assets/charts.png"}
               height={550}
               width={800}
               alt="block-logo"
               unoptimized={true}
-            />
+            /> */}
             {/* <Image
               src={"/assets/PieChart.PNG"}
               height={"550px"}
@@ -158,13 +158,13 @@ export default function Home({ data }) {
 
         <div className="image-row">
           <div className="image-column">
-            <Image
+            {/* <Image
               src={"/assets/charts.png"}
               height={300}
               width={400}
               alt="block-logo"
               unoptimized={true}
-            />
+            /> */}
 
             <Link href="/assets">
               <span className="pointer-link">
@@ -179,13 +179,13 @@ export default function Home({ data }) {
 
           <div className="image-column">
             <div>
-              <Image
+              {/* <Image
                 src={"/assets/PieChart.PNG"}
                 height={300}
                 width={400}
                 alt="block-logo"
                 unoptimized={true}
-              />
+              /> */}
             </div>
 
             <Link href={`/user/${id}`}>
@@ -214,13 +214,13 @@ export default function Home({ data }) {
 
         <div className="right-card">
           <div className={"landing-svg"}>
-            <Image
+            {/* <Image
               src={"/assets/landing-page.png"}
               height={550}
               width={600}
               alt="block-logo"
               unoptimized={true}
-            />
+            /> */}
           </div>
         </div>
       </div>
