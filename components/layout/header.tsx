@@ -91,8 +91,8 @@ function Header() {
     <Navbar
       collapseOnSelect
       expand="lg"
-      bg="light"
-      variant="light"
+      bg="dark"
+      variant="dark"
       onSelect={handleSelect}
     >
       <Container>
@@ -142,6 +142,7 @@ const RouteRow = styled.div`
 
 const SignOutSpan = styled.span`
   font-weight: bold;
+  color: white;
 
   @media ${MediaQueries.MD} {
     white-space: nowrap;
@@ -151,11 +152,12 @@ const SignOutSpan = styled.span`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  color: white;
 
   .active-underline-span {
     height: 2px;
-    color: gray;
-    background-color: gray;
+    color: white;
+    background-color: white;
   }
 `;
 
