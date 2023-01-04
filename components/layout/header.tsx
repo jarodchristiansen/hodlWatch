@@ -32,9 +32,6 @@ function Header() {
     setSelectedRoute(selectedKey);
   };
 
-  // @ts-ignore: next-auth type issue v3
-  let id = session?.user?.username;
-
   const routes = [
     { key: 1, route: "/assets", guarded: true, text: "Assets" },
     { key: 2, route: `/user/`, guarded: true, text: "Profile" },

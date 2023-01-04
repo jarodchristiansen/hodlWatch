@@ -357,7 +357,7 @@ const AlternateHomePageWrapper = styled.div`
       padding: 0 5rem;
       padding-bottom: 2rem;
       justify-content: center;
-      background-color: rgba(148, 111, 183, 0.15);
+      background-color: rgba(148, 111, 183, 0.1);
       gap: 10rem;
     }
 
@@ -365,7 +365,6 @@ const AlternateHomePageWrapper = styled.div`
       @media ${MediaQueries.LG} {
         border: 1px solid rgba(148, 111, 183, 0.6);
         border-radius: 12px;
-        box-shadow: 0px 4px 10px rgba(148, 111, 183, 0.6);
         background-color: white;
       }
     }
@@ -379,7 +378,6 @@ const AlternateHomePageWrapper = styled.div`
         border: 1px solid rgba(148, 111, 183, 0.6);
         padding: unset;
         border-radius: 12px;
-        box-shadow: 0px 4px 10px rgba(148, 111, 183, 0.6);
         background-color: white;
       }
 
