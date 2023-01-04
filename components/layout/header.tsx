@@ -139,18 +139,19 @@ function Header() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <RouteRow>{routeObjects}</RouteRow>
-
-          {session && (
-            <Nav.Link
-              eventKey={"5"}
-              role={"link"}
-              onClick={handleSignout}
-              className={"pointer-link fw-bold"}
-            >
-              <SignOutSpan>{"Sign Out"}</SignOutSpan>
-            </Nav.Link>
-          )}
+          <RouteRow>
+            {routeObjects}
+            {session && (
+              <Nav.Link
+                eventKey={"5"}
+                role={"link"}
+                onClick={handleSignout}
+                className={"pointer-link fw-bold"}
+              >
+                <SignOutSpan>{"Sign Out"}</SignOutSpan>
+              </Nav.Link>
+            )}
+          </RouteRow>
         </Navbar.Collapse>
       </Container>
     </Navbar>
@@ -160,16 +161,21 @@ function Header() {
 const RouteRow = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
 
   @media ${MediaQueries.MD} {
     flex-direction: row;
+    width: 100%;
   }
 `;
 
 const SignOutSpan = styled.span`
-  padding-left: 1rem;
   color: gray;
+
+  @media ${MediaQueries.MD} {
+    color: gray;
+    white-space: nowrap;
+  }
 `;
 
 const TextContainer = styled.div`
