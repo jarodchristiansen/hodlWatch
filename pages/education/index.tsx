@@ -246,6 +246,7 @@ const PostRow = styled.div`
   box-shadow: 2px 4px 8px lightgray;
   gap: 1rem;
   margin: 1rem 0;
+  background-color: white;
 
   span {
     color: gray;

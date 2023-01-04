@@ -352,23 +352,35 @@ const AlternateHomePageWrapper = styled.div`
   }
 
   .get-involved-row {
-    background-color: white;
-
     @media ${MediaQueries.LG} {
       width: 100%;
       padding: 0 5rem;
       padding-bottom: 2rem;
+      justify-content: center;
+      background-color: rgba(148, 111, 183, 0.3);
+      gap: 10rem;
     }
 
     .left-card {
       @media ${MediaQueries.LG} {
         border-radius: 12px;
-        border: 1px solid gray;
         box-shadow: 0px 4px 10px gray;
+        background-color: white;
       }
     }
 
     .right-card {
+      @media ${MediaQueries.MD} {
+        padding: 4rem 6rem;
+      }
+
+      @media ${MediaQueries.LG} {
+        padding: unset;
+        border-radius: 12px;
+        box-shadow: 0px 4px 10px gray;
+        background-color: white;
+      }
+
       img {
         max-height: 28rem;
       }
