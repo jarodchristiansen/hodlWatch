@@ -1,4 +1,5 @@
 ## HodlWatch
+[![codecov](https://codecov.io/gh/jarodchristiansen/hodlWatch/branch/main/graph/badge.svg?token=GHT2GI9U4T)](https://codecov.io/gh/jarodchristiansen/hodlWatch)
 
  - Hodlwatch is a Full-stack application built using Next.JS, TypeScript, Styled-Components, Apollo, Next-Auth, with Jest for unit testing, Cypress for e2e testing, CodeCov CI/CD intergration utilizing Github Actions. The application itself allows users to explore 12,000+ digital assets from an aggregation of indexes
 
