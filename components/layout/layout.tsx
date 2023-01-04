@@ -22,6 +22,7 @@ function Layout(props) {
 const LayoutContainer = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: #f5f5f54c;
 `;
 
 export default Layout;
