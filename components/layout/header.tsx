@@ -37,7 +37,7 @@ function Header() {
 
   const routes = [
     { key: 1, route: "/assets", guarded: true, text: "Assets" },
-    { key: 2, route: `/user/${id}`, guarded: true, text: "Profile" },
+    { key: 2, route: `/user/`, guarded: true, text: "Profile" },
     { key: 3, route: "/news", guarded: true, text: "News" },
     { key: 4, route: "/education", guarded: false, text: "Education" },
     !session && {
@@ -135,6 +135,7 @@ const RouteRow = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  font-weight: bold;
 
   @media ${MediaQueries.MD} {
     flex-direction: row;
@@ -143,10 +144,9 @@ const RouteRow = styled.div`
 `;
 
 const SignOutSpan = styled.span`
-  color: gray;
+  font-weight: bold;
 
   @media ${MediaQueries.MD} {
-    color: gray;
     white-space: nowrap;
   }
 `;
