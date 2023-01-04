@@ -153,6 +153,13 @@ const ProviderButton = styled.button`
     background-color: white;
     color: black;
   }
+
+  :disabled {
+    background-color: white;
+    color: black;
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }
 `;
 
 const ButtonContainer = styled.div`

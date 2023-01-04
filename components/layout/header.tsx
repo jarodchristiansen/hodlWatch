@@ -32,12 +32,9 @@ function Header() {
     setSelectedRoute(selectedKey);
   };
 
-  // @ts-ignore: next-auth type issue v3
-  let id = session?.user?.username;
-
   const routes = [
     { key: 1, route: "/assets", guarded: true, text: "Assets" },
-    { key: 2, route: `/user/${id}`, guarded: true, text: "Profile" },
+    { key: 2, route: `/user/`, guarded: true, text: "Profile" },
     { key: 3, route: "/news", guarded: true, text: "News" },
     { key: 4, route: "/education", guarded: false, text: "Education" },
     !session && {
@@ -48,17 +45,17 @@ function Header() {
     },
   ];
 
-  // useEffect(() => {
-  //   setRouterAsPath();
-  // }, [asPath]);
+  useEffect(() => {
+    setRouterAsPath();
+  }, [asPath]);
 
-  // const setRouterAsPath = () => {
-  //   let matchingRoute = routes.filter((item) => asPath.includes(item.route));
+  const setRouterAsPath = () => {
+    let matchingRoute = routes.filter((item) => asPath.includes(item.route));
 
-  //   if (matchingRoute.length) {
-  //     setSelectedRoute(matchingRoute[0].key);
-  //   }
-  // };
+    if (matchingRoute.length) {
+      setSelectedRoute(matchingRoute[0].key);
+    }
+  };
 
   const routeObjects = useMemo(() => {
     if (!routes?.length) return [];
@@ -70,47 +67,20 @@ function Header() {
         <div key={route?.route}>
           {!!route.guarded && !!session && (
             <TextContainer>
-              <Link href={route.route}>
-                {/* <Navbar.Text className={"pointer-link mx-1 fw-bold"}> */}
-                {route.text}
-                {/* </Navbar.Text> */}
-              </Link>
+              <Link href={route.route}>{route.text}</Link>
+              {selectedRoute == route.key && (
+                <span className="active-underline-span"></span>
+              )}
             </TextContainer>
-            // <div>
-            //   <Nav.Link eventKey={route.key.toString()} role={"link"}>
-
-            //       <Link href={route.route}>
-            //         <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-            //           {route.text}
-            //         </Navbar.Text>
-            //       </Link>
-
-            //       {selectedRoute == route.key && (
-            //         <span className="active-underline-span"></span>
-            //       )}
-            //     </TextContainer>
-            //   </Nav.Link>
-            // </div>
           )}
 
           {!route.guarded && (
             <TextContainer>
               <Link href={route.route}>{route.text}</Link>
+              {selectedRoute == route.key && (
+                <span className="active-underline-span"></span>
+              )}
             </TextContainer>
-
-            // <div>
-            //   <Link href={route.route}>
-            //     <Nav.Link
-            //       eventKey={route.key.toString()}
-            //       role={"link"}
-            //       key={route.key}
-            //     >
-            //       <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-            //         {route.text}
-            //       </Navbar.Text>
-            //     </Nav.Link>
-            //   </Link>
-            // </div>
           )}
         </div>
       );
@@ -121,8 +91,8 @@ function Header() {
     <Navbar
       collapseOnSelect
       expand="lg"
-      bg="light"
-      variant="light"
+      bg="dark"
+      variant="dark"
       onSelect={handleSelect}
     >
       <Container>
@@ -139,18 +109,19 @@ function Header() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <RouteRow>{routeObjects}</RouteRow>
-
-          {session && (
-            <Nav.Link
-              eventKey={"5"}
-              role={"link"}
-              onClick={handleSignout}
-              className={"pointer-link fw-bold"}
-            >
-              <SignOutSpan>{"Sign Out"}</SignOutSpan>
-            </Nav.Link>
-          )}
+          <RouteRow>
+            {routeObjects}
+            {session && (
+              <Nav.Link
+                eventKey={"5"}
+                role={"link"}
+                onClick={handleSignout}
+                className={"pointer-link fw-bold"}
+              >
+                <SignOutSpan>{"Sign Out"}</SignOutSpan>
+              </Nav.Link>
+            )}
+          </RouteRow>
         </Navbar.Collapse>
       </Container>
     </Navbar>
@@ -160,27 +131,33 @@ function Header() {
 const RouteRow = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
+  font-weight: bold;
 
   @media ${MediaQueries.MD} {
     flex-direction: row;
+    width: 100%;
   }
 `;
 
 const SignOutSpan = styled.span`
-  padding-left: 1rem;
-  color: gray;
+  font-weight: bold;
+  color: white;
+
+  @media ${MediaQueries.MD} {
+    white-space: nowrap;
+  }
 `;
 
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  color: white;
 
   .active-underline-span {
-    margin-top: -0.4rem;
     height: 2px;
-    color: gray;
-    background-color: gray;
+    color: white;
+    background-color: white;
   }
 `;
 

@@ -124,13 +124,6 @@ export default function Home({ data }) {
               layout="responsive"
               unoptimized={true}
             />
-            {/* <Image
-              src={"/assets/PieChart.PNG"}
-              height={"550px"}
-              width={"600px"}
-              alt="block-logo"
-              unoptimized={true}
-            /> */}
           </div>
         </div>
 
@@ -149,10 +142,10 @@ export default function Home({ data }) {
         <div className="header-column">
           <h2>Data Directly From The Blockchain</h2>
 
-          <span>
-            <h4>We believe in letting the data speak for itself</h4>
-            <h6>(but just in case, we add some descriptions)</h6>
-          </span>
+          <h5>We believe in letting the data speak for itself</h5>
+          <h6>
+            <i>(but just in case, we add some descriptions)</i>
+          </h6>
         </div>
 
         <div className="image-row">
@@ -170,8 +163,10 @@ export default function Home({ data }) {
               <span className="pointer-link">
                 <h5>Financial Indicators</h5>
                 <span>
-                  Analyzing price points, common resistance/support levels, and
-                  traditional methods
+                  <i>
+                    Analyzing price points, common resistance/support levels,
+                    and traditional methods
+                  </i>
                 </span>
               </span>
             </Link>
@@ -193,8 +188,10 @@ export default function Home({ data }) {
               <span className="pointer-link">
                 <h5>Portfolio Analysis</h5>
                 <span>
-                  Connect your exchange account via our API and get insights
-                  into your holdings
+                  <i>
+                    Connect your exchange account via our API and get insights
+                    into your holdings
+                  </i>
                 </span>
               </span>
             </Link>
@@ -202,7 +199,7 @@ export default function Home({ data }) {
         </div>
       </InterstitialRow>
 
-      <div className="top-row">
+      <div className="get-involved-row top-row">
         <div className="left-card">
           <LandingCard
             headerText={"Get Involved"}
@@ -260,8 +257,10 @@ const InterstitialRow = styled.div`
     padding: 1rem;
 
     h2 {
-      text-transform: uppercase;
-      letter-spacing: 0.01rem;
+      font-weight: bold;
+    }
+    h5 {
+      font-weight: 600;
     }
   }
 
@@ -285,8 +284,7 @@ const InterstitialRow = styled.div`
     gap: 2rem;
 
     h5 {
-      text-transform: uppercase;
-      letter-spacing: 0.05rem;
+      font-weight: bold;
     }
 
     .pointer-link {
@@ -319,15 +317,20 @@ const AlternateHomePageWrapper = styled.div`
 
     @media ${MediaQueries.LG} {
       flex-direction: row;
-      width: 80%;
+      width: 95%;
       padding-bottom: 2rem;
       align-items: center;
       justify-content: space-between;
     }
 
     .left-card {
+      img {
+        border-radius: 20px;
+        border: 1px solid gray;
+      }
+
       @media ${MediaQueries.LG} {
-        min-width: 30rem;
+        min-width: 33rem;
         margin-top: 3rem;
       }
     }
@@ -335,10 +338,51 @@ const AlternateHomePageWrapper = styled.div`
     .right-card {
       border-top: 2px solid lightgray;
 
+      img {
+        border-radius: 20px;
+        max-height: 35rem;
+      }
+
       @media ${MediaQueries.LG} {
         border-top: unset;
         max-width: 40rem;
         margin-top: 3rem;
+      }
+    }
+  }
+
+  .get-involved-row {
+    @media ${MediaQueries.LG} {
+      width: 100%;
+      padding: 0 5rem;
+      padding-bottom: 2rem;
+      justify-content: center;
+      background-color: rgba(148, 111, 183, 0.1);
+      gap: 10rem;
+    }
+
+    .left-card {
+      @media ${MediaQueries.LG} {
+        border: 1px solid rgba(148, 111, 183, 0.6);
+        border-radius: 12px;
+        background-color: white;
+      }
+    }
+
+    .right-card {
+      @media ${MediaQueries.MD} {
+        padding: 4rem 6rem;
+      }
+
+      @media ${MediaQueries.LG} {
+        border: 1px solid rgba(148, 111, 183, 0.6);
+        padding: unset;
+        border-radius: 12px;
+        background-color: white;
+      }
+
+      img {
+        max-height: 28rem;
       }
     }
   }
@@ -426,6 +470,7 @@ const NewsItem = styled.div`
   gap: 1rem;
   box-shadow: 2px 4px 10px #b9b7b7;
   position: relative;
+  background-color: white;
 
   cursor: grab;
 

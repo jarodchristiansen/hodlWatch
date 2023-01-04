@@ -3,14 +3,6 @@ import styled from "styled-components";
 import { MediaQueries } from "@/styles/MediaQueries";
 
 const SideMenu = ({ navLinks }) => {
-  //   constructor() {
-  //     super();
-  //     this.state = {
-  //       style: "menu",
-  //       menuStatus: "open",
-  //     };
-  //     this.handleClick = this.handleClick.bind(this);
-  //   }
   const [menuStatus, setMenuStatus] = useState("open");
   const [style, setStyle] = useState("menu active");
 

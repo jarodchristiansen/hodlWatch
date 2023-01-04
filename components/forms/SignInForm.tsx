@@ -6,6 +6,8 @@ import styled from "styled-components";
 import ToggleSwitch from "../commons/switchers/toggle-switch";
 import ProviderContainer from "./ProviderContainer/ProviderContainer";
 import Link from "next/link";
+import { Colors } from "@/styles/Colors";
+import { MediaQueries } from "@/styles/MediaQueries";
 
 /**
  *
@@ -57,12 +59,21 @@ const SignInForm = ({ providers }) => {
         toggleState={isSignIn}
         setToggleState={setIsSignIn}
       />
-      {/* 
+
+      {isSignIn ? (
+        <>
+          {" "}
+          <h1 className="form-header">Sign In</h1>
+        </>
+      ) : (
+        <>
+          <h1 className="form-header">Sign Up</h1>
+        </>
+      )}
+
       {isSignIn ? (
         <>
           <div className="input-container">
-            <h2 className={"form-header"}>Sign In</h2>
-
             <label htmlFor="exampleInputEmail1" className="form-label">
               Email Address
             </label>
@@ -93,8 +104,6 @@ const SignInForm = ({ providers }) => {
       ) : (
         <>
           <div className="input-container">
-            <h2 className={"form-header"}>Sign Up</h2>
-
             <label htmlFor="exampleInputEmail1" className="form-label">
               Email Address
             </label>
@@ -136,7 +145,7 @@ const SignInForm = ({ providers }) => {
             />
           </div>
         </>
-      )} */}
+      )}
 
       {/* <SubmitWrapper>
         <button type="submit" className="standardized-button">
@@ -153,7 +162,7 @@ const SignInForm = ({ providers }) => {
         />
 
         <label className="form-check-label">
-          You agree to our{" "}
+          <span>You agree to our {"  "}</span>
           <Link href="/terms-of-service" passHref legacyBehavior>
             <a target="#">
               <span className="term-text">Terms of Service</span>
@@ -189,28 +198,22 @@ const CheckMarkContainer = styled.div`
   text-align: center;
   justify-content: center;
   padding-top: 1rem;
+  align-items: center;
 
   .term-text {
     color: blue;
     text-decoration: underline;
   }
-`;
 
-const StyledInput = styled.input`
-  border: 1.5px solid black;
-  border-radius: 8px;
-  color: black;
-  font-weight: bold;
+  .form-check-input {
+    cursor: pointer;
+    border: 2px solid black;
+    padding: 0.5rem;
 
-  ::placeholder {
-    color: black;
-    font-weight: bold;
+    :checked {
+      background-color: ${Colors.PrimaryButtonBackground};
+    }
   }
-`;
-
-const SubmitWrapper = styled.div`
-  text-align: center;
-  padding: 2rem 0;
 `;
 
 const ProviderWrapper = styled.div`
@@ -222,21 +225,41 @@ const ProviderWrapper = styled.div`
   }
 `;
 
+const StyledInput = styled.input`
+  border: 2px solid gray;
+  border-radius: 12px;
+  color: gray;
+  font-weight: 500;
+  padding: 0.5rem;
+
+  ::placeholder {
+    color: gray;
+    font-weight: 500;
+  }
+`;
+
 const FormStyling = styled.form`
   width: 100%;
-  border: 2px solid black;
   text-align: center;
   padding: 2rem;
   border-radius: 14px;
   box-shadow: 0px 4px 8px gray;
+  border: 1px solid black;
+  background-color: white;
 
   .form-header {
-    padding: 1rem 0;
+    padding: 2rem 0;
   }
 
   .input-container {
     max-width: 28rem;
     margin: 0.5rem auto;
+  }
+
+  @media ${MediaQueries.MD} {
+    min-width: 35rem;
+    border-radius: unset;
+    box-shadow: unset;
   }
 `;
 
