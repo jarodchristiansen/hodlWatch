@@ -22,8 +22,6 @@ function Layout(props) {
   }, [asPath]);
 
   const determineLayoutBackground = () => {
-    console.log({ asPath });
-
     if (asPath.includes("/auth")) {
       setIsPurplePath(true);
     } else {
