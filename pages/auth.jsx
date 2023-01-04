@@ -69,7 +69,7 @@ const PageWrapper = styled.div`
       background-size: cover;
       width: 100%;
       background-position: center;
-      background-image: url("/assets/floating-crypto.jpg");
+      background-image: url("/assets/bitcoin-charts-signin.jpg");
     }
 
     @media ${MediaQueries.MD} {
