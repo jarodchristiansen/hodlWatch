@@ -48,17 +48,17 @@ function Header() {
     },
   ];
 
-  // useEffect(() => {
-  //   setRouterAsPath();
-  // }, [asPath]);
+  useEffect(() => {
+    setRouterAsPath();
+  }, [asPath]);
 
-  // const setRouterAsPath = () => {
-  //   let matchingRoute = routes.filter((item) => asPath.includes(item.route));
+  const setRouterAsPath = () => {
+    let matchingRoute = routes.filter((item) => asPath.includes(item.route));
 
-  //   if (matchingRoute.length) {
-  //     setSelectedRoute(matchingRoute[0].key);
-  //   }
-  // };
+    if (matchingRoute.length) {
+      setSelectedRoute(matchingRoute[0].key);
+    }
+  };
 
   const routeObjects = useMemo(() => {
     if (!routes?.length) return [];
@@ -70,47 +70,20 @@ function Header() {
         <div key={route?.route}>
           {!!route.guarded && !!session && (
             <TextContainer>
-              <Link href={route.route}>
-                {/* <Navbar.Text className={"pointer-link mx-1 fw-bold"}> */}
-                {route.text}
-                {/* </Navbar.Text> */}
-              </Link>
+              <Link href={route.route}>{route.text}</Link>
+              {selectedRoute == route.key && (
+                <span className="active-underline-span"></span>
+              )}
             </TextContainer>
-            // <div>
-            //   <Nav.Link eventKey={route.key.toString()} role={"link"}>
-
-            //       <Link href={route.route}>
-            //         <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-            //           {route.text}
-            //         </Navbar.Text>
-            //       </Link>
-
-            //       {selectedRoute == route.key && (
-            //         <span className="active-underline-span"></span>
-            //       )}
-            //     </TextContainer>
-            //   </Nav.Link>
-            // </div>
           )}
 
           {!route.guarded && (
             <TextContainer>
               <Link href={route.route}>{route.text}</Link>
+              {selectedRoute == route.key && (
+                <span className="active-underline-span"></span>
+              )}
             </TextContainer>
-
-            // <div>
-            //   <Link href={route.route}>
-            //     <Nav.Link
-            //       eventKey={route.key.toString()}
-            //       role={"link"}
-            //       key={route.key}
-            //     >
-            //       <Navbar.Text className={"pointer-link mx-1 fw-bold"}>
-            //         {route.text}
-            //       </Navbar.Text>
-            //     </Nav.Link>
-            //   </Link>
-            // </div>
           )}
         </div>
       );
@@ -183,7 +156,6 @@ const TextContainer = styled.div`
   flex-direction: column;
 
   .active-underline-span {
-    margin-top: -0.4rem;
     height: 2px;
     color: gray;
     background-color: gray;
