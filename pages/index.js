@@ -10,6 +10,7 @@ import LandingCard from "../components/commons/info-cards/landing-card";
 // import PriceScreener from "../components/commons/screener/index";
 import client from "apollo-client";
 // import { FormatUnixTime } from "@/helpers/formatters/time";
+import LandingCarousel from "../components/landing/carousel";
 
 /**
  *
@@ -116,14 +117,15 @@ export default function Home({ data }) {
       <div className="top-row">
         <div className="left-card">
           <div className={"landing-svg"}>
-            <Image
+            {/* <Image
               src={"/assets/charts.png"}
               height={550}
               width={600}
               alt="block-logo"
               layout="responsive"
               unoptimized={true}
-            />
+            /> */}
+            <LandingCarousel />
           </div>
         </div>
 
@@ -316,23 +318,13 @@ const AlternateHomePageWrapper = styled.div`
     gap: 2rem;
 
     @media ${MediaQueries.LG} {
-      flex-direction: row;
-      width: 95%;
+      gap: 0;
       padding-bottom: 2rem;
       align-items: center;
-      justify-content: space-between;
     }
 
     .left-card {
-      img {
-        border-radius: 20px;
-        border: 1px solid gray;
-      }
-
-      @media ${MediaQueries.LG} {
-        min-width: 33rem;
-        margin-top: 3rem;
-      }
+      padding-top: 3rem;
     }
 
     .right-card {
@@ -345,14 +337,14 @@ const AlternateHomePageWrapper = styled.div`
 
       @media ${MediaQueries.LG} {
         border-top: unset;
-        max-width: 40rem;
-        margin-top: 3rem;
+        max-width: 60rem;
       }
     }
   }
 
   .get-involved-row {
     @media ${MediaQueries.LG} {
+      flex-direction: row;
       width: 100%;
       padding: 0 5rem;
       padding-bottom: 2rem;

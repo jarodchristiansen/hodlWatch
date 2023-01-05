@@ -77,7 +77,7 @@ const UserHoldingsPieChart = ({ data, sum }: UserHoldingsPieChartProps) => {
       <div>
         <h1>User Holdings Percentages</h1>
 
-        <span>Total - {currencyFormat(sum)}</span>
+        <span className="total-span">Total - {currencyFormat(sum)}</span>
       </div>
 
       {!!formattedData.length && (
@@ -117,6 +117,11 @@ const ChartContainer = styled.div`
   background-color: white;
   box-shadow: 2px 4px 8px lightgray;
   text-align: center;
+
+  h1,
+  .total-span {
+    font-weight: bold;
+  }
 `;
 
 export default UserHoldingsPieChart;

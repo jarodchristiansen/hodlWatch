@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { MediaQueries } from "@/styles/MediaQueries";
+import { Colors } from "@/styles/Colors";
 
 /**
  *
@@ -32,9 +33,12 @@ function Header() {
     setSelectedRoute(selectedKey);
   };
 
+  // @ts-ignore: next-auth type issue v3
+  let id = session?.user?.username;
+
   const routes = [
     { key: 1, route: "/assets", guarded: true, text: "Assets" },
-    { key: 2, route: `/user/`, guarded: true, text: "Profile" },
+    { key: 2, route: `/user/${id}`, guarded: true, text: "Profile" },
     { key: 3, route: "/news", guarded: true, text: "News" },
     { key: 4, route: "/education", guarded: false, text: "Education" },
     !session && {
@@ -91,8 +95,8 @@ function Header() {
     <Navbar
       collapseOnSelect
       expand="lg"
-      bg="dark"
-      variant="dark"
+      bg="light"
+      variant="light"
       onSelect={handleSelect}
     >
       <Container>
@@ -141,8 +145,7 @@ const RouteRow = styled.div`
 `;
 
 const SignOutSpan = styled.span`
-  font-weight: bold;
-  color: white;
+  color: black;
 
   @media ${MediaQueries.MD} {
     white-space: nowrap;
@@ -152,12 +155,12 @@ const SignOutSpan = styled.span`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  color: white;
+  color: black;
 
   .active-underline-span {
     height: 2px;
-    color: white;
-    background-color: white;
+    color: black;
+    background-color: ${Colors.PrimaryButtonBackground};
   }
 `;
 
