@@ -31,7 +31,7 @@ const EducationArticle = ({ data }) => {
         height={400}
         width={700}
         alt="block-logo"
-        // layout="responsive"
+        layout="responsive"
         unoptimized={true}
       />
     );
