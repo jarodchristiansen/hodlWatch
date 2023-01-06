@@ -65,7 +65,7 @@ const CarouselContainer = styled.div`
     border-top: 1px solid lightgray;
     border-right: 1px solid lightgray;
     border-left: 1px solid lightgray;
-    background-color: #7f6cfe53;
+    background-color: #9997f752;
 
     max-width: 26rem;
     @media ${MediaQueries.MD} {

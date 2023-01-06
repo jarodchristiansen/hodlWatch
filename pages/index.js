@@ -125,18 +125,18 @@ export default function Home({ data }) {
               layout="responsive"
               unoptimized={true}
             /> */}
-            <LandingCarousel />
+            <LandingCard
+              headerText={"What Is HodlWatch?"}
+              header2Text={"Making web3 a little more balanced"}
+              bodyText="At Hodlwatch, we feel that Bitcoin & web3 were built to balance the economic scales a bit by providing transparency, and a trustless guarantee via blockchain. Too long that data has been made a-symmetrical in its access behind paywalls and lack of community integration. We're working to solve that by democratizing access to blockchain data, but integrating your community to make it relevant to your every day choices."
+              renderSignIn={false}
+              renderLearnMore={true}
+            />
           </div>
         </div>
 
         <div className="right-card">
-          <LandingCard
-            headerText={"What Is HodlWatch?"}
-            header2Text={"Making web3 a little more balanced"}
-            bodyText="At Hodlwatch, we feel that Bitcoin & web3 were built to balance the economic scales a bit by providing transparency, and a trustless guarantee via blockchain. Too long that data has been made a-symmetrical in its access behind paywalls and lack of community integration. We're working to solve that by democratizing access to blockchain data, but integrating your community to make it relevant to your every day choices."
-            renderSignIn={false}
-            renderLearnMore={true}
-          />
+          <LandingCarousel />
         </div>
       </div>
 
@@ -212,7 +212,7 @@ export default function Home({ data }) {
           />
         </div>
 
-        <div className="right-card">
+        {/* <div className="right-card">
           <div className={"landing-svg"}>
             <Image
               src={"/assets/landing-page.png"}
@@ -223,7 +223,7 @@ export default function Home({ data }) {
               unoptimized={true}
             />
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="mid-row">
@@ -324,20 +324,29 @@ const AlternateHomePageWrapper = styled.div`
     }
 
     .left-card {
-      padding-top: 3rem;
+      border-bottom: 2px solid lightgray;
+      padding-bottom: 3rem;
+
+      @media ${MediaQueries.LG} {
+        border-bottom: unset;
+        max-width: 60rem;
+      }
     }
 
     .right-card {
-      border-top: 2px solid lightgray;
+      padding-top: 3rem;
+      width: 100%;
 
       img {
-        border-radius: 20px;
+        border-radius: 10px 10px 0 0;
         max-height: 35rem;
       }
 
-      @media ${MediaQueries.LG} {
-        border-top: unset;
+      @media ${MediaQueries.MD} {
         max-width: 60rem;
+      }
+      @media ${MediaQueries.LG} {
+        max-width: 80rem;
       }
     }
   }
@@ -346,22 +355,24 @@ const AlternateHomePageWrapper = styled.div`
     @media ${MediaQueries.LG} {
       flex-direction: row;
       width: 100%;
-      padding: 0 5rem;
-      padding-bottom: 2rem;
+      padding: 2rem 5rem;
       justify-content: center;
-      background-color: rgba(148, 111, 183, 0.1);
+      background-color: white;
       gap: 10rem;
     }
 
     .left-card {
       @media ${MediaQueries.LG} {
-        border: 1px solid rgba(148, 111, 183, 0.6);
+        border: 1.5px solid black;
         border-radius: 12px;
         background-color: white;
+        box-shadow: 2px 4px 10px lightgray;
       }
     }
 
     .right-card {
+      max-height: 28rem;
+
       @media ${MediaQueries.MD} {
         padding: 4rem 6rem;
       }
