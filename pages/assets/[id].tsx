@@ -25,7 +25,7 @@ import styled from "styled-components";
  * @returns AssetDetailsPage that includes the financial/social/details for digital asset
  */
 const AssetDetailsPage = ({ session }) => {
-  const [timeQuery, setTimeQuery] = useState(14);
+  const [timeQuery, setTimeQuery] = useState(30);
 
   const router = useRouter();
 
@@ -46,7 +46,9 @@ const AssetDetailsPage = ({ session }) => {
     { data: GeckoDetails, loading: GeckoLoading, error: GeckoError },
   ] = useLazyQuery(GET_GECKO_DETAILS);
 
-  const availableTimes = [14, 30, 90, 180, 365];
+  const availableTimes = [30, 90, 180, 365, 730];
+
+  // const availableTimes = [14, 30, 90, 180, 365];
   const isBtcOrEth = id === "btc" || id === "eth";
 
   useEffect(() => {
