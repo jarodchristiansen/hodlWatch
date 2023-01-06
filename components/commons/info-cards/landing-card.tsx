@@ -1,4 +1,5 @@
 import { MediaQueries } from "@/styles/MediaQueries";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
@@ -30,6 +31,30 @@ const LandingCard = ({
 
   return (
     <InfoCardContainer>
+      {/* {!!renderSignIn && (
+        <>
+          <CommunityIconContainer right>
+            <Image
+              src={"/assets/community.svg"}
+              width={80}
+              height={80}
+              layout="responsive"
+              alt="community icon"
+            />
+          </CommunityIconContainer>
+
+          <CommunityIconContainer>
+            <Image
+              src={"/assets/community.svg"}
+              width={80}
+              height={80}
+              layout="responsive"
+              alt="community icon"
+            />
+          </CommunityIconContainer>
+        </>
+      )} */}
+
       <div className="info-card-header">
         <h2 className="heading-text">{headerText}</h2>
         <h2 className="subheading-text">{header2Text}</h2>
@@ -76,11 +101,35 @@ const LandingCard = ({
   );
 };
 
+interface CommunityIconProps {
+  right?: boolean;
+}
+
+const CommunityIconContainer = styled.div<CommunityIconProps>`
+  display: none;
+
+  @media ${MediaQueries.MD} {
+    display: flex;
+    position: absolute;
+    border: 2px solid black;
+    border-radius: 50%;
+    top: 2rem;
+    right: ${(props) => (props.right ? "3rem" : "unset")};
+    left: ${(props) => (props.right ? "unset" : "3rem")};
+    background-color: #e7d3ff;
+
+    img {
+      max-height: 7rem;
+    }
+  }
+`;
+
 const InfoCardContainer = styled.div`
   animation: "fade-in";
   padding: 2rem 0;
   padding: 0 2rem;
   min-width: 18rem;
+  position: relative;
 
   .info-card-header {
     text-align: center;
