@@ -28,8 +28,8 @@ const EducationArticle = ({ data }) => {
     return (
       <Image
         src={data.getPost.header_image}
-        height={400}
-        width={700}
+        height={300}
+        width={500}
         alt="block-logo"
         layout="responsive"
         unoptimized={true}
@@ -254,6 +254,11 @@ const ContentContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 2rem 0;
+
+  img {
+    padding-top: 3rem;
+    max-width: 60rem;
+  }
 
   .share-button-container {
     display: flex;

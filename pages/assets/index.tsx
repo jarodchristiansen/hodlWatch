@@ -233,7 +233,6 @@ const FilterBar = styled.div`
   top: 0rem;
   z-index: 100;
   border-bottom: 1px solid gray;
-  box-shadow: 2px 4px 8px gray;
 
   text-align: right;
   white-space: nowrap;
@@ -241,10 +240,9 @@ const FilterBar = styled.div`
 
   background-color: white;
   padding: 1.5rem 2rem;
-  width: 100%;
 
   @media ${MediaQueries.MD} {
-    top: 0rem;
+    position: relative;
     padding: 1.5rem 6rem;
   }
 `;
