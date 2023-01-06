@@ -298,7 +298,9 @@ const ProfilePage = () => {
   );
 };
 
-const PageWrapper = styled.div``;
+const PageWrapper = styled.div`
+  padding-bottom: 4rem;
+`;
 
 const CentralWrapper = styled.div`
   display: flex;
