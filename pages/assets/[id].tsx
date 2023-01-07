@@ -160,14 +160,16 @@ const AssetDetailsPage = ({ session }) => {
         <div className={"container text-center"}>
           {GeckoDetails && !loading && assetDetails}
 
-          {
-            <CollectiveStatsId
-              favoriteCount={
-                GeckoDetails?.getGeckoAssetDetails?.favorite_count || 0
-              }
-              id={id}
-            />
-          }
+          {!GeckoLoading && GeckoDetails && (
+            <CollectiveStatsHodler>
+              <CollectiveStatsId
+                favoriteCount={
+                  GeckoDetails?.getGeckoAssetDetails?.favorite_count || 0
+                }
+                id={id}
+              />
+            </CollectiveStatsHodler>
+          )}
 
           {id && (
             <PairRowContainer>
@@ -231,6 +233,18 @@ const AssetDetailsPage = ({ session }) => {
     </AssetDetailsPageContainer>
   );
 };
+
+const CollectiveStatsHodler = styled.div`
+  padding: 2rem 0;
+  margin-right: -2rem;
+  margin-left: -0.5rem;
+
+  @media ${MediaQueries.MD} {
+    margin-right: unset;
+    margin-left: unset;
+    padding: 2rem;
+  }
+`;
 
 const AssetDetailsRow = styled.div`
   padding: 0.5rem;

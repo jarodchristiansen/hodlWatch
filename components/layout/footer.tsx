@@ -109,7 +109,6 @@ const FooterContainer = styled.div`
 
   color: white;
   padding: 2rem 2rem;
-  margin-top: 4rem;
   border-top: 2px solid gray;
 
   .text-column {

@@ -41,8 +41,6 @@ const SideMenu = ({ navLinks }) => {
 };
 
 const Wrapper = styled.div`
-  display: none;
-
   @media ${MediaQueries.MD} {
     display: unset;
   }
@@ -50,12 +48,11 @@ const Wrapper = styled.div`
   .menu {
     // TODO: Fix Styling to be more dynamic
     background: #34495e;
-    height: 110vh;
+    min-height: 120%;
     width: 20%;
     max-width: 18rem;
     min-width: 14rem;
     margin-top: -0.5rem;
-    margin-bottom: -4rem;
     padding-top: 1rem;
 
     span {
