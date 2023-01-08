@@ -1,5 +1,26 @@
 import { gql } from "@apollo/client";
 
+export const GET_BTC_MACROS = gql`
+  query GetBtcMacros($symbol: String!) {
+    getBTCMacros(symbol: $symbol) {
+      macro_data {
+        time
+        high
+        low
+        open
+        volumefrom
+        volumeto
+        close
+        totalvolume
+        VWAP
+        TWAP
+        returns
+        rolling_sharpe
+      }
+    }
+  }
+`;
+
 export const GET_ASSET_PAIRS_24_HOURS = gql`
   query GetAssetPairs24Hours($symbol: String!) {
     getAssetPairs(symbol: $symbol) {

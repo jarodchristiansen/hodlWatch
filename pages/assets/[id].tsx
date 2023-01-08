@@ -5,7 +5,10 @@ import CollectiveStatsId from "@/components/assets/collective/CollectiveStatsID"
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import TimeButtons from "@/components/commons/TimeButtons";
 import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
-import { GET_ASSET_HISTORY } from "@/helpers/queries/assets/getAssetFinancialDetails";
+import {
+  GET_ASSET_HISTORY,
+  GET_BTC_MACROS,
+} from "@/helpers/queries/assets/getAssetFinancialDetails";
 import { MediaQueries } from "@/styles/MediaQueries";
 import { useLazyQuery } from "@apollo/client";
 import { getSession } from "next-auth/react";
@@ -46,6 +49,11 @@ const AssetDetailsPage = ({ session }) => {
     { data: GeckoDetails, loading: GeckoLoading, error: GeckoError },
   ] = useLazyQuery(GET_GECKO_DETAILS);
 
+  const [
+    getBTCMacros,
+    { data: MacroData, loading: MacroLoading, error: MacroError },
+  ] = useLazyQuery(GET_BTC_MACROS);
+
   const availableTimes = [30, 90, 180, 365, 730];
 
   // const availableTimes = [14, 30, 90, 180, 365];
@@ -68,6 +76,21 @@ const AssetDetailsPage = ({ session }) => {
       },
     });
   }, [timeQuery, id]);
+
+  useEffect(() => {
+    if (isBtcOrEth) {
+      // fetch btcMacrosQuery
+      getBTCMacros({
+        variables: {
+          symbol: id,
+        },
+      });
+    }
+  }, [isBtcOrEth]);
+
+  useEffect(() => {
+    console.log({ MacroData });
+  }, [MacroData]);
 
   const assetDetails = useMemo(() => {
     if (!GeckoDetails?.getGeckoAssetDetails) return [];

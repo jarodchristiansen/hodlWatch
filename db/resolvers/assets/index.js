@@ -66,12 +66,45 @@ export const AssetResolver = {
 
     return ribbonData;
   },
+  getBTCMacros: async (_, { symbol }) => {
+    const data = {};
+
+    // let pairData = await fetch(
+    //   `http://127.0.0.1:5000/asset-pair-data?name=${symbol.toUpperCase()}&api_key=${
+    //     process.env.INIDCATOR_SERVER_KEY
+    //   }`
+    // ).then((response) => response.json());
+
+    let pairData = await fetch(
+      `http://127.0.0.1:5000/btc-macro-data?api_key=${process.env.INIDCATOR_SERVER_KEY}`
+    ).then((response) => response.json());
+
+    // let pairData = await fetch(
+    //   `https://hodlwatch-python-indicator-service.vercel.app/btc-macro-data?api_key=${process.env.INIDCATOR_SERVER_KEY}`
+    // ).then((response) => response.json());
+    let jsonStuff = JSON.parse(pairData);
+
+    data.macro_data = jsonStuff;
+
+    console.log({ data });
+
+    return data;
+  },
   getAssetPairs: async (_, { symbol }) => {
     const data = {};
 
+    // let pairData = await fetch(
+    //   `http://127.0.0.1:5000/asset-pair-data?name=${symbol.toUpperCase()}&api_key=${
+    //     process.env.INIDCATOR_SERVER_KEY
+    //   }`
+    // ).then((response) => response.json());
+
     let pairData = await fetch(
-      `https://min-api.cryptocompare.com/data/top/volumes?tsym=${symbol.toUpperCase()}`
+      `https://hodlwatch-python-indicator-service.vercel.app/asset-pair-data?name=${symbol.toUpperCase()}&api_key=${
+        process.env.INIDCATOR_SERVER_KEY
+      }`
     ).then((response) => response.json());
+
     data.pairData = pairData.Data;
 
     return data;
@@ -109,10 +142,16 @@ export const AssetResolver = {
       const data = {};
 
       let results = await fetch(
-        `https://hodlwatch-python-indicator-service.vercel.app/asset?name=${symbol.toUpperCase()}&time=${time}&api_key=${
+        `https://hodlwatch-python-indicator-service.vercel.app/asset-price-data?name=${symbol.toUpperCase()}&time=${time}&api_key=${
           process.env.INIDCATOR_SERVER_KEY
         }`
       ).then((response) => response.json());
+
+      // let results = await fetch(
+      //   `http://127.0.0.1:5000/asset-price-data?name=${symbol.toUpperCase()}&time=${time}&api_key=${
+      //     process.env.INIDCATOR_SERVER_KEY
+      //   }`
+      // ).then((response) => response.json());
 
       // let results = await fetch(
       //   `http://127.0.0.1:5000/asset?name=${symbol.toUpperCase()}&time=${time}&api_key=123`
@@ -125,24 +164,6 @@ export const AssetResolver = {
         data.priceData = results[0]?.Data?.Data;
         data.blockchainData = results[1]?.Data?.Data;
       }
-
-      // let priceData = await fetch(
-      //   `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol.toUpperCase()}&tsym=USD&limit=${time}`
-      // ).then((response) => response.json());
-
-      // data.priceData = priceData.Data.Data;
-
-      // if (symbol.toUpperCase() === "BTC" || symbol.toUpperCase() === "ETH") {
-      //   let blockchainData = await fetch(
-      //     `https://min-api.cryptocompare.com/data/blockchain/histo/day?fsym=${symbol}&limit=${time}&api_key=${process.env.CRYPTO_COMPARE_KEY}`
-      //   ).then((response) => response.json());
-
-      //   // let indicatorData = await fetch(
-      //   //   `https://min-api.cryptocompare.com/data/tradingsignals/intotheblock/latest?fsym=BTC&api_key=${process.env.CRYPTO_COMPARE_KEY}`
-      //   // ).then((response) => response.json());
-
-      //   data.blockchainData = blockchainData.Data.Data;
-      // }
 
       if (data?.priceData) {
         return data;
