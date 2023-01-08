@@ -11,6 +11,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import PriceBTCChartDesktop from "./Charts/Desktop/PriceBTCChartDesktop";
 import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
 import BollingerBandChart from "./Charts/Desktop/BollingerBandChartDesktop";
+const vwap = require("vwap");
 
 interface FinancailAccordionProps {
   financialData: FinancialDataType[];
@@ -48,6 +49,7 @@ const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
     let closes = [];
     let percent_change = [];
     let price_btc = [];
+    let vwapData = [];
 
     for (let i of financialData) {
       if (i?.market_dominance) {
@@ -93,6 +95,28 @@ const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
       if (i?.low) {
         lows.push(i.low);
       }
+    }
+
+    if (volume.length) {
+      let vwapResults = [];
+
+      for (let i = 0; i < volume.length; i++) {
+        let slice = volume.slice(0, i);
+
+        console.log({ slice });
+
+        vwapResults.push({
+          vwap: vwap(slice),
+          time: volume[i].time,
+        });
+      }
+
+      // volume.push({
+      //   volumeTo: i.volumeto,
+      //   volumeFrom: i.volumefrom,
+      //   time: FormatUnixTime(i.time),
+      // });
+      console.log({ vwapResults });
     }
 
     let filteredData = {
