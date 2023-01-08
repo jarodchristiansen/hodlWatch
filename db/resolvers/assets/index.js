@@ -126,7 +126,6 @@ export const AssetResolver = {
         data.blockchainData = results[1]?.Data?.Data;
       }
 
-      console.log({ data });
       // let priceData = await fetch(
       //   `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol.toUpperCase()}&tsym=USD&limit=${time}`
       // ).then((response) => response.json());
