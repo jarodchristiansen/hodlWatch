@@ -18,11 +18,13 @@ export const AssetResolver = {
 
   getAsset: async (_, { symbol }) => {
     try {
-      // const asset = await Asset.find({ symbol });
+      const asset = await Asset.find({ symbol });
       const CoinGeckoClient = new CoinGecko();
 
       let assets = await CoinGeckoClient.coins.all();
       // const assets = await Asset.find({});
+
+      console.log("IN GET ASSET", { symbol });
 
       return assets?.data.filter((e) =>
         e.symbol.toLowerCase().includes(symbol.toLowerCase())
@@ -106,23 +108,42 @@ export const AssetResolver = {
     try {
       const data = {};
 
-      let priceData = await fetch(
-        `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol.toUpperCase()}&tsym=USD&limit=${time}`
+      let results = await fetch(
+        `https://hodlwatch-python-indicator-service.vercel.app/asset?name=${symbol.toUpperCase()}&time=${time}&api_key=${
+          process.env.INIDCATOR_SERVER_KEY
+        }`
       ).then((response) => response.json());
 
-      data.priceData = priceData.Data.Data;
+      // let results = await fetch(
+      //   `http://127.0.0.1:5000/asset?name=${symbol.toUpperCase()}&time=${time}&api_key=123`
+      // ).then((response) => response.json());
 
-      if (symbol.toUpperCase() === "BTC" || symbol.toUpperCase() === "ETH") {
-        let blockchainData = await fetch(
-          `https://min-api.cryptocompare.com/data/blockchain/histo/day?fsym=${symbol}&limit=${time}&api_key=${process.env.CRYPTO_COMPARE_KEY}`
-        ).then((response) => response.json());
-
-        // let indicatorData = await fetch(
-        //   `https://min-api.cryptocompare.com/data/tradingsignals/intotheblock/latest?fsym=BTC&api_key=${process.env.CRYPTO_COMPARE_KEY}`
-        // ).then((response) => response.json());
-
-        data.blockchainData = blockchainData.Data.Data;
+      if (results.length === 1) {
+        data.priceData = results[0]?.Data?.Data;
+        // data.blockchainData = results[1]?.Data;
+      } else if (results.length === 2) {
+        data.priceData = results[0]?.Data?.Data;
+        data.blockchainData = results[1]?.Data?.Data;
       }
+
+      console.log({ data });
+      // let priceData = await fetch(
+      //   `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${symbol.toUpperCase()}&tsym=USD&limit=${time}`
+      // ).then((response) => response.json());
+
+      // data.priceData = priceData.Data.Data;
+
+      // if (symbol.toUpperCase() === "BTC" || symbol.toUpperCase() === "ETH") {
+      //   let blockchainData = await fetch(
+      //     `https://min-api.cryptocompare.com/data/blockchain/histo/day?fsym=${symbol}&limit=${time}&api_key=${process.env.CRYPTO_COMPARE_KEY}`
+      //   ).then((response) => response.json());
+
+      //   // let indicatorData = await fetch(
+      //   //   `https://min-api.cryptocompare.com/data/tradingsignals/intotheblock/latest?fsym=BTC&api_key=${process.env.CRYPTO_COMPARE_KEY}`
+      //   // ).then((response) => response.json());
+
+      //   data.blockchainData = blockchainData.Data.Data;
+      // }
 
       if (data?.priceData) {
         return data;
