@@ -37,9 +37,9 @@ function Header() {
   let id = session?.user?.username;
 
   const routes = [
-    { key: 1, route: "/assets", guarded: true, text: "Assets" },
-    { key: 2, route: `/user/${id}`, guarded: true, text: "Profile" },
-    { key: 3, route: "/news", guarded: true, text: "News" },
+    { key: 1, route: "/assets", guarded: false, text: "Assets" },
+    { key: 2, route: `/user/${id}`, guarded: false, text: "Profile" },
+    { key: 3, route: "/news", guarded: false, text: "News" },
     { key: 4, route: "/education", guarded: false, text: "Education" },
     !session && {
       key: 5,
