@@ -320,11 +320,31 @@ const typeDefs = gql`
     favorite_count: Float
   }
 
+  type BTCMacros {
+    macro_data: [MacroData]
+  }
+
+  type MacroData {
+    time: Float
+    high: Float
+    low: Float
+    open: Float
+    volumefrom: Float
+    volumeto: Float
+    close: Float
+    totalvolume: Float
+    VWAP: Float
+    TWAP: Float
+    returns: Float
+    rolling_sharpe: Float
+  }
+
   type Query {
     getProducts: [Product]
     getProduct(id: ID!): Product
     getAssets(offset: Int, limit: Int): [Asset]
     getAsset(symbol: String!): [Asset]
+    getBTCMacros(symbol: String!): BTCMacros
     getAssetPairs(symbol: String!): AssetPairResponse
     getAssetHistory(symbol: String!, time: Int): CryptoCompareHistory
     getGeckoAssetDetails(name: String!, time: Int): GeckoAssetDetails

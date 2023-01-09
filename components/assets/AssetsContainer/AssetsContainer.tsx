@@ -43,7 +43,7 @@ const AssetsContainer = ({ assets, session }) => {
   // const isVisible = useOnScreen(ref, "100px");
 
   const AssetCards = useMemo(() => {
-    if (!currentAssets || !userData?.getUser?.favorites) return [];
+    if (!currentAssets) return [];
 
     let favorites = userData?.getUser?.favorites;
 
@@ -53,8 +53,9 @@ const AssetsContainer = ({ assets, session }) => {
           <AssetCard
             asset={asset}
             email={session?.user?.email}
-            favorited={favorites.some(
-              (e) => e.symbol.toLowerCase() === asset.symbol.toLowerCase()
+            favorited={userData?.getUser?.favorites.some(
+              (e) =>
+                e.symbol.toLowerCase() === currentAssets[0].symbol.toLowerCase()
             )}
             refetchFavorites={() => refetchUser()}
           />
