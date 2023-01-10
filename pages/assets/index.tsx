@@ -235,7 +235,6 @@ const FilterBar = styled.div`
   white-space: nowrap;
   justify-content: flex-end;
 
-  background-color: white;
   padding: 1.5rem 2rem;
 
   @media ${MediaQueries.MD} {

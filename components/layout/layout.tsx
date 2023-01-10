@@ -22,7 +22,7 @@ function Layout(props) {
   }, [asPath]);
 
   const determineLayoutBackground = () => {
-    if (asPath.includes("/auth")) {
+    if (asPath.includes("/auth") || asPath.includes("/assets/")) {
       setIsPurplePath(true);
     } else {
       setIsPurplePath(false);
@@ -46,8 +46,13 @@ interface LayoutProps {
 const LayoutContainer = styled.div<LayoutProps>`
   display: flex;
   flex-direction: column;
-  background-color: ${(props) =>
-    props.isPurplePath ? "#ebdafc47;" : "#f5f5f54c;"};
+  background: ${(props) => props.isPurplePath && "#f5f5f54c"};
+  background: linear-gradient(
+    180deg,
+    rgba(235, 233, 255, 1) 0%,
+    rgba(241, 240, 255, 1) 5%,
+    rgba(255, 255, 255, 1) 29%
+  );
 `;
 
 export default Layout;

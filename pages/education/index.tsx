@@ -193,8 +193,8 @@ const InterstitialRow = styled.div`
 const FilterBar = styled.div`
   display: flex;
   flex-direction: row;
-  position: sticky;
-  top: 0rem;
+  /* position: sticky;
+  top: 0rem; */
   z-index: 100;
   border-bottom: 1px solid gray;
   box-shadow: 2px 4px 8px gray;
@@ -203,7 +203,7 @@ const FilterBar = styled.div`
   white-space: nowrap;
   justify-content: center;
 
-  background-color: white;
+  /* background-color: white; */
   padding: 1.5rem 2rem;
   width: 100%;
 

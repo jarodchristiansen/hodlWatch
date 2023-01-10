@@ -301,6 +301,14 @@ const AlternateHomePageWrapper = styled.div`
     justify-content: center;
     gap: 2rem;
 
+    /* background: rgb(215, 210, 255);
+    background: linear-gradient(
+      180deg,
+      rgba(215, 210, 255, 1) 0%,
+      rgba(233, 230, 255, 1) 5%,
+      rgba(255, 255, 255, 1) 33%
+    ); */
+
     @media ${MediaQueries.LG} {
       gap: 0;
       padding-bottom: 2rem;
@@ -347,10 +355,10 @@ const AlternateHomePageWrapper = styled.div`
 
     .left-card {
       @media ${MediaQueries.LG} {
-        border: 1.5px solid black;
+        /* border: 1.5px solid black;
         border-radius: 12px;
         background-color: white;
-        box-shadow: 2px 4px 10px lightgray;
+        box-shadow: 2px 4px 10px lightgray; */
       }
     }
 
