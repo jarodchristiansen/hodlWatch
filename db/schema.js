@@ -335,6 +335,7 @@ const typeDefs = gql`
     totalvolume: Float
     VWAP: Float
     TWAP: Float
+    norm_returns: Float
     returns: Float
     rolling_sharpe: Float
   }
