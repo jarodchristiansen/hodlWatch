@@ -12,6 +12,7 @@ import React from "react";
 import styled from "styled-components";
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import { currencyFormat } from "@/helpers/formatters/currency";
+import FinanceChartModal from "../FinanceChartModal";
 
 /**
  *
@@ -19,10 +20,40 @@ import { currencyFormat } from "@/helpers/formatters/currency";
  * @returns WAPChart BTC only, shows the VWAP/TWAP for asset compared to price
  */
 const WAPChart = ({ data }) => {
+  const modalText = {
+    modalHeader: "VWAP/TWAP",
+    modalBodyText: () => (
+      <div>
+        <p>
+          VWAP = Cumulative Typical Price x Volume/Cumulative Volume. The
+          volume-weighted average price (VWAP) is a technical analysis indicator
+          used on financial asset charts. It's a trading benchmark that
+          represents the average price a security has traded at throughout the
+          provided time range, based on both volume and price. VWAP is important
+          because it provides traders with pricing insight into both the trend
+          and value of a security.
+        </p>
+
+        <br />
+
+        <p>
+          TWAP stands for “time-weighted average price”. It’s a pricing
+          algorithm used to calculate the average price of an asset over a set
+          period.
+        </p>
+      </div>
+    ),
+  };
+
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>(V/T)WAP Chart</h1>
+        <h1>
+          (V/T)WAP Chart
+          <span className={"ms-3"}>
+            <FinanceChartModal text={modalText} />
+          </span>
+        </h1>
       </div>
 
       {data && (

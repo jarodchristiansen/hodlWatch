@@ -15,6 +15,7 @@ import { currencyFormat } from "@/helpers/formatters/currency";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import FinanceChartModal from "../FinanceChartModal";
 
 const CustomizedDot = (props) => {
   const { cx, cy, stroke, payload, value } = props;
@@ -158,26 +159,50 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
     setFibonacciData(fibData);
   };
 
+  const modalText = {
+    modalHeader: "Fibonacci Retracement",
+    modalBodyText: () => (
+      <div>
+        <p>
+          Fibonacci retracement levels—stemming from the Fibonacci sequence—are
+          horizontal lines that indicate where support and resistance are likely
+          to occur. Each level is associated with a percentage. The percentage
+          is how much of a prior move the price has retraced. The Fibonacci
+          retracement levels are 23.6%, 38.2%, 61.8%, and 78.6%. While not
+          officially a Fibonacci ratio, 50% is also used. The indicator is
+          useful because it can be drawn between any two significant price
+          points, such as a high and a low. The indicator will then create the
+          levels between those two points. Suppose the price of a stock rises
+          $10 and then drops $2.36. In that case, it has retraced 23.6%, which
+          is a Fibonacci number. Fibonacci numbers are found throughout nature.
+          Therefore, many traders believe that these numbers also have relevance
+          in financial markets.
+        </p>
+
+        <br />
+
+        <p>
+          (In our case, the target indicators should signify that the closing
+          value is within a weighted range of a fibonacci level.)
+        </p>
+
+        <br />
+
+        <a target="#" href="/education/fibonacci-retracement-indicator">
+          See more
+        </a>
+      </div>
+    ),
+  };
+
   return (
     <ChartContainer>
       <div className={"label-row"}>
         <h1>Fibonacci Retracement</h1>
 
-        <Link
-          href="/education/fibonacci-retracement-indicator"
-          passHref
-          legacyBehavior
-        >
-          <a target="#">
-            <Image
-              src={"/images/info-icon.svg"}
-              className={"pointer-link info-circle"}
-              height={30}
-              width={30}
-              alt="info-icon"
-            />
-          </a>
-        </Link>
+        <span className={"ms-3"}>
+          <FinanceChartModal text={modalText} />
+        </span>
       </div>
       {fibonacciData && (
         <ComposedChart data={fibonacciData} height={500} width={500}>

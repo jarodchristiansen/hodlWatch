@@ -12,6 +12,8 @@ import React from "react";
 import styled from "styled-components";
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import { currencyFormat } from "@/helpers/formatters/currency";
+// import FinanceChartModal from "../FinanceChartModal";
+import FinanceChartModal from "../FinanceChartModal";
 
 /**
  *
@@ -19,10 +21,48 @@ import { currencyFormat } from "@/helpers/formatters/currency";
  * @returns SharpeRatioChart shows the rolling sharpe ratio for bitcoin long-term
  */
 const SharpeRatioChart = ({ data }) => {
+  const modalText = {
+    modalHeader: "Sharpe Ratio",
+    modalBodyText: () => (
+      <div>
+        <h5>What is a Sharpe Ratio?</h5>
+        <p>
+          The ratio describes how much excess return you receive for the extra
+          volatility you endure for holding a riskier asset. The higher the
+          number, the more returns you are getting for each unit of risk
+          associated with the asset Remember, you need compensation for the
+          additional risk you take for not holding a risk-free asset.
+        </p>
+
+        <p>
+          Generally speaking, the higher the Sharpe Ratio, the higher the
+          risk-adjusted performance of the portfolio.
+        </p>
+
+        <ul>
+          <li>
+            A negative Sharpe ratio means that the risk-free rate is higher than
+            the portfolio's return. This value does not convey any meaningful
+            information.
+          </li>
+          <li>A Sharpe ratio between 0 and 1.0 is considered sub-optimal.</li>
+          <li>A Sharpe ratio greater than 1.0 is considered acceptable.</li>
+          <li>A Sharpe ratio higher than 2.0 is considered very good.</li>
+          <li>A Sharpe ratio of 3.0 or higher is considered excellent.</li>
+        </ul>
+      </div>
+    ),
+  };
+
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>Rolling Sharpe/Price</h1>
+        <h1>
+          Rolling Sharpe/Price{" "}
+          <span className={"ms-3"}>
+            <FinanceChartModal text={modalText} />
+          </span>
+        </h1>
       </div>
 
       {data && (
