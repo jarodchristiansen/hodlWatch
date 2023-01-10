@@ -51,8 +51,8 @@ const NewsBlock = (props: NewsBlockProps) => {
         <div className="main-image-container">
           <Image
             src={story.imageurl}
-            height={300}
-            width={300}
+            height={250}
+            width={250}
             alt="block-logo"
             unoptimized={true}
             priority
@@ -90,6 +90,7 @@ const NewsItem = styled.div`
   border-radius: 12px;
   max-width: 52rem;
   box-shadow: 2px 4px 8px gray;
+  background-color: white;
 
   .article-header {
     padding: 1rem;
