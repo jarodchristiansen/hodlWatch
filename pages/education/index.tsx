@@ -31,14 +31,17 @@ const EducationPage = () => {
       return (
         <Link href={`/education${post.slug}`} key={post.slug}>
           <PostRow>
-            <Image
-              src={post.header_image}
-              height={300}
-              width={100}
-              alt="block-logo"
-              layout="responsive"
-              unoptimized={true}
-            />
+            <div>
+              <Image
+                src={post.header_image}
+                height={300}
+                width={100}
+                alt="block-logo"
+                priority
+                unoptimized={true}
+              />
+            </div>
+
             <h2> {post.post_title}</h2>
             <span>Subject: {post.category}</span>
             <span>
@@ -224,6 +227,11 @@ const PostRow = styled.div`
   gap: 1rem;
   margin: 1rem 0;
   background-color: white;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 
   span {
     color: gray;

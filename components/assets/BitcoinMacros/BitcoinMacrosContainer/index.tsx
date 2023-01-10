@@ -22,8 +22,6 @@ interface MacroPoint {
 }
 
 const BitcoinMacrosContainer = ({ MacroData }: BitcoinMacrosProps) => {
-  console.log({ MacroData });
-
   const [WAPData, SharpeData, VolumeData] = useMemo(() => {
     if (!MacroData) return [];
 
@@ -51,8 +49,6 @@ const BitcoinMacrosContainer = ({ MacroData }: BitcoinMacrosProps) => {
 
     return [wapDatas, sharpes, "b"];
   }, [MacroData]);
-
-  console.log({ WAPData });
 
   return (
     <div>

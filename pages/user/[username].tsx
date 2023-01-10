@@ -207,7 +207,6 @@ const ProfilePage = () => {
                         height={50}
                         width={50}
                         alt="block-logo"
-                        layout="fixed"
                         unoptimized={true}
                       />
                     </div>

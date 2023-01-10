@@ -31,7 +31,6 @@ const EducationArticle = ({ data }) => {
         height={300}
         width={500}
         alt="block-logo"
-        layout="responsive"
         unoptimized={true}
       />
     );
@@ -254,10 +253,22 @@ const ContentContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 2rem 0;
+  gap: 1rem;
 
   img {
-    padding-top: 3rem;
-    max-width: 60rem;
+    margin-top: 2rem;
+    width: 90%;
+    height: auto;
+
+    @media ${MediaQueries.SM} {
+      width: 80%;
+      margin-top: 3rem;
+    }
+
+    @media ${MediaQueries.MD} {
+      margin-top: 4rem;
+      width: 45%;
+    }
   }
 
   .share-button-container {

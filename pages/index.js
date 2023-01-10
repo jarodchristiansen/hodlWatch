@@ -41,7 +41,6 @@ export default function Home({ data }) {
                 width={70}
                 alt="block-logo"
                 className="source-image"
-                layout="fixed"
                 unoptimized={true}
               />
             </div>
@@ -55,7 +54,6 @@ export default function Home({ data }) {
             width={190}
             alt="block-logo"
             className="article-image"
-            layout="fixed"
             unoptimized={true}
           />
 
@@ -145,7 +143,7 @@ export default function Home({ data }) {
               height={300}
               width={400}
               alt="block-logo"
-              layout="responsive"
+              className="row-image"
               unoptimized={true}
             />
 
@@ -169,7 +167,7 @@ export default function Home({ data }) {
                 height={300}
                 width={400}
                 alt="block-logo"
-                layout="responsive"
+                className="row-image"
                 unoptimized={true}
               />
             </div>
@@ -259,6 +257,17 @@ const InterstitialRow = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
+    .row-image {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 10rem;
+
+      @media ${MediaQueries.MD} {
+        max-height: 20rem;
+      }
+    }
 
     h5 {
       font-weight: bold;
