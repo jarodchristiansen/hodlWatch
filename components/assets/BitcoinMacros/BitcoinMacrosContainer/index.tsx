@@ -21,6 +21,11 @@ interface MacroPoint {
   volumeto: number;
 }
 
+/**
+ *
+ * @param MacroData: the assets calculated from Python server/notebook for BTC long term
+ * @returns The container/charts associated with Bitcoin macros VWAP/TWAP/MVRV/Sharpe
+ */
 const BitcoinMacrosContainer = ({ MacroData }: BitcoinMacrosProps) => {
   const [WAPData, SharpeData, VolumeData] = useMemo(() => {
     if (!MacroData) return [];

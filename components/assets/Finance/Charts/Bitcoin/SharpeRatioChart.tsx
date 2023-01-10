@@ -15,8 +15,8 @@ import { currencyFormat } from "@/helpers/formatters/currency";
 
 /**
  *
- * @param {data} data: ActiveAddress/NewAddress data
- * @returns ActiveAddressesChart shows the new/active addresses for asset BTC/ETH
+ * @param {data} data: rolling_sharpe, close, time
+ * @returns SharpeRatioChart shows the rolling sharpe ratio for bitcoin long-term
  */
 const SharpeRatioChart = ({ data }) => {
   return (
