@@ -16,7 +16,6 @@ export const GET_BTC_MACROS = gql`
         TWAP
         returns
         rolling_sharpe
-        norm_returns
       }
     }
   }
