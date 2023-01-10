@@ -15,8 +15,8 @@ import { currencyFormat } from "@/helpers/formatters/currency";
 
 /**
  *
- * @param {data} data: ActiveAddress/NewAddress data
- * @returns ActiveAddressesChart shows the new/active addresses for asset BTC/ETH
+ * @param {data} data: VWAP, TWAP, price
+ * @returns WAPChart BTC only, shows the VWAP/TWAP for asset compared to price
  */
 const WAPChart = ({ data }) => {
   return (

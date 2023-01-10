@@ -1,15 +1,14 @@
+import { FormatUnixTime } from "@/helpers/formatters/time";
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
 import { MediaQueries } from "@/styles/MediaQueries";
+import client from "apollo-client";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import styled from "styled-components";
 import LandingCard from "../components/commons/info-cards/landing-card";
-// import PriceScreener from "../components/commons/screener/index";
-import client from "apollo-client";
-// import { FormatUnixTime } from "@/helpers/formatters/time";
 import LandingCarousel from "../components/landing/carousel";
 
 /**
@@ -42,7 +41,6 @@ export default function Home({ data }) {
                 width={70}
                 alt="block-logo"
                 className="source-image"
-                layout="fixed"
                 unoptimized={true}
               />
             </div>
@@ -56,17 +54,15 @@ export default function Home({ data }) {
             width={190}
             alt="block-logo"
             className="article-image"
-            layout="fixed"
             unoptimized={true}
           />
-          {/* 
-          <span>Published: {FormatUnixTime(story?.published_on)}</span> */}
+
+          <span>Published: {FormatUnixTime(story?.published_on)}</span>
         </NewsItem>
       );
     });
   }, [data]);
 
-  // @ts-ignore type in next-auth v3 doesn't show id
   let id = session?.user?.id;
 
   return (
@@ -112,19 +108,9 @@ export default function Home({ data }) {
         <meta property="og:image" content={"/assets/assets-page.png"} />
       </Head>
 
-      {/* <PriceScreener /> */}
-
       <div className="top-row">
         <div className="left-card">
           <div className={"landing-svg"}>
-            {/* <Image
-              src={"/assets/charts.png"}
-              height={550}
-              width={600}
-              alt="block-logo"
-              layout="responsive"
-              unoptimized={true}
-            /> */}
             <LandingCard
               headerText={"What Is HodlWatch?"}
               header2Text={"Making web3 a little more balanced"}
@@ -157,7 +143,7 @@ export default function Home({ data }) {
               height={300}
               width={400}
               alt="block-logo"
-              layout="responsive"
+              className="row-image"
               unoptimized={true}
             />
 
@@ -181,7 +167,7 @@ export default function Home({ data }) {
                 height={300}
                 width={400}
                 alt="block-logo"
-                layout="responsive"
+                className="row-image"
                 unoptimized={true}
               />
             </div>
@@ -211,19 +197,6 @@ export default function Home({ data }) {
             renderLearnMore={false}
           />
         </div>
-
-        {/* <div className="right-card">
-          <div className={"landing-svg"}>
-            <Image
-              src={"/assets/landing-page.png"}
-              height={550}
-              width={600}
-              alt="block-logo"
-              layout="responsive"
-              unoptimized={true}
-            />
-          </div>
-        </div> */}
       </div>
 
       <div className="mid-row">
@@ -284,6 +257,17 @@ const InterstitialRow = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
+    .row-image {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 10rem;
+
+      @media ${MediaQueries.MD} {
+        max-height: 20rem;
+      }
+    }
 
     h5 {
       font-weight: bold;

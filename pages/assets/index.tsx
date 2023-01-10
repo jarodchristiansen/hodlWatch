@@ -6,7 +6,6 @@ import styled from "styled-components";
 import AssetsContainer from "../../components/assets/AssetsContainer/AssetsContainer";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import PaginationComponent from "@/components/commons/pagination/Pagination";
-// import PriceScreener from "@/components/commons/screener";
 import SearchForm from "@/components/forms/SearchForm/SearchForm";
 import GET_ASSET from "@/helpers/queries/assets/getAsset";
 import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
@@ -118,8 +117,6 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
         <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>Assets</title>
       </Head>
-
-      {/* <PriceScreener /> */}
 
       {loading && (
         <div className={"container text-center"}>
