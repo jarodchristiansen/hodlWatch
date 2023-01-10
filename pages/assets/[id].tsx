@@ -22,6 +22,7 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import styled from "styled-components";
+import BitcoinMacrosContainer from "@/components/assets/BitcoinMacros/BitcoinMacrosContainer";
 
 /**
  *
@@ -58,6 +59,7 @@ const AssetDetailsPage = ({ session }) => {
 
   // const availableTimes = [14, 30, 90, 180, 365];
   const isBtcOrEth = id === "btc" || id === "eth";
+  const isBtc = id === "btc";
 
   useEffect(() => {
     if (id) {
@@ -78,7 +80,7 @@ const AssetDetailsPage = ({ session }) => {
   }, [timeQuery, id]);
 
   useEffect(() => {
-    if (isBtcOrEth) {
+    if (isBtc) {
       // fetch btcMacrosQuery
       getBTCMacros({
         variables: {
@@ -86,11 +88,7 @@ const AssetDetailsPage = ({ session }) => {
         },
       });
     }
-  }, [isBtcOrEth]);
-
-  useEffect(() => {
-    console.log({ MacroData });
-  }, [MacroData]);
+  }, [isBtc]);
 
   const assetDetails = useMemo(() => {
     if (!GeckoDetails?.getGeckoAssetDetails) return [];
@@ -198,6 +196,12 @@ const AssetDetailsPage = ({ session }) => {
             <PairRowContainer>
               <PairDetailsRow id={id} />
             </PairRowContainer>
+          )}
+
+          {MacroData?.getBTCMacros?.macro_data && (
+            <BitcoinMacrosContainer
+              MacroData={MacroData.getBTCMacros.macro_data}
+            />
           )}
 
           {data && (

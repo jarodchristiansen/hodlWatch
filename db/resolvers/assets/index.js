@@ -1,5 +1,6 @@
 const CoinGecko = require("coingecko-api");
 import Asset from "../../models/asset";
+import btc_macros from "../../models/btc_macro";
 
 export const AssetResolver = {
   getAssets: async (_, { offset, limit, topListBy }) => {
@@ -69,24 +70,38 @@ export const AssetResolver = {
   getBTCMacros: async (_, { symbol }) => {
     const data = {};
 
-    // let pairData = await fetch(
-    //   `http://127.0.0.1:5000/asset-pair-data?name=${symbol.toUpperCase()}&api_key=${
-    //     process.env.INIDCATOR_SERVER_KEY
-    //   }`
-    // ).then((response) => response.json());
+    let results = await btc_macros
+      .find({})
+      .catch((err) => console.log({ err }));
 
-    let pairData = await fetch(
-      `http://127.0.0.1:5000/btc-macro-data?api_key=${process.env.INIDCATOR_SERVER_KEY}`
-    ).then((response) => response.json());
+    let responses = [];
 
-    // let pairData = await fetch(
-    //   `https://hodlwatch-python-indicator-service.vercel.app/btc-macro-data?api_key=${process.env.INIDCATOR_SERVER_KEY}`
-    // ).then((response) => response.json());
-    let jsonStuff = JSON.parse(pairData);
+    for (let i of results) {
+      if (typeof i.rolling_sharpe !== "number")
+        i.rolling_sharpe = parseFloat(0);
 
-    data.macro_data = jsonStuff;
+      if (typeof i.returns !== "number") i.returns = parseFloat(1.1);
 
-    console.log({ data });
+      if (typeof i.norm_returns !== "number") i.norm_returns = parseFloat(1.1);
+
+      responses.push({
+        time: i.time,
+        high: i.high,
+        low: i.low,
+        open: i.open,
+        volumefrom: i.volumefrom,
+        volumeto: i.volumeto,
+        close: i.close,
+        totalvolume: i.totalvolume,
+        VWAP: i.VWAP,
+        TWAP: i.TWAP,
+        norm_returns: i.norm_returns,
+        returns: i.returns,
+        rolling_sharpe: i.rolling_sharpe,
+      });
+    }
+
+    data.macro_data = responses;
 
     return data;
   },
@@ -150,22 +165,6 @@ export const AssetResolver = {
 
         data.blockchainData = blockchainData.Data.Data;
       }
-
-      // let results = await fetch(
-      //   `https://hodlwatch-python-indicator-service.vercel.app/asset-price-data?name=${symbol.toUpperCase()}&time=${time}&api_key=${
-      //     process.env.INIDCATOR_SERVER_KEY
-      //   }`
-      // ).then((response) => response.json());
-
-      // let results = await fetch(
-      //   `http://127.0.0.1:5000/asset-price-data?name=${symbol.toUpperCase()}&time=${time}&api_key=${
-      //     process.env.INIDCATOR_SERVER_KEY
-      //   }`
-      // ).then((response) => response.json());
-
-      // let results = await fetch(
-      //   `http://127.0.0.1:5000/asset?name=${symbol.toUpperCase()}&time=${time}&api_key=123`
-      // ).then((response) => response.json());
 
       // if (results.length === 1) {
       //   data.priceData = results[0]?.Data?.Data;
