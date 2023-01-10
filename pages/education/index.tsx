@@ -1,4 +1,3 @@
-import PriceScreener from "@/components/commons/screener";
 import RelatedPostsRow from "@/components/posts/RelatedPosts";
 import { GET_POSTS } from "@/helpers/queries/posts/index";
 import { MediaQueries } from "@/styles/MediaQueries";
@@ -32,22 +31,23 @@ const EducationPage = () => {
       return (
         <Link href={`/education${post.slug}`} key={post.slug}>
           <PostRow>
-            <Image
-              src={post.header_image}
-              height={300}
-              width={100}
-              alt="block-logo"
-              layout="responsive"
-              unoptimized={true}
-            />
+            <div>
+              <Image
+                src={post.header_image}
+                height={300}
+                width={100}
+                alt="block-logo"
+                priority
+                unoptimized={true}
+              />
+            </div>
+
             <h2> {post.post_title}</h2>
             <span>Subject: {post.category}</span>
             <span>
               {post?.description?.length &&
                 post?.description?.slice(0, 125) + "..."}
             </span>
-            {/* 
-          <div>{post.post_content}</div> */}
           </PostRow>
         </Link>
       );
@@ -98,7 +98,6 @@ const EducationPage = () => {
         <meta property="og:image:height" content="400" />
       </Head>
 
-      {/* <PriceScreener /> */}
       <FilterBar>
         <label htmlFor="article_search">Article:</label>
         <input type="text" name="article_search" />
@@ -124,29 +123,10 @@ const EducationPage = () => {
             <h1>Crypto Insights: Indicators & Background</h1>
 
             <div className="top-row">
-              <div className="left-card">
-                {PostCards}
-
-                {PostCards}
-
-                {PostCards}
-              </div>
+              <div className="left-card">{PostCards}</div>
             </div>
 
             <InterstitialRow>
-              <div className="header-column">
-                <span>
-                  <h4>
-                    Remember, nothing in these articles should be interpreted as
-                    financial advice
-                  </h4>
-                  <h6>
-                    (we think we're pretty good, but we aren't financial
-                    advisors)
-                  </h6>
-                </span>
-              </div>
-
               <div className="related-row">
                 <RelatedPostsRow tempPost={data.getPosts[0]} />
               </div>
@@ -247,6 +227,11 @@ const PostRow = styled.div`
   gap: 1rem;
   margin: 1rem 0;
   background-color: white;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 
   span {
     color: gray;

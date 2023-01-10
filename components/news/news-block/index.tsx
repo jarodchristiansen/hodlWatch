@@ -54,8 +54,8 @@ const NewsBlock = (props: NewsBlockProps) => {
             height={300}
             width={300}
             alt="block-logo"
-            // layout="responsive"
             unoptimized={true}
+            priority
           />
         </div>
 
@@ -67,14 +67,14 @@ const NewsBlock = (props: NewsBlockProps) => {
       <Link href={story?.guid} passHref legacyBehavior>
         <a target="_blank">
           <div className="source-row">
-            <span>{story?.source_info?.name}</span>
+            <span className="source-name">{story?.source_info?.name}</span>
             <Image
               src={story.source_info?.img}
-              height={25}
-              width={25}
+              height={55}
+              width={55}
               alt="block-logo"
-              layout="responsive"
               unoptimized={true}
+              priority
             />
           </div>
         </a>
@@ -137,6 +137,10 @@ const NewsItem = styled.div`
     font-size: 18px;
     max-width: 4rem;
     margin: auto;
+  }
+
+  .source-name {
+    white-space: nowrap;
   }
 
   a:hover {
