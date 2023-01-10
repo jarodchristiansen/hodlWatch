@@ -70,22 +70,9 @@ export const AssetResolver = {
   getBTCMacros: async (_, { symbol }) => {
     const data = {};
 
-    // let pairData = await fetch(
-    //   `http://127.0.0.1:5000/asset-pair-data?name=${symbol.toUpperCase()}&api_key=${
-    //     process.env.INIDCATOR_SERVER_KEY
-    //   }`
-    // ).then((response) => response.json());
     let results = await btc_macros
       .find({})
       .catch((err) => console.log({ err }));
-
-    // let pairData = await fetch(
-    //   `http://127.0.0.1:5000/btc-macro-data?api_key=${process.env.INIDCATOR_SERVER_KEY}`
-    // ).then((response) => response.json());
-
-    // let pairData = await fetch(
-    //   `https://hodlwatch-python-indicator-service.vercel.app/btc-macro-data?api_key=${process.env.INIDCATOR_SERVER_KEY}`
-    // ).then((response) => response.json());
 
     // let jsonStuff = JSON.parse(pairData);
     let responses = [];
@@ -116,10 +103,6 @@ export const AssetResolver = {
     }
 
     data.macro_data = responses;
-
-    let intro = data.macro_data[0];
-    let peek = data.macro_data[1500];
-    console.log({ intro, peek });
 
     return data;
   },
@@ -183,22 +166,6 @@ export const AssetResolver = {
 
         data.blockchainData = blockchainData.Data.Data;
       }
-
-      // let results = await fetch(
-      //   `https://hodlwatch-python-indicator-service.vercel.app/asset-price-data?name=${symbol.toUpperCase()}&time=${time}&api_key=${
-      //     process.env.INIDCATOR_SERVER_KEY
-      //   }`
-      // ).then((response) => response.json());
-
-      // let results = await fetch(
-      //   `http://127.0.0.1:5000/asset-price-data?name=${symbol.toUpperCase()}&time=${time}&api_key=${
-      //     process.env.INIDCATOR_SERVER_KEY
-      //   }`
-      // ).then((response) => response.json());
-
-      // let results = await fetch(
-      //   `http://127.0.0.1:5000/asset?name=${symbol.toUpperCase()}&time=${time}&api_key=123`
-      // ).then((response) => response.json());
 
       // if (results.length === 1) {
       //   data.priceData = results[0]?.Data?.Data;
