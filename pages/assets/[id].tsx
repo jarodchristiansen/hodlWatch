@@ -198,11 +198,9 @@ const AssetDetailsPage = ({ session }) => {
             </PairRowContainer>
           )}
 
-          {MacroData?.getBTCMacros?.macro_data && (
-            <BitcoinMacrosContainer
-              MacroData={MacroData.getBTCMacros.macro_data}
-            />
-          )}
+          <BitcoinMacrosContainer
+            MacroData={MacroData?.getBTCMacros?.macro_data}
+          />
 
           {data && (
             <FilterBar>
@@ -263,8 +261,6 @@ const AssetDetailsPage = ({ session }) => {
 
 const CollectiveStatsHodler = styled.div`
   padding: 2rem 0;
-  margin-right: -2rem;
-  margin-left: -0.5rem;
 
   @media ${MediaQueries.MD} {
     margin-right: unset;
