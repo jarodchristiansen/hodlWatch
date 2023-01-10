@@ -301,14 +301,6 @@ const AlternateHomePageWrapper = styled.div`
     justify-content: center;
     gap: 2rem;
 
-    /* background: rgb(215, 210, 255);
-    background: linear-gradient(
-      180deg,
-      rgba(215, 210, 255, 1) 0%,
-      rgba(233, 230, 255, 1) 5%,
-      rgba(255, 255, 255, 1) 33%
-    ); */
-
     @media ${MediaQueries.LG} {
       gap: 0;
       padding-bottom: 2rem;
