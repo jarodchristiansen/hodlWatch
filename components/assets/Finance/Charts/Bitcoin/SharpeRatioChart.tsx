@@ -29,8 +29,8 @@ const SharpeRatioChart = ({ data }) => {
         <ResponsiveContainer width="100%" height={500}>
           <ComposedChart data={data} height={500} width={800}>
             <CartesianGrid strokeDasharray="3 3" />
-            <YAxis dataKey="close" yAxisId="left-axis" />
             <YAxis dataKey="" yAxisId="right-axis" orientation="right" />
+            <YAxis dataKey="close" yAxisId="left-axis" />
             <XAxis
               dataKey="time"
               tickFormatter={(val) => FormatUnixTime(val)}

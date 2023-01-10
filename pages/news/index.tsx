@@ -1,4 +1,3 @@
-import PriceScreener from "@/components/commons/screener";
 import NewsBlock from "@/components/news/news-block";
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
 import { MediaQueries } from "@/styles/MediaQueries";
@@ -57,7 +56,6 @@ const NewsFeedPage = () => {
         <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>HodlWatch- NewsFeed</title>
       </Head>
-      {/* <PriceScreener /> */}
       {/* <FilterBar>
         <button className="standardized-button">All</button>
         <button className="standardized-button">All</button>
@@ -83,22 +81,22 @@ const NewsFeedPage = () => {
   );
 };
 
-const FilterBar = styled.div`
-  display: flex;
-  flex-direction: row;
-  position: sticky;
-  top: 4.3rem;
-  z-index: 100;
-  width: 100%;
-  justify-content: center;
-  gap: 2rem;
-  background-color: white;
-  padding: 1rem 1rem;
+// const FilterBar = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   position: sticky;
+//   top: 4.3rem;
+//   z-index: 100;
+//   width: 100%;
+//   justify-content: center;
+//   gap: 2rem;
+//   background-color: white;
+//   padding: 1rem 1rem;
 
-  @media ${MediaQueries.MD} {
-    top: 2.6rem;
-  }
-`;
+//   @media ${MediaQueries.MD} {
+//     top: 2.6rem;
+//   }
+// `;
 
 const PageWrapper = styled.div`
   display: flex;
@@ -120,7 +118,6 @@ const NewsFeed = styled.div`
 
   @media ${MediaQueries.MD} {
     margin: 1rem 0;
-    /* max-width: 42rem; */
   }
 `;
 

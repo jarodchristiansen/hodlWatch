@@ -156,8 +156,6 @@ const ProfilePage = () => {
         <title>Profile</title>
       </Head>
 
-      {/* <PriceScreener /> */}
-
       <CentralWrapper>
         {isUsersProfile && (
           <div className="side-menu-container">
