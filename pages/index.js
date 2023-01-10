@@ -347,10 +347,10 @@ const AlternateHomePageWrapper = styled.div`
 
     .left-card {
       @media ${MediaQueries.LG} {
-        border: 1.5px solid black;
+        /* border: 1.5px solid black;
         border-radius: 12px;
         background-color: white;
-        box-shadow: 2px 4px 10px lightgray;
+        box-shadow: 2px 4px 10px lightgray; */
       }
     }
 

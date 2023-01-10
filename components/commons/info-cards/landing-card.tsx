@@ -30,7 +30,7 @@ const LandingCard = ({
   };
 
   return (
-    <InfoCardContainer>
+    <InfoCardContainer renderSignIn={renderSignIn}>
       {/* {!!renderSignIn && (
         <>
           <CommunityIconContainer right>
@@ -124,7 +124,11 @@ const CommunityIconContainer = styled.div<CommunityIconProps>`
   }
 `;
 
-const InfoCardContainer = styled.div`
+interface InfoCardContainerProps {
+  renderSignIn: boolean;
+}
+
+const InfoCardContainer = styled.div<InfoCardContainerProps>`
   animation: "fade-in";
   padding: 2rem 0;
   padding: 0 2rem;
@@ -145,9 +149,11 @@ const InfoCardContainer = styled.div`
     text-align: center;
     padding: 1rem 0;
 
-    .body-text {
+    span {
       font-size: 20px;
-      color: gray;
+      color: ${(props) => (props.renderSignIn ? "gray" : "#464545")};
+      font-style: italic;
+      font-style: ${(props) => props.renderSignIn && "normal"};
     }
   }
 

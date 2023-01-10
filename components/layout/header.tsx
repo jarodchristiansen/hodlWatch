@@ -95,8 +95,8 @@ function Header() {
     <Navbar
       collapseOnSelect
       expand="lg"
-      bg="light"
-      variant="light"
+      // bg="light"
+      // variant="light"
       onSelect={handleSelect}
     >
       <Container>

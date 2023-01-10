@@ -95,6 +95,7 @@ const TopAssetCard = styled.div`
   width: fit-content;
   border-radius: 12px;
   position: relative;
+  background-color: white;
 
   box-shadow: 0px 4px 12px gray;
 
