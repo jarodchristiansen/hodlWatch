@@ -74,7 +74,6 @@ export const AssetResolver = {
       .find({})
       .catch((err) => console.log({ err }));
 
-    // let jsonStuff = JSON.parse(pairData);
     let responses = [];
 
     for (let i of results) {
