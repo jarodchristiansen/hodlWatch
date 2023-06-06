@@ -1,6 +1,6 @@
 import RelatedPostsRow from "@/components/posts/RelatedPosts";
 import { GET_POSTS } from "@/helpers/queries/posts/index";
-import { MediaQueries } from "@/styles/MediaQueries";
+import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import Head from "next/head";
 import Image from "next/image";

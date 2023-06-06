@@ -1,4 +1,4 @@
-import { MediaQueries } from "@/styles/MediaQueries";
+import { MediaQueries } from "@/styles/variables";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
@@ -137,7 +137,6 @@ const InfoCardContainer = styled.div<InfoCardContainerProps>`
 
   .info-card-header {
     text-align: center;
-    padding: 2rem 0;
 
     .heading-text {
       font-size: 48px;

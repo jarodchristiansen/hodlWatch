@@ -6,8 +6,8 @@ import styled from "styled-components";
 import ToggleSwitch from "../commons/switchers/toggle-switch";
 import ProviderContainer from "./ProviderContainer/ProviderContainer";
 import Link from "next/link";
-import { Colors } from "@/styles/Colors";
-import { MediaQueries } from "@/styles/MediaQueries";
+import { Colors } from "@/styles/variables";
+import { MediaQueries } from "@/styles/variables";
 
 /**
  *
@@ -211,7 +211,7 @@ const CheckMarkContainer = styled.div`
     padding: 0.5rem;
 
     :checked {
-      background-color: ${Colors.PrimaryButtonBackground};
+      color: ${Colors.elegant.accentPurple};
     }
   }
 `;

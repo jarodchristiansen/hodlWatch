@@ -1,6 +1,6 @@
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
-import { MediaQueries } from "@/styles/MediaQueries";
+import { MediaQueries } from "@/styles/variables";
 import client from "apollo-client";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
@@ -9,7 +9,6 @@ import Link from "next/link";
 import { useMemo } from "react";
 import styled from "styled-components";
 import LandingCard from "../components/commons/info-cards/landing-card";
-import LandingCarousel from "../components/landing/carousel";
 
 /**
  *
@@ -70,7 +69,7 @@ export default function Home({ data }) {
       <Head>
         <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>
-          HodlWatch - Blockchain, Crypto, Web3 Data Explorer and Community
+          Mesh - Blockchain, Crypto, Web3 Data Explorer and Community
         </title>
         <meta
           name="google-site-verification"
@@ -87,7 +86,7 @@ export default function Home({ data }) {
         <meta
           property="og:title"
           content={
-            "HodlWatch - Blockchain, Crypto, Web3 Data Explorer and Community"
+            "Mesh - Blockchain, Crypto, Web3 Data Explorer and Community"
           }
         />
 
@@ -112,18 +111,22 @@ export default function Home({ data }) {
         <div className="left-card">
           <div className={"landing-svg"}>
             <LandingCard
-              headerText={"What Is HodlWatch?"}
-              header2Text={"Making web3 a little more balanced"}
-              bodyText="At Hodlwatch, we feel that Bitcoin & web3 were built to balance the economic scales a bit by providing transparency, and a trustless guarantee via blockchain. Too long that data has been made a-symmetrical in its access behind paywalls and lack of community integration. We're working to solve that by democratizing access to blockchain data, but integrating your community to make it relevant to your every day choices."
+              headerText={"Mesh"}
+              header2Text="Your All-in-One Crypto Companion."
+              bodyText="Stay Informed. Connect. Thrive."
               renderSignIn={false}
               renderLearnMore={true}
             />
           </div>
         </div>
 
-        <div className="right-card">
-          <LandingCarousel />
-        </div>
+        <video autoPlay muted loop>
+          <source src="/videos/landing-ink.mp4" />
+        </video>
+      </div>
+      <Row>This is row 2</Row>
+      <Row>This is row 3</Row>
+      {/* 
       </div>
 
       <InterstitialRow>
@@ -204,240 +207,40 @@ export default function Home({ data }) {
           <h3>Recent Updates</h3>
         </div>
 
-        <div className="mid-row-body">{newsFeedContent}</div>
-      </div>
+        <div className="mid-row-body">{newsFeedContent}</div> */}
     </AlternateHomePageWrapper>
   );
 }
 
-const InterstitialRow = styled.div`
-  width: 100%;
-  background: rgb(0, 0, 0);
-  background: linear-gradient(
-    131deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(46, 46, 46, 1) 48%,
-    rgba(0, 0, 0, 1) 100%
-  );
+const Row = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: black;
   color: white;
-  padding: 2rem 2rem;
-  margin-top: 4rem;
-  border-top: 2px solid gray;
-  text-align: center;
 
-  .header-column {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-
-    h2 {
-      font-weight: bold;
-    }
-    h5 {
-      font-weight: 600;
-    }
-  }
-
-  .image-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 2rem 0;
-    max-width: 30rem;
-    margin: auto;
-    gap: 1rem;
-
-    @media ${MediaQueries.MD} {
-      max-width: 50rem;
-      gap: 3rem;
-    }
-  }
-
-  .image-column {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
-    .row-image {
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      max-height: 10rem;
-
-      @media ${MediaQueries.MD} {
-        max-height: 20rem;
-      }
-    }
-
-    h5 {
-      font-weight: bold;
-    }
-
-    .pointer-link {
-      cursor: pointer;
-      line-height: 1.8rem;
-      font-weight: 400;
-    }
-
-    .pointer-link:hover {
-      color: #8383f8;
-      text-decoration: underline;
-    }
+  @media ${MediaQueries.MD} {
+    flex-direction: row;
   }
 `;
 
 const AlternateHomePageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-
   .top-row {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-    gap: 2rem;
+    padding: 18px;
 
-    @media ${MediaQueries.LG} {
-      gap: 0;
-      padding-bottom: 2rem;
-      align-items: center;
-    }
-
-    .left-card {
-      border-bottom: 2px solid lightgray;
-      padding-bottom: 3rem;
-
-      @media ${MediaQueries.LG} {
-        border-bottom: unset;
-        max-width: 60rem;
-      }
-    }
-
-    .right-card {
-      padding-top: 3rem;
+    video {
       width: 100%;
-
-      img {
-        border-radius: 10px 10px 0 0;
-        max-height: 35rem;
-      }
-
-      @media ${MediaQueries.MD} {
-        max-width: 60rem;
-      }
-      @media ${MediaQueries.LG} {
-        max-width: 80rem;
-      }
+      align-self: center;
+      border-radius: 12px;
     }
-  }
 
-  .get-involved-row {
-    @media ${MediaQueries.LG} {
+    @media ${MediaQueries.MD} {
       flex-direction: row;
-      width: 100%;
-      padding: 2rem 5rem;
-      justify-content: center;
-      background-color: white;
-      gap: 10rem;
-    }
+      justify-content: space-between;
 
-    .left-card {
-      @media ${MediaQueries.LG} {
-        /* border: 1.5px solid black;
-        border-radius: 12px;
-        background-color: white;
-        box-shadow: 2px 4px 10px lightgray; */
-      }
-    }
-
-    .right-card {
-      max-height: 28rem;
-
-      @media ${MediaQueries.MD} {
-        padding: 4rem 6rem;
-      }
-
-      @media ${MediaQueries.LG} {
-        border: 1px solid rgba(148, 111, 183, 0.6);
-        padding: unset;
-        border-radius: 12px;
-        background-color: white;
-      }
-
-      img {
-        max-height: 28rem;
-      }
-    }
-  }
-
-  .mid-row {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 1rem 0;
-    border-top: 2px solid lightgray;
-
-    @media ${MediaQueries.MD} {
-      padding: 0.5rem 2rem;
-    }
-
-    .mid-row-heading {
-      font-size: 28px;
-      padding: 1rem 1rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 0.05rem;
-    }
-
-    .mid-row-body {
-      display: flex;
-      overflow-x: scroll;
-      padding: 1rem;
-      gap: 1rem;
-
-      ::-webkit-scrollbar {
-        display: none;
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-      }
-
-      @media ${MediaQueries.MD} {
-        gap: 1.5rem;
-      }
-    }
-  }
-
-  .bottom-row {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 1rem 1rem;
-    border-top: 2px solid lightgray;
-
-    @media ${MediaQueries.MD} {
-      width: 90%;
-      padding: 0.5rem 2rem;
-    }
-
-    .bottom-row-heading {
-      font-size: 28px;
-      padding: 1rem 1rem;
-      padding-top: 2rem;
-    }
-
-    .bottom-row-body {
-      display: flex;
-      overflow-x: scroll;
-      padding-right: 1rem;
-
-      ::-webkit-scrollbar {
-        display: none;
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
+      video {
+        width: 50%;
       }
     }
   }

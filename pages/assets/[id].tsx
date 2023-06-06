@@ -9,7 +9,7 @@ import {
   GET_ASSET_HISTORY,
   GET_BTC_MACROS,
 } from "@/helpers/queries/assets/getAssetFinancialDetails";
-import { MediaQueries } from "@/styles/MediaQueries";
+import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { getSession } from "next-auth/react";
 import Head from "next/head";

@@ -3,7 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import ReadMoreButton from "@/components/commons/text/ReadMoreButton";
-import { MediaQueries } from "@/styles/MediaQueries";
+import { MediaQueries } from "@/styles/variables";
 
 interface NewsBlockProps {
   story: StoryType;

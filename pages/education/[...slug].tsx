@@ -1,7 +1,7 @@
 import RelatedPostsRow from "@/components/posts/RelatedPosts";
 import { GET_POST } from "@/helpers/queries/posts";
-import { Colors } from "@/styles/Colors";
-import { MediaQueries } from "@/styles/MediaQueries";
+import { Colors } from "@/styles/variables";
+import { MediaQueries } from "@/styles/variables";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -233,7 +233,7 @@ const BackButton = styled.div`
   span {
     font-weight: bold;
     font-size: 1rem;
-    color: ${Colors.PrimaryButtonBackground};
+    color: ${Colors.elegant.accentPurple};
   }
 `;
 

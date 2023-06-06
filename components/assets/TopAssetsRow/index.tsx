@@ -1,5 +1,5 @@
-import { Colors } from "@/styles/Colors";
-import { MediaQueries } from "@/styles/MediaQueries";
+import { Colors } from "@/styles/variables";
+import { MediaQueries } from "@/styles/variables";
 import Link from "next/link";
 import { useMemo } from "react";
 import styled from "styled-components";
@@ -61,7 +61,7 @@ const FavoriteCountCircle = styled.div`
   bottom: 0.5rem;
   right: 0.2rem;
   border-radius: 50%;
-  background-color: ${Colors.PrimaryButtonBackground};
+  color: ${Colors.elegant.accentPurple};
   color: white;
   font-weight: 600;
   width: 1.5rem;

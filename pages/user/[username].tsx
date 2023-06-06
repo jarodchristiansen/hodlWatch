@@ -14,8 +14,8 @@ import styled from "styled-components";
 // import PriceScreener from "@/components/commons/screener";
 import EditUserDetails from "@/components/user/edit-user-details";
 import { GET_USER } from "@/helpers/queries/user/index";
-import { Colors } from "@/styles/Colors";
-import { MediaQueries } from "@/styles/MediaQueries";
+import { Colors } from "@/styles/variables";
+import { MediaQueries } from "@/styles/variables";
 import SideMenu from "@/components/commons/sidebar-nav";
 import PortfolioMain from "@/components/portfolio/PortfolioMain";
 
@@ -335,7 +335,7 @@ const CentralWrapper = styled.div`
   .back-button {
     align-self: flex-start;
     padding: 0 1rem;
-    color: ${Colors.PrimaryButtonBackground};
+    color: ${Colors.elegant.accentPurple};
     font-weight: bold;
     font-size: 18px;
   }

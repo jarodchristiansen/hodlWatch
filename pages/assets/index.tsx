@@ -9,7 +9,7 @@ import PaginationComponent from "@/components/commons/pagination/Pagination";
 import SearchForm from "@/components/forms/SearchForm/SearchForm";
 import GET_ASSET from "@/helpers/queries/assets/getAsset";
 import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
-import { MediaQueries } from "@/styles/MediaQueries";
+import { MediaQueries } from "@/styles/variables";
 import { GET_COLLECTIVE_STATS } from "../../helpers/queries/collective";
 import client from "../../apollo-client";
 import TopAssetsRow from "@/components/assets/TopAssetsRow";
