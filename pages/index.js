@@ -8,8 +8,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import styled from "styled-components";
-import LandingCard from "../components/commons/info-cards/landing-card";
-import ProgressMeter from "../components/progressmeter/progressmeter";
+import LandingCard from "components/commons/info-cards/landing-card";
+import ProgressMeter from "components/progressmeter/progressmeter";
+import ReviewList from "components/reviews/reviewlist";
 
 /**
  *
@@ -328,6 +329,26 @@ export default function Home({ data }) {
         Roadmap
         <ProgressMeter currentStep={1} />
       </div>
+
+      <Row>
+        Reviews Section
+        <div>
+          <ReviewList />
+        </div>
+      </Row>
+
+      <div>
+        Call To action card "Take control of your crypto journey with Mesh
+        today! Sign up now to explore the power of simplified data insights,
+        seamless portfolio tracking, and a vibrant community of crypto
+        enthusiasts. Join the Mesh family and unleash the full potential of your
+        crypto investments!" Feel free to customize the testimonials and CTA
+        text to align with your app's unique value proposition and target
+        audience. These examples can serve as a starting point, and you can
+        adjust them based on the actual testimonials and reviews you receive in
+        the future. Let me know if there's anything else I can assist you with!
+      </div>
+
       {/*  <div className="mid-row">
         <div className="mid-row-heading">
           <h3>Recent Updates</h3>
