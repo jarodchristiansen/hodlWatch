@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import styled from "styled-components";
 import LandingCard from "../components/commons/info-cards/landing-card";
+import ProgressMeter from "../components/progressmeter/progressmeter";
 
 /**
  *
@@ -124,85 +125,210 @@ export default function Home({ data }) {
           <source src="/videos/landing-ink.mp4" />
         </video>
       </div>
-      <Row>This is row 2</Row>
-      <Row>This is row 3</Row>
-      {/* 
+      <Row>
+        Experience the Future of Crypto Like Never Before. Welcome to Mesh, your
+        all-in-one crypto companion that unlocks the power of decentralized
+        finance. Seamlessly track your portfolio, connect with a vibrant
+        community, and thrive in the ever-evolving world of cryptocurrencies.
+        Stay Informed: Gain a competitive edge with real-time market data,
+        comprehensive financial metrics, and news updates. Mesh provides you
+        with a clear view of the crypto universe, empowering you to make
+        informed investment decisions. Connect: Join a community of crypto
+        enthusiasts and investors. Engage in lively discussions, share insights,
+        and stay connected with the latest trends. Collaborate, learn, and grow
+        together in the exciting realm of blockchain technology. Thrive: Mesh is
+        your gateway to success in the crypto revolution. Unleash the potential
+        of your portfolio, analyze trends, and identify opportunities to
+        maximize your returns. With Mesh, you'll be well-equipped to navigate
+        the crypto landscape with confidence and make waves in the world of
+        finance. Join Mesh today and embark on a transformative journey where
+        simplicity meets power, and your crypto aspirations become reality."
+        Feel free to adjust and tailor this segment to align with your app's
+        specific features and messaging. Emphasize the unique aspects and
+        benefits of your app, such as convenience, simplicity, and the social
+        element it offers.
+      </Row>
+      <Row>
+        <h3>Features</h3>
+        <ul className="features-list">
+          <li>
+            <span className="feature-icon">
+              {/* Add the corresponding icon here */}
+            </span>
+            Portfolio Tracking:
+            <ul>
+              <li>
+                Stay on top of your crypto investments with our intuitive
+                portfolio tracking feature.
+              </li>
+              <li>
+                Monitor real-time prices, performance, and allocation across
+                multiple assets.
+              </li>
+              <li>
+                Visualize your portfolio growth and make data-driven decisions
+                with ease.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span className="feature-icon">
+              {/* Add the corresponding icon here */}
+            </span>
+            Comprehensive Metrics:
+            <ul>
+              <li>
+                Dive deep into financial and on-chain metrics to gain valuable
+                insights into crypto assets.
+              </li>
+              <li>
+                Analyze price movements, market capitalization, trading volume,
+                and more.
+              </li>
+              <li>
+                Evaluate token fundamentals and historical data to make informed
+                investment choices.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span className="feature-icon">
+              {/* Add the corresponding icon here */}
+            </span>
+            Social Community:
+            <ul>
+              <li>
+                Connect with a vibrant community of crypto enthusiasts and
+                investors.
+              </li>
+              <li>
+                Engage in discussions, share knowledge, and stay updated on the
+                latest trends.
+              </li>
+              <li>
+                Foster valuable connections, collaborate on projects, and
+                explore new opportunities.
+              </li>
+            </ul>
+          </li>
+          {/* Repeat the above structure for the remaining features */}
+
+          <li>
+            <span className="feature-icon">
+              {/* Add the corresponding icon here */}
+            </span>
+            News and Updates:
+            <ul>
+              <li>
+                Access a curated feed of crypto news, articles, and market
+                updates in real-time
+              </li>
+              <li>
+                Stay informed about industry developments, regulatory changes,
+                and market trends.
+              </li>
+              <li>
+                Get a holistic view of the crypto ecosystem and make informed
+                decisions based on the latest information.
+              </li>
+            </ul>
+          </li>
+          {/* Repeat the above structure for the remaining features */}
+
+          <li>
+            <span className="feature-icon">
+              {/* Add the corresponding icon here */}
+            </span>
+            User-friendly Interface:
+            <ul>
+              <li>
+                Enjoy a sleek and intuitive interface designed for seamless user
+                experience.
+              </li>
+              <li>
+                Navigate effortlessly through the app's features and access
+                information with ease.
+              </li>
+              <li>
+                Experience the power of crypto in a user-friendly environment
+                that simplifies complex concepts.
+              </li>
+            </ul>
+          </li>
+          {/* Repeat the above structure for the remaining features */}
+
+          <li>
+            <span className="feature-icon">
+              {/* Add the corresponding icon here */}
+            </span>
+            Customizable Alerts:
+            <ul>
+              <li>
+                Set personalized alerts to stay informed about price movements
+                and market conditions.
+              </li>
+              <li>
+                Receive instant notifications about important events, such as
+                price thresholds or news updates.
+              </li>
+              <li>
+                Tailor your alerts to your specific investment strategies and
+                never miss out on potential opportunities.
+              </li>
+            </ul>
+          </li>
+          {/* Repeat the above structure for the remaining features */}
+
+          <li>
+            <span className="feature-icon">
+              {/* Add the corresponding icon here */}
+            </span>
+            Security and Privacy:
+            <ul>
+              <li>
+                Rest assured knowing that your data and assets are protected
+                with robust security measures.
+              </li>
+              <li>
+                Safeguard your privacy and maintain full control over your
+                personal information.
+              </li>
+              <li>
+                Mesh prioritizes the security and confidentiality of your crypto
+                journey.
+              </li>
+            </ul>
+          </li>
+          {/* Repeat the above structure for the remaining features */}
+
+          <li>
+            <span className="feature-icon">
+              {/* Add the corresponding icon here */}
+            </span>
+            Cross-platform Accessibility:
+            <ul>
+              <li>
+                Access Mesh anytime, anywhere, with our cross-platform support.
+              </li>
+              <li>
+                Seamlessly switch between desktop and mobile devices while
+                enjoying a consistent experience.
+              </li>
+              <li>
+                Stay connected to your portfolio and the community, no matter
+                where you are.
+              </li>
+            </ul>
+          </li>
+          {/* Repeat the above structure for the remaining features */}
+        </ul>
+      </Row>
+
+      <div>
+        Roadmap
+        <ProgressMeter currentStep={1} />
       </div>
-
-      <InterstitialRow>
-        <div className="header-column">
-          <h2>Data Directly From The Blockchain</h2>
-
-          <h5>We believe in letting the data speak for itself</h5>
-          <h6>
-            <i>(but just in case, we add some descriptions)</i>
-          </h6>
-        </div>
-
-        <div className="image-row">
-          <div className="image-column">
-            <Image
-              src={"/assets/charts.png"}
-              height={300}
-              width={400}
-              alt="block-logo"
-              className="row-image"
-              unoptimized={true}
-            />
-
-            <Link href="/assets">
-              <span className="pointer-link">
-                <h5>Financial Indicators</h5>
-                <span>
-                  <i>
-                    Analyzing price points, common resistance/support levels,
-                    and traditional methods
-                  </i>
-                </span>
-              </span>
-            </Link>
-          </div>
-
-          <div className="image-column">
-            <div>
-              <Image
-                src={"/assets/PieChart.PNG"}
-                height={300}
-                width={400}
-                alt="block-logo"
-                className="row-image"
-                unoptimized={true}
-              />
-            </div>
-
-            <Link href={`/user/${id}`}>
-              <span className="pointer-link">
-                <h5>Portfolio Analysis</h5>
-                <span>
-                  <i>
-                    Connect your exchange account via our API and get insights
-                    into your holdings
-                  </i>
-                </span>
-              </span>
-            </Link>
-          </div>
-        </div>
-      </InterstitialRow>
-
-      <div className="get-involved-row top-row">
-        <div className="left-card">
-          <LandingCard
-            headerText={"Get Involved"}
-            header2Text={"Join the community"}
-            bodyText="Sign up to join our community and gain more insights as you explore different assets."
-            renderSignIn={true}
-            renderLearnMore={false}
-          />
-        </div>
-      </div>
-
-      <div className="mid-row">
+      {/*  <div className="mid-row">
         <div className="mid-row-heading">
           <h3>Recent Updates</h3>
         </div>
@@ -218,9 +344,18 @@ const Row = styled.div`
   background-color: black;
   color: white;
 
-  @media ${MediaQueries.MD} {
-    flex-direction: row;
+  h3 {
+    align-self: center;
   }
+
+  .features-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* @media ${MediaQueries.MD} {
+    flex-direction: row;
+  } */
 `;
 
 const AlternateHomePageWrapper = styled.div`
