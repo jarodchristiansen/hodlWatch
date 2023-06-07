@@ -2,6 +2,15 @@ export const Colors = {
   // MainPageBackground: "#c1b8fd3d",
   // PrimaryButtonBackground: "#806cfe",
   // ButtonBlackBackground: "rgba(3, 3, 3, 1)",
+  lightGray: "#f4f4f4",
+  gainsboro: "#dcdcdc",
+  platinum: "#e5e5e5",
+  silver: "#c0c0c0",
+  ash: "#b2b2b2",
+  darkGray: "#a9a9a9",
+  richBlack: "#001f3f",
+  deepNavy: "#000080",
+  midnight: "#191970",
 
   modern: {
     white: "#ffffff",

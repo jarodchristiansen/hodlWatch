@@ -129,27 +129,30 @@ export default function Home({ data }) {
         </video>
       </div>
       <Row>
-        Experience the Future of Crypto Like Never Before. Welcome to Mesh, your
-        all-in-one crypto companion that unlocks the power of decentralized
-        finance. Seamlessly track your portfolio, connect with a vibrant
-        community, and thrive in the ever-evolving world of cryptocurrencies.
-        Stay Informed: Gain a competitive edge with real-time market data,
-        comprehensive financial metrics, and news updates. Mesh provides you
-        with a clear view of the crypto universe, empowering you to make
-        informed investment decisions. Connect: Join a community of crypto
-        enthusiasts and investors. Engage in lively discussions, share insights,
-        and stay connected with the latest trends. Collaborate, learn, and grow
-        together in the exciting realm of blockchain technology. Thrive: Mesh is
-        your gateway to success in the crypto revolution. Unleash the potential
-        of your portfolio, analyze trends, and identify opportunities to
-        maximize your returns. With Mesh, you'll be well-equipped to navigate
-        the crypto landscape with confidence and make waves in the world of
-        finance. Join Mesh today and embark on a transformative journey where
-        simplicity meets power, and your crypto aspirations become reality."
-        Feel free to adjust and tailor this segment to align with your app's
-        specific features and messaging. Emphasize the unique aspects and
-        benefits of your app, such as convenience, simplicity, and the social
-        element it offers.
+        <div className="site-description-container">
+          <h3> Experience Crypto Like Never Before</h3>
+
+          <p>
+            Welcome to Mesh, your all-in-one crypto companion that unlocks the
+            power of decentralized finance. Seamlessly track your portfolio,
+            connect with a vibrant community, and thrive in the ever-evolving
+            world of cryptocurrencies. Stay Informed: Gain a competitive edge
+            with real-time market data, comprehensive financial metrics, and
+            news updates. Mesh provides you with a clear view of the crypto
+            universe, empowering you to make informed investment decisions.
+            Connect: Join a community of crypto enthusiasts and investors.
+            Engage in lively discussions, share insights, and stay connected
+            with the latest trends. Collaborate, learn, and grow together in the
+            exciting realm of blockchain technology. Thrive: Mesh is your
+            gateway to success in the crypto revolution. Unleash the potential
+            of your portfolio, analyze trends, and identify opportunities to
+            maximize your returns. With Mesh, you'll be well-equipped to
+            navigate the crypto landscape with confidence and make waves in the
+            world of finance. Join Mesh today and embark on a transformative
+            journey where simplicity meets power, and your crypto aspirations
+            become reality
+          </p>
+        </div>
       </Row>
       <div>
         <FeatureGrid />
@@ -182,6 +185,18 @@ const Row = styled.div`
   flex-direction: column;
   background-color: black;
   color: white;
+
+  .site-description-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 24px;
+    text-align: center;
+
+    h3 {
+      align-self: center;
+    }
+  }
 
   /* @media ${MediaQueries.MD} {
     flex-direction: row;

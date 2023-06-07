@@ -10,6 +10,10 @@ const ProgressMeterContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media ${MediaQueries.MD} {
+    padding: 24px;
+  }
 `;
 
 const ProgressBar = styled.div`

@@ -163,7 +163,6 @@ const TextContainer = styled.div`
 
   .active-underline-span {
     height: 2px;
-    color: black;
     color: ${Colors.elegant.accentPurple};
   }
 `;

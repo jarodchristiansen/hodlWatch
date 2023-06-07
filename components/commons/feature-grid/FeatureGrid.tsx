@@ -184,7 +184,8 @@ const FeatureGrid = () => {
 const GridContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.elegant.white};
+  background-color: ${Colors.gainsboro};
+  padding: 24px;
 
   h3 {
     align-self: center;

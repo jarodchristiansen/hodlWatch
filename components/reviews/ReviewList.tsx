@@ -32,13 +32,15 @@ const Quote = styled.p`
 
 const Author = styled.p`
   font-size: 14px;
-  font-weight: bold;
   margin-bottom: 4px;
+  font-weight: 600;
+  color: ${Colors.elegant.accentPurple};
 `;
 
 const Occupation = styled.p`
-  font-size: 12px;
-  color: #888;
+  font-size: 14px;
+  font-weight: bold;
+  color: ${Colors.elegant.secondaryGray};
 `;
 
 const ReviewList: React.FC = () => {
