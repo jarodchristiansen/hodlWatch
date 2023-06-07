@@ -1,4 +1,5 @@
 import { Colors } from "@/styles/variables";
+import Image from "next/image";
 import styled from "styled-components";
 
 const FeatureGrid = () => {
@@ -9,6 +10,12 @@ const FeatureGrid = () => {
         <li>
           <span className="feature-icon">
             {/* Add the corresponding icon here */}
+            {/* <Image
+              width={80}
+              height={80}
+              alt="portfolio tracking"
+              src="/landing/portfolio-tracking.svg"
+            /> */}
           </span>
           Portfolio Tracking:
           <ul>
@@ -116,28 +123,6 @@ const FeatureGrid = () => {
           <span className="feature-icon">
             {/* Add the corresponding icon here */}
           </span>
-          Customizable Alerts:
-          <ul>
-            <li>
-              Set personalized alerts to stay informed about price movements and
-              market conditions.
-            </li>
-            <li>
-              Receive instant notifications about important events, such as
-              price thresholds or news updates.
-            </li>
-            <li>
-              Tailor your alerts to your specific investment strategies and
-              never miss out on potential opportunities.
-            </li>
-          </ul>
-        </li>
-        {/* Repeat the above structure for the remaining features */}
-
-        <li>
-          <span className="feature-icon">
-            {/* Add the corresponding icon here */}
-          </span>
           Security and Privacy:
           <ul>
             <li>
@@ -151,27 +136,6 @@ const FeatureGrid = () => {
             <li>
               Mesh prioritizes the security and confidentiality of your crypto
               journey.
-            </li>
-          </ul>
-        </li>
-        {/* Repeat the above structure for the remaining features */}
-
-        <li>
-          <span className="feature-icon">
-            {/* Add the corresponding icon here */}
-          </span>
-          Cross-platform Accessibility:
-          <ul>
-            <li>
-              Access Mesh anytime, anywhere, with our cross-platform support.
-            </li>
-            <li>
-              Seamlessly switch between desktop and mobile devices while
-              enjoying a consistent experience.
-            </li>
-            <li>
-              Stay connected to your portfolio and the community, no matter
-              where you are.
             </li>
           </ul>
         </li>
