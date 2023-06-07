@@ -1,4 +1,4 @@
-import { MediaQueries } from "@/styles/variables";
+import { Colors, MediaQueries } from "@/styles/variables";
 import React from "react";
 import styled from "styled-components";
 
@@ -7,7 +7,8 @@ const ReviewListContainer = styled.div`
   flex-direction: column;
   overflow-x: auto;
   justify-content: space-between;
-  padding: 20px;
+  padding: 42px 20px;
+  gap: 20px;
 
   @media ${MediaQueries.MD} {
     flex-direction: row;
@@ -16,7 +17,7 @@ const ReviewListContainer = styled.div`
 
 const ReviewCard = styled.div`
   padding: 16px;
-  background-color: #f2f2f2;
+  background-color: ${Colors.elegant.white};
   border-radius: 8px;
   scroll-snap-align: start;
   box-sizing: border-box;
@@ -26,6 +27,7 @@ const Quote = styled.p`
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
+  color: black;
 `;
 
 const Author = styled.p`

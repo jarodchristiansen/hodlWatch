@@ -9,8 +9,10 @@ import Link from "next/link";
 import { useMemo } from "react";
 import styled from "styled-components";
 import LandingCard from "components/commons/info-cards/landing-card";
-import ProgressMeter from "components/progressmeter/progressmeter";
-import ReviewList from "components/reviews/reviewlist";
+import ProgressMeter from "components/progressmeter/ProgressMeter";
+import ReviewList from "components/reviews/ReviewList";
+import CTACard from "components/ctas/CTACard";
+import FeatureGrid from "components/commons/feature-grid/FeatureGrid";
 
 /**
  *
@@ -149,204 +151,20 @@ export default function Home({ data }) {
         benefits of your app, such as convenience, simplicity, and the social
         element it offers.
       </Row>
-      <Row>
-        <h3>Features</h3>
-        <ul className="features-list">
-          <li>
-            <span className="feature-icon">
-              {/* Add the corresponding icon here */}
-            </span>
-            Portfolio Tracking:
-            <ul>
-              <li>
-                Stay on top of your crypto investments with our intuitive
-                portfolio tracking feature.
-              </li>
-              <li>
-                Monitor real-time prices, performance, and allocation across
-                multiple assets.
-              </li>
-              <li>
-                Visualize your portfolio growth and make data-driven decisions
-                with ease.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <span className="feature-icon">
-              {/* Add the corresponding icon here */}
-            </span>
-            Comprehensive Metrics:
-            <ul>
-              <li>
-                Dive deep into financial and on-chain metrics to gain valuable
-                insights into crypto assets.
-              </li>
-              <li>
-                Analyze price movements, market capitalization, trading volume,
-                and more.
-              </li>
-              <li>
-                Evaluate token fundamentals and historical data to make informed
-                investment choices.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <span className="feature-icon">
-              {/* Add the corresponding icon here */}
-            </span>
-            Social Community:
-            <ul>
-              <li>
-                Connect with a vibrant community of crypto enthusiasts and
-                investors.
-              </li>
-              <li>
-                Engage in discussions, share knowledge, and stay updated on the
-                latest trends.
-              </li>
-              <li>
-                Foster valuable connections, collaborate on projects, and
-                explore new opportunities.
-              </li>
-            </ul>
-          </li>
-          {/* Repeat the above structure for the remaining features */}
-
-          <li>
-            <span className="feature-icon">
-              {/* Add the corresponding icon here */}
-            </span>
-            News and Updates:
-            <ul>
-              <li>
-                Access a curated feed of crypto news, articles, and market
-                updates in real-time
-              </li>
-              <li>
-                Stay informed about industry developments, regulatory changes,
-                and market trends.
-              </li>
-              <li>
-                Get a holistic view of the crypto ecosystem and make informed
-                decisions based on the latest information.
-              </li>
-            </ul>
-          </li>
-          {/* Repeat the above structure for the remaining features */}
-
-          <li>
-            <span className="feature-icon">
-              {/* Add the corresponding icon here */}
-            </span>
-            User-friendly Interface:
-            <ul>
-              <li>
-                Enjoy a sleek and intuitive interface designed for seamless user
-                experience.
-              </li>
-              <li>
-                Navigate effortlessly through the app's features and access
-                information with ease.
-              </li>
-              <li>
-                Experience the power of crypto in a user-friendly environment
-                that simplifies complex concepts.
-              </li>
-            </ul>
-          </li>
-          {/* Repeat the above structure for the remaining features */}
-
-          <li>
-            <span className="feature-icon">
-              {/* Add the corresponding icon here */}
-            </span>
-            Customizable Alerts:
-            <ul>
-              <li>
-                Set personalized alerts to stay informed about price movements
-                and market conditions.
-              </li>
-              <li>
-                Receive instant notifications about important events, such as
-                price thresholds or news updates.
-              </li>
-              <li>
-                Tailor your alerts to your specific investment strategies and
-                never miss out on potential opportunities.
-              </li>
-            </ul>
-          </li>
-          {/* Repeat the above structure for the remaining features */}
-
-          <li>
-            <span className="feature-icon">
-              {/* Add the corresponding icon here */}
-            </span>
-            Security and Privacy:
-            <ul>
-              <li>
-                Rest assured knowing that your data and assets are protected
-                with robust security measures.
-              </li>
-              <li>
-                Safeguard your privacy and maintain full control over your
-                personal information.
-              </li>
-              <li>
-                Mesh prioritizes the security and confidentiality of your crypto
-                journey.
-              </li>
-            </ul>
-          </li>
-          {/* Repeat the above structure for the remaining features */}
-
-          <li>
-            <span className="feature-icon">
-              {/* Add the corresponding icon here */}
-            </span>
-            Cross-platform Accessibility:
-            <ul>
-              <li>
-                Access Mesh anytime, anywhere, with our cross-platform support.
-              </li>
-              <li>
-                Seamlessly switch between desktop and mobile devices while
-                enjoying a consistent experience.
-              </li>
-              <li>
-                Stay connected to your portfolio and the community, no matter
-                where you are.
-              </li>
-            </ul>
-          </li>
-          {/* Repeat the above structure for the remaining features */}
-        </ul>
-      </Row>
+      <div>
+        <FeatureGrid />
+      </div>
 
       <div>
-        Roadmap
         <ProgressMeter currentStep={1} />
       </div>
 
       <Row>
-        Reviews Section
-        <div>
-          <ReviewList />
-        </div>
+        <ReviewList />
       </Row>
 
       <div>
-        Call To action card "Take control of your crypto journey with Mesh
-        today! Sign up now to explore the power of simplified data insights,
-        seamless portfolio tracking, and a vibrant community of crypto
-        enthusiasts. Join the Mesh family and unleash the full potential of your
-        crypto investments!" Feel free to customize the testimonials and CTA
-        text to align with your app's unique value proposition and target
-        audience. These examples can serve as a starting point, and you can
-        adjust them based on the actual testimonials and reviews you receive in
-        the future. Let me know if there's anything else I can assist you with!
+        <CTACard />
       </div>
 
       {/*  <div className="mid-row">
@@ -364,15 +182,6 @@ const Row = styled.div`
   flex-direction: column;
   background-color: black;
   color: white;
-
-  h3 {
-    align-self: center;
-  }
-
-  .features-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
 
   /* @media ${MediaQueries.MD} {
     flex-direction: row;
@@ -475,17 +284,17 @@ const getNewsFeed = async () => {
 };
 
 export const getServerSideProps = async (context) => {
-  let data = null;
+  let data = {};
 
-  const response = await getNewsFeed(); // any async promise here.
+  // const response = await getNewsFeed(); // any async promise here.
 
-  data = response.data;
+  // data = response.data;
 
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
+  // if (!data) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
 
   return {
     props: data, // will be passed to the page component as props
