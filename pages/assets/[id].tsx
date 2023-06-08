@@ -71,24 +71,24 @@ const AssetDetailsPage = ({ session }) => {
       });
     }
 
-    getDetails({
-      variables: {
-        name: name || id || "BTC",
-        time: timeQuery,
-      },
-    });
+    // getDetails({
+    //   variables: {
+    //     name: name || id || "BTC",
+    //     time: timeQuery,
+    //   },
+    // });
   }, [timeQuery, id]);
 
-  useEffect(() => {
-    if (isBtc) {
-      // fetch btcMacrosQuery
-      getBTCMacros({
-        variables: {
-          symbol: id,
-        },
-      });
-    }
-  }, [isBtc]);
+  // useEffect(() => {
+  //   if (isBtc) {
+  //     // fetch btcMacrosQuery
+  //     getBTCMacros({
+  //       variables: {
+  //         symbol: id,
+  //       },
+  //     });
+  //   }
+  // }, [isBtc]);
 
   const assetDetails = useMemo(() => {
     if (!GeckoDetails?.getGeckoAssetDetails) return [];

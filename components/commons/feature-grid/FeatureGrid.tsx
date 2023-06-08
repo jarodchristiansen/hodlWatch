@@ -148,8 +148,10 @@ const FeatureGrid = () => {
 const GridContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.gainsboro};
-  padding: 24px;
+  background-color: ${Colors.lightGray};
+  /* padding: 24px; */
+  padding: 24px 14px;
+  align-items: center;
 
   h3 {
     align-self: center;
@@ -158,6 +160,22 @@ const GridContainer = styled.div`
   .features-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 18px;
+
+    text-align: start;
+  }
+
+  ul {
+    /* list-style: none; */
+    padding-inline-start: 12px;
+    padding-inline-end: 12px;
+    padding-top: 12px;
+    background-color: ${Colors.elegant.white};
+    border: 2px solid ${Colors.lightGray};
+
+    li {
+      padding-top: 8px;
+    }
   }
 `;
 

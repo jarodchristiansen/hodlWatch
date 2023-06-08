@@ -12,6 +12,7 @@ import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
 import { MediaQueries } from "@/styles/variables";
 import { GET_COLLECTIVE_STATS } from "../../helpers/queries/collective";
 import client from "../../apollo-client";
+import { Colors } from "@/styles/variables";
 import TopAssetsRow from "@/components/assets/TopAssetsRow";
 
 /**
@@ -232,6 +233,7 @@ const FilterBar = styled.div`
   top: 0rem;
   z-index: 100;
   border-bottom: 1px solid gray;
+  background-color: ${Colors.darkGray};
 
   text-align: right;
   white-space: nowrap;
@@ -240,7 +242,7 @@ const FilterBar = styled.div`
   padding: 1.5rem 2rem;
 
   @media ${MediaQueries.MD} {
-    position: relative;
+    /* position: relative; */
     padding: 1.5rem 6rem;
   }
 `;

@@ -13,6 +13,7 @@ import ProgressMeter from "components/progressmeter/ProgressMeter";
 import ReviewList from "components/reviews/ReviewList";
 import CTACard from "components/ctas/CTACard";
 import FeatureGrid from "components/commons/feature-grid/FeatureGrid";
+import { FontFamily } from "@/styles/variables";
 
 /**
  *
@@ -136,30 +137,44 @@ export default function Home({ data }) {
             Welcome to Mesh, your all-in-one crypto companion that unlocks the
             power of decentralized finance. Seamlessly track your portfolio,
             connect with a vibrant community, and thrive in the ever-evolving
-            world of cryptocurrencies. Stay Informed: Gain a competitive edge
-            with real-time market data, comprehensive financial metrics, and
-            news updates. Mesh provides you with a clear view of the crypto
-            universe, empowering you to make informed investment decisions.
+            world of cryptocurrencies.
+          </p>
+
+          <p>
+            Stay Informed: Gain a competitive edge with real-time market data,
+            comprehensive financial metrics, and news updates. Mesh provides you
+            with a clear view of the crypto universe, empowering you to make
+            informed investment decisions.
+          </p>
+
+          <p>
             Connect: Join a community of crypto enthusiasts and investors.
             Engage in lively discussions, share insights, and stay connected
             with the latest trends. Collaborate, learn, and grow together in the
-            exciting realm of blockchain technology. Thrive: Mesh is your
-            gateway to success in the crypto revolution. Unleash the potential
-            of your portfolio, analyze trends, and identify opportunities to
-            maximize your returns. With Mesh, you'll be well-equipped to
-            navigate the crypto landscape with confidence and make waves in the
-            world of finance. Join Mesh today and embark on a transformative
-            journey where simplicity meets power, and your crypto aspirations
-            become reality
+            exciting realm of blockchain technology.
+          </p>
+
+          <p>
+            Thrive: Mesh is your gateway to success in the crypto revolution.
+            Unleash the potential of your portfolio, analyze trends, and
+            identify opportunities to maximize your returns. With Mesh, you'll
+            be well-equipped to navigate the crypto landscape with confidence
+            and make waves in the world of finance.
+          </p>
+
+          <p>
+            Join Mesh today and embark on a transformative journey where
+            simplicity meets power, and your crypto aspirations become reality
           </p>
         </div>
       </Row>
-      <div>
-        <FeatureGrid />
-      </div>
 
       <div>
         <ProgressMeter currentStep={1} />
+      </div>
+
+      <div>
+        <FeatureGrid />
       </div>
 
       <Row>
@@ -196,6 +211,10 @@ const Row = styled.div`
     h3 {
       align-self: center;
     }
+
+    p {
+      font-family: ${FontFamily.secondary};
+    }
   }
 
   /* @media ${MediaQueries.MD} {
@@ -207,7 +226,9 @@ const AlternateHomePageWrapper = styled.div`
   .top-row {
     display: flex;
     flex-direction: column;
-    padding: 18px;
+    gap: 24px;
+    padding: 24px;
+    align-items: center;
 
     video {
       width: 100%;
@@ -217,7 +238,7 @@ const AlternateHomePageWrapper = styled.div`
 
     @media ${MediaQueries.MD} {
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: space-evenly;
 
       video {
         width: 50%;

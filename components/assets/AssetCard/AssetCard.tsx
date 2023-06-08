@@ -154,7 +154,7 @@ const ImageContainer = styled.div`
 
 const AssetCardWrapper = styled.div`
   border-radius: 12px;
-  background-color: white;
+  background-color: ${Colors.lightGray};
   border: 1px solid black;
   text-align: center;
   margin: 1rem 0;
