@@ -44,6 +44,8 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
     setAssetData(data?.getAsset);
   }, [data?.getAsset]);
 
+  console.log({ data }, "from FETCH ASSETS");
+
   const filterAssets = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e?.preventDefault();
 
@@ -135,13 +137,13 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
 
         {/* {!!collectiveDataComponents && collectiveDataComponents} */}
 
-        {!!collectiveData?.data?.getCollectiveStats?.top_assets?.length && (
+        {/* {!!collectiveData?.data?.getCollectiveStats?.top_assets?.length && (
           <div data-testid="top-assets-row">
             <TopAssetsRow
               topAssets={collectiveData?.data?.getCollectiveStats?.top_assets}
             />
           </div>
-        )}
+        )} */}
 
         <div>
           {!!renderedAssets && renderedAssets}

@@ -30,7 +30,7 @@ const typeDefs = gql`
     symbol: String
     name: String
     block_time_in_minutes: String
-    image: ImageParts
+    image: String
     favorite_count: Float
   }
 

@@ -22,7 +22,7 @@ const AssetsSchema = new Schema({
     type: String,
     trim: true,
   },
-  imageUrl: {
+  image: {
     type: String,
     trim: false,
   },

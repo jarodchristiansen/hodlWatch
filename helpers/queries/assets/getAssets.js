@@ -20,10 +20,7 @@ export const GET_ASSETS_V2 = gql`
       id
       name
       symbol
-      image {
-        thumb
-        small
-      }
+      image
     }
   }
 `;
@@ -34,10 +31,7 @@ export const GET_ASSETS = gql`
       id
       name
       symbol
-      image {
-        thumb
-        small
-      }
+      image
     }
   }
 `;

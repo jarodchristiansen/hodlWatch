@@ -21,6 +21,7 @@
     "bootstrap": "^5.2.3",
     "ccxt": "^2.5.12",
     "coingecko-api": "^1.0.10",
+    "coingecko-api-v3": "^0.0.26",
     "cookie-cutter": "^0.2.0",
     "cross-fetch": "^3.1.5",
     "cryptr": "^6.0.3",

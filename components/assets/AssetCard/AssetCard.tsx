@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { ADD_FAVORITE, REMOVE_FAVORITE } from "@/helpers/mutations/user";
 import { useMutation } from "@apollo/client";
 import { GET_USER } from "@/helpers/queries/user";
+import { Colors } from "@/styles/variables";
 
 interface AssetCardProps {
   asset: Asset;
@@ -20,8 +21,7 @@ export type Asset = {
   name: string;
   description: string;
   symbol: string;
-  imageUrl: string;
-  image: { small: string; thumb: string };
+  image: string;
 };
 
 /**
@@ -33,8 +33,10 @@ export type Asset = {
  */
 const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
   const [assetDetails, setAssetDetails] = useState();
-  const { title, name, description, symbol, imageUrl, image } = asset;
-  const { thumb, small } = image;
+  const { title, name, description, symbol, image } = asset;
+  // const { thumb, small } = image;
+
+  console.log({ asset });
 
   const exploreLink = {
     pathname: `/assets/${symbol}`,
@@ -60,7 +62,7 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
           asset: {
             title: asset.name,
             symbol: symbol.toUpperCase(),
-            image: image.small,
+            image: image,
           },
         },
       },
@@ -75,7 +77,7 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
           asset: {
             title: asset.name,
             symbol: symbol.toUpperCase(),
-            image: image.small,
+            image: image,
           },
         },
       },
@@ -122,24 +124,33 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
             {symbol.toUpperCase() || "Card subtitle"}
           </h6>
 
-          <div>
+          <ImageContainer>
             <Image
-              className="my-2"
-              src={imageUrl || small}
+              className="image"
+              src={image}
               alt={name || title}
               // @ts-ignore
               unoptimized={"true"}
             />
-          </div>
+          </ImageContainer>
 
           <Link href={exploreLink} as={`/assets/${symbol}?name=${name}`}>
-            <button className={"standardized-button my-2"}>Explore</button>
+            <button>Explore</button>
           </Link>
         </div>
       </AssetCardWrapper>
     </AssetCardAnimationWrapper>
   );
 };
+
+const ImageContainer = styled.div`
+  padding: 2rem;
+
+  .image {
+    width: 100px;
+    height: 100px;
+  }
+`;
 
 const AssetCardWrapper = styled.div`
   border-radius: 12px;
@@ -157,6 +168,14 @@ const AssetCardWrapper = styled.div`
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+
+  button {
+    color: ${Colors.elegant.white};
+    background-color: ${Colors.elegant.accentPurple};
+    border-radius: 8px;
+    padding: 8px;
+    font-weight: 600;
   }
 `;
 

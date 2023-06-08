@@ -1,19 +1,35 @@
 const CoinGecko = require("coingecko-api");
+import { CoinGeckoClient } from "coingecko-api-v3";
 import Asset from "../../models/asset";
 import btc_macros from "../../models/btc_macro";
 
 export const AssetResolver = {
   getAssets: async (_, { offset, limit, topListBy }) => {
     try {
-      const CoinGeckoClient = new CoinGecko();
-      let assets = await CoinGeckoClient.coins.all({
-        page: offset,
-        per_page: limit,
-      });
-      // const assets = await Asset.find({});
-      return assets?.data;
+      // const CoinGeckoClient = new CoinGecko();
+      // const client = new CoinGeckoClient({
+      //   timeout: 10000,
+      //   autoRetry: false,
+      // });
+
+      // let assets = await client.coinMarket({
+      //   vs_currency: "USD",
+      //   page: offset,
+      //   per_page: limit,
+      //   order: "market_cap_desc",
+      // });
+
+      // console.log({ assets });
+
+      // const assetsByPageNumber = assets?.splice(offset - 1, limit);
+
+      const assets = await Asset.find({})
+        .limit(offset * limit)
+        .sort("-market_cap");
+
+      return assets;
     } catch (err) {
-      console.log(err);
+      console.log({ err }, "IN CATCH");
     }
   },
 
