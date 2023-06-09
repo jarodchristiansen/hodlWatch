@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { ADD_FAVORITE, REMOVE_FAVORITE } from "@/helpers/mutations/user";
 import { useMutation } from "@apollo/client";
 import { GET_USER } from "@/helpers/queries/user";
+import { Colors } from "@/styles/variables";
 
 interface AssetCardProps {
   asset: Asset;
@@ -20,8 +21,16 @@ export type Asset = {
   name: string;
   description: string;
   symbol: string;
-  imageUrl: string;
-  image: { small: string; thumb: string };
+  image: string;
+  current_price: number;
+  ath: number;
+  atl: number;
+  ath_change_percentage: number;
+  atl_change_percentage: number;
+  circulating_supply: number;
+  total_supply: number;
+  atl_date: number;
+  ath_date: number;
 };
 
 /**
@@ -33,8 +42,26 @@ export type Asset = {
  */
 const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
   const [assetDetails, setAssetDetails] = useState();
-  const { title, name, description, symbol, imageUrl, image } = asset;
-  const { thumb, small } = image;
+  const [cardView, setCardView] = useState("A");
+
+  const {
+    title,
+    name,
+    description,
+    symbol,
+    image,
+    current_price,
+    ath,
+    atl,
+    ath_change_percentage,
+    atl_change_percentage,
+    circulating_supply,
+    total_supply,
+    atl_date,
+    ath_date,
+  } = asset;
+
+  console.log({ asset });
 
   const exploreLink = {
     pathname: `/assets/${symbol}`,
@@ -60,7 +87,7 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
           asset: {
             title: asset.name,
             symbol: symbol.toUpperCase(),
-            image: image.small,
+            image: image,
           },
         },
       },
@@ -75,75 +102,144 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
           asset: {
             title: asset.name,
             symbol: symbol.toUpperCase(),
-            image: image.small,
+            image: image,
           },
         },
       },
     });
   };
 
+  const changeCardView = (newView) => {
+    setCardView(newView);
+  };
+
   return (
     <AssetCardAnimationWrapper>
-      <AssetCardWrapper>
-        <div className={"card-body py-4 holder"}>
-          {!favorited && (
-            <div
-              onClick={addToFavorites}
-              className="favorite-button"
-              data-testid="add-button"
-            >
+      {cardView === "A" && (
+        <AssetCardWrapper>
+          <div className={"card-body py-4 holder"}>
+            {!favorited && (
+              <div
+                onClick={addToFavorites}
+                className="favorite-button"
+                data-testid="add-button"
+              >
+                <Image
+                  src={"/images/empty-star.svg"}
+                  className={"pointer-link"}
+                  height={"40px"}
+                  width={"40px"}
+                />
+              </div>
+            )}
+            {favorited && (
+              <div
+                onClick={removeFromFavorites}
+                className="favorite-button"
+                data-testid="remove-button"
+              >
+                <Image
+                  src={"/images/filled-star.svg"}
+                  className={"pointer-link"}
+                  height={"40px"}
+                  width={"40px"}
+                  alt="block-logo"
+                />
+              </div>
+            )}
+
+            <h4 className="card-title">{title || name || "Card Title"}</h4>
+
+            <h6 className="card-subtitle my-2 text-muted">
+              {symbol.toUpperCase() || "Card subtitle"}
+            </h6>
+
+            <ImageContainer>
               <Image
-                src={"/images/empty-star.svg"}
-                className={"pointer-link"}
-                height={"40px"}
-                width={"40px"}
+                className="image"
+                src={image}
+                alt={name || title}
+                // @ts-ignore
+                unoptimized={"true"}
               />
-            </div>
-          )}
-          {favorited && (
-            <div
-              onClick={removeFromFavorites}
-              className="favorite-button"
-              data-testid="remove-button"
-            >
-              <Image
-                src={"/images/filled-star.svg"}
-                className={"pointer-link"}
-                height={"40px"}
-                width={"40px"}
-                alt="block-logo"
-              />
-            </div>
-          )}
+            </ImageContainer>
 
-          <h4 className="card-title">{title || name || "Card Title"}</h4>
+            <Link href={exploreLink} as={`/assets/${symbol}?name=${name}`}>
+              <button>Explore</button>
+            </Link>
 
-          <h6 className="card-subtitle my-2 text-muted">
-            {symbol.toUpperCase() || "Card subtitle"}
-          </h6>
-
-          <div>
-            <Image
-              className="my-2"
-              src={imageUrl || small}
-              alt={name || title}
-              // @ts-ignore
-              unoptimized={"true"}
-            />
+            <button onClick={() => changeCardView("B")}>Snapshot</button>
           </div>
+        </AssetCardWrapper>
+      )}
 
-          <Link href={exploreLink} as={`/assets/${symbol}?name=${name}`}>
-            <button className={"standardized-button my-2"}>Explore</button>
-          </Link>
-        </div>
-      </AssetCardWrapper>
+      {cardView === "B" && (
+        <AssetCardWrapper>
+          <div className={"card-body py-4 holder"}>
+            {!favorited && (
+              <div
+                onClick={addToFavorites}
+                className="favorite-button"
+                data-testid="add-button"
+              >
+                <Image
+                  src={"/images/empty-star.svg"}
+                  className={"pointer-link"}
+                  height={"40px"}
+                  width={"40px"}
+                />
+              </div>
+            )}
+            {favorited && (
+              <div
+                onClick={removeFromFavorites}
+                className="favorite-button"
+                data-testid="remove-button"
+              >
+                <Image
+                  src={"/images/filled-star.svg"}
+                  className={"pointer-link"}
+                  height={"40px"}
+                  width={"40px"}
+                  alt="block-logo"
+                />
+              </div>
+            )}
+
+            <h4>{title || name}</h4>
+
+            <div>
+              <p>Current Price: {current_price}</p>
+              <p>All Time High: {ath}</p>
+              <p>All Time Low: {atl}</p>
+              <p>Ath Change Percentage: {ath_change_percentage}</p>
+              <p>ATH Date: {ath_date}</p>
+              <p>ATL Change Percentage: {atl_change_percentage}</p>
+              <p>ATL Date: {atl_date}</p>
+              <p>Circulating Supply: {circulating_supply}</p>
+              <p>Total Supply: {total_supply}</p>
+            </div>
+
+            <button onClick={() => changeCardView("A")}>Main View</button>
+          </div>
+        </AssetCardWrapper>
+      )}
     </AssetCardAnimationWrapper>
   );
 };
 
+const ImageContainer = styled.div`
+  padding: 2rem;
+
+  .image {
+    width: 100px;
+    height: 100px;
+  }
+`;
+
 const AssetCardWrapper = styled.div`
   border-radius: 12px;
-  background-color: white;
+  background-color: ${Colors.lightGray};
   border: 1px solid black;
   text-align: center;
   margin: 1rem 0;
@@ -157,6 +253,14 @@ const AssetCardWrapper = styled.div`
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+
+  button {
+    color: ${Colors.elegant.white};
+    background-color: ${Colors.elegant.accentPurple};
+    border-radius: 8px;
+    padding: 8px;
+    font-weight: 600;
   }
 `;
 

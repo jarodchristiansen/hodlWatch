@@ -1,3 +1,4 @@
+import { BorderRadius, Colors, FontWeight } from "@/styles/variables";
 import React, { useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
 
@@ -43,24 +44,28 @@ const SearchForm = ({
         data-testid="search-input"
       />
 
-      <button
-        type={"submit"}
-        className={"standardized-button"}
-        data-testid="search-button"
-      >
+      <SubmitButton type={"submit"} data-testid="search-button">
         Submit
-      </button>
+      </SubmitButton>
     </form>
   );
 };
 
+const SubmitButton = styled.button`
+  background-color: ${Colors.elegant.accentPurple};
+  color: ${Colors.elegant.white};
+  font-weight: ${FontWeight.bold};
+  border-radius: ${BorderRadius.small};
+  border: 1px solid black;
+`;
+
 const StyledInput = styled.input`
   color: black;
-  font-weight: bolder;
-  border-radius: 5px;
+  font-weight: ${FontWeight.bold};
+  border-radius: ${BorderRadius.small};
   border: 1px solid gray;
-  padding: 0.5rem 1rem;
-  box-shadow: 2px 4px 6px gray;
+  /* padding: 0.5rem 1rem; */
+  /* box-shadow: 2px 4px 6px gray; */
 `;
 
 export default SearchForm;

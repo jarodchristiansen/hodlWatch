@@ -1,6 +1,6 @@
 import NewsBlock from "@/components/news/news-block";
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
-import { MediaQueries } from "@/styles/MediaQueries";
+import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
@@ -54,7 +54,7 @@ const NewsFeedPage = () => {
     <PageWrapper>
       <Head>
         <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
-        <title>HodlWatch- NewsFeed</title>
+        <title>Mesh- NewsFeed</title>
       </Head>
       {/* <FilterBar>
         <button className="standardized-button">All</button>

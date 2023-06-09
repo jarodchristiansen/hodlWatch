@@ -1,4 +1,4 @@
-import { MediaQueries } from "@/styles/MediaQueries";
+import { MediaQueries } from "@/styles/variables";
 import { getProviders, getSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";

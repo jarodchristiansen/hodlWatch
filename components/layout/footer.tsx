@@ -1,4 +1,4 @@
-import { MediaQueries } from "@/styles/MediaQueries";
+import { MediaQueries } from "@/styles/variables";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -100,12 +100,6 @@ const InfoColumnsContainer = styled.div`
 const FooterContainer = styled.div`
   width: 100%;
   background: rgb(0, 0, 0);
-  background: linear-gradient(
-    131deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(46, 46, 46, 1) 48%,
-    rgba(0, 0, 0, 1) 100%
-  );
 
   color: white;
   padding: 2rem 2rem;

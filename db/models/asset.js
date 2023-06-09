@@ -22,7 +22,7 @@ const AssetsSchema = new Schema({
     type: String,
     trim: true,
   },
-  imageUrl: {
+  image: {
     type: String,
     trim: false,
   },
@@ -37,6 +37,54 @@ const AssetsSchema = new Schema({
   tags: {
     type: Array,
     trim: true,
+  },
+  current_price: {
+    type: Number,
+    trim: false,
+  },
+  market_cap: {
+    type: Number,
+    trim: false,
+  },
+  market_cap_rank: {
+    type: Number,
+    trim: false,
+  },
+  fully_diluted_valuation: {
+    type: Number,
+    trim: false,
+  },
+  circulating_supply: {
+    type: Number,
+    trim: false,
+  },
+  total_supply: {
+    type: Number,
+    trim: false,
+  },
+  ath: {
+    type: Number,
+    trim: false,
+  },
+  ath_change_percentage: {
+    type: Number,
+    trim: false,
+  },
+  ath_date: {
+    type: Date,
+    trim: false,
+  },
+  atl: {
+    type: Number,
+    trim: false,
+  },
+  atl_change_percentage: {
+    type: Number,
+    trim: false,
+  },
+  atl_date: {
+    type: Date,
+    trim: false,
   },
   // urls: {
   //   type: Enumerator,

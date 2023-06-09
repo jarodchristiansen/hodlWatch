@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { MediaQueries } from "@/styles/MediaQueries";
-import { Colors } from "@/styles/Colors";
+import { MediaQueries } from "@/styles/variables";
+import { Colors } from "@/styles/variables";
 
 /**
  *
@@ -95,9 +95,14 @@ function Header() {
     <Navbar
       collapseOnSelect
       expand="lg"
-      // bg="light"
-      // variant="light"
+      // bg="dark"
+      // variant="dark"
       onSelect={handleSelect}
+      className="navbar-main"
+      style={{
+        backgroundColor: Colors.elegant.black,
+        color: Colors.elegant.white,
+      }}
     >
       <Container>
         <Navbar.Brand onClick={() => setSelectedRoute("")}>
@@ -136,7 +141,7 @@ const RouteRow = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  font-weight: bold;
+  font-weight: 600;
 
   @media ${MediaQueries.MD} {
     flex-direction: row;
@@ -155,12 +160,10 @@ const SignOutSpan = styled.span`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  color: black;
 
   .active-underline-span {
     height: 2px;
-    color: black;
-    background-color: ${Colors.PrimaryButtonBackground};
+    color: ${Colors.elegant.accentPurple};
   }
 `;
 

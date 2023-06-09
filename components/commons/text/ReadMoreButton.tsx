@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { Colors } from "@/styles/Colors";
+import { Colors } from "@/styles/variables";
 
 const ReadMoreButton = ({ children }) => {
   const [currentText, setCurrentText] = useState();
@@ -70,7 +70,6 @@ const ReadMoreButton = ({ children }) => {
 
 const ReadMoreWrapper = styled.div`
   .read-more-text {
-    /* color: ${Colors.PrimaryButtonBackground}; */
     max-width: 12rem;
     margin: 1rem auto;
   }

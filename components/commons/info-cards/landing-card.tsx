@@ -1,4 +1,4 @@
-import { MediaQueries } from "@/styles/MediaQueries";
+import { Colors, MediaQueries } from "@/styles/variables";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
@@ -83,18 +83,18 @@ const LandingCard = ({
 
       {!!renderLearnMore && (
         <div className="button-container">
-          <button
+          <CTAButton
             className="standardized-button"
             onClick={() => routeToEducation()}
           >
             Our Story
-          </button>
-          <button
+          </CTAButton>
+          <CTAButton
             className="secondary-button"
             onClick={() => routeToEducation()}
           >
             Web3
-          </button>
+          </CTAButton>
         </div>
       )}
     </InfoCardContainer>
@@ -137,7 +137,6 @@ const InfoCardContainer = styled.div<InfoCardContainerProps>`
 
   .info-card-header {
     text-align: center;
-    padding: 2rem 0;
 
     .heading-text {
       font-size: 48px;
@@ -166,6 +165,22 @@ const InfoCardContainer = styled.div<InfoCardContainerProps>`
 
   @media ${MediaQueries.LG} {
     padding: 2rem 2rem;
+  }
+`;
+
+const CTAButton = styled.button`
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: ${Colors.elegant.accentPurple};
+  color: #fff;
+  border: 2px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
   }
 `;
 

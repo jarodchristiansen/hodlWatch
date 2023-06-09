@@ -3,7 +3,7 @@ import { useState } from "react";
 import { items } from "../../../public/landing-carousel-images.js";
 import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
-import { MediaQueries } from "@/styles/MediaQueries";
+import { MediaQueries } from "@/styles/variables";
 
 const LandingCarousel = () => {
   const { bootstrap } = items;
