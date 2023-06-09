@@ -22,6 +22,15 @@ export type Asset = {
   description: string;
   symbol: string;
   image: string;
+  current_price: number;
+  ath: number;
+  atl: number;
+  ath_change_percentage: number;
+  atl_change_percentage: number;
+  circulating_supply: number;
+  total_supply: number;
+  atl_date: number;
+  ath_date: number;
 };
 
 /**
@@ -33,7 +42,24 @@ export type Asset = {
  */
 const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
   const [assetDetails, setAssetDetails] = useState();
-  const { title, name, description, symbol, image } = asset;
+  const [cardView, setCardView] = useState("A");
+
+  const {
+    title,
+    name,
+    description,
+    symbol,
+    image,
+    current_price,
+    ath,
+    atl,
+    ath_change_percentage,
+    atl_change_percentage,
+    circulating_supply,
+    total_supply,
+    atl_date,
+    ath_date,
+  } = asset;
   // const { thumb, small } = image;
 
   console.log({ asset });
@@ -84,61 +110,141 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
     });
   };
 
+  const changeCardView = (newView) => {
+    setCardView(newView);
+  };
+
   return (
     <AssetCardAnimationWrapper>
-      <AssetCardWrapper>
-        <div className={"card-body py-4 holder"}>
-          {!favorited && (
-            <div
-              onClick={addToFavorites}
-              className="favorite-button"
-              data-testid="add-button"
-            >
+      {cardView === "A" && (
+        <AssetCardWrapper>
+          <div className={"card-body py-4 holder"}>
+            {!favorited && (
+              <div
+                onClick={addToFavorites}
+                className="favorite-button"
+                data-testid="add-button"
+              >
+                <Image
+                  src={"/images/empty-star.svg"}
+                  className={"pointer-link"}
+                  height={"40px"}
+                  width={"40px"}
+                />
+              </div>
+            )}
+            {favorited && (
+              <div
+                onClick={removeFromFavorites}
+                className="favorite-button"
+                data-testid="remove-button"
+              >
+                <Image
+                  src={"/images/filled-star.svg"}
+                  className={"pointer-link"}
+                  height={"40px"}
+                  width={"40px"}
+                  alt="block-logo"
+                />
+              </div>
+            )}
+
+            <h4 className="card-title">{title || name || "Card Title"}</h4>
+
+            <h6 className="card-subtitle my-2 text-muted">
+              {symbol.toUpperCase() || "Card subtitle"}
+            </h6>
+
+            <ImageContainer>
               <Image
-                src={"/images/empty-star.svg"}
-                className={"pointer-link"}
-                height={"40px"}
-                width={"40px"}
+                className="image"
+                src={image}
+                alt={name || title}
+                // @ts-ignore
+                unoptimized={"true"}
               />
-            </div>
-          )}
-          {favorited && (
-            <div
-              onClick={removeFromFavorites}
-              className="favorite-button"
-              data-testid="remove-button"
-            >
+            </ImageContainer>
+
+            <Link href={exploreLink} as={`/assets/${symbol}?name=${name}`}>
+              <button>Explore</button>
+            </Link>
+
+            <button onClick={() => changeCardView("B")}>Snapshot</button>
+          </div>
+        </AssetCardWrapper>
+      )}
+
+      {cardView === "B" && (
+        <AssetCardWrapper>
+          <div className={"card-body py-4 holder"}>
+            {!favorited && (
+              <div
+                onClick={addToFavorites}
+                className="favorite-button"
+                data-testid="add-button"
+              >
+                <Image
+                  src={"/images/empty-star.svg"}
+                  className={"pointer-link"}
+                  height={"40px"}
+                  width={"40px"}
+                />
+              </div>
+            )}
+            {favorited && (
+              <div
+                onClick={removeFromFavorites}
+                className="favorite-button"
+                data-testid="remove-button"
+              >
+                <Image
+                  src={"/images/filled-star.svg"}
+                  className={"pointer-link"}
+                  height={"40px"}
+                  width={"40px"}
+                  alt="block-logo"
+                />
+              </div>
+            )}
+
+            {/* <h4 className="card-title">{title || name || "Card Title"}</h4>
+
+            <h6 className="card-subtitle my-2 text-muted">
+              {symbol.toUpperCase() || "Card subtitle"}
+            </h6>
+
+            <ImageContainer>
               <Image
-                src={"/images/filled-star.svg"}
-                className={"pointer-link"}
-                height={"40px"}
-                width={"40px"}
-                alt="block-logo"
+                className="image"
+                src={image}
+                alt={name || title}
+                // @ts-ignore
+                unoptimized={"true"}
               />
+            </ImageContainer>
+
+            <Link href={exploreLink} as={`/assets/${symbol}?name=${name}`}>
+              <button>Explore</button>
+            </Link> */}
+
+            <h4>{title || name}</h4>
+
+            <div>
+              <p>Current Price: {current_price}</p>
+              <p>All Time High: {ath}</p>
+              <p>All Time Low: {atl}</p>
+              <p>Ath Change Percentage: {ath_change_percentage}</p>
+              <p>ATH Date: {ath_date}</p>
+              <p>ATL Change Percentage: {atl_change_percentage}</p>
+              <p>ATL Date: {atl_date}</p>
+              <p>Circulating Supply: {circulating_supply}</p>
+              <p>Total Supply: {total_supply}</p>
             </div>
-          )}
 
-          <h4 className="card-title">{title || name || "Card Title"}</h4>
-
-          <h6 className="card-subtitle my-2 text-muted">
-            {symbol.toUpperCase() || "Card subtitle"}
-          </h6>
-
-          <ImageContainer>
-            <Image
-              className="image"
-              src={image}
-              alt={name || title}
-              // @ts-ignore
-              unoptimized={"true"}
-            />
-          </ImageContainer>
-
-          <Link href={exploreLink} as={`/assets/${symbol}?name=${name}`}>
-            <button>Explore</button>
-          </Link>
-        </div>
-      </AssetCardWrapper>
+            <button onClick={() => changeCardView("A")}>Main View</button>
+          </div>
+        </AssetCardWrapper>
+      )}
     </AssetCardAnimationWrapper>
   );
 };

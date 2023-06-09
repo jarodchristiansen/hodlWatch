@@ -32,6 +32,18 @@ const typeDefs = gql`
     block_time_in_minutes: String
     image: String
     favorite_count: Float
+    current_price: Float
+    market_cap: Float
+    market_cap_rank: Float
+    fully_diluted_valuation: Float
+    circulating_supply: Float
+    total_supply: Float
+    ath: Float
+    ath_change_percentage: Float
+    ath_date: Date
+    atl: Float
+    atl_change_percentage: Float
+    atl_date: Date
   }
 
   type LunarAssetDetails {

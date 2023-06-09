@@ -32,6 +32,18 @@ export const GET_ASSETS = gql`
       name
       symbol
       image
+      current_price
+      market_cap
+      market_cap_rank
+      fully_diluted_valuation
+      circulating_supply
+      total_supply
+      ath
+      ath_change_percentage
+      ath_date
+      atl
+      atl_change_percentage
+      atl_date
     }
   }
 `;
