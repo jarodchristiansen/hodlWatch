@@ -60,7 +60,6 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
     atl_date,
     ath_date,
   } = asset;
-  // const { thumb, small } = image;
 
   console.log({ asset });
 
@@ -206,26 +205,6 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
                 />
               </div>
             )}
-
-            {/* <h4 className="card-title">{title || name || "Card Title"}</h4>
-
-            <h6 className="card-subtitle my-2 text-muted">
-              {symbol.toUpperCase() || "Card subtitle"}
-            </h6>
-
-            <ImageContainer>
-              <Image
-                className="image"
-                src={image}
-                alt={name || title}
-                // @ts-ignore
-                unoptimized={"true"}
-              />
-            </ImageContainer>
-
-            <Link href={exploreLink} as={`/assets/${symbol}?name=${name}`}>
-              <button>Explore</button>
-            </Link> */}
 
             <h4>{title || name}</h4>
 
