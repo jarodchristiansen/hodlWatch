@@ -19,7 +19,7 @@ const BollingerBandChart = ({ data }) => {
 
   useEffect(() => {
     processEmas(data);
-  }, []);
+  });
 
   //   function EMACalc(mArray, mRange) {
   //     var k = 2 / (mRange + 1);

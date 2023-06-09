@@ -42,8 +42,8 @@ const SharpeRatioChart = ({ data }) => {
         <ul>
           <li>
             A negative Sharpe ratio means that the risk-free rate is higher than
-            the portfolio's return. This value does not convey any meaningful
-            information.
+            the portfolio&apos;s return. This value does not convey any
+            meaningful information.
           </li>
           <li>A Sharpe ratio between 0 and 1.0 is considered sub-optimal.</li>
           <li>A Sharpe ratio greater than 1.0 is considered acceptable.</li>
@@ -77,6 +77,7 @@ const SharpeRatioChart = ({ data }) => {
             />
             <Tooltip
               labelFormatter={(val) => FormatUnixTime(val)}
+              // @ts-ignore
               formatter={(val) => (val > 20 ? currencyFormat(val) : val)}
             />
             <defs>

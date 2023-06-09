@@ -23,12 +23,13 @@ const VolatilityChart = ({ data }) => {
         <h5>What is Volatility?</h5>
         <p>
           Volatility often refers to the amount of uncertainty or risk related
-          to the size of changes in a security's value. A higher volatility
-          means that a security's value can potentially be spread out over a
-          larger range of values. This means that the price of the security can
-          change dramatically over a short time period in either direction. A
-          lower volatility means that a security's value does not fluctuate
-          dramatically, and tends to be more steady. See -
+          to the size of changes in a security`&apos;s value. A higher
+          volatility means that a security&apos;s value can potentially be
+          spread out over a larger range of values. This means that the price of
+          the security can change dramatically over a short time period in
+          either direction. A lower volatility means that a security&apos;s
+          value does not fluctuate dramatically, and tends to be more steady.
+          See -
           <a
             href={"https://portfolioslab.com/tools/sharpe-ratio?s=BTC-USD"}
             target={"#"}

@@ -22,7 +22,9 @@ const ToastHolder = ({ toggleShowA, showA, setShowA, toastText }) => {
             <strong className="me-auto">Bootstrap</strong>
             <small>11 mins ago</small>
           </Toast.Header>
-          <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+          <Toast.Body>
+            Woohoo, you&apos;re reading this text in a Toast!
+          </Toast.Body>
         </Toast>
       </Col>
       {/*<Col md={6} className="mb-2">*/}

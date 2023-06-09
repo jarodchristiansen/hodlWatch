@@ -27,7 +27,7 @@ const WAPChart = ({ data }) => {
         <p>
           VWAP = Cumulative Typical Price x Volume/Cumulative Volume. The
           volume-weighted average price (VWAP) is a technical analysis indicator
-          used on financial asset charts. It's a trading benchmark that
+          used on financial asset charts. It&apos;s a trading benchmark that
           represents the average price a security has traded at throughout the
           provided time range, based on both volume and price. VWAP is important
           because it provides traders with pricing insight into both the trend
@@ -37,7 +37,7 @@ const WAPChart = ({ data }) => {
         <br />
 
         <p>
-          TWAP stands for “time-weighted average price”. It’s a pricing
+          TWAP stands for “time-weighted average price”. It&apos;s a pricing
           algorithm used to calculate the average price of an asset over a set
           period.
         </p>

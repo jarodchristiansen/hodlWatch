@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Accordion } from "react-bootstrap";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 // @ts-ignore
@@ -135,11 +135,9 @@ const IndicatorAccordion = ({
     return charts;
   };
 
-  const renderArrows = () => {
-    const { isFirstItemVisible, scrollPrev } =
-      React.useContext(VisibilityContext);
-    const { isLastItemVisible, scrollNext } =
-      React.useContext(VisibilityContext);
+  const RenderArrows = () => {
+    const { isFirstItemVisible, scrollPrev } = useContext(VisibilityContext);
+    const { isLastItemVisible, scrollNext } = useContext(VisibilityContext);
 
     return (
       <div className={"container"}>
@@ -166,7 +164,7 @@ const IndicatorAccordion = ({
         <Accordion.Header>Indicator Panel</Accordion.Header>
         <Accordion.Body>
           <ScrollMenu
-            Footer={renderArrows}
+            Footer={RenderArrows}
             transitionDuration={2500}
             transitionBehavior={"smooth"}
           >

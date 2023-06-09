@@ -19,7 +19,7 @@ const NewsFeedPage = () => {
 
   useEffect(() => {
     fetchNewsFeed();
-  }, []);
+  });
 
   const [articleLimit, setArticleLimit] = useState(5);
   const [contentLength, setContentLength] = useState(0);
@@ -42,7 +42,7 @@ const NewsFeedPage = () => {
     } else {
       setShouldFetchContent(false);
     }
-  }, [newsFeedContent]);
+  }, [newsFeedContent, contentLength]);
 
   const increaseArticleLimit = () => {
     if (shouldFetchContent) {

@@ -22,7 +22,7 @@ const EducationPage = () => {
         filter: "Education",
       },
     });
-  }, []);
+  });
 
   const PostCards = useMemo(() => {
     if (!data?.getPosts) return [];
@@ -112,7 +112,8 @@ const EducationPage = () => {
                 financial advice
               </h4>
               <h6>
-                (we think we're pretty good, but we aren't financial advisors)
+                (we think we&apos;re pretty good, but we aren&apos;t financial
+                advisors)
               </h6>
             </span>
           </div>

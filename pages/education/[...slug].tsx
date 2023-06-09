@@ -67,6 +67,7 @@ const EducationArticle = ({ data }) => {
         return (
           <div key={markdownPiece + Math.random()}>
             <ReactMarkdown
+              // eslint-disable-next-line react/no-children-prop
               children={markdownPiece}
               remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
               rehypePlugins={[rehypeRaw]}

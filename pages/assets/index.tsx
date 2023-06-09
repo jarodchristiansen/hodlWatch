@@ -39,7 +39,7 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
 
   useEffect(() => {
     fetchAssets();
-  }, []);
+  }, [fetchAssets]);
 
   useEffect(() => {
     setAssetData(data?.getAsset);
@@ -77,7 +77,7 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
         </AssetContainerWrapper>
       );
     }
-  }, [data, loading, assetData]);
+  }, [data, loading, assetData, session]);
 
   // const loadMoreFunction = () => {
   //   // refetch({ offset: offsetState - 1 });

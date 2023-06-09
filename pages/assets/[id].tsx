@@ -155,6 +155,7 @@ const AssetDetailsPage = ({ session }) => {
                 {!!data?.description?.en && (
                   <div className="bottom-row">
                     <ReactMarkdown
+                      // eslint-disable-next-line react/no-children-prop
                       children={data?.description?.en}
                       remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
                       rehypePlugins={[rehypeRaw]}

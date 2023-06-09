@@ -188,9 +188,9 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
 
         <br />
 
-        <a target="#" href="/education/fibonacci-retracement-indicator">
+        <Link target="#" href="/education/fibonacci-retracement-indicator">
           See more
-        </a>
+        </Link>
       </div>
     ),
   };

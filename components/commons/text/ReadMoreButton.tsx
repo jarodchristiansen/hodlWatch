@@ -21,7 +21,7 @@ const ReadMoreButton = ({ children }) => {
     if (!showMore) {
       return children.slice(0, 250);
     }
-  }, [shouldShowReadMore, children]);
+  }, [shouldShowReadMore, children, showMore]);
 
   const changeRender = (step: string) => {
     // step === "Less" && setShowMore(false);

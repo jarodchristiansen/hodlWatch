@@ -16,7 +16,7 @@ const PriceBTCChartDesktop = ({ data }) => {
 
   useEffect(() => {
     processFibonacciData(data);
-  }, []);
+  });
 
   const processFibonacciData = (data) => {
     let closeData = [];

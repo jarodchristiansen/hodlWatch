@@ -157,9 +157,9 @@ export default function Home({ data }) {
           <p>
             Thrive: Mesh is your gateway to success in the crypto revolution.
             Unleash the potential of your portfolio, analyze trends, and
-            identify opportunities to maximize your returns. With Mesh, you'll
-            be well-equipped to navigate the crypto landscape with confidence
-            and make waves in the world of finance.
+            identify opportunities to maximize your returns. With Mesh,
+            you&apos;ll be well-equipped to navigate the crypto landscape with
+            confidence and make waves in the world of finance.
           </p>
 
           <p>

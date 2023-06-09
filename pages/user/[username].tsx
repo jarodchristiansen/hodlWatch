@@ -9,7 +9,7 @@ import { useSession, getSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 // import PriceScreener from "@/components/commons/screener";
 import EditUserDetails from "@/components/user/edit-user-details";
@@ -25,9 +25,9 @@ import PortfolioMain from "@/components/portfolio/PortfolioMain";
  */
 const ProfilePage = () => {
   const { data: session, status } = useSession();
+  const [user, setUser] = useState(null);
   // const { account, isReady } = useAccount();
 
-  const [user, setUser] = useState<null | any>();
   //   const [walletIsConnected, setWalletIsConnected] = useState(false);
   // const { isOpen, open, close } = useConnectModal();
 
@@ -53,7 +53,11 @@ const ProfilePage = () => {
 
     return router.query.username;
     // @ts-ignore: username customized to be in session from database strategy
-  }, [router?.asPath, session?.user?.username]);
+  }, [
+    // @ts-ignore
+    fetchUserDetails,
+    router?.query?.username,
+  ]);
 
   // @ts-ignore next-auth v3 type structure issue
   let id = session?.user?.username;
@@ -81,11 +85,14 @@ const ProfilePage = () => {
   //   refetch: refetchTokoenData,
   // } = useBalance({ addressOrName: account?.address });
 
-  const navigateToAssetPage = (favorite) => {
-    router.push(
-      `/assets/${favorite.symbol.toLowerCase()}?name=${favorite.title}`
-    );
-  };
+  const navigateToAssetPage = useCallback(
+    (favorite) => {
+      router.push(
+        `/assets/${favorite.symbol.toLowerCase()}?name=${favorite.title}`
+      );
+    },
+    [router]
+  );
 
   const userFavoritesList = useMemo(() => {
     if (!data?.getUser?.favorites) return [];
@@ -111,7 +118,7 @@ const ProfilePage = () => {
         </div>
       );
     });
-  }, [data?.getUser?.favorites]);
+  }, [data?.getUser?.favorites, navigateToAssetPage]);
 
   const viewState = useMemo(() => {
     if (!router.query?.view) return "Main";
@@ -131,11 +138,11 @@ const ProfilePage = () => {
     router.push(`/user/${id}?view=portfolio`);
   };
 
-  const redirectNonUser = () => {
+  const redirectNonUser = useCallback(() => {
     if (viewState === "edit_user" || viewState === "portfolio") {
       router.push("/");
     }
-  };
+  }, []);
 
   const navLinks = [
     { name: "Profile", stateChanger: () => routeToMain() },
@@ -147,7 +154,7 @@ const ProfilePage = () => {
     if (!isUsersProfile && !!user) {
       redirectNonUser();
     }
-  }, [isUsersProfile, viewState, user]);
+  }, [isUsersProfile, viewState, user, redirectNonUser]);
 
   return (
     <PageWrapper>

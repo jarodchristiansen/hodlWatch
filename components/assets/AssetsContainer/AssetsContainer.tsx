@@ -33,7 +33,7 @@ const AssetsContainer = ({ assets, session }) => {
         },
       });
     }
-  }, [session?.user?.email]);
+  }, [session?.user?.email, fetchUserDetails]);
 
   useEffect(() => {
     setCurrentAssets(assets);
@@ -61,7 +61,13 @@ const AssetsContainer = ({ assets, session }) => {
         </div>
       );
     });
-  }, [currentAssets, userData?.getUser?.favorites, dataLoading]);
+  }, [
+    currentAssets,
+    userData?.getUser?.favorites,
+    dataLoading,
+    refetchUser,
+    session?.user?.email,
+  ]);
 
   return (
     <div data-testid={"assets-container"}>

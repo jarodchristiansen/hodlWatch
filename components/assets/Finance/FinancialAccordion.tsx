@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Accordion } from "react-bootstrap";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import MarketDominanceChartDesktop from "./Charts/Desktop/MarketDominanceChartDesktop";
@@ -155,11 +155,9 @@ const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
     setProcessedFinancialData(filteredData);
   };
 
-  const renderArrows = () => {
-    const { isFirstItemVisible, scrollPrev } =
-      React.useContext(VisibilityContext);
-    const { isLastItemVisible, scrollNext } =
-      React.useContext(VisibilityContext);
+  const RenderArrows = () => {
+    const { isFirstItemVisible, scrollPrev } = useContext(VisibilityContext);
+    const { isLastItemVisible, scrollNext } = useContext(VisibilityContext);
 
     return (
       <div className={"container"}>
@@ -186,7 +184,7 @@ const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
         <Accordion.Header>Financial Charts</Accordion.Header>
         <Accordion.Body>
           <ScrollMenu
-            Footer={renderArrows}
+            Footer={RenderArrows}
             transitionDuration={2500}
             transitionBehavior={"smooth"}
           >

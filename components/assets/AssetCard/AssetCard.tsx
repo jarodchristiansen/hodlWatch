@@ -129,6 +129,7 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
                   className={"pointer-link"}
                   height={"40px"}
                   width={"40px"}
+                  alt="non-favorited asset icon"
                 />
               </div>
             )}
@@ -143,7 +144,7 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
                   className={"pointer-link"}
                   height={"40px"}
                   width={"40px"}
-                  alt="block-logo"
+                  alt="favorited asset icon"
                 />
               </div>
             )}
@@ -187,6 +188,7 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
                   className={"pointer-link"}
                   height={"40px"}
                   width={"40px"}
+                  alt="non-favorited asset icon"
                 />
               </div>
             )}
