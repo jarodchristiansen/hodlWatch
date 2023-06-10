@@ -49,7 +49,7 @@ const AssetsContainer = ({ assets, session }) => {
 
     return currentAssets.map((asset) => {
       return (
-        <div data-test-id={`asset-card-${asset.symbol}`} key={asset.id}>
+        <div data-testid={`asset-card`} key={asset.id}>
           <AssetCard
             asset={asset}
             email={session?.user?.email}
@@ -88,6 +88,7 @@ const AssetsContainer = ({ assets, session }) => {
               e.symbol.toLowerCase() === currentAssets[0].symbol.toLowerCase()
           )}
           refetchFavorites={() => refetchUser()}
+          data-testid={`asset-card`}
         />
       )}
     </div>
