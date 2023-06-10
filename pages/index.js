@@ -322,15 +322,15 @@ const getNewsFeed = async () => {
 export const getServerSideProps = async (context) => {
   let data = {};
 
-  // const response = await getNewsFeed(); // any async promise here.
+  const response = await getNewsFeed(); // any async promise here.
 
-  // data = response.data;
+  data = response.data;
 
-  // if (!data) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: data, // will be passed to the page component as props

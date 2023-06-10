@@ -150,7 +150,7 @@ const RouteRow = styled.div`
 `;
 
 const SignOutSpan = styled.span`
-  color: black;
+  color: ${Colors.elegant.white};
 
   @media ${MediaQueries.MD} {
     white-space: nowrap;

@@ -216,46 +216,48 @@ const PortfolioConnector = () => {
         </FormContainer>
       )}
 
-      {!!HoldingsItems?.length && !holdingLoading && portfolioView === "Main" && (
-        <ColumnContainer>
-          <button
-            onClick={() => setPortfolioView("Analytics")}
-            className="standardized-button"
-          >
-            Analytics
-          </button>
+      {!!HoldingsItems?.length &&
+        !holdingLoading &&
+        portfolioView === "Main" && (
+          <ColumnContainer>
+            <button
+              onClick={() => setPortfolioView("Analytics")}
+              className="standardized-button"
+            >
+              Analytics
+            </button>
 
-          <HoldingItemsContainer>
-            <div>
-              <h2>Current Holdings</h2>
-              {sum && <h4>Total Holdings: {currencyFormat(sum)}</h4>}
+            <HoldingItemsContainer>
+              <div>
+                <h2>Current Holdings</h2>
+                {sum && <h4>Total Holdings: {currencyFormat(sum)}</h4>}
 
-              <button
-                onClick={() => setHoldingSort("Value")}
-                className="standardized-button"
-              >
-                Sort By Value
-                {/* <span>
+                <button
+                  onClick={() => setHoldingSort("Value")}
+                  className="standardized-button"
+                >
+                  Sort By Value
+                  {/* <span>
                   <span>&uarr;</span>
                 </span>
                */}
-                {/* <span>
+                  {/* <span>
                   <span>&#8595;</span>
                 </span>
                */}
-              </button>
+                </button>
 
-              <button
-                onClick={() => setHoldingSort("Price")}
-                className="standardized-button"
-              >
-                Sort By Price
-              </button>
-            </div>
-            {HoldingsItems}
-          </HoldingItemsContainer>
-        </ColumnContainer>
-      )}
+                <button
+                  onClick={() => setHoldingSort("Price")}
+                  className="standardized-button"
+                >
+                  Sort By Price
+                </button>
+              </div>
+              {HoldingsItems}
+            </HoldingItemsContainer>
+          </ColumnContainer>
+        )}
 
       {!!analyticsData.length && portfolioView === "Analytics" && (
         <AnalyticsContainer>

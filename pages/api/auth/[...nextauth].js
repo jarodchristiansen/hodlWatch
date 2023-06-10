@@ -1,15 +1,14 @@
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import NextAuth, { NextAuthOptions } from "next-auth";
-import Auth0Provider from "next-auth/providers/auth0";
+import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
 import TwitterProvider from "next-auth/providers/twitter";
-
-import User from "../../../db/models/user";
+import Auth0Provider from "next-auth/providers/auth0";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 // import AppleProvider from "next-auth/providers/apple"
 // import EmailProvider from "next-auth/providers/email"
 import clientPromise from "../../../lib/mongodb";
+import User from "../../../db/models/user";
 
 function makeid(length) {
   var result = "";
