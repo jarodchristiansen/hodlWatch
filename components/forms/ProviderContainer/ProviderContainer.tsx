@@ -46,7 +46,7 @@ interface ProvidersAsProps {
       type: string;
     };
   };
-  isSubmitDisabled: boolean;
+  isSubmitDisabled?: boolean;
 }
 
 /**

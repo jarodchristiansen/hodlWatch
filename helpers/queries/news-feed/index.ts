@@ -1,8 +1,7 @@
 import { gql } from "@apollo/client/core";
 
-
 export const GET_NEWS_FEED = gql`
-query GetNewsFeed {
+  query GetNewsFeed {
     getNewsFeed {
       guid
       body
@@ -21,4 +20,4 @@ query GetNewsFeed {
       upvotes
     }
   }
-`
+`;

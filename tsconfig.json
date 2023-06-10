@@ -7,11 +7,7 @@
       "@/helpers/*": ["helpers/*"]
     },
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -28,9 +24,10 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "helpers/queries/collective/index.js", "pages/api/favoritesManager.js", "pages/assets/index.test.jsx"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "**/*.tsx",
+    "helpers/queries/collective/index.js",
+    "pages/api/favoritesManager.js",
+    "pages/assets/index.test.jsx"
+  ],
+  "exclude": ["node_modules"]
 }

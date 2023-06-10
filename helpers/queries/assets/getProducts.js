@@ -1,13 +1,13 @@
 import { gql } from "@apollo/client";
 
 export default gql`
-query {
+  query {
     getProducts {
-        description
-        id
-        name
-        productionCapacity
-        price
+      description
+      id
+      name
+      productionCapacity
+      price
     }
-}
-`
+  }
+`;
