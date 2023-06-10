@@ -1,13 +1,7 @@
-import { MediaQueries } from "@/styles/variables";
-import { useSession } from "next-auth/react";
+import { Colors, MediaQueries } from "@/styles/variables";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaInstagramSquare,
-  FaTwitter,
-} from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import styled from "styled-components";
 
 /**
@@ -99,7 +93,7 @@ const InfoColumnsContainer = styled.div`
 
 const FooterContainer = styled.div`
   width: 100%;
-  background: rgb(0, 0, 0);
+  background: ${Colors.midnight};
 
   color: white;
   padding: 2rem 2rem;

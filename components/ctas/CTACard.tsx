@@ -1,22 +1,29 @@
-import { Colors } from "@/styles/variables";
+import { Colors, MediaQueries } from "@/styles/variables";
 import React from "react";
 import styled from "styled-components";
 
 const CallToActionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   text-align: center;
   padding: 32px;
+
+  @media ${MediaQueries.MD} {
+    padding: 48px;
+  }
 `;
 
 const Title = styled.h2`
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 16px;
+  color: ${Colors.elegant.white};
 `;
 
 const Description = styled.p`
   font-size: 16px;
-  color: #888;
-  margin-bottom: 32px;
+  color: ${Colors.lightGray};
 `;
 
 const CTAButton = styled.button`
@@ -29,6 +36,8 @@ const CTAButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 200px;
+  align-self: center;
 
   &:hover {
     background-color: #0056b3;

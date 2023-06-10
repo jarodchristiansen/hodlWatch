@@ -1,7 +1,6 @@
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
-import { MediaQueries } from "@/styles/variables";
-import { FontFamily } from "@/styles/variables";
+import { FontFamily, MediaQueries } from "@/styles/variables";
 import client from "apollo-client";
 import FeatureGrid from "components/commons/feature-grid/FeatureGrid";
 import LandingCard from "components/commons/info-cards/landing-card";
@@ -227,21 +226,21 @@ const AlternateHomePageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
-    padding: 24px;
+    padding: 32px 24px;
     align-items: center;
 
     video {
       width: 100%;
       align-self: center;
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
     @media ${MediaQueries.MD} {
-      flex-direction: row;
-      justify-content: space-evenly;
+      /* flex-direction: row;
+      justify-content: space-evenly; */
 
       video {
-        width: 50%;
+        width: 90%;
       }
     }
   }
