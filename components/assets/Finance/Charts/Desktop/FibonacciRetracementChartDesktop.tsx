@@ -1,20 +1,21 @@
-import {
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  LineChart,
-  Line,
-  Area,
-  ComposedChart,
-} from "recharts";
-// import FinanceChartModal from "./FinanceChartModal";
-import React, { useEffect, useState } from "react";
 import { currencyFormat } from "@/helpers/formatters/currency";
-import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+// import FinanceChartModal from "./FinanceChartModal";
+import React, { useEffect, useState } from "react";
+import {
+  Area,
+  CartesianGrid,
+  ComposedChart,
+  Legend,
+  Line,
+  LineChart,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import styled from "styled-components";
+
 import FinanceChartModal from "../FinanceChartModal";
 
 const CustomizedDot = (props) => {

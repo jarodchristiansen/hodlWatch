@@ -7,6 +7,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
 // import { FaInfoCircle } from "react-icons/fa";
 // import FinanceChartModal from "./FinanceChartModal";
 

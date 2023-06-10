@@ -1,7 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { render, fireEvent, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
+
 import AssetCard from "./AssetCard";
+
+import "@testing-library/jest-dom";
 
 // Mock the useMutation hook
 jest.mock("@apollo/client", () => {

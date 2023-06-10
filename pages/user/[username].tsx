@@ -1,23 +1,18 @@
+import SideMenu from "@/components/commons/sidebar-nav";
+import PortfolioMain from "@/components/portfolio/PortfolioMain";
+// import PriceScreener from "@/components/commons/screener";
+import EditUserDetails from "@/components/user/edit-user-details";
+import { GET_USER } from "@/helpers/queries/user/index";
+import { Colors } from "@/styles/variables";
+import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
-// import {
-//   useAccount,
-//   useBalance,
-//   useConnectModal,
-//   Web3Button,
-// } from "@web3modal/react";
+// import { getSession, useSession } from "@web3modal/react";
 import { useSession, getSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-// import PriceScreener from "@/components/commons/screener";
-import EditUserDetails from "@/components/user/edit-user-details";
-import { GET_USER } from "@/helpers/queries/user/index";
-import { Colors } from "@/styles/variables";
-import { MediaQueries } from "@/styles/variables";
-import SideMenu from "@/components/commons/sidebar-nav";
-import PortfolioMain from "@/components/portfolio/PortfolioMain";
 
 /**
  *

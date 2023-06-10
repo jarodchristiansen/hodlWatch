@@ -1,3 +1,7 @@
+import { currencyFormat } from "@/helpers/formatters/currency";
+import { FormatUnixTime } from "@/helpers/formatters/time";
+// import FinanceChartModal from "./FinanceChartModal";
+import React from "react";
 import {
   Area,
   CartesianGrid,
@@ -7,11 +11,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-// import FinanceChartModal from "./FinanceChartModal";
-import React from "react";
 import styled from "styled-components";
-import { FormatUnixTime } from "@/helpers/formatters/time";
-import { currencyFormat } from "@/helpers/formatters/currency";
+
 import FinanceChartModal from "../FinanceChartModal";
 
 /**

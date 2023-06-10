@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { Image } from "react-bootstrap";
-import AssetCardAnimationWrapper from "./AssetCardAnimationWrapper";
-import styled from "styled-components";
 import { ADD_FAVORITE, REMOVE_FAVORITE } from "@/helpers/mutations/user";
-import { useMutation } from "@apollo/client";
 import { GET_USER } from "@/helpers/queries/user";
 import { Colors } from "@/styles/variables";
+import { useMutation } from "@apollo/client";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { Image } from "react-bootstrap";
+import styled from "styled-components";
+
+import AssetCardAnimationWrapper from "./AssetCardAnimationWrapper";
 
 interface AssetCardProps {
   asset: Asset;

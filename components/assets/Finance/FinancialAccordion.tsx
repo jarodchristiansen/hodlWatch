@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import { FormatUnixTime } from "@/helpers/formatters/time";
+import React, { useContext, useEffect, useState } from "react";
 import { Accordion } from "react-bootstrap";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+
+import BollingerBandChart from "./Charts/Desktop/BollingerBandChartDesktop";
+import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
+import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracementChartDesktop";
 import MarketDominanceChartDesktop from "./Charts/Desktop/MarketDominanceChartDesktop";
+import PercentChangeChartDesktop from "./Charts/Desktop/PercentChangeChartDesktop";
+import PriceBTCChartDesktop from "./Charts/Desktop/PriceBTCChartDesktop";
 import VolatilityChart from "./Charts/Desktop/VolatilityChartDesktop";
 import VolumeChartDesktop from "./Charts/Desktop/VolumeChartDesktop";
-import PercentChangeChartDesktop from "./Charts/Desktop/PercentChangeChartDesktop";
-import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracementChartDesktop";
-import { FormatUnixTime } from "@/helpers/formatters/time";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import PriceBTCChartDesktop from "./Charts/Desktop/PriceBTCChartDesktop";
-import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
-import BollingerBandChart from "./Charts/Desktop/BollingerBandChartDesktop";
 
 interface FinancailAccordionProps {
   financialData: FinancialDataType[];

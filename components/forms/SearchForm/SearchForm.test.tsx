@@ -1,6 +1,7 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import SearchForm from "./SearchForm";
 import { MockedProvider } from "@apollo/client/testing";
+import { fireEvent, render, screen } from "@testing-library/react";
+
+import SearchForm from "./SearchForm";
 
 describe("SearchForm", () => {
   const queryValue = "";

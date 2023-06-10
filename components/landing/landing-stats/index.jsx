@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { MediaQueries } from "@/styles/variables";
+import styled from "styled-components";
 
 /**
  *

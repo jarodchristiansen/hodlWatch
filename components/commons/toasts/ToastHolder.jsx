@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Row, Button, Col, Toast } from "react-bootstrap";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Row, Toast } from "react-bootstrap";
 
 const ToastHolder = ({ toggleShowA, showA, setShowA, toastText }) => {
   // const [showA, setShowA] = useState(false);
@@ -14,7 +15,7 @@ const ToastHolder = ({ toggleShowA, showA, setShowA, toastText }) => {
         {/*</Button>*/}
         <Toast show={showA} onClose={toggleShowA}>
           <Toast.Header>
-            <img
+            <Image
               src="holder.js/20x20?text=%20"
               className="rounded me-2"
               alt=""

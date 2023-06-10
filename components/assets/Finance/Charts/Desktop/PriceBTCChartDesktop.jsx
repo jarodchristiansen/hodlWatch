@@ -1,15 +1,15 @@
+// import FinanceChartModal from "./FinanceChartModal";
+import React, { useEffect, useState } from "react";
 import {
   CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  LineChart,
-  Line,
 } from "recharts";
-// import FinanceChartModal from "./FinanceChartModal";
-import React, { useState, useEffect } from "react";
 
 const PriceBTCChartDesktop = ({ data }) => {
   const [processedData, setProcessedData] = useState([]);

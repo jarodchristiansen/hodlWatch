@@ -1,12 +1,12 @@
-import Link from "next/link";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
-import styled from "styled-components";
 import { MediaQueries } from "@/styles/variables";
 import { Colors } from "@/styles/variables";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useMemo, useState } from "react";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import styled from "styled-components";
 
 /**
  *

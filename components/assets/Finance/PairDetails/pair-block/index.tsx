@@ -1,7 +1,7 @@
+import { numberWithCommas } from "@/helpers/formatters/thousands";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { numberWithCommas } from "@/helpers/formatters/thousands";
 
 interface PairBlockProps {
   data: PairData;

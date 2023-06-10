@@ -1,6 +1,6 @@
-import User from "../../db/models/user";
 import Asset from "../../db/models/asset";
 import CollectiveStats from "../../db/models/collective";
+import User from "../../db/models/user";
 
 /**
  *

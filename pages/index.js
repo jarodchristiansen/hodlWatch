@@ -1,19 +1,19 @@
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
 import { MediaQueries } from "@/styles/variables";
+import { FontFamily } from "@/styles/variables";
 import client from "apollo-client";
+import FeatureGrid from "components/commons/feature-grid/FeatureGrid";
+import LandingCard from "components/commons/info-cards/landing-card";
+import CTACard from "components/ctas/CTACard";
+import ProgressMeter from "components/progressmeter/ProgressMeter";
+import ReviewList from "components/reviews/ReviewList";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import styled from "styled-components";
-import LandingCard from "components/commons/info-cards/landing-card";
-import ProgressMeter from "components/progressmeter/ProgressMeter";
-import ReviewList from "components/reviews/ReviewList";
-import CTACard from "components/ctas/CTACard";
-import FeatureGrid from "components/commons/feature-grid/FeatureGrid";
-import { FontFamily } from "@/styles/variables";
 
 /**
  *

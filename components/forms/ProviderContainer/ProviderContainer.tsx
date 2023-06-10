@@ -1,10 +1,10 @@
 import { signIn } from "next-auth/react";
 import {
+  FaCoins,
   FaFacebook,
   FaGithub,
   FaGoogle,
   FaTwitter,
-  FaCoins,
 } from "react-icons/fa";
 import styled from "styled-components";
 

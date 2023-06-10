@@ -1,3 +1,5 @@
+import { currencyFormat } from "@/helpers/formatters/currency";
+import { useEffect, useState } from "react";
 import {
   Area,
   CartesianGrid,
@@ -7,8 +9,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { currencyFormat } from "@/helpers/formatters/currency";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 /**

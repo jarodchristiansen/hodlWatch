@@ -1,17 +1,17 @@
-import {
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  LineChart,
-  Line,
-  Area,
-  ComposedChart,
-} from "recharts";
+import { currencyFormat } from "@/helpers/formatters/currency";
 // import FinanceChartModal from "./FinanceChartModal";
 import React, { useEffect, useState } from "react";
-import { currencyFormat } from "@/helpers/formatters/currency";
+import {
+  Area,
+  CartesianGrid,
+  ComposedChart,
+  Legend,
+  Line,
+  LineChart,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import styled from "styled-components";
 
 const BollingerBandChart = ({ data }) => {

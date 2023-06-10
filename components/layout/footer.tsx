@@ -2,13 +2,13 @@ import { MediaQueries } from "@/styles/variables";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import styled from "styled-components";
 import {
-  FaInstagram,
   FaFacebook,
-  FaTwitter,
+  FaInstagram,
   FaInstagramSquare,
+  FaTwitter,
 } from "react-icons/fa";
+import styled from "styled-components";
 
 /**
  *

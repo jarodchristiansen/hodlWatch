@@ -1,6 +1,6 @@
+import { MediaQueries } from "@/styles/variables";
 import { TradingViewEmbed, widgetType } from "react-tradingview-embed";
 import styled from "styled-components";
-import { MediaQueries } from "@/styles/variables";
 
 const PriceScreener = () => {
   return (

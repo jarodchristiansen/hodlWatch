@@ -1,11 +1,11 @@
+import UserHoldingsPieChart from "@/components/assets/Finance/Charts/UserHoldingsPieChart";
+import { currencyFormat } from "@/helpers/formatters/currency";
+import { GetLocalKeys, StoreLocalKeys } from "@/helpers/localStorage/index";
+import { GET_USER_HOLDINGS } from "@/helpers/queries/user/index";
+import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { GET_USER_HOLDINGS } from "@/helpers/queries/user/index";
-import { GetLocalKeys, StoreLocalKeys } from "@/helpers/localStorage/index";
-import { currencyFormat } from "@/helpers/formatters/currency";
-import { MediaQueries } from "@/styles/variables";
-import UserHoldingsPieChart from "@/components/assets/Finance/Charts/UserHoldingsPieChart";
 
 /**
  *

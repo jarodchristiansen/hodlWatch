@@ -1,9 +1,10 @@
+import { motion, transform } from "framer-motion";
+import { Image } from "react-bootstrap";
 // import Lottie from "lottie-react";
 // // import animationData from "../../public/lotties/spiral-loading.json";
 // import animationData from "../../../public/lotties/spiral-loading.json";
 import Spinner from "react-bootstrap/Spinner";
-import { motion, transform } from "framer-motion";
-import { Image } from "react-bootstrap";
+
 import ThreeDotsWave from "./ThreeDotsWave";
 
 const LoadingSpinner = () => {

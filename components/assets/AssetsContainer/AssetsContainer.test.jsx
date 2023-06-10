@@ -1,6 +1,6 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import { GET_USER } from "@/helpers/queries/user";
+import { MockedProvider } from "@apollo/client/testing";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import AssetsContainer from "./AssetsContainer";
 

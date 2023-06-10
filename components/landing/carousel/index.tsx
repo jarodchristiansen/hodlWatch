@@ -1,9 +1,10 @@
+import { MediaQueries } from "@/styles/variables";
 import { useState } from "react";
-// import { items } from "../public/Items.json";
-import { items } from "../../../public/landing-carousel-images.js";
 import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
-import { MediaQueries } from "@/styles/variables";
+
+// import { items } from "../public/Items.json";
+import { items } from "../../../public/landing-carousel-images.js";
 
 const LandingCarousel = () => {
   const { bootstrap } = items;

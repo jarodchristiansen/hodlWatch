@@ -1,5 +1,5 @@
-import User from "../../db/models/user";
 import Asset from "../../db/models/asset";
+import User from "../../db/models/user";
 
 /**
  *

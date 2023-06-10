@@ -1,6 +1,7 @@
 import { useMemo } from "react";
-import WAPChart from "../../Finance/Charts/Bitcoin/WAPCharts";
+
 import SharpeRatioChart from "../../Finance/Charts/Bitcoin/SharpeRatioChart";
+import WAPChart from "../../Finance/Charts/Bitcoin/WAPCharts";
 
 interface BitcoinMacrosProps {
   MacroData: MacroPoint[];
