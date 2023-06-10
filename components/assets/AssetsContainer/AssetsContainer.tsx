@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import AssetCard from "../AssetCard/AssetCard";
-import styled from "styled-components";
-import { useLazyQuery } from "@apollo/client";
 import { GET_USER } from "@/helpers/queries/user";
+import { useLazyQuery } from "@apollo/client";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import styled from "styled-components";
+
+import AssetCard from "../AssetCard/AssetCard";
 
 /**
  *
@@ -33,7 +34,7 @@ const AssetsContainer = ({ assets, session }) => {
         },
       });
     }
-  }, [session?.user?.email]);
+  }, [session?.user?.email, fetchUserDetails]);
 
   useEffect(() => {
     setCurrentAssets(assets);
@@ -49,7 +50,7 @@ const AssetsContainer = ({ assets, session }) => {
 
     return currentAssets.map((asset) => {
       return (
-        <div data-test-id={`asset-card-${asset.symbol}`} key={asset.id}>
+        <div data-testid={`asset-card`} key={asset.id}>
           <AssetCard
             asset={asset}
             email={session?.user?.email}
@@ -61,7 +62,13 @@ const AssetsContainer = ({ assets, session }) => {
         </div>
       );
     });
-  }, [currentAssets, userData?.getUser?.favorites, dataLoading]);
+  }, [
+    currentAssets,
+    userData?.getUser?.favorites,
+    dataLoading,
+    refetchUser,
+    session?.user?.email,
+  ]);
 
   return (
     <div data-testid={"assets-container"}>
@@ -82,6 +89,7 @@ const AssetsContainer = ({ assets, session }) => {
               e.symbol.toLowerCase() === currentAssets[0].symbol.toLowerCase()
           )}
           refetchFavorites={() => refetchUser()}
+          data-testid={`asset-card`}
         />
       )}
     </div>

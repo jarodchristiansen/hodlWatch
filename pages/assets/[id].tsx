@@ -1,7 +1,8 @@
+import BitcoinMacrosContainer from "@/components/assets/BitcoinMacros/BitcoinMacrosContainer";
+import CollectiveStatsId from "@/components/assets/collective/CollectiveStatsID";
 import FinancialAccordion from "@/components/assets/Finance/FinancialAccordion";
 import PairDetailsRow from "@/components/assets/Finance/PairDetails/index";
 import IndicatorAccordion from "@/components/assets/Indicators/IndicatorAccordion";
-import CollectiveStatsId from "@/components/assets/collective/CollectiveStatsID";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import TimeButtons from "@/components/commons/TimeButtons";
 import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
@@ -22,7 +23,6 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import styled from "styled-components";
-import BitcoinMacrosContainer from "@/components/assets/BitcoinMacros/BitcoinMacrosContainer";
 
 /**
  *
@@ -155,6 +155,7 @@ const AssetDetailsPage = ({ session }) => {
                 {!!data?.description?.en && (
                   <div className="bottom-row">
                     <ReactMarkdown
+                      // eslint-disable-next-line react/no-children-prop
                       children={data?.description?.en}
                       remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
                       rehypePlugins={[rehypeRaw]}

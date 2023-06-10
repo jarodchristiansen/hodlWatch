@@ -1,5 +1,5 @@
-import { Carousel, Modal, Button } from "react-bootstrap";
 import React, { useState } from "react";
+import { Button, Carousel, Modal } from "react-bootstrap";
 import { FaInfoCircle } from "react-icons/fa";
 
 function FinanceChartModal(props) {

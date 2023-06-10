@@ -1,13 +1,14 @@
+import { Colors } from "@/styles/variables";
+import { MediaQueries } from "@/styles/variables";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 // import { ToastContainer } from "react-nextjs-toast";
 import styled from "styled-components";
+
 import ToggleSwitch from "../commons/switchers/toggle-switch";
 import ProviderContainer from "./ProviderContainer/ProviderContainer";
-import Link from "next/link";
-import { Colors } from "@/styles/variables";
-import { MediaQueries } from "@/styles/variables";
 
 /**
  *

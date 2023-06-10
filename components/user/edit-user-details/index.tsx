@@ -1,9 +1,9 @@
+import { UPDATE_USERNAME } from "@/helpers/mutations/user";
+import { MediaQueries } from "@/styles/variables";
 import { useMutation } from "@apollo/client";
 import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
-import { UPDATE_USERNAME } from "@/helpers/mutations/user";
-import { MediaQueries } from "@/styles/variables";
 
 /**
  *

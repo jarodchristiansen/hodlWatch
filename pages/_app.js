@@ -1,14 +1,17 @@
-import "bootstrap/dist/css/bootstrap.css"; // Add this line
-import "../styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
 import { SessionProvider } from "next-auth/react";
-import client from "../apollo-client";
-import Layout from "../components/layout/layout";
+import { useRouter } from "next/router";
 // import { Web3Modal } from "@web3modal/react";
 import Script from "next/script";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
+
+import client from "../apollo-client";
+import Layout from "../components/layout/layout";
 import { pageview } from "../lib/gtag";
+
+// Add this line
+import "../styles/globals.css";
+import "bootstrap/dist/css/bootstrap.css";
 
 /**
  *

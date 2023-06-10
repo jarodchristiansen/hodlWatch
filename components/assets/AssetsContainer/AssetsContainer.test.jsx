@@ -1,6 +1,6 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import { GET_USER } from "@/helpers/queries/user";
+import { MockedProvider } from "@apollo/client/testing";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import AssetsContainer from "./AssetsContainer";
 
@@ -102,5 +102,57 @@ describe("AssetsContainer", () => {
     );
 
     expect(screen.getByTestId("loading-component")).toBeTruthy();
+  });
+
+  it("Should render assets without favorites when the user has no favorites", async () => {
+    const emptyUserMock = [
+      {
+        request: {
+          query: GET_USER,
+          variables: { email: "testtesterson@gmail.com" },
+          fetchPolicy: "network-only",
+        },
+        result: {
+          data: {
+            getUser: {
+              createAt: 167099839030389,
+              email: "testtesterson@gmail.com",
+              favorites: [],
+              image:
+                "https://lh3.googleusercontent.com/a/ALm5wu2dED2ID3Xe1yIQqm8bnu9cFWmwSTw7VHb_NEo2=s96-c",
+              name: "Test Testerson",
+              username: "Tester",
+            },
+          },
+        },
+      },
+    ];
+
+    render(
+      <MockedProvider mocks={emptyUserMock} addTypename={false}>
+        <AssetsContainer assets={assets} session={session} />
+      </MockedProvider>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("assets-container")).toBeTruthy();
+      // Assert that favorites are not rendered
+      expect(screen.queryByTestId("remove-button")).toBeNull();
+    });
+  });
+
+  // Test the case when there are multiple assets
+  it("Should render multiple asset cards when there are multiple assets in the list", async () => {
+    render(
+      <MockedProvider mocks={userMock} addTypename={false}>
+        <AssetsContainer assets={assets} session={session} />
+      </MockedProvider>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("assets-container")).toBeTruthy();
+      // Assert that all asset cards are rendered
+      expect(screen.getAllByTestId("asset-card")).toHaveLength(assets.length);
+    });
   });
 });

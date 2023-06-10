@@ -161,6 +161,12 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
 
+  a {
+    color: ${Colors.elegant.white};
+    font-weight: bold;
+    text-decoration: none;
+  }
+
   .active-underline-span {
     height: 2px;
     color: ${Colors.elegant.accentPurple};

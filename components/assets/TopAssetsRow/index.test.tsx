@@ -1,5 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { render, fireEvent, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
+
 import TopAssetsRow from ".";
 
 describe("TopAssetRow", () => {

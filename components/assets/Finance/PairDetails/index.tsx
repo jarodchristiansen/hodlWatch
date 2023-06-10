@@ -1,7 +1,8 @@
+import { GET_ASSET_PAIRS_24_HOURS } from "@/helpers/queries/assets/getAssetFinancialDetails";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
-import { GET_ASSET_PAIRS_24_HOURS } from "@/helpers/queries/assets/getAssetFinancialDetails";
+
 import PairBlock from "./pair-block";
 
 interface PairDetailsRowProps {
@@ -24,7 +25,7 @@ const PairDetailsRow = ({ id }: PairDetailsRowProps) => {
         symbol: id,
       },
     });
-  }, [id]);
+  }, [id, getPairs]);
 
   const PairBlocks = useMemo(() => {
     if (!data?.getAssetPairs?.pairData?.length) return [];
@@ -32,7 +33,7 @@ const PairDetailsRow = ({ id }: PairDetailsRowProps) => {
     return data?.getAssetPairs.pairData.map((pair, idx) => {
       return <PairBlock data={pair} id={id} key={idx} />;
     });
-  }, [data?.getAssetPairs, loading]);
+  }, [data?.getAssetPairs, loading, id]);
 
   return (
     <div>

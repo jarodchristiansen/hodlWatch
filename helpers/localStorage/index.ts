@@ -1,4 +1,5 @@
 import cookieCutter from "cookie-cutter";
+
 const Cryptr = require("cryptr");
 
 export const StoreLocalKeys = (identity, values) => {

@@ -17,7 +17,7 @@ const CollectiveStatsId = ({ favoriteCount, id }: CollectiveStatsIdProps) => {
 
   useEffect(() => {
     fetchCollectiveStats();
-  }, []);
+  });
 
   const router = useRouter();
 
@@ -39,7 +39,7 @@ const CollectiveStatsId = ({ favoriteCount, id }: CollectiveStatsIdProps) => {
         favoriteFollowedRatio * 100,
         !!foundTopAsset.length,
       ];
-    }, [data?.getCollectiveStats, router?.asPath, favoriteCount]);
+    }, [data?.getCollectiveStats, favoriteCount, id]);
 
   return (
     <CommunityStatsContainer>

@@ -1,3 +1,5 @@
+// import FinanceChartModal from "./FinanceChartModal";
+import { currencyFormat } from "@/helpers/formatters/currency";
 import {
   Area,
   CartesianGrid,
@@ -6,8 +8,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-// import FinanceChartModal from "./FinanceChartModal";
-import { currencyFormat } from "@/helpers/formatters/currency";
 import styled from "styled-components";
 
 interface VolumeChartProps {

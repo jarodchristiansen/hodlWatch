@@ -1,17 +1,17 @@
-import {
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  LineChart,
-  Line,
-} from "recharts";
 // import { useMediaQuery } from "react-responsive";
 // import { currencyFormat } from "../../helpers/formatters";
 // import FinanceChartModal from "./FinanceChartModal";
 import React from "react";
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const MarketDominanceChartDesktop = ({ data }) => {
   const format = (num, decimals) =>

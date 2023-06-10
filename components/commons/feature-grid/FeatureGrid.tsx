@@ -108,7 +108,7 @@ const FeatureGrid = () => {
               experience.
             </li>
             <li>
-              Navigate effortlessly through the app's features and access
+              Navigate effortlessly through the app&apos;s features and access
               information with ease.
             </li>
             <li>

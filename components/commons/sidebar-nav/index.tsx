@@ -1,6 +1,6 @@
+import { MediaQueries } from "@/styles/variables";
 import { useState } from "react";
 import styled from "styled-components";
-import { MediaQueries } from "@/styles/variables";
 
 const SideMenu = ({ navLinks }) => {
   const [menuStatus, setMenuStatus] = useState("open");

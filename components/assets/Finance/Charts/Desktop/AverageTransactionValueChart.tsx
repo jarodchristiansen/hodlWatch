@@ -1,3 +1,5 @@
+// import FinanceChartModal from "./FinanceChartModal";
+import React from "react";
 import {
   Area,
   CartesianGrid,
@@ -6,8 +8,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-// import FinanceChartModal from "./FinanceChartModal";
-import React from "react";
 import styled from "styled-components";
 
 /**

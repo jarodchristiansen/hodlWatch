@@ -1,6 +1,6 @@
+import { Colors } from "@/styles/variables";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { Colors } from "@/styles/variables";
 
 const ReadMoreButton = ({ children }) => {
   const [currentText, setCurrentText] = useState();
@@ -21,7 +21,7 @@ const ReadMoreButton = ({ children }) => {
     if (!showMore) {
       return children.slice(0, 250);
     }
-  }, [shouldShowReadMore, children]);
+  }, [shouldShowReadMore, children, showMore]);
 
   const changeRender = (step: string) => {
     // step === "Less" && setShowMore(false);

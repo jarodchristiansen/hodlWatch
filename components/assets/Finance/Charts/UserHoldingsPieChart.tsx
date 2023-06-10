@@ -1,14 +1,14 @@
+import { currencyFormat } from "@/helpers/formatters/currency";
+import React, { useMemo } from "react";
 import {
-  Tooltip,
-  PieChart,
-  Pie,
   Cell,
   Legend,
+  Pie,
+  PieChart,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
-import React, { useMemo } from "react";
 import styled from "styled-components";
-import { currencyFormat } from "@/helpers/formatters/currency";
 
 interface UserHoldingsPieChartProps {
   data: BalanceObjects[];

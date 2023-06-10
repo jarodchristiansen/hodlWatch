@@ -1,5 +1,5 @@
 import { BorderRadius, Colors, FontWeight } from "@/styles/variables";
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface SearchFormProps {

@@ -14,6 +14,7 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import styled from "styled-components";
+
 import client from "../../apollo-client";
 
 /**
@@ -67,6 +68,7 @@ const EducationArticle = ({ data }) => {
         return (
           <div key={markdownPiece + Math.random()}>
             <ReactMarkdown
+              // eslint-disable-next-line react/no-children-prop
               children={markdownPiece}
               remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
               rehypePlugins={[rehypeRaw]}

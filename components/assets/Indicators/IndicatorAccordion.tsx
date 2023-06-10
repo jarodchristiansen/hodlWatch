@@ -1,8 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { Accordion } from "react-bootstrap";
-import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-// @ts-ignore
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 // import FibonacciRetracementChartDesktop from "../Finance/Charts/Desktop/FibonacciRetracementChartDesktop";
 // import MarketDominanceChartDesktop from "../Finance/Charts/Desktop/MarketDominanceChartDesktop";
 // import VolatilityChart from "../Finance/Charts/Desktop/VolatilityChartDesktop";
@@ -11,10 +6,16 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 // import PriceBTCChartDesktop from "../Finance/Charts/Desktop/PriceBTCChartDesktop";
 // import GET_ASSET_FINANCIALS from "../../../helpers/queries/assets/getAssetFinancialDetails";
 import { FormatUnixTime } from "@/helpers/formatters/time";
+import React, { useContext, useEffect, useState } from "react";
+import { Accordion } from "react-bootstrap";
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
+// @ts-ignore
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+
 import ActiveAddressesChart from "../Finance/Charts/Desktop/ActiveAddressesChart";
-import TransactionSizeChart from "../Finance/Charts/Desktop/TransactionSizeChart";
 import AverageTransactionValueChart from "../Finance/Charts/Desktop/AverageTransactionValueChart";
 import HashRateDifficultyChart from "../Finance/Charts/Desktop/HashRateDifficultyChart";
+import TransactionSizeChart from "../Finance/Charts/Desktop/TransactionSizeChart";
 
 interface IndicatorAccordion {
   timeQuery: number;
@@ -135,11 +136,9 @@ const IndicatorAccordion = ({
     return charts;
   };
 
-  const renderArrows = () => {
-    const { isFirstItemVisible, scrollPrev } =
-      React.useContext(VisibilityContext);
-    const { isLastItemVisible, scrollNext } =
-      React.useContext(VisibilityContext);
+  const RenderArrows = () => {
+    const { isFirstItemVisible, scrollPrev } = useContext(VisibilityContext);
+    const { isLastItemVisible, scrollNext } = useContext(VisibilityContext);
 
     return (
       <div className={"container"}>
@@ -166,7 +165,7 @@ const IndicatorAccordion = ({
         <Accordion.Header>Indicator Panel</Accordion.Header>
         <Accordion.Body>
           <ScrollMenu
-            Footer={renderArrows}
+            Footer={RenderArrows}
             transitionDuration={2500}
             transitionBehavior={"smooth"}
           >

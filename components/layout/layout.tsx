@@ -1,8 +1,9 @@
-import { Fragment, useEffect, useState } from "react";
-import Header from "./header";
-import Footer from "./footer";
-import styled from "styled-components";
 import { useRouter } from "next/dist/client/router";
+import { Fragment, useEffect, useState } from "react";
+import styled from "styled-components";
+
+import Footer from "./footer";
+import Header from "./header";
 
 /**
  *

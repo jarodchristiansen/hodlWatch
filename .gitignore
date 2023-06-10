@@ -2,6 +2,7 @@
 # ENV variables
 .env.local
 next.config.js
+.vscode
 
 # dependencies
 /node_modules
@@ -35,3 +36,5 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+tsconfig.tsbuildinfo

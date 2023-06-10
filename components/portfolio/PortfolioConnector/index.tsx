@@ -1,11 +1,11 @@
+import UserHoldingsPieChart from "@/components/assets/Finance/Charts/UserHoldingsPieChart";
+import { currencyFormat } from "@/helpers/formatters/currency";
+import { GetLocalKeys, StoreLocalKeys } from "@/helpers/localStorage/index";
+import { GET_USER_HOLDINGS } from "@/helpers/queries/user/index";
+import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { GET_USER_HOLDINGS } from "@/helpers/queries/user/index";
-import { GetLocalKeys, StoreLocalKeys } from "@/helpers/localStorage/index";
-import { currencyFormat } from "@/helpers/formatters/currency";
-import { MediaQueries } from "@/styles/variables";
-import UserHoldingsPieChart from "@/components/assets/Finance/Charts/UserHoldingsPieChart";
 
 /**
  *
@@ -216,48 +216,46 @@ const PortfolioConnector = () => {
         </FormContainer>
       )}
 
-      {!!HoldingsItems?.length &&
-        !holdingLoading &&
-        portfolioView === "Main" && (
-          <ColumnContainer>
-            <button
-              onClick={() => setPortfolioView("Analytics")}
-              className="standardized-button"
-            >
-              Analytics
-            </button>
+      {!!HoldingsItems?.length && !holdingLoading && portfolioView === "Main" && (
+        <ColumnContainer>
+          <button
+            onClick={() => setPortfolioView("Analytics")}
+            className="standardized-button"
+          >
+            Analytics
+          </button>
 
-            <HoldingItemsContainer>
-              <div>
-                <h2>Current Holdings</h2>
-                {sum && <h4>Total Holdings: {currencyFormat(sum)}</h4>}
+          <HoldingItemsContainer>
+            <div>
+              <h2>Current Holdings</h2>
+              {sum && <h4>Total Holdings: {currencyFormat(sum)}</h4>}
 
-                <button
-                  onClick={() => setHoldingSort("Value")}
-                  className="standardized-button"
-                >
-                  Sort By Value
-                  {/* <span>
+              <button
+                onClick={() => setHoldingSort("Value")}
+                className="standardized-button"
+              >
+                Sort By Value
+                {/* <span>
                   <span>&uarr;</span>
                 </span>
                */}
-                  {/* <span>
+                {/* <span>
                   <span>&#8595;</span>
                 </span>
                */}
-                </button>
+              </button>
 
-                <button
-                  onClick={() => setHoldingSort("Price")}
-                  className="standardized-button"
-                >
-                  Sort By Price
-                </button>
-              </div>
-              {HoldingsItems}
-            </HoldingItemsContainer>
-          </ColumnContainer>
-        )}
+              <button
+                onClick={() => setHoldingSort("Price")}
+                className="standardized-button"
+              >
+                Sort By Price
+              </button>
+            </div>
+            {HoldingsItems}
+          </HoldingItemsContainer>
+        </ColumnContainer>
+      )}
 
       {!!analyticsData.length && portfolioView === "Analytics" && (
         <AnalyticsContainer>
