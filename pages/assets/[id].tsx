@@ -1,10 +1,6 @@
-import BitcoinMacrosContainer from "@/components/assets/BitcoinMacros/BitcoinMacrosContainer";
-import CollectiveStatsId from "@/components/assets/collective/CollectiveStatsID";
-import FinancialAccordion from "@/components/assets/Finance/FinancialAccordion";
-import PairDetailsRow from "@/components/assets/Finance/PairDetails/index";
-import IndicatorAccordion from "@/components/assets/Indicators/IndicatorAccordion";
+import FinancialChartGrid from "@/components/assets/Finance/FinancialChartCGrid";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
-import TimeButtons from "@/components/commons/TimeButtons";
+import SidebarV2 from "@/components/commons/sidebar-nav/SidebarV2";
 import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
 import {
   GET_ASSET_HISTORY,
@@ -12,10 +8,8 @@ import {
 } from "@/helpers/queries/assets/getAssetFinancialDetails";
 import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
-import { getSession } from "next-auth/react";
-import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Accordion } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -30,6 +24,8 @@ import styled from "styled-components";
  */
 const AssetDetailsPage = ({ session }) => {
   const [timeQuery, setTimeQuery] = useState(30);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [pageView, setPageView] = useState("dashboard");
 
   const router = useRouter();
 
@@ -89,6 +85,8 @@ const AssetDetailsPage = ({ session }) => {
   //     });
   //   }
   // }, [isBtc]);
+
+  console.log({ data });
 
   const assetDetails = useMemo(() => {
     if (!GeckoDetails?.getGeckoAssetDetails) return [];
@@ -173,7 +171,62 @@ const AssetDetailsPage = ({ session }) => {
 
   return (
     <AssetDetailsPageContainer>
-      <Head>
+      <SidebarV2 open={sidebarOpen} setOpen={setSidebarOpen} />
+
+      {loading && (
+        <div className={"container text-center"}>
+          <LoadingSpinner />
+        </div>
+      )}
+
+      {pageView === "dashboard" && data && (
+        <ViewContainer>
+          <FinancialChartGrid
+            financialData={
+              data?.getAssetHistory?.priceData
+                ? data?.getAssetHistory.priceData
+                : []
+            }
+            id={id}
+          />
+
+          {/* {isBtcOrEth && (
+            <IndicatorAccordion
+              timeQuery={timeQuery}
+              id={id}
+              blockchainData={
+                data?.getAssetHistory?.blockchainData
+                  ? data?.getAssetHistory.blockchainData
+                  : []
+              }
+            />
+          )} */}
+
+          {/* <Accordion defaultActiveKey="1">
+            <FinancialAccordion
+              financialData={
+                data?.getAssetHistory?.priceData
+                  ? data?.getAssetHistory.priceData
+                  : []
+              }
+              id={id}
+            />
+            {isBtcOrEth && (
+              <IndicatorAccordion
+                timeQuery={timeQuery}
+                id={id}
+                blockchainData={
+                  data?.getAssetHistory?.blockchainData
+                    ? data?.getAssetHistory.blockchainData
+                    : []
+                }
+              />
+            )}
+          </Accordion> */}
+        </ViewContainer>
+      )}
+
+      {/* <Head>
         <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
         <title>{`Asset Details - ${id?.toUpperCase()}`}</title>
       </Head>
@@ -216,15 +269,6 @@ const AssetDetailsPage = ({ session }) => {
 
           {data && (
             <>
-              {/* <AssetDetailsHeader
-       asset={id}
-       time={timeQuery}
-       assetData={
-         data?.getAssetFinancialDetails
-           ? data?.getAssetFinancialDetails
-           : ""
-       }
-     /> */}
               <Accordion defaultActiveKey="1">
                 <FinancialAccordion
                   financialData={
@@ -251,14 +295,15 @@ const AssetDetailsPage = ({ session }) => {
         </div>
       )}
 
-      {loading && (
-        <div className={"container text-center"}>
-          <LoadingSpinner />
-        </div>
-      )}
+    */}
     </AssetDetailsPageContainer>
   );
 };
+
+const ViewContainer = styled.div`
+  display: flex;
+  width: 100%;
+`;
 
 const CollectiveStatsHodler = styled.div`
   padding: 2rem 0;
@@ -375,13 +420,9 @@ const FilterBar = styled.div`
 `;
 
 const AssetDetailsPageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
-  min-height: 100vh;
+  @media ${MediaQueries.MD} {
+    display: flex;
+  }
 `;
 
 // export async function getServerSideProps(context) {

@@ -1,16 +1,14 @@
 import { FormatUnixTime } from "@/helpers/formatters/time";
-import { useContext, useEffect, useState } from "react";
-import { Accordion } from "react-bootstrap";
-import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
+import { Colors, MediaQueries } from "@/styles/variables";
+import styled from "styled-components";
 import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
 import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracementChartDesktop";
 import MarketDominanceChartDesktop from "./Charts/Desktop/MarketDominanceChartDesktop";
 import PercentChangeChartDesktop from "./Charts/Desktop/PercentChangeChartDesktop";
 import PriceBTCChartDesktop from "./Charts/Desktop/PriceBTCChartDesktop";
 import VolatilityChart from "./Charts/Desktop/VolatilityChartDesktop";
-import VolumeChartDesktop from "./Charts/Desktop/VolumeChartDesktop";
 
 interface FinancailAccordionProps {
   financialData: FinancialDataType[];
@@ -30,7 +28,7 @@ interface FinancialDataType {
   __typename: string;
 }
 
-const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
+const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [processedFinancialData, setProcessedFinancialData] = useState<any>([]);
   const [chartsToDisplay, setChartsToDisplay] = useState<any>();
@@ -39,7 +37,7 @@ const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
 
   useEffect(() => {
     financialData && processFinancialData(financialData);
-  }, []);
+  }, [financialData]);
 
   const processFinancialData = (financialData) => {
     let market_dominance = [];
@@ -108,6 +106,8 @@ const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
       price_btc,
     };
 
+    console.log({ filteredData });
+
     const chartData = [
       !!filteredData?.closes?.length && (
         <FibonacciRetracementChartDesktop
@@ -136,9 +136,9 @@ const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
           key="volatility-chart"
         />
       ),
-      !!filteredData?.volume?.length && (
-        <VolumeChartDesktop data={filteredData?.volume} key="volume-chart" />
-      ),
+      // !!filteredData?.volume?.length && (
+      //   <VolumeChartDesktop data={filteredData?.volume} key="volume-chart" />
+      // ),
       !!filteredData?.percent_change?.length && (
         <PercentChangeChartDesktop
           data={filteredData?.percent_change}
@@ -157,49 +157,39 @@ const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
     setProcessedFinancialData(filteredData);
   };
 
-  const RenderArrows = () => {
-    const { isFirstItemVisible, scrollPrev } = useContext(VisibilityContext);
-    const { isLastItemVisible, scrollNext } = useContext(VisibilityContext);
-
-    return (
-      <div className={"container"}>
-        <FaArrowLeft
-          size={24}
-          color={"black"}
-          className={"pointer-link me-4"}
-          onClick={() => scrollPrev()}
-        />
-
-        <FaArrowRight
-          size={24}
-          color={"black"}
-          className={"pointer-link ms-4"}
-          onClick={() => scrollNext()}
-        />
-      </div>
-    );
-  };
-
   return (
-    <div className={"text-center w-100"}>
-      <Accordion.Item eventKey="1">
-        <Accordion.Header>Financial Charts</Accordion.Header>
-        <Accordion.Body>
-          <ScrollMenu
-            Footer={RenderArrows}
-            transitionDuration={2500}
-            transitionBehavior={"smooth"}
-          >
-            {chartsToDisplay?.map((chart, idx) => (
-              <div className={"px-1 py-2"} key={idx}>
-                {chart}
-              </div>
-            ))}
-          </ScrollMenu>
-        </Accordion.Body>
-      </Accordion.Item>
-    </div>
+    <GridContainer>
+      {chartsToDisplay?.map((chart, idx) => (
+        // <ChartCard key={idx}>{chart}</ChartCard>
+        <ChartCard key={idx}>{chart}</ChartCard>
+      ))}
+    </GridContainer>
   );
 };
 
-export default FinancialAccordion;
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 24px;
+  width: 100%;
+  padding: 24px 0;
+
+  @media ${MediaQueries.MD} {
+    padding: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+`;
+
+const ChartCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 1rem 1rem;
+  background-color: ${Colors.elegant.white};
+`;
+
+export default FinancialChartGrid;
