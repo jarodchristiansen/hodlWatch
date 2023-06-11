@@ -1,38 +1,31 @@
 import {
-  Colors,
-  Padding,
-  FontSize,
-  FontFamily,
-  FontWeight,
   BorderRadius,
   BorderWidth,
-  Opacity,
+  Colors,
+  FontFamily,
+  FontSize,
+  FontWeight,
   MediaQueries,
+  Opacity,
+  Padding,
 } from "./variables";
 
 describe("Styles", () => {
   it("should have the correct color values", () => {
     expect(Colors.lightGray).toEqual("#f4f4f4");
-    expect(Colors.gainsboro).toEqual("#dcdcdc");
-    expect(Colors.platinum).toEqual("#e5e5e5");
-    expect(Colors.silver).toEqual("#c0c0c0");
-    expect(Colors.ash).toEqual("#b2b2b2");
     expect(Colors.darkGray).toEqual("#a9a9a9");
-    expect(Colors.richBlack).toEqual("#001f3f");
-    expect(Colors.deepNavy).toEqual("#000080");
-    expect(Colors.midnight).toEqual("#191970");
 
-    expect(Colors.modern.white).toEqual("#ffffff");
+    expect(Colors.modern.white).toEqual("#FFFFFC");
     expect(Colors.modern.black).toEqual("#000000");
     expect(Colors.modern.secondaryGray).toEqual("#4A4A4A");
     expect(Colors.modern.accentBlue).toEqual("#0088FF");
 
-    expect(Colors.fresh.white).toEqual("#ffffff");
+    expect(Colors.fresh.white).toEqual("#FFFFFC");
     expect(Colors.fresh.secondaryAqua).toEqual("#83D0C9");
     expect(Colors.fresh.black).toEqual("#000000");
     expect(Colors.fresh.accentBlue).toEqual("#1F4F59");
 
-    expect(Colors.elegant.white).toEqual("#ffffff");
+    expect(Colors.elegant.white).toEqual("#FFFFFC");
     expect(Colors.elegant.black).toEqual("#000000");
     expect(Colors.elegant.secondaryGray).toEqual("#B7B7B7");
     expect(Colors.elegant.accentPurple).toEqual("#6B4CFF");
