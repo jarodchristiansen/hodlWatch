@@ -5,7 +5,6 @@ import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import SidebarV2 from "@/components/commons/sidebar-nav/SidebarV2";
 import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
 import {
-  GET_ASSET_FINANCIALS,
   GET_ASSET_HISTORY,
   GET_BTC_MACROS,
 } from "@/helpers/queries/assets/getAssetFinancialDetails";
@@ -44,9 +43,6 @@ const AssetDetailsPage = ({ session }) => {
   const [getFinancials, { data, loading, error, refetch }] =
     useLazyQuery(GET_ASSET_HISTORY);
 
-  const [getMarketMetrics, { data: marketData, loading: LoadingMarketData }] =
-    useLazyQuery(GET_ASSET_FINANCIALS);
-
   const [
     getDetails,
     { data: GeckoDetails, loading: GeckoLoading, error: GeckoError },
@@ -72,12 +68,12 @@ const AssetDetailsPage = ({ session }) => {
         },
       });
     }
-    getMarketMetrics({
-      variables: {
-        symbol: id || "BTC",
-        time: timeQuery,
-      },
-    });
+    // getMarketMetrics({
+    //   variables: {
+    //     symbol: id || "BTC",
+    //     time: timeQuery,
+    //   },
+    // });
     // getDetails({
     //   variables: {
     //     name: name || id || "BTC",
@@ -219,11 +215,7 @@ const AssetDetailsPage = ({ session }) => {
         </ViewContainer>
       )}
 
-      {/* <Head>
-        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
-        <title>{`Asset Details - ${id?.toUpperCase()}`}</title>
-      </Head>
-
+      {/* 
       {!loading && (
         <div className={"container text-center"}>
           {GeckoDetails && !loading && assetDetails}
@@ -244,34 +236,6 @@ const AssetDetailsPage = ({ session }) => {
           <BitcoinMacrosContainer
             MacroData={MacroData?.getBTCMacros?.macro_data}
           />
-
-    
-
-          {data && (
-            <>
-              <Accordion defaultActiveKey="1">
-                <FinancialAccordion
-                  financialData={
-                    data?.getAssetHistory?.priceData
-                      ? data?.getAssetHistory.priceData
-                      : []
-                  }
-                  id={id}
-                />
-                {isBtcOrEth && (
-                  <IndicatorAccordion
-                    timeQuery={timeQuery}
-                    id={id}
-                    blockchainData={
-                      data?.getAssetHistory?.blockchainData
-                        ? data?.getAssetHistory.blockchainData
-                        : []
-                    }
-                  />
-                )}
-              </Accordion>
-            </>
-          )}
         </div>
       )}
 
@@ -284,6 +248,19 @@ const ViewContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin: 0 auto;
+
+  @media ${MediaQueries.SM} {
+    width: 95%;
+  }
+
+  @media ${MediaQueries.MD} {
+    width: 90%;
+  }
+
+  @media ${MediaQueries.LG} {
+    width: 85%;
+  }
 `;
 
 const CollectiveStatsHodler = styled.div`

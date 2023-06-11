@@ -35,7 +35,7 @@ const SidebarContainer = styled.div<SidebarProps>`
   /* z-index: 100; */
 
   @media ${MediaQueries.MD} {
-    width: ${({ open }) => (open ? "15%" : "70px")};
+    width: ${({ open }) => (open ? "10%" : "70px")};
     height: 100vh;
     position: sticky;
     top: 0;

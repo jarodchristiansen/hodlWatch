@@ -14,6 +14,7 @@ import {
 } from "recharts";
 import styled from "styled-components";
 
+import { Colors } from "@/styles/variables";
 import FinanceChartModal from "../FinanceChartModal";
 
 const CustomizedDot = (props) => {
@@ -232,7 +233,11 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
 
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="70%" stopColor="#806cfe" stopOpacity={0.1} />
+                <stop
+                  offset="70%"
+                  stopColor={Colors.elegant.accentPurple}
+                  stopOpacity={0.2}
+                />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
               </linearGradient>
             </defs>
