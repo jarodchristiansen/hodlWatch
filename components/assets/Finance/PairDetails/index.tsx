@@ -3,6 +3,7 @@ import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 
+import { Colors } from "@/styles/variables";
 import PairBlock from "./pair-block";
 
 interface PairDetailsRowProps {
@@ -36,23 +37,33 @@ const PairDetailsRow = ({ id }: PairDetailsRowProps) => {
   }, [data?.getAssetPairs, loading, id]);
 
   return (
-    <div>
+    <PairsWholeContainer>
       {!!data?.getAssetPairs?.pairData?.length && (
         <>
-          <h6>Top Pairs by Volume (24 hours)</h6>
+          <h6 className="top-pairs-header">Top Pairs by Volume (24 hours)</h6>
           <PairRowContainer>{PairBlocks}</PairRowContainer>
         </>
       )}
-    </div>
+    </PairsWholeContainer>
   );
 };
 
+const PairsWholeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  .top-pairs-header {
+    color: ${Colors.elegant.white};
+  }
+`;
+
 const PairRowContainer = styled.div`
   display: flex;
-  max-width: 100%;
+  max-width: 80%;
   overflow: scroll;
   gap: 1rem;
   padding: 1rem 0;
+  margin: 0 auto;
 
   ::-webkit-scrollbar {
     display: none;

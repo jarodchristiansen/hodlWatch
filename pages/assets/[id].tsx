@@ -1,4 +1,5 @@
 import FinancialChartGrid from "@/components/assets/Finance/FinancialChartCGrid";
+import PairDetailsRow from "@/components/assets/Finance/PairDetails";
 import IndicatorGrid from "@/components/assets/Indicators/Charts/Desktop/IndicatorGrid";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import SidebarV2 from "@/components/commons/sidebar-nav/SidebarV2";
@@ -189,6 +190,12 @@ const AssetDetailsPage = ({ session }) => {
 
       {pageView === "dashboard" && data && (
         <ViewContainer>
+          {id && (
+            <PairRowContainer>
+              <PairDetailsRow id={id} />
+            </PairRowContainer>
+          )}
+
           <FinancialChartGrid
             financialData={
               data?.getAssetHistory?.priceData
@@ -209,30 +216,6 @@ const AssetDetailsPage = ({ session }) => {
               }
             />
           )}
-
-          {/* {isBtcOrEth && (
-            <IndicatorAccordion
-              timeQuery={timeQuery}
-              id={id}
-              blockchainData={
-                data?.getAssetHistory?.blockchainData
-                  ? data?.getAssetHistory.blockchainData
-                  : []
-              }
-            />
-          )} */}
-
-          {/* <Accordion defaultActiveKey="1">
-            <FinancialAccordion
-              financialData={
-                data?.getAssetHistory?.priceData
-                  ? data?.getAssetHistory.priceData
-                  : []
-              }
-              id={id}
-            />
-
-          </Accordion> */}
         </ViewContainer>
       )}
 
@@ -256,11 +239,7 @@ const AssetDetailsPage = ({ session }) => {
             </CollectiveStatsHodler>
           )}
 
-          {id && (
-            <PairRowContainer>
-              <PairDetailsRow id={id} />
-            </PairRowContainer>
-          )}
+
 
           <BitcoinMacrosContainer
             MacroData={MacroData?.getBTCMacros?.macro_data}
