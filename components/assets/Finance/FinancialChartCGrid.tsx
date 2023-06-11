@@ -5,10 +5,7 @@ import { Colors, MediaQueries } from "@/styles/variables";
 import styled from "styled-components";
 import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
 import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracementChartDesktop";
-import MarketDominanceChartDesktop from "./Charts/Desktop/MarketDominanceChartDesktop";
-import PercentChangeChartDesktop from "./Charts/Desktop/PercentChangeChartDesktop";
-import PriceBTCChartDesktop from "./Charts/Desktop/PriceBTCChartDesktop";
-import VolatilityChart from "./Charts/Desktop/VolatilityChartDesktop";
+import VolumeChartDesktop from "./Charts/Desktop/VolumeChartDesktop";
 
 interface FinancailAccordionProps {
   financialData: FinancialDataType[];
@@ -32,8 +29,6 @@ const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [processedFinancialData, setProcessedFinancialData] = useState<any>([]);
   const [chartsToDisplay, setChartsToDisplay] = useState<any>();
-
-  console.log({ financialData, id });
 
   useEffect(() => {
     financialData && processFinancialData(financialData);
@@ -106,8 +101,6 @@ const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
       price_btc,
     };
 
-    console.log({ filteredData });
-
     const chartData = [
       !!filteredData?.closes?.length && (
         <FibonacciRetracementChartDesktop
@@ -115,42 +108,41 @@ const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
           key="fib-chart"
         />
       ),
-
+      !!filteredData?.closes?.length && (
+        <EMAChartDesktop data={filteredData?.closes} key="ema-chart" />
+      ),
+      !!filteredData?.volume?.length && (
+        <VolumeChartDesktop data={filteredData?.volume} key="volume-chart" />
+      ),
       // !!filteredData?.closes?.length && (
       //   <BollingerBandChart data={filteredData?.closes} key="bband-chart" />
       // ),
 
-      !!filteredData?.closes?.length && (
-        <EMAChartDesktop data={filteredData?.closes} key="ema-chart" />
-      ),
-
-      !!filteredData?.market_dominance?.length && (
-        <MarketDominanceChartDesktop
-          data={filteredData?.market_dominance}
-          key="market-dom-chart"
-        />
-      ),
-      !!filteredData?.volatility?.length && (
-        <VolatilityChart
-          data={filteredData?.volatility}
-          key="volatility-chart"
-        />
-      ),
-      // !!filteredData?.volume?.length && (
-      //   <VolumeChartDesktop data={filteredData?.volume} key="volume-chart" />
+      // !!filteredData?.market_dominance?.length && (
+      //   <MarketDominanceChartDesktop
+      //     data={filteredData?.market_dominance}
+      //     key="market-dom-chart"
+      //   />
       // ),
-      !!filteredData?.percent_change?.length && (
-        <PercentChangeChartDesktop
-          data={filteredData?.percent_change}
-          key="percent-change-chart"
-        />
-      ),
-      !!filteredData?.price_btc?.length && id !== "btc" && (
-        <PriceBTCChartDesktop
-          data={filteredData?.price_btc}
-          key="price-btc-chart"
-        />
-      ),
+      // !!filteredData?.volatility?.length && (
+      //   <VolatilityChart
+      //     data={filteredData?.volatility}
+      //     key="volatility-chart"
+      //   />
+      // ),
+
+      // !!filteredData?.percent_change?.length && (
+      //   <PercentChangeChartDesktop
+      //     data={filteredData?.percent_change}
+      //     key="percent-change-chart"
+      //   />
+      // ),
+      // !!filteredData?.price_btc?.length && id !== "btc" && (
+      //   <PriceBTCChartDesktop
+      //     data={filteredData?.price_btc}
+      //     key="price-btc-chart"
+      //   />
+      // ),
     ];
 
     setChartsToDisplay(chartData);
@@ -160,7 +152,6 @@ const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
   return (
     <GridContainer>
       {chartsToDisplay?.map((chart, idx) => (
-        // <ChartCard key={idx}>{chart}</ChartCard>
         <ChartCard key={idx}>{chart}</ChartCard>
       ))}
     </GridContainer>
@@ -170,7 +161,8 @@ const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-template-rows: 1fr 1fr 1fr;
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  grid-template-rows: auto;
   grid-gap: 24px;
   width: 100%;
   padding: 24px 0;
@@ -189,7 +181,7 @@ const ChartCard = styled.div`
   border: 1px solid black;
   border-radius: 10px;
   padding: 1rem 1rem;
-  background-color: ${Colors.elegant.white};
+  background-color: ${Colors.lightGray};
 `;
 
 export default FinancialChartGrid;

@@ -1,8 +1,10 @@
 import FinancialChartGrid from "@/components/assets/Finance/FinancialChartCGrid";
+import IndicatorGrid from "@/components/assets/Indicators/Charts/Desktop/IndicatorGrid";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import SidebarV2 from "@/components/commons/sidebar-nav/SidebarV2";
 import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
 import {
+  GET_ASSET_FINANCIALS,
   GET_ASSET_HISTORY,
   GET_BTC_MACROS,
 } from "@/helpers/queries/assets/getAssetFinancialDetails";
@@ -23,7 +25,7 @@ import styled from "styled-components";
  * @returns AssetDetailsPage that includes the financial/social/details for digital asset
  */
 const AssetDetailsPage = ({ session }) => {
-  const [timeQuery, setTimeQuery] = useState(30);
+  const [timeQuery, setTimeQuery] = useState(180);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [pageView, setPageView] = useState("dashboard");
 
@@ -40,6 +42,9 @@ const AssetDetailsPage = ({ session }) => {
 
   const [getFinancials, { data, loading, error, refetch }] =
     useLazyQuery(GET_ASSET_HISTORY);
+
+  const [getMarketMetrics, { data: marketData, loading: LoadingMarketData }] =
+    useLazyQuery(GET_ASSET_FINANCIALS);
 
   const [
     getDetails,
@@ -66,7 +71,12 @@ const AssetDetailsPage = ({ session }) => {
         },
       });
     }
-
+    getMarketMetrics({
+      variables: {
+        symbol: id || "BTC",
+        time: timeQuery,
+      },
+    });
     // getDetails({
     //   variables: {
     //     name: name || id || "BTC",
@@ -85,8 +95,6 @@ const AssetDetailsPage = ({ session }) => {
   //     });
   //   }
   // }, [isBtc]);
-
-  console.log({ data });
 
   const assetDetails = useMemo(() => {
     if (!GeckoDetails?.getGeckoAssetDetails) return [];
@@ -190,6 +198,18 @@ const AssetDetailsPage = ({ session }) => {
             id={id}
           />
 
+          {isBtcOrEth && (
+            <IndicatorGrid
+              timeQuery={timeQuery}
+              id={id}
+              blockchainData={
+                data?.getAssetHistory?.blockchainData
+                  ? data?.getAssetHistory.blockchainData
+                  : []
+              }
+            />
+          )}
+
           {/* {isBtcOrEth && (
             <IndicatorAccordion
               timeQuery={timeQuery}
@@ -211,17 +231,7 @@ const AssetDetailsPage = ({ session }) => {
               }
               id={id}
             />
-            {isBtcOrEth && (
-              <IndicatorAccordion
-                timeQuery={timeQuery}
-                id={id}
-                blockchainData={
-                  data?.getAssetHistory?.blockchainData
-                    ? data?.getAssetHistory.blockchainData
-                    : []
-                }
-              />
-            )}
+
           </Accordion> */}
         </ViewContainer>
       )}
@@ -256,16 +266,7 @@ const AssetDetailsPage = ({ session }) => {
             MacroData={MacroData?.getBTCMacros?.macro_data}
           />
 
-          {data && (
-            <FilterBar>
-              <h3>{timeQuery} Days</h3>
-              <TimeButtons
-                setTimeQuery={setTimeQuery}
-                availTimes={availableTimes}
-                refetch={refetch}
-              />
-            </FilterBar>
-          )}
+    
 
           {data && (
             <>
@@ -302,6 +303,7 @@ const AssetDetailsPage = ({ session }) => {
 
 const ViewContainer = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
 `;
 

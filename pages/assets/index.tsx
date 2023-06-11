@@ -44,8 +44,6 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
     setAssetData(data?.getAsset);
   }, [data?.getAsset]);
 
-  console.log({ data }, "from FETCH ASSETS");
-
   const filterAssets = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e?.preventDefault();
 

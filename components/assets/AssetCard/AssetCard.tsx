@@ -3,7 +3,7 @@ import { GET_USER } from "@/helpers/queries/user";
 import { Colors } from "@/styles/variables";
 import { useMutation } from "@apollo/client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Image } from "react-bootstrap";
 import styled from "styled-components";
 
@@ -61,8 +61,6 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
     atl_date,
     ath_date,
   } = asset;
-
-  console.log({ asset });
 
   const exploreLink = {
     pathname: `/assets/${symbol}`,

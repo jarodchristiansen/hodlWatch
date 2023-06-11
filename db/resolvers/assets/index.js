@@ -1,5 +1,4 @@
 const CoinGecko = require("coingecko-api");
-import { CoinGeckoClient } from "coingecko-api-v3";
 import Asset from "../../models/asset";
 import btc_macros from "../../models/btc_macro";
 
@@ -40,8 +39,6 @@ export const AssetResolver = {
 
       let assets = await CoinGeckoClient.coins.all();
       // const assets = await Asset.find({});
-
-      console.log("IN GET ASSET", { symbol });
 
       return assets?.data.filter((e) =>
         e.symbol.toLowerCase().includes(symbol.toLowerCase())

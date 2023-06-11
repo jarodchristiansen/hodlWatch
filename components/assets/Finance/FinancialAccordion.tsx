@@ -35,8 +35,6 @@ const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
   const [processedFinancialData, setProcessedFinancialData] = useState<any>([]);
   const [chartsToDisplay, setChartsToDisplay] = useState<any>();
 
-  console.log({ financialData, id });
-
   useEffect(() => {
     financialData && processFinancialData(financialData);
   }, []);
