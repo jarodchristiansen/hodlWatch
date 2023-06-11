@@ -176,7 +176,7 @@ const AssetDetailsPage = ({ session }) => {
 
   return (
     <AssetDetailsPageContainer>
-      <SidebarV2 open={sidebarOpen} setOpen={setSidebarOpen} />
+      <SidebarV2 open={sidebarOpen} setOpen={setSidebarOpen} view={pageView} />
 
       {loading && (
         <div className={"container text-center"}>
