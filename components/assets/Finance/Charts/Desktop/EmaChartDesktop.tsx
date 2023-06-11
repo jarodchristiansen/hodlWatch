@@ -1,10 +1,12 @@
 import { currencyFormat } from "@/helpers/formatters/currency";
+import { Colors } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import {
   Area,
   CartesianGrid,
   ComposedChart,
   Line,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -70,82 +72,82 @@ const EMAChartDesktop = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>EMA Chart</h1>
+        <h5>EMA Chart</h5>
       </div>
       {emaData && (
-        <ComposedChart data={emaData} height={500} width={500}>
-          <CartesianGrid strokeDasharray="3 3" />
+        <ResponsiveContainer width="100%" height={300}>
+          <ComposedChart data={emaData}>
+            <CartesianGrid strokeDasharray="3 3" />
 
-          <YAxis
-            dataKey="close"
-            domain={["auto", "auto"]}
-            allowDataOverflow={true}
-            width={0}
-            // @ts-ignore
-            formatter={(value: any) => currencyFormat(value.toString)}
-          />
-          <XAxis dataKey="time" />
+            <YAxis
+              dataKey="close"
+              domain={["auto", "auto"]}
+              allowDataOverflow={true}
+              width={0}
+              // @ts-ignore
+              formatter={(value: any) => currencyFormat(value.toString)}
+            />
+            <XAxis dataKey="time" />
 
-          <Tooltip formatter={(value) => currencyFormat(value)} />
+            <Tooltip formatter={(value) => currencyFormat(value)} />
 
-          <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="70%" stopColor="#806cfe" stopOpacity={0.1} />
-              <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
-            </linearGradient>
-          </defs>
+            <defs>
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="70%"
+                  stopColor={Colors.elegant.accentPurple}
+                  stopOpacity={0.2}
+                />
+                <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
+              </linearGradient>
+            </defs>
 
-          <Area
-            type="monotone"
-            dataKey="close"
-            stroke="#806cfe"
-            strokeWidth={2}
-            fillOpacity={1}
-            fill="url(#colorUv)"
-          />
+            <Area
+              type="monotone"
+              dataKey="close"
+              stroke="#806cfe"
+              strokeWidth={2}
+              fillOpacity={1}
+              fill="url(#colorUv)"
+            />
 
-          <Line
-            type="monotone"
-            dataKey="thirtyEma"
-            stroke="#b30000"
-            dot={false}
-            strokeWidth={2}
-            name="30 Day Ema"
-          />
+            <Line
+              type="monotone"
+              dataKey="thirtyEma"
+              stroke="#b30000"
+              dot={false}
+              strokeWidth={2}
+              name="30 Day Ema"
+            />
 
-          <Line
-            type="monotone"
-            dataKey="fiftyEma"
-            stroke="black"
-            dot={false}
-            name="50 Day Ema"
-          />
-          <Line
-            type="monotone"
-            dataKey="oneHundredEma"
-            stroke="blue"
-            dot={false}
-            name="100 Day Ema"
-          />
-          <Line
-            type="monotone"
-            dataKey="twoHundredEma"
-            stroke="green"
-            dot={false}
-            name="200 Day Ema"
-          />
-        </ComposedChart>
+            <Line
+              type="monotone"
+              dataKey="fiftyEma"
+              stroke="black"
+              dot={false}
+              name="50 Day Ema"
+            />
+            <Line
+              type="monotone"
+              dataKey="oneHundredEma"
+              stroke="blue"
+              dot={false}
+              name="100 Day Ema"
+            />
+            <Line
+              type="monotone"
+              dataKey="twoHundredEma"
+              stroke="green"
+              dot={false}
+              name="200 Day Ema"
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
       )}
     </ChartContainer>
   );
 };
 
-const ChartContainer = styled.div`
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 1rem 1rem;
-  background-color: white;
-  box-shadow: 2px 4px 8px lightgray;
-`;
+const ChartContainer = styled.div``;
 
 export default EMAChartDesktop;

@@ -1,12 +1,11 @@
+import { Colors, MediaQueries } from "@/styles/variables";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import styled from "styled-components";
-import { MediaQueries } from "@/styles/variables";
-import { Colors } from "@/styles/variables";
 
 /**
  *
@@ -100,7 +99,7 @@ function Header() {
       onSelect={handleSelect}
       className="navbar-main"
       style={{
-        backgroundColor: Colors.elegant.black,
+        backgroundColor: Colors.midnight,
         color: Colors.elegant.white,
       }}
     >

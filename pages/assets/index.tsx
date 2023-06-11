@@ -1,13 +1,11 @@
-import TopAssetsRow from "@/components/assets/TopAssetsRow";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import PaginationComponent from "@/components/commons/pagination/Pagination";
 import SearchForm from "@/components/forms/SearchForm/SearchForm";
 import GET_ASSET from "@/helpers/queries/assets/getAsset";
 import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
-import { MediaQueries } from "@/styles/variables";
-import { Colors } from "@/styles/variables";
+import { Colors, MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
@@ -45,8 +43,6 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
   useEffect(() => {
     setAssetData(data?.getAsset);
   }, [data?.getAsset]);
-
-  console.log({ data }, "from FETCH ASSETS");
 
   const filterAssets = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e?.preventDefault();
@@ -233,7 +229,7 @@ const FilterBar = styled.div`
   top: 0rem;
   z-index: 100;
   border-bottom: 1px solid gray;
-  background-color: ${Colors.platinum};
+  background-color: ${Colors.richBlack};
 
   text-align: right;
   white-space: nowrap;

@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 import {
-  Opacity,
+  BorderRadius,
   Colors,
   FontSize,
   FontWeight,
-  BorderRadius,
+  Opacity,
   Padding,
 } from "@/styles/variables";
 
@@ -32,7 +32,7 @@ const ButtonContainer = styled.button<ButtonProps>`
   outline: none;
 
   background-color: ${(props) =>
-    props.primary ? Colors.deepNavy : Colors.midnight};
+    props.primary ? Colors.modern.accentBlue : Colors.midnight};
   color: ${Colors.lightGray};
 
   &:hover {

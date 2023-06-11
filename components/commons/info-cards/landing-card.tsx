@@ -1,7 +1,5 @@
 import { Colors, MediaQueries } from "@/styles/variables";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
 import styled from "styled-components";
 
 interface LandingCardProps {
@@ -137,6 +135,7 @@ const InfoCardContainer = styled.div<InfoCardContainerProps>`
 
   .info-card-header {
     text-align: center;
+    color: ${Colors.elegant.white};
 
     .heading-text {
       font-size: 48px;
@@ -150,7 +149,8 @@ const InfoCardContainer = styled.div<InfoCardContainerProps>`
 
     span {
       font-size: 20px;
-      color: ${(props) => (props.renderSignIn ? "gray" : "#464545")};
+      color: ${(props) =>
+        props.renderSignIn ? Colors.elegant.white : Colors.elegant.white};
       font-style: italic;
       font-style: ${(props) => props.renderSignIn && "normal"};
     }

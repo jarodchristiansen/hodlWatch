@@ -1,10 +1,8 @@
-import BitcoinMacrosContainer from "@/components/assets/BitcoinMacros/BitcoinMacrosContainer";
-import CollectiveStatsId from "@/components/assets/collective/CollectiveStatsID";
-import FinancialAccordion from "@/components/assets/Finance/FinancialAccordion";
-import PairDetailsRow from "@/components/assets/Finance/PairDetails/index";
-import IndicatorAccordion from "@/components/assets/Indicators/IndicatorAccordion";
+import FinancialChartGrid from "@/components/assets/Finance/FinancialChartCGrid";
+import PairDetailsRow from "@/components/assets/Finance/PairDetails";
+import IndicatorGrid from "@/components/assets/Indicators/Charts/Desktop/IndicatorGrid";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
-import TimeButtons from "@/components/commons/TimeButtons";
+import SidebarV2 from "@/components/commons/sidebar-nav/SidebarV2";
 import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
 import {
   GET_ASSET_HISTORY,
@@ -12,10 +10,8 @@ import {
 } from "@/helpers/queries/assets/getAssetFinancialDetails";
 import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
-import { getSession } from "next-auth/react";
-import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Accordion } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -29,7 +25,9 @@ import styled from "styled-components";
  * @returns AssetDetailsPage that includes the financial/social/details for digital asset
  */
 const AssetDetailsPage = ({ session }) => {
-  const [timeQuery, setTimeQuery] = useState(30);
+  const [timeQuery, setTimeQuery] = useState(180);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [pageView, setPageView] = useState("dashboard");
 
   const router = useRouter();
 
@@ -70,7 +68,12 @@ const AssetDetailsPage = ({ session }) => {
         },
       });
     }
-
+    // getMarketMetrics({
+    //   variables: {
+    //     symbol: id || "BTC",
+    //     time: timeQuery,
+    //   },
+    // });
     // getDetails({
     //   variables: {
     //     name: name || id || "BTC",
@@ -173,11 +176,46 @@ const AssetDetailsPage = ({ session }) => {
 
   return (
     <AssetDetailsPageContainer>
-      <Head>
-        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
-        <title>{`Asset Details - ${id?.toUpperCase()}`}</title>
-      </Head>
+      <SidebarV2 open={sidebarOpen} setOpen={setSidebarOpen} />
 
+      {loading && (
+        <div className={"container text-center"}>
+          <LoadingSpinner />
+        </div>
+      )}
+
+      {pageView === "dashboard" && data && (
+        <ViewContainer>
+          {id && (
+            <PairRowContainer>
+              <PairDetailsRow id={id} />
+            </PairRowContainer>
+          )}
+
+          <FinancialChartGrid
+            financialData={
+              data?.getAssetHistory?.priceData
+                ? data?.getAssetHistory.priceData
+                : []
+            }
+            id={id}
+          />
+
+          {isBtcOrEth && (
+            <IndicatorGrid
+              timeQuery={timeQuery}
+              id={id}
+              blockchainData={
+                data?.getAssetHistory?.blockchainData
+                  ? data?.getAssetHistory.blockchainData
+                  : []
+              }
+            />
+          )}
+        </ViewContainer>
+      )}
+
+      {/* 
       {!loading && (
         <div className={"container text-center"}>
           {GeckoDetails && !loading && assetDetails}
@@ -193,72 +231,37 @@ const AssetDetailsPage = ({ session }) => {
             </CollectiveStatsHodler>
           )}
 
-          {id && (
-            <PairRowContainer>
-              <PairDetailsRow id={id} />
-            </PairRowContainer>
-          )}
+
 
           <BitcoinMacrosContainer
             MacroData={MacroData?.getBTCMacros?.macro_data}
           />
-
-          {data && (
-            <FilterBar>
-              <h3>{timeQuery} Days</h3>
-              <TimeButtons
-                setTimeQuery={setTimeQuery}
-                availTimes={availableTimes}
-                refetch={refetch}
-              />
-            </FilterBar>
-          )}
-
-          {data && (
-            <>
-              {/* <AssetDetailsHeader
-       asset={id}
-       time={timeQuery}
-       assetData={
-         data?.getAssetFinancialDetails
-           ? data?.getAssetFinancialDetails
-           : ""
-       }
-     /> */}
-              <Accordion defaultActiveKey="1">
-                <FinancialAccordion
-                  financialData={
-                    data?.getAssetHistory?.priceData
-                      ? data?.getAssetHistory.priceData
-                      : []
-                  }
-                  id={id}
-                />
-                {isBtcOrEth && (
-                  <IndicatorAccordion
-                    timeQuery={timeQuery}
-                    id={id}
-                    blockchainData={
-                      data?.getAssetHistory?.blockchainData
-                        ? data?.getAssetHistory.blockchainData
-                        : []
-                    }
-                  />
-                )}
-              </Accordion>
-            </>
-          )}
         </div>
       )}
 
-      {loading && (
-        <div className={"container text-center"}>
-          <LoadingSpinner />
-        </div>
-      )}
+    */}
     </AssetDetailsPageContainer>
   );
 };
+
+const ViewContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+
+  @media ${MediaQueries.SM} {
+    width: 95%;
+  }
+
+  @media ${MediaQueries.MD} {
+    width: 90%;
+  }
+
+  @media ${MediaQueries.LG} {
+    width: 85%;
+  }
+`;
 
 const CollectiveStatsHodler = styled.div`
   padding: 2rem 0;
@@ -375,13 +378,9 @@ const FilterBar = styled.div`
 `;
 
 const AssetDetailsPageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
-  min-height: 100vh;
+  @media ${MediaQueries.MD} {
+    display: flex;
+  }
 `;
 
 // export async function getServerSideProps(context) {

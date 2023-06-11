@@ -1,15 +1,10 @@
 import { FormatUnixTime } from "@/helpers/formatters/time";
-import { useContext, useEffect, useState } from "react";
-import { Accordion } from "react-bootstrap";
-import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
+import { Colors, MediaQueries } from "@/styles/variables";
+import styled from "styled-components";
 import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
 import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracementChartDesktop";
-import MarketDominanceChartDesktop from "./Charts/Desktop/MarketDominanceChartDesktop";
-import PercentChangeChartDesktop from "./Charts/Desktop/PercentChangeChartDesktop";
-import PriceBTCChartDesktop from "./Charts/Desktop/PriceBTCChartDesktop";
-import VolatilityChart from "./Charts/Desktop/VolatilityChartDesktop";
 import VolumeChartDesktop from "./Charts/Desktop/VolumeChartDesktop";
 
 interface FinancailAccordionProps {
@@ -30,14 +25,14 @@ interface FinancialDataType {
   __typename: string;
 }
 
-const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
+const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [processedFinancialData, setProcessedFinancialData] = useState<any>([]);
   const [chartsToDisplay, setChartsToDisplay] = useState<any>();
 
   useEffect(() => {
     financialData && processFinancialData(financialData);
-  }, []);
+  }, [financialData]);
 
   const processFinancialData = (financialData) => {
     let market_dominance = [];
@@ -113,91 +108,80 @@ const FinancialAccordion = ({ financialData, id }: FinancailAccordionProps) => {
           key="fib-chart"
         />
       ),
-
-      // !!filteredData?.closes?.length && (
-      //   <BollingerBandChart data={filteredData?.closes} key="bband-chart" />
-      // ),
-
       !!filteredData?.closes?.length && (
         <EMAChartDesktop data={filteredData?.closes} key="ema-chart" />
-      ),
-
-      !!filteredData?.market_dominance?.length && (
-        <MarketDominanceChartDesktop
-          data={filteredData?.market_dominance}
-          key="market-dom-chart"
-        />
-      ),
-      !!filteredData?.volatility?.length && (
-        <VolatilityChart
-          data={filteredData?.volatility}
-          key="volatility-chart"
-        />
       ),
       !!filteredData?.volume?.length && (
         <VolumeChartDesktop data={filteredData?.volume} key="volume-chart" />
       ),
-      !!filteredData?.percent_change?.length && (
-        <PercentChangeChartDesktop
-          data={filteredData?.percent_change}
-          key="percent-change-chart"
-        />
-      ),
-      !!filteredData?.price_btc?.length && id !== "btc" && (
-        <PriceBTCChartDesktop
-          data={filteredData?.price_btc}
-          key="price-btc-chart"
-        />
-      ),
+      // !!filteredData?.closes?.length && (
+      //   <BollingerBandChart data={filteredData?.closes} key="bband-chart" />
+      // ),
+
+      // !!filteredData?.market_dominance?.length && (
+      //   <MarketDominanceChartDesktop
+      //     data={filteredData?.market_dominance}
+      //     key="market-dom-chart"
+      //   />
+      // ),
+      // !!filteredData?.volatility?.length && (
+      //   <VolatilityChart
+      //     data={filteredData?.volatility}
+      //     key="volatility-chart"
+      //   />
+      // ),
+
+      // !!filteredData?.percent_change?.length && (
+      //   <PercentChangeChartDesktop
+      //     data={filteredData?.percent_change}
+      //     key="percent-change-chart"
+      //   />
+      // ),
+      // !!filteredData?.price_btc?.length && id !== "btc" && (
+      //   <PriceBTCChartDesktop
+      //     data={filteredData?.price_btc}
+      //     key="price-btc-chart"
+      //   />
+      // ),
     ];
 
     setChartsToDisplay(chartData);
     setProcessedFinancialData(filteredData);
   };
 
-  const RenderArrows = () => {
-    const { isFirstItemVisible, scrollPrev } = useContext(VisibilityContext);
-    const { isLastItemVisible, scrollNext } = useContext(VisibilityContext);
-
-    return (
-      <div className={"container"}>
-        <FaArrowLeft
-          size={24}
-          color={"black"}
-          className={"pointer-link me-4"}
-          onClick={() => scrollPrev()}
-        />
-
-        <FaArrowRight
-          size={24}
-          color={"black"}
-          className={"pointer-link ms-4"}
-          onClick={() => scrollNext()}
-        />
-      </div>
-    );
-  };
-
   return (
-    <div className={"text-center w-100"}>
-      <Accordion.Item eventKey="1">
-        <Accordion.Header>Financial Charts</Accordion.Header>
-        <Accordion.Body>
-          <ScrollMenu
-            Footer={RenderArrows}
-            transitionDuration={2500}
-            transitionBehavior={"smooth"}
-          >
-            {chartsToDisplay?.map((chart, idx) => (
-              <div className={"px-1 py-2"} key={idx}>
-                {chart}
-              </div>
-            ))}
-          </ScrollMenu>
-        </Accordion.Body>
-      </Accordion.Item>
-    </div>
+    <GridContainer>
+      {chartsToDisplay?.map((chart, idx) => (
+        <ChartCard key={idx}>{chart}</ChartCard>
+      ))}
+    </GridContainer>
   );
 };
 
-export default FinancialAccordion;
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  grid-template-rows: auto;
+  grid-gap: 24px;
+  width: 100%;
+  padding: 24px 0;
+
+  @media ${MediaQueries.MD} {
+    padding: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+`;
+
+const ChartCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 1rem 1rem;
+  background-color: ${Colors.lightGray};
+`;
+
+export default FinancialChartGrid;

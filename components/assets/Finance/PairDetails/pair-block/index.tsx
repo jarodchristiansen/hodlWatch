@@ -1,5 +1,5 @@
 import { numberWithCommas } from "@/helpers/formatters/thousands";
-import Link from "next/link";
+import { Colors } from "@/styles/variables";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
@@ -58,8 +58,8 @@ const PairBlockContainer = styled.div`
   border: 2px solid gray;
   width: fit-content;
   min-width: 12rem;
-  border-radius: 12px;
-  box-shadow: 2px 4px 8px gray;
+  border-radius: 10px;
+  background-color: ${Colors.lightGray};
 
   .block-header {
     font-weight: bold;

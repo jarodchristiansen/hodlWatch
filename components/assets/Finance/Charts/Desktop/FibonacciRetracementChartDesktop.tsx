@@ -1,21 +1,20 @@
 import { currencyFormat } from "@/helpers/formatters/currency";
-import Image from "next/image";
 import Link from "next/link";
 // import FinanceChartModal from "./FinanceChartModal";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Area,
   CartesianGrid,
   ComposedChart,
-  Legend,
   Line,
-  LineChart,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 import styled from "styled-components";
 
+import { Colors } from "@/styles/variables";
 import FinanceChartModal from "../FinanceChartModal";
 
 const CustomizedDot = (props) => {
@@ -199,110 +198,111 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
   return (
     <ChartContainer>
       <div className={"label-row"}>
-        <h1>Fibonacci Retracement</h1>
+        <h5>Fibonacci Retracement</h5>
 
         <span className={"ms-3"}>
           <FinanceChartModal text={modalText} />
         </span>
       </div>
       {fibonacciData && (
-        <ComposedChart data={fibonacciData} height={500} width={500}>
-          <CartesianGrid strokeDasharray="3 3" />
+        <ResponsiveContainer width="100%" height={300}>
+          <ComposedChart data={fibonacciData}>
+            <CartesianGrid strokeDasharray="3 3" />
 
-          <YAxis
-            dataKey="close"
-            domain={["auto", "auto"]}
-            allowDataOverflow={true}
-            // tick={{ fill: "white" }}
-            width={0}
-            // formatter={(value) => currencyFormat(value)}
-          />
-          <XAxis dataKey="time" />
+            <YAxis
+              dataKey="close"
+              domain={["auto", "auto"]}
+              allowDataOverflow={true}
+              // tick={{ fill: "white" }}
+              width={0}
+              // formatter={(value) => currencyFormat(value)}
+            />
+            <XAxis dataKey="time" />
 
-          <Tooltip formatter={(value) => currencyFormat(value)} />
-          {/* <Legend /> */}
+            <Tooltip formatter={(value) => currencyFormat(value)} />
+            {/* <Legend /> */}
 
-          <Line
-            type="monotone"
-            dataKey="min"
-            stroke="#b30000"
-            dot={false}
-            // dot={{ stroke: "#b30000", strokeWidth: 2 }}
-            strokeWidth={2}
-          />
+            <Line
+              type="monotone"
+              dataKey="min"
+              stroke="#b30000"
+              dot={false}
+              // dot={{ stroke: "#b30000", strokeWidth: 2 }}
+              strokeWidth={2}
+            />
 
-          <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="70%" stopColor="#806cfe" stopOpacity={0.1} />
-              <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
-            </linearGradient>
-          </defs>
+            <defs>
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="70%"
+                  stopColor={Colors.elegant.accentPurple}
+                  stopOpacity={0.2}
+                />
+                <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
+              </linearGradient>
+            </defs>
 
-          <Area
-            type="monotone"
-            dataKey="close"
-            stroke="#806cfe"
-            strokeWidth={3}
-            fillOpacity={1}
-            fill="url(#colorUv)"
-          />
+            <Area
+              type="monotone"
+              dataKey="close"
+              stroke="#806cfe"
+              strokeWidth={3}
+              fillOpacity={1}
+              fill="url(#colorUv)"
+            />
 
-          <Line
-            type="monotone"
-            dataKey="fib1"
-            stroke="black"
-            dot={<CustomizedDot />}
-            name={"Profit 3/Topping"}
-          />
-          <Line
-            type="monotone"
-            dataKey="fib2"
-            stroke="blue"
-            dot={<CustomizedDot />}
-            name={"Take Profit 2"}
-          />
-          <Line
-            type="monotone"
-            dataKey="fib3"
-            stroke="green"
-            dot={<CustomizedDot />}
-            name={"Take Profit 1"}
-          />
-          <Line
-            type="monotone"
-            dataKey="fib4"
-            stroke="orange"
-            name={"Deep Value/No Man's Land"}
-            dot={<CustomizedDot />}
-          />
-          <Line
-            type="monotone"
-            dataKey="max"
-            stroke="#999900"
-            name={"Max"}
-            strokeWidth={2}
-            dot={false}
-            // dot={{ stroke: "#999900", strokeWidth: 2 }}
-          />
-        </ComposedChart>
+            <Line
+              type="monotone"
+              dataKey="fib1"
+              stroke="black"
+              dot={<CustomizedDot />}
+              name={"Profit 3/Topping"}
+            />
+            <Line
+              type="monotone"
+              dataKey="fib2"
+              stroke="blue"
+              dot={<CustomizedDot />}
+              name={"Take Profit 2"}
+            />
+            <Line
+              type="monotone"
+              dataKey="fib3"
+              stroke="green"
+              dot={<CustomizedDot />}
+              name={"Take Profit 1"}
+            />
+            <Line
+              type="monotone"
+              dataKey="fib4"
+              stroke="orange"
+              name={"Deep Value/No Man's Land"}
+              dot={<CustomizedDot />}
+            />
+            <Line
+              type="monotone"
+              dataKey="max"
+              stroke="#999900"
+              name={"Max"}
+              strokeWidth={2}
+              dot={false}
+              // dot={{ stroke: "#999900", strokeWidth: 2 }}
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
       )}
     </ChartContainer>
   );
 };
 
 const ChartContainer = styled.div`
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 1rem 1rem;
-  background-color: white;
-  box-shadow: 2px 4px 8px lightgray;
-
   .label-row {
     display: flex;
     flex-direction: row;
     white-space: nowrap;
     gap: 1rem;
     justify-content: center;
+    text-align: center;
 
     .info-circle {
       fill: green;

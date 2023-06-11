@@ -1,5 +1,6 @@
+import { Colors } from "@/styles/variables";
 import { useRouter } from "next/dist/client/router";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Footer from "./footer";
@@ -47,6 +48,7 @@ interface LayoutProps {
 const LayoutContainer = styled.div<LayoutProps>`
   display: flex;
   flex-direction: column;
+  background-color: ${Colors.richBlack};
 `;
 
 export default Layout;

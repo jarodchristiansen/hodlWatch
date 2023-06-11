@@ -1,13 +1,12 @@
 import { ADD_FAVORITE, REMOVE_FAVORITE } from "@/helpers/mutations/user";
 import { GET_USER } from "@/helpers/queries/user";
-import { Colors } from "@/styles/variables";
+import { Colors, FontWeight } from "@/styles/variables";
 import { useMutation } from "@apollo/client";
+import { motion, useCycle } from "framer-motion";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Image } from "react-bootstrap";
 import styled from "styled-components";
-
-import AssetCardAnimationWrapper from "./AssetCardAnimationWrapper";
 
 interface AssetCardProps {
   asset: Asset;
@@ -34,21 +33,22 @@ export type Asset = {
   ath_date: number;
 };
 
-/**
- *
- * @param asset: Digital asset BTC etc..
- * @param email: User email
- * @param favorited: Boolean after cross referencing user favorites to this asset
- * @returns AssetCard component that allows users to favorite/expore the digital asset further
- */
 const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
-  const [assetDetails, setAssetDetails] = useState();
   const [cardView, setCardView] = useState("A");
+  const [isFlipped, setIsFlipped] = useCycle(false, true);
+
+  const flipVariants = {
+    front: { rotateY: 0 },
+    back: { rotateY: 180 },
+  };
+
+  const handleSnapshotClick = () => {
+    setIsFlipped();
+  };
 
   const {
     title,
     name,
-    description,
     symbol,
     image,
     current_price,
@@ -61,8 +61,6 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
     atl_date,
     ath_date,
   } = asset;
-
-  console.log({ asset });
 
   const exploreLink = {
     pathname: `/assets/${symbol}`,
@@ -111,123 +109,111 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
   };
 
   const changeCardView = (newView) => {
+    handleSnapshotClick();
     setCardView(newView);
   };
 
   return (
-    <AssetCardAnimationWrapper>
-      {cardView === "A" && (
-        <AssetCardWrapper>
-          <div className={"card-body py-4 holder"}>
-            {!favorited && (
-              <div
-                onClick={addToFavorites}
-                className="favorite-button"
-                data-testid="add-button"
-              >
+    <motion.div
+      whileHover={{
+        scale: 1.03,
+        transition: { duration: 0.7 },
+      }}
+      whileTap={{
+        scale: 1.03,
+        zIndex: 10,
+        transition: { duration: 0.7 },
+      }}
+    >
+      <motion.div
+        className="card-flip"
+        initial={false}
+        animate={isFlipped ? "back" : "front"}
+        variants={flipVariants}
+        transition={{ duration: 0.4 }}
+      >
+        {cardView === "A" && (
+          <AssetCardWrapper>
+            <div className={"card-body py-4 holder"}>
+              {!favorited && (
+                <div
+                  onClick={addToFavorites}
+                  className="favorite-button"
+                  data-testid="add-button"
+                >
+                  <Image
+                    src={"/images/empty-star.svg"}
+                    className={"pointer-link"}
+                    height={"40px"}
+                    width={"40px"}
+                    alt="non-favorited asset icon"
+                  />
+                </div>
+              )}
+              {favorited && (
+                <div
+                  onClick={removeFromFavorites}
+                  className="favorite-button"
+                  data-testid="remove-button"
+                >
+                  <Image
+                    src={"/images/filled-star.svg"}
+                    className={"pointer-link"}
+                    height={"40px"}
+                    width={"40px"}
+                    alt="favorited asset icon"
+                  />
+                </div>
+              )}
+
+              <h4 className="card-title">{title || name || "Card Title"}</h4>
+
+              <h6 className="card-subtitle my-2 text-muted">
+                {symbol.toUpperCase() || "Card subtitle"}
+              </h6>
+
+              <ImageContainer>
                 <Image
-                  src={"/images/empty-star.svg"}
-                  className={"pointer-link"}
-                  height={"40px"}
-                  width={"40px"}
-                  alt="non-favorited asset icon"
+                  className="image"
+                  src={image}
+                  alt={name || title}
+                  // @ts-ignore
+                  unoptimized={"true"}
                 />
-              </div>
-            )}
-            {favorited && (
-              <div
-                onClick={removeFromFavorites}
-                className="favorite-button"
-                data-testid="remove-button"
-              >
-                <Image
-                  src={"/images/filled-star.svg"}
-                  className={"pointer-link"}
-                  height={"40px"}
-                  width={"40px"}
-                  alt="favorited asset icon"
-                />
-              </div>
-            )}
+              </ImageContainer>
 
-            <h4 className="card-title">{title || name || "Card Title"}</h4>
+              <Link href={exploreLink} as={`/assets/${symbol}?name=${name}`}>
+                <button>Explore</button>
+              </Link>
 
-            <h6 className="card-subtitle my-2 text-muted">
-              {symbol.toUpperCase() || "Card subtitle"}
-            </h6>
-
-            <ImageContainer>
-              <Image
-                className="image"
-                src={image}
-                alt={name || title}
-                // @ts-ignore
-                unoptimized={"true"}
-              />
-            </ImageContainer>
-
-            <Link href={exploreLink} as={`/assets/${symbol}?name=${name}`}>
-              <button>Explore</button>
-            </Link>
-
-            <button onClick={() => changeCardView("B")}>Snapshot</button>
-          </div>
-        </AssetCardWrapper>
-      )}
-
-      {cardView === "B" && (
-        <AssetCardWrapper>
-          <div className={"card-body py-4 holder"}>
-            {!favorited && (
-              <div
-                onClick={addToFavorites}
-                className="favorite-button"
-                data-testid="add-button"
-              >
-                <Image
-                  src={"/images/empty-star.svg"}
-                  className={"pointer-link"}
-                  height={"40px"}
-                  width={"40px"}
-                  alt="non-favorited asset icon"
-                />
-              </div>
-            )}
-            {favorited && (
-              <div
-                onClick={removeFromFavorites}
-                className="favorite-button"
-                data-testid="remove-button"
-              >
-                <Image
-                  src={"/images/filled-star.svg"}
-                  className={"pointer-link"}
-                  height={"40px"}
-                  width={"40px"}
-                  alt="block-logo"
-                />
-              </div>
-            )}
-
-            <h4>{title || name}</h4>
-
-            <div>
-              <p>Current Price: {current_price}</p>
-              <p>All Time High: {ath}</p>
-              <p>All Time Low: {atl}</p>
-              <p>Ath Change Percentage: {ath_change_percentage}</p>
-              <p>ATH Date: {ath_date}</p>
-              <p>ATL Change Percentage: {atl_change_percentage}</p>
-              <p>ATL Date: {atl_date}</p>
-              <p>Circulating Supply: {circulating_supply}</p>
-              <p>Total Supply: {total_supply}</p>
+              <button onClick={() => changeCardView("B")}>Snapshot</button>
             </div>
+          </AssetCardWrapper>
+        )}
 
-            <button onClick={() => changeCardView("A")}>Main View</button>
-          </div>
-        </AssetCardWrapper>
-      )}
-    </AssetCardAnimationWrapper>
+        {cardView === "B" && (
+          <AssetCardWrapper className={cardView === "B" ? "flipped" : ""}>
+            <div className={"card-body py-4 holder"}>
+              <h4>{title || name}</h4>
+
+              <div className="snapshot-container">
+                <p>Current Price: {current_price}</p>
+                <p>All Time High: {ath}</p>
+                <p>All Time Low: {atl}</p>
+                <p>Ath Change Percentage: {ath_change_percentage}</p>
+                <p>ATH Date: {ath_date}</p>
+                <p>ATL Change Percentage: {atl_change_percentage}</p>
+                <p>ATL Date: {atl_date}</p>
+                <p>Circulating Supply: {circulating_supply}</p>
+                <p>Total Supply: {total_supply}</p>
+              </div>
+
+              <button onClick={() => changeCardView("A")}>Main View</button>
+            </div>
+          </AssetCardWrapper>
+        )}
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -238,6 +224,38 @@ const ImageContainer = styled.div`
     width: 100px;
     height: 100px;
   }
+`;
+
+const CardFront = styled.div`
+  border-radius: 12px;
+  background-color: ${Colors.lightGray};
+  border: 1px solid black;
+  text-align: center;
+  margin: 1rem 0;
+  box-shadow: 2px 4px 8px gray;
+
+  .holder {
+    position: relative;
+  }
+
+  .favorite-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  button {
+    color: ${Colors.elegant.white};
+    background-color: ${Colors.elegant.accentPurple};
+    border-radius: 8px;
+    padding: 8px;
+    font-weight: 600;
+  }
+  /* Styles for the front side of the card */
+`;
+
+const CardBack = styled.div`
+  /* Styles for the back side of the card */
 `;
 
 const AssetCardWrapper = styled.div`
@@ -256,6 +274,16 @@ const AssetCardWrapper = styled.div`
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+
+  &.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .snapshot-container {
+    p {
+      font-weight: ${FontWeight.bold};
+    }
   }
 
   button {

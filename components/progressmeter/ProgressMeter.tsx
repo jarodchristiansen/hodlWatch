@@ -1,5 +1,5 @@
-import { MediaQueries } from "@/styles/variables";
-import React, { useMemo, useState } from "react";
+import { Colors, FontWeight, MediaQueries } from "@/styles/variables";
+import { useMemo, useState } from "react";
 import styled from "styled-components";
 
 interface ProgressProps {
@@ -10,15 +10,16 @@ const ProgressMeterContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 8px;
 
   @media ${MediaQueries.MD} {
-    padding: 24px;
+    padding: 32px 28px;
   }
 `;
 
 const ProgressBar = styled.div`
   width: 85%;
-  height: 6px;
+  height: 8px;
   background-color: #e5e7eb;
 `;
 
@@ -34,11 +35,22 @@ const Progress = styled.div<ProgressProps>`
 `;
 
 const Timeline = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   /* align-items: flex-start; */
   margin-top: 20px;
+  padding: 0 24px 0 8px;
+
+  p {
+    color: ${Colors.lightGray};
+    font-weight: ${FontWeight.light};
+  }
+
+  @media ${MediaQueries.MD} {
+    width: 90%;
+    padding: 0 24px 0 4px;
+  }
 `;
 
 const Step = styled.div`
@@ -47,6 +59,10 @@ const Step = styled.div`
   align-items: center;
   text-align: center;
   max-width: 120px;
+
+  @media ${MediaQueries.MD} {
+    max-width: 150px;
+  }
 `;
 
 const StepMarker = styled.div`
@@ -59,6 +75,7 @@ const StepMarker = styled.div`
 
 const StepTitle = styled.h4`
   margin: 0;
+  color: ${Colors.elegant.white};
 `;
 
 const ProgressMeter = () => {
