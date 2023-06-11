@@ -10,6 +10,7 @@ import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
+import ScrollToTop from "@/components/commons/scroll-to-top/ScrollToTop";
 import client from "../../apollo-client";
 import AssetsContainer from "../../components/assets/AssetsContainer/AssetsContainer";
 import { GET_COLLECTIVE_STATS } from "../../helpers/queries/collective";
@@ -145,6 +146,8 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
 
         <div>
           {!!renderedAssets && renderedAssets}
+
+          <ScrollToTop scrollThreshold={90} />
 
           {!error && (
             <div

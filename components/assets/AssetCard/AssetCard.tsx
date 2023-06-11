@@ -1,3 +1,9 @@
+import { currencyFormat } from "@/helpers/formatters/currency";
+import {
+  formatPercentage,
+  numberWithCommas,
+} from "@/helpers/formatters/thousands";
+import { FormatUnixTimeWithTime } from "@/helpers/formatters/time";
 import { ADD_FAVORITE, REMOVE_FAVORITE } from "@/helpers/mutations/user";
 import { GET_USER } from "@/helpers/queries/user";
 import { Colors, FontWeight } from "@/styles/variables";
@@ -197,15 +203,22 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
               <h4>{title || name}</h4>
 
               <div className="snapshot-container">
-                <p>Current Price: {current_price}</p>
-                <p>All Time High: {ath}</p>
-                <p>All Time Low: {atl}</p>
-                <p>Ath Change Percentage: {ath_change_percentage}</p>
-                <p>ATH Date: {ath_date}</p>
-                <p>ATL Change Percentage: {atl_change_percentage}</p>
-                <p>ATL Date: {atl_date}</p>
-                <p>Circulating Supply: {circulating_supply}</p>
-                <p>Total Supply: {total_supply}</p>
+                <p>All Time High: {currencyFormat(ath)}</p>
+                <p>All Time Low: {currencyFormat(atl)}</p>
+                <p>
+                  Ath Change Percentage:{" "}
+                  {formatPercentage(ath_change_percentage)}
+                </p>
+                <p>ATH Date: {FormatUnixTimeWithTime(ath_date)}</p>
+                <p>
+                  ATL Change Percentage:{" "}
+                  {formatPercentage(atl_change_percentage)}
+                </p>
+                <p>ATL Date: {FormatUnixTimeWithTime(atl_date)}</p>
+                <p>
+                  Circulating Supply: {numberWithCommas(circulating_supply)}
+                </p>
+                <p>Total Supply: {numberWithCommas(total_supply)}</p>
               </div>
 
               <button onClick={() => changeCardView("A")}>Main View</button>
