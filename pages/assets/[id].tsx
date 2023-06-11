@@ -2,6 +2,7 @@ import FinancialChartGrid from "@/components/assets/Finance/FinancialChartCGrid"
 import PairDetailsRow from "@/components/assets/Finance/PairDetails";
 import IndicatorGrid from "@/components/assets/Indicators/Charts/Desktop/IndicatorGrid";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
+import ScrollToTop from "@/components/commons/scroll-to-top/ScrollToTop";
 import SidebarV2 from "@/components/commons/sidebar-nav/SidebarV2";
 import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
 import {
@@ -177,6 +178,7 @@ const AssetDetailsPage = ({ session }) => {
   return (
     <AssetDetailsPageContainer>
       <SidebarV2 open={sidebarOpen} setOpen={setSidebarOpen} view={pageView} />
+      <ScrollToTop scrollThreshold={90} />
 
       {loading && (
         <div className={"container text-center"}>

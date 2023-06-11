@@ -10,8 +10,9 @@ import Layout from "../components/layout/layout";
 import { pageview } from "../lib/gtag";
 
 // Add this line
-import "../styles/globals.css";
+import "@fortawesome/fontawesome-free/css/all.css";
 import "bootstrap/dist/css/bootstrap.css";
+import "../styles/globals.css";
 
 /**
  *
