@@ -29,6 +29,7 @@
     "@types/styled-components": "^5.1.26",
     "apollo-server": "^3.11.1",
     "apollo-server-micro": "^3.11.1",
+    "bollinger-bands": "^3.0.2",
     "bootstrap": "^5.2.3",
     "ccxt": "^2.5.12",
     "coingecko-api": "^1.0.10",

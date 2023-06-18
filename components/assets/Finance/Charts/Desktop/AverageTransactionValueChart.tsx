@@ -26,7 +26,11 @@ const AverageTransactionValueChart = ({ data }) => {
         <ResponsiveContainer width="100%" height={300}>
           <ComposedChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
-            <YAxis dataKey="average_transaction_value" yAxisId="left-axis" />
+            <YAxis
+              dataKey="average_transaction_value"
+              yAxisId="left-axis"
+              width={0}
+            />
             {/* <YAxis
               dataKey="new_addresses"
               yAxisId="right-axis"

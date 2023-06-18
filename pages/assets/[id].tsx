@@ -1,3 +1,4 @@
+import BitcoinMacrosContainer from "@/components/assets/BitcoinMacros/BitcoinMacrosContainer";
 import FinancialChartGrid from "@/components/assets/Finance/FinancialChartCGrid";
 import PairDetailsRow from "@/components/assets/Finance/PairDetails";
 import IndicatorGrid from "@/components/assets/Indicators/Charts/Desktop/IndicatorGrid";
@@ -9,7 +10,7 @@ import {
   GET_ASSET_HISTORY,
   GET_BTC_MACROS,
 } from "@/helpers/queries/assets/getAssetFinancialDetails";
-import { MediaQueries } from "@/styles/variables";
+import { Colors, MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
@@ -26,7 +27,7 @@ import styled from "styled-components";
  * @returns AssetDetailsPage that includes the financial/social/details for digital asset
  */
 const AssetDetailsPage = ({ session }) => {
-  const [timeQuery, setTimeQuery] = useState(180);
+  const [timeQuery, setTimeQuery] = useState(365);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [pageView, setPageView] = useState("dashboard");
 
@@ -75,12 +76,12 @@ const AssetDetailsPage = ({ session }) => {
     //     time: timeQuery,
     //   },
     // });
-    // getDetails({
-    //   variables: {
-    //     name: name || id || "BTC",
-    //     time: timeQuery,
-    //   },
-    // });
+    getDetails({
+      variables: {
+        name: name || id || "BTC",
+        time: timeQuery,
+      },
+    });
   }, [timeQuery, id]);
 
   // useEffect(() => {
@@ -101,76 +102,69 @@ const AssetDetailsPage = ({ session }) => {
 
     return (
       <div className={"w-100"}>
-        <Accordion defaultActiveKey="1">
-          <Accordion.Item eventKey="1">
-            <Accordion.Header>Asset Details</Accordion.Header>
-            <Accordion.Body>
-              <AssetDetailsRow>
-                <div className="top-row">
-                  <div>
-                    <h5>Name</h5>
-                    <span>{data?.name}</span>
-                  </div>
+        <AssetDetailsRow>
+          <div className="top-row">
+            <div>
+              <h5>Name</h5>
+              <span>{data?.name}</span>
+            </div>
 
-                  <div>
-                    <h5>Symbol</h5>
-                    <span>{data?.symbol.toUpperCase()}</span>
-                  </div>
-                </div>
+            <div>
+              <h5>Symbol</h5>
+              <span>{data?.symbol.toUpperCase()}</span>
+            </div>
+          </div>
 
-                <div className="mid-row">
-                  <div>
-                    <h5>Geneis Date</h5>
-                    <span>{data?.genesis_date}</span>
-                  </div>
+          <div className="mid-row">
+            <div>
+              <h5>Geneis Date</h5>
+              <span>{data?.genesis_date}</span>
+            </div>
 
-                  <div>
-                    <h5>Community Score</h5>
-                    <span>{data?.community_score}</span>
-                  </div>
+            <div>
+              <h5>Community Score</h5>
+              <span>{data?.community_score}</span>
+            </div>
 
-                  <div>
-                    <h5>Developer Score</h5>
-                    <span>{data?.developer_score}</span>
-                  </div>
+            <div>
+              <h5>Developer Score</h5>
+              <span>{data?.developer_score}</span>
+            </div>
 
-                  <div>
-                    <h5>Liquidity Score</h5>
-                    <span>{data?.liquidity_score}</span>
-                  </div>
+            <div>
+              <h5>Liquidity Score</h5>
+              <span>{data?.liquidity_score}</span>
+            </div>
 
-                  <div>
-                    <h5>Market Cap Rank</h5>
-                    <span>{data?.market_cap_rank}</span>
-                  </div>
+            <div>
+              <h5>Market Cap Rank</h5>
+              <span>{data?.market_cap_rank}</span>
+            </div>
 
-                  <div>
-                    <h5>Community Sentiment</h5>
-                    <span className="negative">
-                      {data?.sentiment_votes_down_percentage + "%"}
-                    </span>
-                    /
-                    <span className="positive">
-                      {data?.sentiment_votes_up_percentage + "%"}
-                    </span>
-                  </div>
-                </div>
+            <div>
+              <h5>Community Sentiment</h5>
+              <span className="negative">
+                {data?.sentiment_votes_down_percentage + "%"}
+              </span>
+              /
+              <span className="positive">
+                {data?.sentiment_votes_up_percentage + "%"}
+              </span>
+            </div>
+          </div>
 
-                {!!data?.description?.en && (
-                  <div className="bottom-row">
-                    <ReactMarkdown
-                      // eslint-disable-next-line react/no-children-prop
-                      children={data?.description?.en}
-                      remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
-                      rehypePlugins={[rehypeRaw]}
-                      // key={markdownPiece + Math.random()}
-                    />
-                  </div>
-                )}
-              </AssetDetailsRow>
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+          {!!data?.description?.en && (
+            <div className="bottom-row">
+              <ReactMarkdown
+                // eslint-disable-next-line react/no-children-prop
+                children={data?.description?.en}
+                remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
+                rehypePlugins={[rehypeRaw]}
+                // key={markdownPiece + Math.random()}
+              />
+            </div>
+          )}
+        </AssetDetailsRow>
       </div>
     );
   }, [GeckoDetails?.getGeckoAssetDetails]);
@@ -188,11 +182,7 @@ const AssetDetailsPage = ({ session }) => {
 
       {pageView === "dashboard" && data && (
         <ViewContainer>
-          {id && (
-            <PairRowContainer>
-              <PairDetailsRow id={id} />
-            </PairRowContainer>
-          )}
+          {GeckoDetails && !loading && assetDetails}
 
           <FinancialChartGrid
             financialData={
@@ -201,6 +191,7 @@ const AssetDetailsPage = ({ session }) => {
                 : []
             }
             id={id}
+            time={timeQuery}
           />
 
           {isBtcOrEth && (
@@ -214,13 +205,24 @@ const AssetDetailsPage = ({ session }) => {
               }
             />
           )}
+
+          {id && (
+            <PairRowContainer>
+              <PairDetailsRow id={id} />
+            </PairRowContainer>
+          )}
+
+          {!loading && isBtc && (
+            <BitcoinMacrosContainer
+              MacroData={MacroData?.getBTCMacros?.macro_data}
+            />
+          )}
         </ViewContainer>
       )}
 
       {/* 
       {!loading && (
         <div className={"container text-center"}>
-          {GeckoDetails && !loading && assetDetails}
 
           {!GeckoLoading && GeckoDetails && (
             <CollectiveStatsHodler>
@@ -250,7 +252,7 @@ const ViewContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 0 auto;
+  margin: 10px auto;
 
   @media ${MediaQueries.SM} {
     width: 95%;
@@ -277,8 +279,7 @@ const CollectiveStatsHodler = styled.div`
 
 const AssetDetailsRow = styled.div`
   padding: 0.5rem;
-  margin-right: -2rem;
-  margin-left: -0.5rem;
+  background-color: ${Colors.lightGray};
 
   @media ${MediaQueries.MD} {
     display: flex;
@@ -304,11 +305,8 @@ const AssetDetailsRow = styled.div`
       flex-direction: column;
       text-align: center;
       justify-content: center;
-      border: 1px solid black;
       border-radius: 12px;
       padding: 1rem;
-      background-color: #f6f3f7;
-      box-shadow: 2px 4px 8px lightgray;
     }
   }
 
@@ -325,12 +323,9 @@ const AssetDetailsRow = styled.div`
     div {
       display: flex;
       flex-direction: column;
-      background-color: #f6f3f7;
       border-radius: 12px;
       justify-content: center;
       padding: 1rem;
-      border: 1px solid black;
-      box-shadow: 2px 4px 8px lightgray;
 
       span {
         font-weight: bold;

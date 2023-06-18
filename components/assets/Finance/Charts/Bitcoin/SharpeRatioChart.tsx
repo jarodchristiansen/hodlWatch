@@ -1,7 +1,6 @@
 import { currencyFormat } from "@/helpers/formatters/currency";
-import { FormatUnixTime } from "@/helpers/formatters/time";
+import { useEffect, useState } from "react";
 // import FinanceChartModal from "./FinanceChartModal";
-import React from "react";
 import {
   Area,
   CartesianGrid,
@@ -22,6 +21,8 @@ import FinanceChartModal from "../FinanceChartModal";
  * @returns SharpeRatioChart shows the rolling sharpe ratio for bitcoin long-term
  */
 const SharpeRatioChart = ({ data }) => {
+  const [chartData, setChartData] = useState();
+
   const modalText = {
     modalHeader: "Sharpe Ratio",
     modalBodyText: () => (
@@ -55,29 +56,80 @@ const SharpeRatioChart = ({ data }) => {
     ),
   };
 
+  function calculateRollingSharpeRatio(closingPrices, windowSize) {
+    const returns = [];
+    const rollingSharpeRatios = [];
+
+    // Calculate daily returns
+    for (let i = 1; i < closingPrices.length; i++) {
+      const prevPrice = closingPrices[i - 1];
+      const currPrice = closingPrices[i];
+      const returnVal = (currPrice - prevPrice) / prevPrice;
+      returns.push(returnVal);
+    }
+
+    // Calculate rolling Sharpe ratios
+    for (let i = windowSize; i <= returns.length; i++) {
+      const returnsSlice = returns.slice(i - windowSize, i);
+      const averageReturn =
+        returnsSlice.reduce((a, b) => a + b, 0) / windowSize;
+      const standardDeviation = Math.sqrt(
+        returnsSlice
+          .map((x) => Math.pow(x - averageReturn, 2))
+          .reduce((a, b) => a + b, 0) / windowSize
+      );
+      const sharpeRatio = averageReturn / standardDeviation;
+
+      rollingSharpeRatios.push(sharpeRatio);
+    }
+
+    return rollingSharpeRatios;
+  }
+
+  useEffect(() => {
+    if (data) {
+      const closingPrices = data.map((x) => x.close);
+
+      const rollingSharpeRatios = calculateRollingSharpeRatio(
+        closingPrices,
+        14
+      );
+      const rollingSharpeRatiosWithTime = data.map((x, i) => {
+        return {
+          ...x,
+          rolling_sharpe: rollingSharpeRatios[i],
+          time: x.time,
+        };
+      });
+      setChartData(rollingSharpeRatiosWithTime);
+    }
+  }, [data]);
+
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>
+        <h5>
           Rolling Sharpe/Price{" "}
           <span className={"ms-3"}>
             <FinanceChartModal text={modalText} />
           </span>
-        </h1>
+        </h5>
       </div>
 
-      {data && (
-        <ResponsiveContainer width="100%" height={500}>
-          <ComposedChart data={data} height={500} width={800}>
+      {chartData && (
+        <ResponsiveContainer width="100%" height={300}>
+          <ComposedChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <YAxis dataKey="" yAxisId="right-axis" orientation="right" />
-            <YAxis dataKey="close" yAxisId="left-axis" />
-            <XAxis
-              dataKey="time"
-              tickFormatter={(val) => FormatUnixTime(val)}
+            <YAxis
+              dataKey=""
+              yAxisId="right-axis"
+              orientation="right"
+              width={0}
             />
+            <YAxis dataKey="close" yAxisId="left-axis" width={0} />
+            <XAxis dataKey="time" />
             <Tooltip
-              labelFormatter={(val) => FormatUnixTime(val)}
+              labelFormatter={(val) => val}
               // @ts-ignore
               formatter={(val) => (val > 20 ? currencyFormat(val) : val)}
             />
@@ -100,7 +152,7 @@ const SharpeRatioChart = ({ data }) => {
             />
             <defs>
               <linearGradient id="rolling_sharpe" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="70%" stopColor="#00ff00" stopOpacity={0.1} />
+                <stop offset="70%" stopColor="#00BFBF" stopOpacity={0.1} />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
               </linearGradient>
             </defs>
@@ -108,7 +160,7 @@ const SharpeRatioChart = ({ data }) => {
               type="monotone"
               dataKey="rolling_sharpe"
               yAxisId="right-axis"
-              stroke="#00ff00"
+              stroke="#00BFBF"
               dot={false}
               strokeWidth={2}
               name="rolling_sharpe"
@@ -122,12 +174,6 @@ const SharpeRatioChart = ({ data }) => {
   );
 };
 
-const ChartContainer = styled.div`
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 1rem 1rem;
-  background-color: white;
-  box-shadow: 2px 4px 8px lightgray;
-`;
+const ChartContainer = styled.div``;
 
 export default SharpeRatioChart;

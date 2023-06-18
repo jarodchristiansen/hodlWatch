@@ -1,5 +1,6 @@
 // import FinanceChartModal from "./FinanceChartModal";
 import { currencyFormat } from "@/helpers/formatters/currency";
+import { Colors } from "@/styles/variables";
 import {
   Area,
   CartesianGrid,
@@ -37,7 +38,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
         <ResponsiveContainer width="100%" height={300}>
           <ComposedChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
-            <YAxis dataKey="volumeTo" yAxisId="left-axis" />
+            <YAxis dataKey="volumeTo" yAxisId="left-axis" width={0} />
             <YAxis
               dataKey="volumeFrom"
               yAxisId="right-axis"
@@ -49,7 +50,11 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
             <Tooltip formatter={(value) => currencyFormat(value)} />
             <defs>
               <linearGradient id="toExchange" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="70%" stopColor="#8884d8" stopOpacity={0.4} />
+                <stop
+                  offset="70%"
+                  stopColor={Colors.elegant.accentPurple}
+                  stopOpacity={0.4}
+                />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
               </linearGradient>
             </defs>
@@ -57,7 +62,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
               type="monotone"
               dataKey="volumeTo"
               yAxisId="left-axis"
-              stroke="#8884d8"
+              stroke={Colors.elegant.accentPurple}
               dot={false}
               strokeWidth={2}
               name="Volume from exchanges"
@@ -66,7 +71,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
             />
             <defs>
               <linearGradient id="fromExchange" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="70%" stopColor="#00ff00" stopOpacity={0.1} />
+                <stop offset="70%" stopColor="#00BFBF" stopOpacity={0.1} />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
               </linearGradient>
             </defs>
@@ -74,7 +79,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
               type="monotone"
               dataKey="volumeFrom"
               yAxisId="right-axis"
-              stroke="#00ff00"
+              stroke="#00BFBF"
               dot={false}
               strokeWidth={2}
               name="Volume from exchanges"

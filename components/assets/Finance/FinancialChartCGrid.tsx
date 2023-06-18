@@ -1,8 +1,10 @@
 import { FormatUnixTime } from "@/helpers/formatters/time";
-import { useEffect, useState } from "react";
-
 import { Colors, MediaQueries } from "@/styles/variables";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+
+import SharpeRatioChart from "./Charts/Bitcoin/SharpeRatioChart";
+import BollingerBandChart from "./Charts/Desktop/BollingerBandChartDesktop";
 import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
 import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracementChartDesktop";
 import VolumeChartDesktop from "./Charts/Desktop/VolumeChartDesktop";
@@ -10,6 +12,7 @@ import VolumeChartDesktop from "./Charts/Desktop/VolumeChartDesktop";
 interface FinancailAccordionProps {
   financialData: FinancialDataType[];
   id: string;
+  time?: number;
 }
 
 interface FinancialDataType {
@@ -25,7 +28,11 @@ interface FinancialDataType {
   __typename: string;
 }
 
-const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
+const FinancialChartGrid = ({
+  financialData,
+  id,
+  time,
+}: FinancailAccordionProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [processedFinancialData, setProcessedFinancialData] = useState<any>([]);
   const [chartsToDisplay, setChartsToDisplay] = useState<any>();
@@ -111,12 +118,16 @@ const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
       !!filteredData?.closes?.length && (
         <EMAChartDesktop data={filteredData?.closes} key="ema-chart" />
       ),
+      !!filteredData?.closes?.length && (
+        <SharpeRatioChart data={filteredData?.closes} key="sharpe-chart" />
+      ),
+
       !!filteredData?.volume?.length && (
         <VolumeChartDesktop data={filteredData?.volume} key="volume-chart" />
       ),
-      // !!filteredData?.closes?.length && (
-      //   <BollingerBandChart data={filteredData?.closes} key="bband-chart" />
-      // ),
+      !!filteredData?.closes?.length && (
+        <BollingerBandChart data={filteredData?.closes} key="bband-chart" />
+      ),
 
       // !!filteredData?.market_dominance?.length && (
       //   <MarketDominanceChartDesktop
@@ -148,6 +159,8 @@ const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
     setChartsToDisplay(chartData);
     setProcessedFinancialData(filteredData);
   };
+
+  console.log({ financialData });
 
   return (
     <GridContainer>

@@ -26,11 +26,12 @@ const HashRateDifficultyChart = ({ data }) => {
         <ResponsiveContainer width="100%" height={300}>
           <ComposedChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
-            <YAxis dataKey="difficulty" yAxisId="left-axis" />
+            <YAxis dataKey="difficulty" yAxisId="left-axis" width={0} />
             <YAxis
               dataKey="hash_rate"
               yAxisId="right-axis"
               orientation="right"
+              width={0}
             />
             <XAxis dataKey="time" />
             <Tooltip />
@@ -53,7 +54,7 @@ const HashRateDifficultyChart = ({ data }) => {
             />
             <defs>
               <linearGradient id="hash_rate" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="70%" stopColor="#00ff00" stopOpacity={0.1} />
+                <stop offset="70%" stopColor="#00BFBF" stopOpacity={0.1} />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
               </linearGradient>
             </defs>
@@ -61,7 +62,7 @@ const HashRateDifficultyChart = ({ data }) => {
               type="monotone"
               dataKey="hash_rate"
               yAxisId="right-axis"
-              stroke="#00ff00"
+              stroke="#00BFBF"
               dot={false}
               strokeWidth={2}
               name="HashRate"
