@@ -11,8 +11,6 @@ interface SidebarProps {
 const SidebarV2 = ({ open, setOpen, view }: SidebarProps) => {
   const isDashboardView = view == "dashboard";
 
-  console.log({ view, isDashboardView });
-
   return (
     <SidebarContainer open={open}>
       <ToggleIcon onClick={() => setOpen(!open)}>

@@ -108,10 +108,8 @@ const ProgressMeter = () => {
 
   const updateStep = () => {
     if (currentStep >= 3) {
-      console.log({ currentStep }, "in top conditional");
       setCurrentStep(0);
     } else {
-      console.log({ currentStep }, "in bottom conditional");
       setCurrentStep(currentStep + 1);
     }
   };

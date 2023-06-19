@@ -1,10 +1,10 @@
+import ScrollIndicator from "@/components/commons/scroll-to-top/ScrollIndicator";
 import { GET_ASSET_PAIRS_24_HOURS } from "@/helpers/queries/assets/getAssetFinancialDetails";
+import { Colors } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 
-import ScrollIndicator from "@/components/commons/scroll-to-top/ScrollIndicator";
-import { Colors } from "@/styles/variables";
 import PairBlock from "./pair-block";
 
 interface PairDetailsRowProps {
@@ -63,8 +63,6 @@ const PairDetailsRow: React.FC<PairDetailsRowProps> = ({ id }) => {
     setIsDragging(false);
     rowRef.current!.style.cursor = "grab";
   };
-
-  console.log({ isScrollable });
 
   return (
     <PairsWholeContainer>

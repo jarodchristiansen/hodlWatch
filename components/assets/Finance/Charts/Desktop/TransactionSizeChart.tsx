@@ -19,18 +19,19 @@ const TransactionSizeChart = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>Transaction Counts</h1>
+        <h5>Transaction Counts</h5>
       </div>
 
       {data && (
         <ResponsiveContainer width="100%" height={300}>
           <ComposedChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
-            <YAxis dataKey="transaction_count" yAxisId="left-axis" />
+            <YAxis dataKey="transaction_count" yAxisId="left-axis" width={0} />
             <YAxis
               dataKey="large_transaction_count"
               yAxisId="right-axis"
               orientation="right"
+              width={0}
             />
             <XAxis dataKey="time" />
             <Tooltip />
@@ -65,7 +66,7 @@ const TransactionSizeChart = ({ data }) => {
                 x2="0"
                 y2="1"
               >
-                <stop offset="70%" stopColor="#00ff00" stopOpacity={0.1} />
+                <stop offset="70%" stopColor="#00BFBF" stopOpacity={0.1} />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
               </linearGradient>
             </defs>
@@ -73,7 +74,7 @@ const TransactionSizeChart = ({ data }) => {
               type="monotone"
               dataKey="large_transaction_count"
               yAxisId="right-axis"
-              stroke="#00ff00"
+              stroke="#00BFBF"
               dot={false}
               strokeWidth={2}
               name="Large Transaction Count"

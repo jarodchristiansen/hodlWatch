@@ -14,8 +14,8 @@ import {
 } from "recharts";
 import styled from "styled-components";
 
-const BollingerBandChart = ({ data }) => {
-  const [emaData, setEmaData] = useState();
+const RsiChart = ({ data }) => {
+  const [emaData, setEmaData] = useState([]);
 
   useEffect(() => {
     processEmas(data);
@@ -33,13 +33,13 @@ const BollingerBandChart = ({ data }) => {
     }
 
     let emas = [];
-    let bollingerNumbers = boll(closeData, 30, 2);
+    // let bollingerNumbers = boll(closeData, 30, 2);
 
     for (let i = 0; i < dateData.length; i++) {
+      const rsi = calculateRSI(closeData.slice(0, i + 1), 14);
       emas.push({
         close: closeData[i],
-        upperBand: bollingerNumbers.upper[i],
-        lowerBand: bollingerNumbers.lower[i],
+        rsi: rsi,
         time: dateData[i],
       });
     }
@@ -47,10 +47,48 @@ const BollingerBandChart = ({ data }) => {
     setEmaData(emas);
   };
 
+  // RSI (Relative Strength Index)
+  function calculateRSI(closingPrices, period = 14) {
+    // if (closingPrices?.length < period) {
+    //   throw new Error("Insufficient data for the specified period");
+    // }
+
+    let gains = 0;
+    let losses = 0;
+
+    for (let i = 1; i < period; i++) {
+      const priceDiff = closingPrices[i] - closingPrices[i - 1];
+      if (priceDiff > 0) {
+        gains += priceDiff;
+      } else {
+        losses -= priceDiff;
+      }
+    }
+
+    let avgGain = gains / period;
+    let avgLoss = losses / period;
+
+    for (let i = period; i < closingPrices.length; i++) {
+      const priceDiff = closingPrices[i] - closingPrices[i - 1];
+      if (priceDiff > 0) {
+        avgGain = (avgGain * (period - 1) + priceDiff) / period;
+        avgLoss = (avgLoss * (period - 1)) / period;
+      } else {
+        avgGain = (avgGain * (period - 1)) / period;
+        avgLoss = (avgLoss * (period - 1) - priceDiff) / period;
+      }
+    }
+
+    const relativeStrength = avgGain / avgLoss;
+    const rsi = 100 - 100 / (1 + relativeStrength);
+
+    return rsi;
+  }
+
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h5>Bollinger Bands</h5>
+        <h5>RSI (Relative Strength Index)</h5>
       </div>
       {emaData && (
         <ResponsiveContainer width="100%" height={300}>
@@ -61,13 +99,23 @@ const BollingerBandChart = ({ data }) => {
               dataKey="close"
               domain={["auto", "auto"]}
               allowDataOverflow={true}
+              yAxisId="left-axis"
+              orientation="left"
               // tick={{ fill: "white" }}
               width={0}
               // formatter={(value) => currencyFormat(value)}
             />
+
+            <YAxis
+              dataKey="rsi"
+              yAxisId="right-axis"
+              orientation="right"
+              width={0}
+            />
+
             <XAxis dataKey="time" />
 
-            <Tooltip formatter={(value) => currencyFormat(value)} />
+            <Tooltip formatter={(value) => value} />
             {/* <Legend /> */}
 
             <defs>
@@ -84,39 +132,19 @@ const BollingerBandChart = ({ data }) => {
               strokeWidth={2}
               fillOpacity={1}
               fill="url(#colorUv)"
+              yAxisId="left-axis"
               name="Closing Price"
             />
 
             <Line
               type="monotone"
-              dataKey="upperBand"
+              dataKey="rsi"
               stroke="#00BFBF"
               dot={false}
               strokeWidth={2}
-              name="Upper Band"
+              name="RSI"
+              yAxisId="right-axis"
             />
-
-            <Line
-              type="monotone"
-              dataKey="lowerBand"
-              stroke="black"
-              dot={false}
-              name="Lower Band"
-            />
-            {/* <Line
-            type="monotone"
-            dataKey="oneHundredEma"
-            stroke="blue"
-            dot={false}
-            name="100 Day Ema"
-          />
-          <Line
-            type="monotone"
-            dataKey="twoHundredEma"
-            stroke="green"
-            dot={false}
-            name="200 Day Ema"
-          /> */}
           </ComposedChart>
         </ResponsiveContainer>
       )}
@@ -126,4 +154,4 @@ const BollingerBandChart = ({ data }) => {
 
 const ChartContainer = styled.div``;
 
-export default BollingerBandChart;
+export default RsiChart;

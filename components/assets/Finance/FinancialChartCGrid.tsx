@@ -1,15 +1,24 @@
 import { FormatUnixTime } from "@/helpers/formatters/time";
-import { useEffect, useState } from "react";
-
 import { Colors, MediaQueries } from "@/styles/variables";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+
+import SharpeRatioChart from "./Charts/Bitcoin/SharpeRatioChart";
+import ADXChart from "./Charts/Desktop/ADXChart";
+import ATRChart from "./Charts/Desktop/ATRChart";
+import BollingerBandChart from "./Charts/Desktop/BollingerBandChartDesktop";
 import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
 import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracementChartDesktop";
+import MACDChart from "./Charts/Desktop/MACDChart";
+import OBVChart from "./Charts/Desktop/OBVChart";
+import RsiChart from "./Charts/Desktop/RSIChart";
+import StochasticOscillatorChart from "./Charts/Desktop/StochasticOscillatorChart";
 import VolumeChartDesktop from "./Charts/Desktop/VolumeChartDesktop";
 
 interface FinancailAccordionProps {
   financialData: FinancialDataType[];
   id: string;
+  time?: number;
 }
 
 interface FinancialDataType {
@@ -25,7 +34,11 @@ interface FinancialDataType {
   __typename: string;
 }
 
-const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
+const FinancialChartGrid = ({
+  financialData,
+  id,
+  time,
+}: FinancailAccordionProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [processedFinancialData, setProcessedFinancialData] = useState<any>([]);
   const [chartsToDisplay, setChartsToDisplay] = useState<any>();
@@ -111,13 +124,38 @@ const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
       !!filteredData?.closes?.length && (
         <EMAChartDesktop data={filteredData?.closes} key="ema-chart" />
       ),
+      !!filteredData?.closes?.length && (
+        <SharpeRatioChart data={filteredData?.closes} key="sharpe-chart" />
+      ),
+
       !!filteredData?.volume?.length && (
         <VolumeChartDesktop data={filteredData?.volume} key="volume-chart" />
       ),
-      // !!filteredData?.closes?.length && (
-      //   <BollingerBandChart data={filteredData?.closes} key="bband-chart" />
-      // ),
+      !!filteredData?.closes?.length && (
+        <BollingerBandChart data={filteredData?.closes} key="bband-chart" />
+      ),
+      !!filteredData?.closes?.length && (
+        <RsiChart data={filteredData?.closes} key="rsi-chart" />
+      ),
+      !!filteredData?.closes?.length && (
+        <MACDChart data={filteredData?.closes} key="macd-chart" />
+      ),
+      !!filteredData?.closes?.length && (
+        <ATRChart data={financialData} key="atr-chart" />
+      ),
+      !!filteredData?.closes?.length && (
+        <OBVChart data={financialData} key="obv-chart" />
+      ),
+      !!filteredData?.closes?.length && (
+        <ADXChart data={financialData} key="adx-chart" />
+      ),
 
+      !!filteredData?.closes?.length && (
+        <StochasticOscillatorChart
+          data={filteredData?.closes}
+          key="stochastic-chart"
+        />
+      ),
       // !!filteredData?.market_dominance?.length && (
       //   <MarketDominanceChartDesktop
       //     data={filteredData?.market_dominance}
@@ -143,6 +181,7 @@ const FinancialChartGrid = ({ financialData, id }: FinancailAccordionProps) => {
       //     key="price-btc-chart"
       //   />
       // ),
+      ,
     ];
 
     setChartsToDisplay(chartData);

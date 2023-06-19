@@ -1,6 +1,5 @@
-import { currencyFormat } from "@/helpers/formatters/currency";
-import boll from "bollinger-bands";
 // import FinanceChartModal from "./FinanceChartModal";
+import { FormatUnixTime } from "@/helpers/formatters/time";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -14,8 +13,8 @@ import {
 } from "recharts";
 import styled from "styled-components";
 
-const BollingerBandChart = ({ data }) => {
-  const [emaData, setEmaData] = useState();
+const ATRChart = ({ data }) => {
+  const [emaData, setEmaData] = useState([]);
 
   useEffect(() => {
     processEmas(data);
@@ -24,22 +23,26 @@ const BollingerBandChart = ({ data }) => {
   const processEmas = (data) => {
     let closeData = [];
     let dateData = [];
+    let highData = [];
+    let lowData = [];
 
     let time = data.length;
 
     for (let i of data) {
       closeData.push(i.close);
       dateData.push(i.time);
+      highData.push(i.high);
+      lowData.push(i.low);
     }
 
     let emas = [];
-    let bollingerNumbers = boll(closeData, 30, 2);
+
+    let atr = calculateATR(highData, lowData, closeData);
 
     for (let i = 0; i < dateData.length; i++) {
       emas.push({
         close: closeData[i],
-        upperBand: bollingerNumbers.upper[i],
-        lowerBand: bollingerNumbers.lower[i],
+        atr: atr[i],
         time: dateData[i],
       });
     }
@@ -47,10 +50,49 @@ const BollingerBandChart = ({ data }) => {
     setEmaData(emas);
   };
 
+  // ATR (Average True Range)
+  function calculateATR(highPrices, lowPrices, closingPrices, period = 14) {
+    // if (
+    //   highPrices.length < period ||
+    //   lowPrices.length < period ||
+    //   closingPrices.length < period
+    // ) {
+    //   throw new Error("Insufficient data for the specified period");
+    // }
+
+    const trueRanges = [];
+    for (let i = 1; i < period; i++) {
+      const trueRange = Math.max(
+        highPrices[i] - lowPrices[i],
+        Math.abs(highPrices[i] - closingPrices[i - 1]),
+        Math.abs(lowPrices[i] - closingPrices[i - 1])
+      );
+      trueRanges.push(trueRange);
+    }
+
+    const atrValues = [];
+    let atrSum = trueRanges.reduce((sum, trueRange) => sum + trueRange, 0);
+
+    for (let i = period; i < highPrices.length; i++) {
+      const trueRange = Math.max(
+        highPrices[i] - lowPrices[i],
+        Math.abs(highPrices[i] - closingPrices[i - 1]),
+        Math.abs(lowPrices[i] - closingPrices[i - 1])
+      );
+      trueRanges.push(trueRange);
+      atrSum += trueRange;
+      atrSum -= trueRanges.shift();
+      const atr = atrSum / period;
+      atrValues.push(atr);
+    }
+
+    return atrValues;
+  }
+
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h5>Bollinger Bands</h5>
+        <h5>ATR (Average True Range)</h5>
       </div>
       {emaData && (
         <ResponsiveContainer width="100%" height={300}>
@@ -61,13 +103,26 @@ const BollingerBandChart = ({ data }) => {
               dataKey="close"
               domain={["auto", "auto"]}
               allowDataOverflow={true}
+              yAxisId="left-axis"
+              orientation="left"
               // tick={{ fill: "white" }}
               width={0}
               // formatter={(value) => currencyFormat(value)}
             />
-            <XAxis dataKey="time" />
 
-            <Tooltip formatter={(value) => currencyFormat(value)} />
+            <YAxis
+              dataKey="atr"
+              yAxisId="right-axis"
+              orientation="right"
+              width={0}
+            />
+
+            <XAxis
+              dataKey="time"
+              tickFormatter={(value) => FormatUnixTime(value)}
+            />
+
+            <Tooltip formatter={(value) => value} />
             {/* <Legend /> */}
 
             <defs>
@@ -84,39 +139,19 @@ const BollingerBandChart = ({ data }) => {
               strokeWidth={2}
               fillOpacity={1}
               fill="url(#colorUv)"
+              yAxisId="left-axis"
               name="Closing Price"
             />
 
             <Line
               type="monotone"
-              dataKey="upperBand"
+              dataKey="atr"
               stroke="#00BFBF"
               dot={false}
               strokeWidth={2}
-              name="Upper Band"
+              name="ATR"
+              yAxisId="right-axis"
             />
-
-            <Line
-              type="monotone"
-              dataKey="lowerBand"
-              stroke="black"
-              dot={false}
-              name="Lower Band"
-            />
-            {/* <Line
-            type="monotone"
-            dataKey="oneHundredEma"
-            stroke="blue"
-            dot={false}
-            name="100 Day Ema"
-          />
-          <Line
-            type="monotone"
-            dataKey="twoHundredEma"
-            stroke="green"
-            dot={false}
-            name="200 Day Ema"
-          /> */}
           </ComposedChart>
         </ResponsiveContainer>
       )}
@@ -126,4 +161,4 @@ const BollingerBandChart = ({ data }) => {
 
 const ChartContainer = styled.div``;
 
-export default BollingerBandChart;
+export default ATRChart;
