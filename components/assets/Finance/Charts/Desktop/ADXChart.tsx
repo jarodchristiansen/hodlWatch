@@ -11,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
+import ChartContainer from "./ChartContainer";
 
 const ADXChart = ({ data }) => {
   const [emaData, setEmaData] = useState([]);
@@ -154,7 +154,7 @@ const ADXChart = ({ data }) => {
 
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className={"label-row"}>
         <h5>ADX (Average Directional Index)</h5>
       </div>
       {emaData && (
@@ -221,7 +221,5 @@ const ADXChart = ({ data }) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default ADXChart;

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Carousel, Modal } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 import { FaInfoCircle } from "react-icons/fa";
 
 function FinanceChartModal(props) {
@@ -10,14 +10,7 @@ function FinanceChartModal(props) {
   const { text } = props;
   return (
     <>
-      <span>
-        <FaInfoCircle
-          size={28}
-          color={"black"}
-          onClick={() => handleShow()}
-          className={"pointer-link"}
-        />
-      </span>
+      <FaInfoCircle size={20} color={"black"} onClick={() => handleShow()} />
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

@@ -11,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
+import ChartContainer from "./ChartContainer";
 
 const ATRChart = ({ data }) => {
   const [emaData, setEmaData] = useState([]);
@@ -91,7 +91,7 @@ const ATRChart = ({ data }) => {
 
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className={"label-row"}>
         <h5>ATR (Average True Range)</h5>
       </div>
       {emaData && (
@@ -158,7 +158,5 @@ const ATRChart = ({ data }) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default ATRChart;

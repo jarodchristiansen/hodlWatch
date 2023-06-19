@@ -1,5 +1,3 @@
-import { currencyFormat } from "@/helpers/formatters/currency";
-import boll from "bollinger-bands";
 // import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
 import {
@@ -12,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
+import ChartContainer from "./ChartContainer";
 
 const RsiChart = ({ data }) => {
   const [emaData, setEmaData] = useState([]);
@@ -87,7 +85,7 @@ const RsiChart = ({ data }) => {
 
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className={"label-row"}>
         <h5>RSI (Relative Strength Index)</h5>
       </div>
       {emaData && (
@@ -151,7 +149,5 @@ const RsiChart = ({ data }) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default RsiChart;

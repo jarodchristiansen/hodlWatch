@@ -12,10 +12,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
 
 import { Colors } from "@/styles/variables";
 import FinanceChartModal from "../FinanceChartModal";
+import ChartContainer from "./ChartContainer";
 
 const CustomizedDot = (props) => {
   const { cx, cy, stroke, payload, value } = props;
@@ -200,9 +200,7 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
       <div className={"label-row"}>
         <h5>Fibonacci Retracement</h5>
 
-        <span className={"ms-3"}>
-          <FinanceChartModal text={modalText} />
-        </span>
+        <FinanceChartModal text={modalText} />
       </div>
       {fibonacciData && (
         <ResponsiveContainer width="100%" height={300}>
@@ -217,7 +215,7 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
               width={0}
               // formatter={(value) => currencyFormat(value)}
             />
-            <XAxis dataKey="time" />
+            <XAxis dataKey="time" interval={"preserveStartEnd"} />
 
             <Tooltip formatter={(value) => currencyFormat(value)} />
             {/* <Legend /> */}
@@ -295,19 +293,20 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
   );
 };
 
-const ChartContainer = styled.div`
-  .label-row {
-    display: flex;
-    flex-direction: row;
-    white-space: nowrap;
-    gap: 1rem;
-    justify-content: center;
-    text-align: center;
+// const ChartContainer = styled.div`
+//   .label-row {
+//     display: flex;
+//     flex-direction: row;
+//     white-space: nowrap;
+//     justify-content: center;
+//     text-align: center;
+//     align-items: center;
+//     gap: 12px;
 
-    .info-circle {
-      fill: green;
-    }
-  }
-`;
+//     h5 {
+//       padding-top: 8px;
+//     }
+//   }
+// `;
 
 export default FibonacciRetracementChartDesktop;

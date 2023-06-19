@@ -12,7 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
+import ChartContainer from "./ChartContainer";
 
 const BollingerBandChart = ({ data }) => {
   const [emaData, setEmaData] = useState();
@@ -49,7 +49,7 @@ const BollingerBandChart = ({ data }) => {
 
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className={"label-row"}>
         <h5>Bollinger Bands</h5>
       </div>
       {emaData && (
@@ -123,7 +123,5 @@ const BollingerBandChart = ({ data }) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default BollingerBandChart;

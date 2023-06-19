@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
+import ChartContainer from "./ChartContainer";
 
 const MACDChart = ({ data }) => {
   const [emaData, setEmaData] = useState([]);
@@ -110,7 +110,7 @@ const MACDChart = ({ data }) => {
   }
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className={"label-row"}>
         <h5>MACD (Moving Average Convergence/Divergence)</h5>
       </div>
       {emaData && (
@@ -194,7 +194,5 @@ const MACDChart = ({ data }) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default MACDChart;
