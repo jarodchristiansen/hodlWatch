@@ -19,7 +19,7 @@ const AverageTransactionValueChart = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>Average Transaction Value</h1>
+        <h5>Average Transaction Value</h5>
       </div>
 
       {data && (

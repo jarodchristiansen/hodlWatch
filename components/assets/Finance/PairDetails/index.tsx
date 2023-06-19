@@ -64,8 +64,6 @@ const PairDetailsRow: React.FC<PairDetailsRowProps> = ({ id }) => {
     rowRef.current!.style.cursor = "grab";
   };
 
-  console.log({ isScrollable });
-
   return (
     <PairsWholeContainer>
       {!!data?.getAssetPairs?.pairData?.length && (

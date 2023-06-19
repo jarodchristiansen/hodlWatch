@@ -4,9 +4,15 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import SharpeRatioChart from "./Charts/Bitcoin/SharpeRatioChart";
+import ADXChart from "./Charts/Desktop/ADXChart";
+import ATRChart from "./Charts/Desktop/ATRChart";
 import BollingerBandChart from "./Charts/Desktop/BollingerBandChartDesktop";
 import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
 import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracementChartDesktop";
+import MACDChart from "./Charts/Desktop/MACDChart";
+import OBVChart from "./Charts/Desktop/OBVChart";
+import RsiChart from "./Charts/Desktop/RSIChart";
+import StochasticOscillatorChart from "./Charts/Desktop/StochasticOscillatorChart";
 import VolumeChartDesktop from "./Charts/Desktop/VolumeChartDesktop";
 
 interface FinancailAccordionProps {
@@ -128,7 +134,28 @@ const FinancialChartGrid = ({
       !!filteredData?.closes?.length && (
         <BollingerBandChart data={filteredData?.closes} key="bband-chart" />
       ),
+      !!filteredData?.closes?.length && (
+        <RsiChart data={filteredData?.closes} key="rsi-chart" />
+      ),
+      !!filteredData?.closes?.length && (
+        <MACDChart data={filteredData?.closes} key="macd-chart" />
+      ),
+      !!filteredData?.closes?.length && (
+        <ATRChart data={financialData} key="atr-chart" />
+      ),
+      !!filteredData?.closes?.length && (
+        <OBVChart data={financialData} key="obv-chart" />
+      ),
+      !!filteredData?.closes?.length && (
+        <ADXChart data={financialData} key="adx-chart" />
+      ),
 
+      !!filteredData?.closes?.length && (
+        <StochasticOscillatorChart
+          data={filteredData?.closes}
+          key="stochastic-chart"
+        />
+      ),
       // !!filteredData?.market_dominance?.length && (
       //   <MarketDominanceChartDesktop
       //     data={filteredData?.market_dominance}
@@ -154,13 +181,12 @@ const FinancialChartGrid = ({
       //     key="price-btc-chart"
       //   />
       // ),
+      ,
     ];
 
     setChartsToDisplay(chartData);
     setProcessedFinancialData(filteredData);
   };
-
-  console.log({ financialData });
 
   return (
     <GridContainer>

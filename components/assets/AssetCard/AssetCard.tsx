@@ -294,6 +294,10 @@ const AssetCardWrapper = styled.div`
   }
 
   .snapshot-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 12px;
+
     p {
       font-weight: ${FontWeight.bold};
     }

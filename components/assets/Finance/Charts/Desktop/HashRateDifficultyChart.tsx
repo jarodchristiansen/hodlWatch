@@ -19,7 +19,7 @@ const HashRateDifficultyChart = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>Hashrate/Difficulty</h1>
+        <h5>Hashrate/Difficulty</h5>
       </div>
 
       {data && (

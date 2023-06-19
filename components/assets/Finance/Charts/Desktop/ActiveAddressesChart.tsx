@@ -65,7 +65,7 @@ const ActiveAddressesChart = ({ data }) => {
               stroke="#00BFBF"
               dot={false}
               strokeWidth={2}
-              name="new_addresses"
+              name="New Addresses"
               fillOpacity={1}
               fill="url(#new_addresses)"
             />

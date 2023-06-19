@@ -19,7 +19,7 @@ const TransactionSizeChart = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>Transaction Counts</h1>
+        <h5>Transaction Counts</h5>
       </div>
 
       {data && (

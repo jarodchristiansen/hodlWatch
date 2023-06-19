@@ -146,7 +146,7 @@ const SharpeRatioChart = ({ data }) => {
               stroke="#8884d8"
               dot={false}
               strokeWidth={2}
-              name="close"
+              name="Closing Price"
               fillOpacity={1}
               fill="url(#close)"
             />
@@ -163,7 +163,7 @@ const SharpeRatioChart = ({ data }) => {
               stroke="#00BFBF"
               dot={false}
               strokeWidth={2}
-              name="rolling_sharpe"
+              name="Sharpe Ratio"
               fillOpacity={1}
               fill="url(#rolling_sharpe)"
             />

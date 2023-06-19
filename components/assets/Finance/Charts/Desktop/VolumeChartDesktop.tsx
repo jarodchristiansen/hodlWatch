@@ -65,7 +65,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
               stroke={Colors.elegant.accentPurple}
               dot={false}
               strokeWidth={2}
-              name="Volume from exchanges"
+              name="Volume To Exchanges"
               fillOpacity={1}
               fill="url(#toExchange)"
             />
@@ -82,7 +82,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
               stroke="#00BFBF"
               dot={false}
               strokeWidth={2}
-              name="Volume from exchanges"
+              name="Volume From Exchanges"
               fillOpacity={1}
               fill="url(#fromExchange)"
             />
