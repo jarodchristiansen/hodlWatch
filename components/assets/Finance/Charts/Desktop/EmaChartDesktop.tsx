@@ -11,6 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
 import ChartContainer from "./ChartContainer";
 
 /**
@@ -71,7 +72,7 @@ const EMAChartDesktop = ({ data }) => {
 
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className={"label-row"}>
         <h5>EMA Chart</h5>
       </div>
       {emaData && (

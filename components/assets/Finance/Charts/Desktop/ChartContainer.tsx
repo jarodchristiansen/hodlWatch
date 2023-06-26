@@ -1,3 +1,4 @@
+import { Colors, FontWeight } from "@/styles/variables";
 import styled from "styled-components";
 
 const ChartContainer = ({ children }) => {
@@ -5,6 +6,8 @@ const ChartContainer = ({ children }) => {
 };
 
 const ChartContainerCustom = styled.div`
+  background-color: ${Colors.lightGray};
+
   .label-row {
     display: flex;
     flex-direction: row;
@@ -12,9 +15,11 @@ const ChartContainerCustom = styled.div`
     text-align: center;
     align-items: center;
     gap: 12px;
+    background: rgba(0, 0, 0, 0.1);
 
     h5 {
       padding-top: 8px;
+      font-weight: ${FontWeight.bold};
     }
   }
 `;

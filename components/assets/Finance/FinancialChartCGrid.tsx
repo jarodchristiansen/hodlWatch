@@ -10,6 +10,7 @@ import BollingerBandChart from "./Charts/Desktop/BollingerBandChartDesktop";
 import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
 import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracementChartDesktop";
 import MACDChart from "./Charts/Desktop/MACDChart";
+import NuplChart from "./Charts/Desktop/NuplChart";
 import OBVChart from "./Charts/Desktop/OBVChart";
 import RsiChart from "./Charts/Desktop/RSIChart";
 import StochasticOscillatorChart from "./Charts/Desktop/StochasticOscillatorChart";
@@ -149,6 +150,9 @@ const FinancialChartGrid = ({
       !!filteredData?.closes?.length && (
         <ADXChart data={financialData} key="adx-chart" />
       ),
+      !!filteredData?.closes?.length && (
+        <NuplChart data={financialData} key="nupl-chart" />
+      ),
 
       !!filteredData?.closes?.length && (
         <StochasticOscillatorChart
@@ -219,7 +223,7 @@ const ChartCard = styled.div`
 
   border: 1px solid black;
   border-radius: 10px;
-  padding: 1rem 1rem;
+  padding: 1rem;
   background-color: ${Colors.lightGray};
 `;
 
