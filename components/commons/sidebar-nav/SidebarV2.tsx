@@ -122,7 +122,6 @@ const MenuItem = styled.div`
 
   img {
     padding: 4px;
-    background-color: ${Colors.elegant.white};
   }
 
   &:hover {

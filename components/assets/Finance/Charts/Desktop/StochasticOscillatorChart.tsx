@@ -1,5 +1,4 @@
 // import FinanceChartModal from "./FinanceChartModal";
-import { FormatUnixTime } from "@/helpers/formatters/time";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -11,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
+import ChartContainer from "./ChartContainer";
 
 const StochasticOscillatorChart = ({ data }) => {
   const [stochasticData, setStochasticData] = useState([]);
@@ -69,7 +68,7 @@ const StochasticOscillatorChart = ({ data }) => {
   }
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className={"label-row"}>
         <h5>Stochastic Oscillator</h5>
       </div>
       {stochasticData && (
@@ -96,10 +95,7 @@ const StochasticOscillatorChart = ({ data }) => {
               allowDataOverflow={false}
             />
 
-            <XAxis
-              dataKey="time"
-              tickFormatter={(value) => FormatUnixTime(value)}
-            />
+            <XAxis dataKey="time" tickFormatter={(value) => value} />
 
             <Tooltip formatter={(value) => value} />
             {/* <Legend /> */}
@@ -137,7 +133,5 @@ const StochasticOscillatorChart = ({ data }) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default StochasticOscillatorChart;

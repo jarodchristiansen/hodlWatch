@@ -1,4 +1,5 @@
 import { currencyFormat } from "@/helpers/formatters/currency";
+import { Colors, FontWeight } from "@/styles/variables";
 import Link from "next/link";
 // import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
@@ -12,10 +13,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
 
-import { Colors } from "@/styles/variables";
 import FinanceChartModal from "../FinanceChartModal";
+import ChartContainer from "./ChartContainer";
 
 const CustomizedDot = (props) => {
   const { cx, cy, stroke, payload, value } = props;
@@ -109,12 +109,22 @@ interface CloseData {
 
 const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
   const [fibonacciData, setFibonacciData] = useState<any>();
+  const [showLatest14Days, setShowLatest14Days] = useState(false);
+  // const [originalData, setOriginalData] = useState([]);
+
+  const handleCheckboxChange = (event) => {
+    setShowLatest14Days(event.target.checked);
+  };
 
   useEffect(() => {
     processFibonacciData(data);
-  }, []);
+  }, [showLatest14Days]);
 
   const processFibonacciData = (data) => {
+    if (showLatest14Days) {
+      data = data.slice(-30);
+    }
+
     let closeData = [];
     let dateData = [];
 
@@ -200,14 +210,22 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
       <div className={"label-row"}>
         <h5>Fibonacci Retracement</h5>
 
-        <span className={"ms-3"}>
-          <FinanceChartModal text={modalText} />
-        </span>
+        <FinanceChartModal text={modalText} />
+
+        <label htmlFor="30-days">
+          <input
+            name="30-days"
+            type="checkbox"
+            checked={showLatest14Days}
+            onChange={handleCheckboxChange}
+          />
+          <span> 30 Days</span>
+        </label>
       </div>
       {fibonacciData && (
         <ResponsiveContainer width="100%" height={300}>
           <ComposedChart data={fibonacciData}>
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
 
             <YAxis
               dataKey="close"
@@ -217,7 +235,11 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
               width={0}
               // formatter={(value) => currencyFormat(value)}
             />
-            <XAxis dataKey="time" />
+            <XAxis
+              dataKey="time"
+              interval={"preserveStartEnd"}
+              tick={{ fontWeight: FontWeight.bold }}
+            />
 
             <Tooltip formatter={(value) => currencyFormat(value)} />
             {/* <Legend /> */}
@@ -294,20 +316,5 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div`
-  .label-row {
-    display: flex;
-    flex-direction: row;
-    white-space: nowrap;
-    gap: 1rem;
-    justify-content: center;
-    text-align: center;
-
-    .info-circle {
-      fill: green;
-    }
-  }
-`;
 
 export default FibonacciRetracementChartDesktop;

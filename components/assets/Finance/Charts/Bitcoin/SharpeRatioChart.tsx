@@ -10,9 +10,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
 
 // import FinanceChartModal from "../FinanceChartModal";
+import ChartContainer from "../Desktop/ChartContainer";
 import FinanceChartModal from "../FinanceChartModal";
 
 /**
@@ -107,13 +107,10 @@ const SharpeRatioChart = ({ data }) => {
 
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
-        <h5>
-          Rolling Sharpe/Price{" "}
-          <span className={"ms-3"}>
-            <FinanceChartModal text={modalText} />
-          </span>
-        </h5>
+      <div className={"label-row"}>
+        <h5>Rolling Sharpe/Price </h5>
+
+        <FinanceChartModal text={modalText} />
       </div>
 
       {chartData && (
@@ -173,7 +170,5 @@ const SharpeRatioChart = ({ data }) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default SharpeRatioChart;

@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
+import ChartContainer from "./ChartContainer";
 
 /**
  *
@@ -84,7 +84,5 @@ const AverageTransactionValueChart = ({ data }) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default AverageTransactionValueChart;

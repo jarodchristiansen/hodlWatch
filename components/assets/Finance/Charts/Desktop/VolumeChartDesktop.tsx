@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
+import ChartContainer from "./ChartContainer";
 
 interface VolumeChartProps {
   data: VolumeObjects[];
@@ -30,7 +30,7 @@ interface VolumeObjects {
 const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className="label-row">
         <h5>Volume Chart</h5>
       </div>
 
@@ -92,7 +92,5 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default VolumeChartDesktop;

@@ -11,92 +11,65 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
 import ChartContainer from "./ChartContainer";
 
-const ATRChart = ({ data }) => {
-  const [emaData, setEmaData] = useState([]);
+const NuplChart = ({ data }) => {
+  const [nuplData, setNuplData] = useState([]);
 
   useEffect(() => {
-    processEmas(data);
+    calculateNUPL(data);
   }, []);
 
-  const processEmas = (data) => {
+  const calculateNUPL = (data) => {
     let closeData = [];
     let dateData = [];
-    let highData = [];
-    let lowData = [];
-
-    let time = data.length;
 
     for (let i of data) {
       closeData.push(i.close);
       dateData.push(i.time);
-      highData.push(i.high);
-      lowData.push(i.low);
     }
 
-    let emas = [];
-
-    let atr = calculateATR(highData, lowData, closeData);
+    let nuplScores = [];
 
     for (let i = 0; i < dateData.length; i++) {
-      emas.push({
+      const nupl = calculateNUPLScore(closeData.slice(0, i + 1));
+      nuplScores.push({
         close: closeData[i],
-        atr: atr[i],
+        nupl,
         time: dateData[i],
       });
     }
 
-    setEmaData(emas);
+    setNuplData(nuplScores);
   };
 
-  // ATR (Average True Range)
-  function calculateATR(highPrices, lowPrices, closingPrices, period = 14) {
-    // if (
-    //   highPrices.length < period ||
-    //   lowPrices.length < period ||
-    //   closingPrices.length < period
-    // ) {
-    //   throw new Error("Insufficient data for the specified period");
-    // }
+  const calculateNUPLScore = (closePrices) => {
+    let unrealizedProfit = 0;
+    let unrealizedLoss = 0;
 
-    const trueRanges = [];
-    for (let i = 1; i < period; i++) {
-      const trueRange = Math.max(
-        highPrices[i] - lowPrices[i],
-        Math.abs(highPrices[i] - closingPrices[i - 1]),
-        Math.abs(lowPrices[i] - closingPrices[i - 1])
-      );
-      trueRanges.push(trueRange);
+    for (let i = 0; i < closePrices.length; i++) {
+      const priceDiff = closePrices[i] - closePrices[0];
+
+      if (priceDiff > 0) {
+        unrealizedProfit += priceDiff;
+      } else {
+        unrealizedLoss -= priceDiff;
+      }
     }
 
-    const atrValues = [];
-    let atrSum = trueRanges.reduce((sum, trueRange) => sum + trueRange, 0);
-
-    for (let i = period; i < highPrices.length; i++) {
-      const trueRange = Math.max(
-        highPrices[i] - lowPrices[i],
-        Math.abs(highPrices[i] - closingPrices[i - 1]),
-        Math.abs(lowPrices[i] - closingPrices[i - 1])
-      );
-      trueRanges.push(trueRange);
-      atrSum += trueRange;
-      atrSum -= trueRanges.shift();
-      const atr = atrSum / period;
-      atrValues.push(atr);
-    }
-
-    return atrValues;
-  }
+    const nupl = unrealizedProfit / (unrealizedProfit + unrealizedLoss);
+    return nupl;
+  };
 
   return (
     <ChartContainer>
       <div className={"label-row"}>
-        <h5>ATR (Average True Range)</h5>
+        <h5>NUPL (Net Unrealized Profit and Loss)</h5>
       </div>
-      {emaData && (
+      {nuplData && (
         <ResponsiveContainer width="100%" height={300}>
-          <ComposedChart data={emaData}>
+          <ComposedChart data={nuplData}>
             <CartesianGrid strokeDasharray="3 3" />
 
             <YAxis
@@ -111,7 +84,7 @@ const ATRChart = ({ data }) => {
             />
 
             <YAxis
-              dataKey="atr"
+              dataKey="nupl"
               yAxisId="right-axis"
               orientation="right"
               width={0}
@@ -145,11 +118,11 @@ const ATRChart = ({ data }) => {
 
             <Line
               type="monotone"
-              dataKey="atr"
+              dataKey="nupl"
               stroke="#00BFBF"
               dot={false}
               strokeWidth={2}
-              name="ATR"
+              name="NUPL Score"
               yAxisId="right-axis"
             />
           </ComposedChart>
@@ -159,4 +132,4 @@ const ATRChart = ({ data }) => {
   );
 };
 
-export default ATRChart;
+export default NuplChart;

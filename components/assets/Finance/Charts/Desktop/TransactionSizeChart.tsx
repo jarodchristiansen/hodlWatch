@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
+import ChartContainer from "./ChartContainer";
 
 /**
  *
@@ -87,7 +87,5 @@ const TransactionSizeChart = ({ data }) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default TransactionSizeChart;

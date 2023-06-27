@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
+import ChartContainer from "./ChartContainer";
 
 /**
  *
@@ -18,7 +18,7 @@ import styled from "styled-components";
 const HashRateDifficultyChart = ({ data }) => {
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className={"label-row"}>
         <h5>Hashrate/Difficulty</h5>
       </div>
 
@@ -75,7 +75,5 @@ const HashRateDifficultyChart = ({ data }) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default HashRateDifficultyChart;

@@ -124,9 +124,13 @@ export default function Home({ data }) {
           </div>
         </div>
 
-        <video autoPlay muted loop>
+        <Image src="/assets/chartScreenshot.png" width={400} height={500} />
+
+        <Image src="/assets/cardsScreenshot.png" width={400} height={500} />
+
+        {/* <video autoPlay muted loop>
           <source src="/videos/landing-ink.mp4" />
-        </video>
+        </video> */}
       </div>
       <Row>
         <div className="site-description-container">
@@ -229,18 +233,23 @@ const AlternateHomePageWrapper = styled.div`
     padding: 32px 24px;
     align-items: center;
 
-    video {
+    img {
       width: 100%;
       align-self: center;
       border-radius: 10px;
+
+      border: 2px solid #ccc;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      aspect-ratio: 16/9;
+      object-fit: cover;
     }
 
     @media ${MediaQueries.MD} {
       /* flex-direction: row;
       justify-content: space-evenly; */
 
-      video {
-        width: 90%;
+      img {
+        width: 85%;
       }
     }
   }

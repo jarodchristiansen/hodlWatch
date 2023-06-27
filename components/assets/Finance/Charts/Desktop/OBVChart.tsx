@@ -11,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import styled from "styled-components";
+import ChartContainer from "./ChartContainer";
 
 const OBVChart = ({ data }) => {
   const [emaData, setEmaData] = useState([]);
@@ -81,7 +81,7 @@ const OBVChart = ({ data }) => {
 
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className={"label-row"}>
         <h5>OBV (On-balance Volume)</h5>
       </div>
       {emaData && (
@@ -148,7 +148,5 @@ const OBVChart = ({ data }) => {
     </ChartContainer>
   );
 };
-
-const ChartContainer = styled.div``;
 
 export default OBVChart;
