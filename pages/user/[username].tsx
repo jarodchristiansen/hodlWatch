@@ -3,11 +3,10 @@ import PortfolioMain from "@/components/portfolio/PortfolioMain";
 // import PriceScreener from "@/components/commons/screener";
 import EditUserDetails from "@/components/user/edit-user-details";
 import { GET_USER } from "@/helpers/queries/user/index";
-import { Colors } from "@/styles/variables";
-import { MediaQueries } from "@/styles/variables";
+import { Colors, MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 // import { getSession, useSession } from "@web3modal/react";
-import { useSession, getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -363,6 +362,7 @@ const UserDetailsCard = styled.div`
   width: 100%;
   border: 2px solid black;
   border-radius: 14px;
+  background-color: ${Colors.lightGray};
 
   .detail-header {
     display: flex;
@@ -404,11 +404,12 @@ const UserFavoritesList = styled.div`
   flex-direction: column;
   max-height: 40rem;
   overflow-y: auto;
+  background-color: ${Colors.lightGray};
 
   ::-webkit-scrollbar {
     display: none;
     -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; Firefox
+    scrollbar-width: none;
   }
 
   .header-text {

@@ -79,7 +79,7 @@ const LandingCard = ({
         </div>
       )}
 
-      {!!renderLearnMore && (
+      {/* {!!renderLearnMore && (
         <div className="button-container">
           <CTAButton
             className="standardized-button"
@@ -94,7 +94,7 @@ const LandingCard = ({
             Web3
           </CTAButton>
         </div>
-      )}
+      )} */}
     </InfoCardContainer>
   );
 };

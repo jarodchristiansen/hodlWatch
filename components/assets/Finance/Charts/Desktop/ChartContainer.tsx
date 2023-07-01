@@ -1,4 +1,4 @@
-import { Colors, FontWeight } from "@/styles/variables";
+import { FontWeight } from "@/styles/variables";
 import styled from "styled-components";
 
 const ChartContainer = ({ children }) => {
@@ -6,8 +6,7 @@ const ChartContainer = ({ children }) => {
 };
 
 const ChartContainerCustom = styled.div`
-  background-color: ${Colors.lightGray};
-
+  background-color: transparent;
   .label-row {
     display: flex;
     flex-direction: row;

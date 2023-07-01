@@ -1,6 +1,5 @@
-import ReadMoreButton from "@/components/commons/text/ReadMoreButton";
 import { FormatUnixTime } from "@/helpers/formatters/time";
-import { MediaQueries } from "@/styles/variables";
+import { Colors, FontWeight, MediaQueries } from "@/styles/variables";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -39,113 +38,123 @@ const NewsBlock = (props: NewsBlockProps) => {
 
   return (
     <NewsItem>
-      <div className="news-text-column">
-        <span>{FormatUnixTime(story.published_on)}</span>
+      <Image
+        src={story.imageurl}
+        height={150}
+        width={150}
+        alt="block-logo"
+        unoptimized={true}
+        priority
+      />
 
-        <Link href={story?.guid} passHref legacyBehavior>
-          <a target="_blank">
-            <h4 className="article-header">{story.title}</h4>
-          </a>
-        </Link>
+      <div className="text-column">
+        <div className="top-text-row">
+          <Link href={story?.guid} passHref legacyBehavior>
+            <a target="_blank">
+              <h4 className="article-header">{story.title}</h4>
+            </a>
+          </Link>
 
-        <div className="main-image-container">
-          <Image
-            src={story.imageurl}
-            height={250}
-            width={250}
-            alt="block-logo"
-            unoptimized={true}
-            priority
-          />
+          <span>{FormatUnixTime(story.published_on)}</span>
         </div>
 
         <div className="story-body">
-          <span>{story.body.slice(0, 160) + "..."}</span>
+          <span>{story.body.slice(0, 300) + "..."}</span>
         </div>
-      </div>
 
-      <Link href={story?.guid} passHref legacyBehavior>
-        <a target="_blank">
-          <div className="source-row">
-            <span className="source-name">{story?.source_info?.name}</span>
-            <Image
-              src={story.source_info?.img}
-              height={55}
-              width={55}
-              alt="block-logo"
-              unoptimized={true}
-              priority
-            />
-          </div>
-        </a>
-      </Link>
+        <Link href={story?.guid} passHref legacyBehavior>
+          <a target="_blank">
+            <div className="source-row">
+              <span className="source-name">{story?.source_info?.name}</span>
+              <Image
+                src={story.source_info?.img}
+                height={55}
+                width={55}
+                alt="block-logo"
+                unoptimized={true}
+                priority
+              />
+            </div>
+          </a>
+        </Link>
+      </div>
     </NewsItem>
   );
 };
 
 const NewsItem = styled.div`
-  border: 2px solid gray;
+  display: flex;
+  flex-direction: column;
+  background-color: ${Colors.lightGray};
+  align-items: center;
   text-align: center;
-  padding: 2rem 0;
+  padding: 12px;
   border-radius: 12px;
-  max-width: 52rem;
-  box-shadow: 2px 4px 8px gray;
-  background-color: white;
+  gap: 24px;
+  position: relative;
 
-  .article-header {
-    padding: 1rem;
+  h4 {
+    font-size: 1.3rem;
+    font-weight: ${FontWeight.bold};
+
+    @media ${MediaQueries.MD} {
+      max-width: 450px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
-  .news-text-column {
+  img {
+    border-radius: 12px;
+  }
+
+  .text-column {
     display: flex;
     flex-direction: column;
-    margin: auto;
-    gap: 1rem;
+    gap: 18px;
+    padding: 12px;
 
-    .main-image-container {
-      background-color: #f3e5f368;
-      padding: 0.5rem 1rem;
-      border-radius: 12px;
-      justify-self: center;
-      align-self: center;
-      border: 1px solid gray;
-      box-shadow: 0px 4px 10px lightgray;
-
-      img {
-        box-shadow: 0px 4px 10px lightgray;
-        border: 1px solid gray;
-        border-radius: 12px;
+    .top-text-row {
+      span {
+        color: ${Colors.elegant.accentPurple};
       }
 
       @media ${MediaQueries.MD} {
-        padding: 0.5rem 2rem;
-        max-width: 35rem;
+        display: flex;
+        justify-content: space-between;
       }
     }
 
     .story-body {
-      padding: 2rem;
-      font-weight: 500px;
+      background-color: #acb6bd1a;
+      text-align: center;
+      padding: 12px;
+      border: 1px solid lightgray;
+      border-radius: 6px;
     }
   }
 
   .source-row {
     display: flex;
+    gap: 12px;
     align-items: center;
-    justify-content: center;
-    padding-top: 0.5rem;
-    gap: 1rem;
-    font-size: 18px;
-    max-width: 4rem;
+    max-width: 40%;
     margin: auto;
+    font-weight: ${FontWeight.bold};
+
+    @media ${MediaQueries.MD} {
+      max-width: 40%;
+      margin: auto;
+    }
   }
 
-  .source-name {
-    white-space: nowrap;
-  }
-
-  a:hover {
-    text-decoration: underline;
+  @media ${MediaQueries.MD} {
+    flex-direction: row;
+    justify-content: space-evenly;
+    max-width: 780px;
+    gap: 24px;
+    text-align: start;
   }
 `;
 
