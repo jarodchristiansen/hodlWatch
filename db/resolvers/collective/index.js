@@ -3,8 +3,8 @@ import CollectiveStats from "../../models/collective";
 export const CollectiveResolver = {
   getCollectiveStats: async (_, {}) => {
     try {
-      let collectiveStats = await CollectiveStats.find().catch((err) =>
-        console.log(err)
+      let collectiveStats = await CollectiveStats.find().catch(
+        (err) => new Error(err)
       );
 
       if (collectiveStats && collectiveStats.length > 1) {
@@ -15,7 +15,7 @@ export const CollectiveResolver = {
 
       return collectiveStats;
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
   },
 };

@@ -7,7 +7,7 @@ export const PostResolver = {
 
       return posts;
     } catch (err) {
-      console.log("ERROR IN TRY CATCH GET POSTS");
+      throw new Error(err, "Try GET Posts");
     }
   },
   getPost: async (_, { slug }) => {
@@ -16,7 +16,7 @@ export const PostResolver = {
 
       return post;
     } catch (err) {
-      console.log("ERROR IN TRY CATCH GET POSTS");
+      throw new Error(err, "Try GET Post");
     }
   },
 };

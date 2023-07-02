@@ -1,8 +1,8 @@
-import { PostResolver } from "./posts";
-import { NewsFeedResolver } from "./newsfeed";
-import { UserResolver } from "./user";
 import { AssetResolver } from "./assets";
 import { CollectiveResolver } from "./collective";
+import { NewsFeedResolver } from "./newsfeed";
+import { PostResolver } from "./posts";
+import { UserResolver } from "./user";
 
 const Product = require("../models/product");
 
@@ -24,7 +24,7 @@ const resolvers = {
 
         return products;
       } catch (err) {
-        console.log(err);
+        throw new Error(err);
       }
     },
     getProduct: async (_, { id }) => {
@@ -49,7 +49,7 @@ const resolvers = {
 
         return result;
       } catch (err) {
-        console.log(err);
+        throw new Error(err);
       }
     },
 

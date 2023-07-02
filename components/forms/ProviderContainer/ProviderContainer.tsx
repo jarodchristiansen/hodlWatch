@@ -118,7 +118,7 @@ const ProviderContainer = ({
                   onClick={(e) => {
                     signIn(provider.id, { redirect: true, callbackUrl: "/" })
                       .then(() => {})
-                      .catch((err) => console.log("err", err));
+                      .catch((err) => new Error(err));
                     // signInOthers(e, provider)
                   }}
                   type={"button"}

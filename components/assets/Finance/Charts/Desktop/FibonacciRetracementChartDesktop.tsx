@@ -66,8 +66,6 @@ const CustomizedDot = (props) => {
   // const renderPoint =
   //   upperDistance < proximityThreshold || lowerDistance < proximityThreshold;
 
-  console.log({ close, value, renderPoint });
-
   if (renderPoint) {
     return (
       <svg

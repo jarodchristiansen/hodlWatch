@@ -124,53 +124,13 @@ export default function Home({ data }) {
           </div>
         </div>
 
-        <Image src="/assets/chartScreenshot.png" width={400} height={500} />
-
-        {/* <Image src="/assets/cardsScreenshot.png" width={400} height={500} /> */}
-
-        {/* <video autoPlay muted loop>
-          <source src="/videos/landing-ink.mp4" />
-        </video> */}
+        <Image
+          src="/assets/chartScreenshot.png"
+          width={400}
+          height={500}
+          alt="Chart Page Screenshot"
+        />
       </div>
-      {/* <Row>
-        <h3> Experience Crypto Like Never Before</h3>
-
-        <div className="site-description-container">
-          <p>
-            Welcome to Mesh, your all-in-one crypto companion that unlocks the
-            power of decentralized finance. Seamlessly track your portfolio,
-            connect with a vibrant community, and thrive in the ever-evolving
-            world of cryptocurrencies.
-          </p>
-
-          <p>
-            Stay Informed: Gain a competitive edge with real-time market data,
-            comprehensive financial metrics, and news updates. Mesh provides you
-            with a clear view of the crypto universe, empowering you to make
-            informed investment decisions.
-          </p>
-
-          <p>
-            Connect: Join a community of crypto enthusiasts and investors.
-            Engage in lively discussions, share insights, and stay connected
-            with the latest trends. Collaborate, learn, and grow together in the
-            exciting realm of blockchain technology.
-          </p>
-
-          <p>
-            Thrive: Mesh is your gateway to success in the crypto revolution.
-            Unleash the potential of your portfolio, analyze trends, and
-            identify opportunities to maximize your returns. With Mesh,
-            you&apos;ll be well-equipped to navigate the crypto landscape with
-            confidence and make waves in the world of finance.
-          </p>
-
-          <p>
-            Join Mesh today and embark on a transformative journey where
-            simplicity meets power, and your crypto aspirations become reality
-          </p>
-        </div>
-      </Row> */}
 
       <Row>
         <h3> Experience Crypto Like Never Before</h3>

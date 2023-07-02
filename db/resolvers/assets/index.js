@@ -28,7 +28,7 @@ export const AssetResolver = {
 
       return assets;
     } catch (err) {
-      console.log({ err }, "IN CATCH");
+      throw new Error(err, "In getAssets resolver");
     }
   },
 
@@ -44,7 +44,7 @@ export const AssetResolver = {
         e.symbol.toLowerCase().includes(symbol.toLowerCase())
       );
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
   },
 
@@ -83,9 +83,7 @@ export const AssetResolver = {
   getBTCMacros: async (_, { symbol }) => {
     const data = {};
 
-    let results = await btc_macros
-      .find({})
-      .catch((err) => console.log({ err }));
+    let results = await btc_macros.find({}).catch((err) => new Error(err));
 
     let responses = [];
 
@@ -153,7 +151,7 @@ export const AssetResolver = {
         throw new Error("Asset not found");
       }
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
   },
 
@@ -193,7 +191,7 @@ export const AssetResolver = {
         throw new Error("Asset not found");
       }
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
   },
 
@@ -210,13 +208,13 @@ export const AssetResolver = {
         (asset) => name.toLowerCase() === asset.name.toLowerCase()
       );
 
-      let dbAsset = await Asset.findOne({ name }).catch((err) =>
-        console.log(err)
+      let dbAsset = await Asset.findOne({ name }).catch(
+        (err) => new Error(err)
       );
 
       if (!dbAsset) {
-        dbAsset = await Asset.findOne({ symbol: name }).catch((err) =>
-          console.log(err)
+        dbAsset = await Asset.findOne({ symbol: name }).catch(
+          (err) => new Error(err)
         );
       }
 
@@ -240,7 +238,7 @@ export const AssetResolver = {
         throw new Error("Asset not found");
       }
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
   },
 };
