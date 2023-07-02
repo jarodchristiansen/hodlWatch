@@ -46,6 +46,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     }
   }, [router.events]);
 
+  useEffect(() => {
+    hotjar.initialize(3557571, 6);
+  }, []);
+
   return (
     <>
       <Script

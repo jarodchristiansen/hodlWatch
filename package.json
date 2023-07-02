@@ -48,6 +48,7 @@
     "react-bootstrap": "^2.7.0",
     "react-dom": "18.2.0",
     "react-horizontal-scrolling-menu": "^3.2.3",
+    "react-hotjar": "^6.1.0",
     "react-icons": "^4.7.1",
     "react-markdown": "^8.0.4",
     "recharts": "^2.2.0",
