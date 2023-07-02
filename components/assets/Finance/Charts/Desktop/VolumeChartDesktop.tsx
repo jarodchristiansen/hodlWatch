@@ -1,6 +1,8 @@
+import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 // import FinanceChartModal from "./FinanceChartModal";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { Colors } from "@/styles/variables";
+import { useEffect, useState } from "react";
 import {
   Area,
   CartesianGrid,
@@ -10,6 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
 import ChartContainer from "./ChartContainer";
 
 interface VolumeChartProps {
@@ -28,15 +31,37 @@ interface VolumeObjects {
  * @returns VolumeChart that shows to/from exchange volume of asset
  */
 const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
+  const [chartData, setChartData] = useState<any>();
+  const [showLatest14Days, setShowLatest14Days] = useState(false);
+
+  useEffect(() => {
+    if (showLatest14Days) {
+      data = data.slice(-30);
+    }
+
+    setChartData(data);
+  }, [showLatest14Days]);
+
+  const handleCheckboxChange = () => {
+    setShowLatest14Days(!showLatest14Days);
+  };
+
   return (
     <ChartContainer>
       <div className="label-row">
         <h5>Volume Chart</h5>
+
+        <ToggleSwitch
+          label={"30 days"}
+          label2={"1 year"}
+          toggleState={showLatest14Days}
+          setToggleState={handleCheckboxChange}
+        />
       </div>
 
-      {data && (
+      {chartData && (
         <ResponsiveContainer width="100%" height={300}>
-          <ComposedChart data={data}>
+          <ComposedChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <YAxis dataKey="volumeTo" yAxisId="left-axis" width={0} />
             <YAxis

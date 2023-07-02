@@ -1,3 +1,4 @@
+import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 // import FinanceChartModal from "./FinanceChartModal";
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import { useEffect, useState } from "react";
@@ -11,20 +12,30 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
 import ChartContainer from "./ChartContainer";
 
 const ATRChart = ({ data }) => {
   const [emaData, setEmaData] = useState([]);
+  const [showLatest14Days, setShowLatest14Days] = useState(false);
 
   useEffect(() => {
     processEmas(data);
-  }, []);
+  }, [showLatest14Days]);
+
+  const handleCheckboxChange = () => {
+    setShowLatest14Days(!showLatest14Days);
+  };
 
   const processEmas = (data) => {
     let closeData = [];
     let dateData = [];
     let highData = [];
     let lowData = [];
+
+    if (showLatest14Days) {
+      data = data.slice(-30);
+    }
 
     let time = data.length;
 
@@ -37,7 +48,12 @@ const ATRChart = ({ data }) => {
 
     let emas = [];
 
-    let atr = calculateATR(highData, lowData, closeData);
+    let atr = calculateATR(
+      highData,
+      lowData,
+      closeData,
+      showLatest14Days ? 3 : 14
+    );
 
     for (let i = 0; i < dateData.length; i++) {
       emas.push({
@@ -93,6 +109,13 @@ const ATRChart = ({ data }) => {
     <ChartContainer>
       <div className={"label-row"}>
         <h5>ATR (Average True Range)</h5>
+
+        <ToggleSwitch
+          label={"30 days"}
+          label2={"1 year"}
+          toggleState={showLatest14Days}
+          setToggleState={handleCheckboxChange}
+        />
       </div>
       {emaData && (
         <ResponsiveContainer width="100%" height={300}>

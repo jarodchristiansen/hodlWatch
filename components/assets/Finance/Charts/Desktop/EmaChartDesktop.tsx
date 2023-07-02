@@ -1,3 +1,4 @@
+import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { Colors } from "@/styles/variables";
 import { useEffect, useState } from "react";
@@ -21,10 +22,11 @@ import ChartContainer from "./ChartContainer";
  */
 const EMAChartDesktop = ({ data }) => {
   const [emaData, setEmaData] = useState<any>();
+  const [showLatest14Days, setShowLatest14Days] = useState(false);
 
   useEffect(() => {
     processEmas(data);
-  }, []);
+  }, [showLatest14Days]);
 
   function EMACalc(mArray, mRange) {
     var k = 2 / (mRange + 1);
@@ -37,9 +39,17 @@ const EMAChartDesktop = ({ data }) => {
     return emaArray;
   }
 
+  const handleCheckboxChange = () => {
+    setShowLatest14Days(!showLatest14Days);
+  };
+
   const processEmas = (data) => {
     let closeData = [];
     let dateData = [];
+
+    if (showLatest14Days) {
+      data = data.slice(-30);
+    }
 
     let time = data.length;
 
@@ -74,6 +84,13 @@ const EMAChartDesktop = ({ data }) => {
     <ChartContainer>
       <div className={"label-row"}>
         <h5>EMA Chart</h5>
+
+        <ToggleSwitch
+          label={"30 days"}
+          label2={"1 year"}
+          toggleState={showLatest14Days}
+          setToggleState={handleCheckboxChange}
+        />
       </div>
       {emaData && (
         <ResponsiveContainer width="100%" height={300}>

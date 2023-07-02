@@ -7,14 +7,16 @@ const ChartContainer = ({ children }) => {
 
 const ChartContainerCustom = styled.div`
   background-color: transparent;
+  position: relative;
+
   .label-row {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     text-align: center;
     align-items: center;
     gap: 12px;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(194, 191, 191, 0.1);
 
     h5 {
       padding-top: 8px;

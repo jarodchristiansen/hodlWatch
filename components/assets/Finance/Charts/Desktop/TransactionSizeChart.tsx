@@ -1,3 +1,5 @@
+import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
+import { useEffect, useState } from "react";
 // import FinanceChartModal from "./FinanceChartModal";
 import {
   Area,
@@ -8,6 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
 import ChartContainer from "./ChartContainer";
 
 /**
@@ -16,15 +19,37 @@ import ChartContainer from "./ChartContainer";
  * @returns TransactionSizeChart shows the new/active addresses for asset BTC/ETH
  */
 const TransactionSizeChart = ({ data }) => {
+  const [showLatest14Days, setShowLatest14Days] = useState(false);
+  const [chartData, setChartData] = useState<any>();
+
+  useEffect(() => {
+    if (showLatest14Days) {
+      data = data.slice(-30);
+    }
+
+    setChartData(data);
+  }, [showLatest14Days]);
+
+  const handleCheckboxChange = () => {
+    setShowLatest14Days(!showLatest14Days);
+  };
+
   return (
     <ChartContainer>
-      <div className={"flex flex-row"}>
+      <div className={"label-row"}>
         <h5>Transaction Counts</h5>
+
+        <ToggleSwitch
+          label={"30 days"}
+          label2={"1 year"}
+          toggleState={showLatest14Days}
+          setToggleState={handleCheckboxChange}
+        />
       </div>
 
-      {data && (
+      {chartData && (
         <ResponsiveContainer width="100%" height={300}>
-          <ComposedChart data={data}>
+          <ComposedChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <YAxis dataKey="transaction_count" yAxisId="left-axis" width={0} />
             <YAxis

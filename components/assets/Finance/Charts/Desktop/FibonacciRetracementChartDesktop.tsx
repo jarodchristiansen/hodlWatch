@@ -1,3 +1,4 @@
+import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { Colors, FontWeight } from "@/styles/variables";
 import Link from "next/link";
@@ -20,7 +21,7 @@ import ChartContainer from "./ChartContainer";
 const CustomizedDot = (props) => {
   const { cx, cy, stroke, payload, value } = props;
 
-  let close = payload.close;
+  let { close, high, low } = payload;
 
   let upperWeight;
   let lowerWeight;
@@ -37,6 +38,35 @@ const CustomizedDot = (props) => {
   let lowerBound = value * lowerWeight;
 
   let renderPoint = close > lowerBound && close < upperBound;
+
+  // console.log({ close, value, renderPoint });
+
+  // const { cx, cy, stroke, payload, value, is14Days } = props;
+  // const { close, high, low } = payload;
+
+  // let upperWeight;
+  // let lowerWeight;
+
+  // if (close > 10000) {
+  //   upperWeight = 1.0005;
+  //   lowerWeight = 0.9995;
+  // } else {
+  //   upperWeight = 1.003;
+  //   lowerWeight = 0.997;
+  // }
+
+  // const upperBound = high * upperWeight;
+  // const lowerBound = low * lowerWeight;
+
+  // const upperDistance = Math.abs(value - upperBound);
+  // const lowerDistance = Math.abs(value - lowerBound);
+
+  // const proximityThreshold = is14Days ? 200 : 20; // Adjust this threshold as needed
+
+  // const renderPoint =
+  //   upperDistance < proximityThreshold || lowerDistance < proximityThreshold;
+
+  console.log({ close, value, renderPoint });
 
   if (renderPoint) {
     return (
@@ -112,8 +142,8 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
   const [showLatest14Days, setShowLatest14Days] = useState(false);
   // const [originalData, setOriginalData] = useState([]);
 
-  const handleCheckboxChange = (event) => {
-    setShowLatest14Days(event.target.checked);
+  const handleCheckboxChange = () => {
+    setShowLatest14Days(!showLatest14Days);
   };
 
   useEffect(() => {
@@ -127,12 +157,16 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
 
     let closeData = [];
     let dateData = [];
+    let highData = [];
+    let lowData = [];
 
     let time = data.length;
 
     for (let i of data) {
       closeData.push(i.close);
       dateData.push(i.time);
+      highData.push(i.high);
+      lowData.push(i.low);
     }
 
     let priceMin = Math.min(...closeData);
@@ -155,6 +189,8 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
 
     for (let i = 0; i < dateData.length; i++) {
       fibData.push({
+        high: highData[i],
+        low: lowData[i],
         close: closeData[i],
         fib1: fib1[i],
         fib2: fib2[i],
@@ -212,15 +248,12 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
 
         <FinanceChartModal text={modalText} />
 
-        <label htmlFor="30-days">
-          <input
-            name="30-days"
-            type="checkbox"
-            checked={showLatest14Days}
-            onChange={handleCheckboxChange}
-          />
-          <span> 30 Days</span>
-        </label>
+        <ToggleSwitch
+          label={"30 days"}
+          label2={"1 year"}
+          toggleState={showLatest14Days}
+          setToggleState={handleCheckboxChange}
+        />
       </div>
       {fibonacciData && (
         <ResponsiveContainer width="100%" height={300}>
@@ -277,21 +310,21 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
               type="monotone"
               dataKey="fib1"
               stroke="black"
-              dot={<CustomizedDot />}
+              dot={<CustomizedDot is14Days={showLatest14Days} />}
               name={"Profit 3/Topping"}
             />
             <Line
               type="monotone"
               dataKey="fib2"
               stroke="blue"
-              dot={<CustomizedDot />}
+              dot={<CustomizedDot is14Days={showLatest14Days} />}
               name={"Take Profit 2"}
             />
             <Line
               type="monotone"
               dataKey="fib3"
               stroke="green"
-              dot={<CustomizedDot />}
+              dot={<CustomizedDot is14Days={showLatest14Days} />}
               name={"Take Profit 1"}
             />
             <Line
@@ -299,7 +332,7 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
               dataKey="fib4"
               stroke="orange"
               name={"Deep Value/No Man's Land"}
-              dot={<CustomizedDot />}
+              dot={<CustomizedDot is14Days={showLatest14Days} />}
             />
             <Line
               type="monotone"

@@ -88,6 +88,8 @@ const FinancialChartGrid = ({
         closes.push({
           close: i.close,
           time: FormatUnixTime(i.time),
+          low: i.low,
+          high: i.high,
         });
       }
       if (i?.price_btc) {

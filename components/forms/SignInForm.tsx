@@ -1,5 +1,4 @@
-import { Colors } from "@/styles/variables";
-import { MediaQueries } from "@/styles/variables";
+import { Colors, MediaQueries } from "@/styles/variables";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -57,6 +56,7 @@ const SignInForm = ({ providers }) => {
     <FormStyling onSubmit={handleSignInSubmit}>
       <ToggleSwitch
         label={"Sign In"}
+        label2={"Sign Up"}
         toggleState={isSignIn}
         setToggleState={setIsSignIn}
       />

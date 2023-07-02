@@ -63,7 +63,7 @@ const SidebarV2 = ({ open, setOpen, view }: SidebarProps) => {
 };
 
 const SidebarContainer = styled.div<SidebarProps>`
-  height: 100px;
+  height: 110px;
   width: 100%;
   position: relative;
   top: 0;
