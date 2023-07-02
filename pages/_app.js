@@ -11,6 +11,7 @@ import { pageview } from "../lib/gtag";
 
 // Add this line
 import "@fortawesome/fontawesome-free/css/all.css";
+import Hotjar from "@hotjar/browser";
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/globals.css";
 
@@ -47,7 +48,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   }, [router.events]);
 
   useEffect(() => {
-    hotjar.initialize(3557571, 6);
+    const siteId = 3557571;
+    const hotjarVersion = 6;
+
+    Hotjar.init(siteId, hotjarVersion);
   }, []);
 
   return (
