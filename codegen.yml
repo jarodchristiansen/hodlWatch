@@ -1,0 +1,12 @@
+overwrite: true
+schema: "db/schema.js" # Path to your GraphQL schema file
+generates:
+  client_types/types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      markdown:
+        folder: "/app_documentation" # Output folder for documentation
+        baseURL: "/app_documentation" # Base URL for documentation links
