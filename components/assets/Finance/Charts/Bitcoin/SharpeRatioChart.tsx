@@ -1,3 +1,4 @@
+import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { useEffect, useState } from "react";
 // import FinanceChartModal from "./FinanceChartModal";
@@ -22,6 +23,7 @@ import FinanceChartModal from "../FinanceChartModal";
  */
 const SharpeRatioChart = ({ data }) => {
   const [chartData, setChartData] = useState();
+  const [showLatest14Days, setShowLatest14Days] = useState(false);
 
   const modalText = {
     modalHeader: "Sharpe Ratio",
@@ -88,11 +90,15 @@ const SharpeRatioChart = ({ data }) => {
 
   useEffect(() => {
     if (data) {
+      if (showLatest14Days) {
+        data = data.slice(-30);
+      }
+
       const closingPrices = data.map((x) => x.close);
 
       const rollingSharpeRatios = calculateRollingSharpeRatio(
         closingPrices,
-        14
+        showLatest14Days ? 2 : 14
       );
       const rollingSharpeRatiosWithTime = data.map((x, i) => {
         return {
@@ -103,13 +109,23 @@ const SharpeRatioChart = ({ data }) => {
       });
       setChartData(rollingSharpeRatiosWithTime);
     }
-  }, [data]);
+  }, [data, showLatest14Days]);
+
+  const handleCheckboxChange = () => {
+    setShowLatest14Days(!showLatest14Days);
+  };
 
   return (
     <ChartContainer>
       <div className={"label-row"}>
         <h5>Rolling Sharpe/Price </h5>
 
+        <ToggleSwitch
+          label={"30 days"}
+          label2={"1 year"}
+          toggleState={showLatest14Days}
+          setToggleState={handleCheckboxChange}
+        />
         <FinanceChartModal text={modalText} />
       </div>
 

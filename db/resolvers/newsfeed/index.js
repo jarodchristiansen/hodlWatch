@@ -9,7 +9,7 @@ export const NewsFeedResolver = {
         return newsData.Data;
       }
     } catch (err) {
-      console.log({ err }, "No news feed found");
+      throw new Error(err, "No news feed found");
     }
   },
 };

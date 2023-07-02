@@ -1,3 +1,4 @@
+import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 // import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
 import {
@@ -10,18 +11,28 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
 import ChartContainer from "./ChartContainer";
 
 const RsiChart = ({ data }) => {
   const [emaData, setEmaData] = useState([]);
+  const [showLatest14Days, setShowLatest14Days] = useState(false);
 
   useEffect(() => {
     processEmas(data);
-  }, []);
+  }, [showLatest14Days]);
+
+  const handleCheckboxChange = () => {
+    setShowLatest14Days(!showLatest14Days);
+  };
 
   const processEmas = (data) => {
     let closeData = [];
     let dateData = [];
+
+    if (showLatest14Days) {
+      data = data.slice(-30);
+    }
 
     let time = data.length;
 
@@ -31,10 +42,12 @@ const RsiChart = ({ data }) => {
     }
 
     let emas = [];
-    // let bollingerNumbers = boll(closeData, 30, 2);
 
     for (let i = 0; i < dateData.length; i++) {
-      const rsi = calculateRSI(closeData.slice(0, i + 1), 14);
+      const rsi = calculateRSI(
+        closeData.slice(0, i + 1),
+        showLatest14Days ? 3 : 14
+      );
       emas.push({
         close: closeData[i],
         rsi: rsi,
@@ -87,6 +100,13 @@ const RsiChart = ({ data }) => {
     <ChartContainer>
       <div className={"label-row"}>
         <h5>RSI (Relative Strength Index)</h5>
+
+        <ToggleSwitch
+          label={"30 days"}
+          label2={"1 year"}
+          toggleState={showLatest14Days}
+          setToggleState={handleCheckboxChange}
+        />
       </div>
       {emaData && (
         <ResponsiveContainer width="100%" height={300}>

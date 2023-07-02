@@ -95,7 +95,7 @@ function Header() {
       collapseOnSelect
       expand="lg"
       // bg="dark"
-      // variant="dark"
+      variant="dark"
       onSelect={handleSelect}
       className="navbar-main"
       style={{
@@ -141,6 +141,8 @@ const RouteRow = styled.div`
   flex-direction: column;
   gap: 2rem;
   font-weight: 600;
+  text-align: center;
+  padding: 12px 0;
 
   @media ${MediaQueries.MD} {
     flex-direction: row;

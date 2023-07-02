@@ -2,7 +2,7 @@ import UserHoldingsPieChart from "@/components/assets/Finance/Charts/UserHolding
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { GetLocalKeys, StoreLocalKeys } from "@/helpers/localStorage/index";
 import { GET_USER_HOLDINGS } from "@/helpers/queries/user/index";
-import { MediaQueries } from "@/styles/variables";
+import { Colors, MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
@@ -359,6 +359,7 @@ const FormContainer = styled.form`
   box-shadow: 2px 4px 8px lightgray;
   text-align: center;
   gap: 1rem;
+  background-color: ${Colors.lightGray};
 
   div {
     display: flex;

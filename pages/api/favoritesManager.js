@@ -9,9 +9,7 @@ import User from "../../db/models/user";
  */
 export default async function handler(request, response) {
   if (request?.query?.SECRET === process.env.CRYPTO_COMPARE_KEY) {
-    let users = await User.find().catch((err) =>
-      console.log("IN GETUSER", { err })
-    );
+    let users = await User.find().catch((err) => new Error(err, "IN GET USER"));
 
     let favoritesMap = {};
 

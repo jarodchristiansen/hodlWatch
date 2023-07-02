@@ -10,7 +10,12 @@ function FinanceChartModal(props) {
   const { text } = props;
   return (
     <>
-      <FaInfoCircle size={20} color={"black"} onClick={() => handleShow()} />
+      <FaInfoCircle
+        size={20}
+        color={"black"}
+        onClick={() => handleShow()}
+        style={{ position: "absolute", right: "12px", top: "5px" }}
+      />
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

@@ -12,8 +12,8 @@ export default async function handler(request, response) {
   if (request?.query?.SECRET === process.env.CRYPTO_COMPARE_KEY) {
     let data = {};
 
-    let users = await User.find().catch((err) => console.log(err));
-    let assets = await Asset.find().catch((err) => console.log(err));
+    let users = await User.find().catch((err) => new Error(err));
+    let assets = await Asset.find().catch((err) => new Error(err));
 
     let topAssets = assets
       .filter((asset) => asset?.favorite_count)

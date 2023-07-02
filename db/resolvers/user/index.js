@@ -79,7 +79,7 @@ export const UserResolver = {
 
         return { balances: result };
       } catch (err) {
-        console.log({ err });
+        throw new Error(err);
       }
     },
 
@@ -90,11 +90,11 @@ export const UserResolver = {
       if (id) {
         user = await User.find({ username: id })
           .then((res) => res[0].toObject())
-          .catch((err) => console.log("IN GETUSER", { err }));
+          .catch((err) => new Error(err));
       } else if (email) {
         user = User.find({ email })
           .then((res) => res[0].toObject())
-          .catch((err) => console.log("IN GETUSER", { err }));
+          .catch((err) => new Error(err));
       }
 
       if (user?.favorites) {
@@ -135,7 +135,7 @@ export const UserResolver = {
         }
         return "user not found";
       } catch (err) {
-        console.log("Err in removeFavorite!!", err);
+        throw new Error("Error in removeFavorite!!", err);
       }
     },
 
@@ -161,7 +161,7 @@ export const UserResolver = {
 
         return user;
       } catch (err) {
-        console.log("Err in addFavorite!!", err);
+        throw new Error("Error in addFavorite!!", err);
       }
     },
     updateUsername: async (_, { input }) => {
@@ -180,7 +180,7 @@ export const UserResolver = {
           return user;
         }
       } catch (err) {
-        console.log("Error in updating username!", { err });
+        throw new Error("Error in updating username!", err);
       }
     },
   },

@@ -1,6 +1,6 @@
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
-import { FontFamily, MediaQueries } from "@/styles/variables";
+import { Colors, FontFamily, MediaQueries } from "@/styles/variables";
 import client from "apollo-client";
 import FeatureGrid from "components/commons/feature-grid/FeatureGrid";
 import LandingCard from "components/commons/info-cards/landing-card";
@@ -124,51 +124,78 @@ export default function Home({ data }) {
           </div>
         </div>
 
-        <Image src="/assets/chartScreenshot.png" width={400} height={500} />
-
-        <Image src="/assets/cardsScreenshot.png" width={400} height={500} />
-
-        {/* <video autoPlay muted loop>
-          <source src="/videos/landing-ink.mp4" />
-        </video> */}
+        <Image
+          src="/assets/chartScreenshot.png"
+          width={400}
+          height={500}
+          alt="Chart Page Screenshot"
+        />
       </div>
+
       <Row>
+        <h3> Experience Crypto Like Never Before</h3>
+
         <div className="site-description-container">
-          <h3> Experience Crypto Like Never Before</h3>
+          <div className="card">
+            <div className="card-content">
+              <div className="card-icon">🚀</div>
+              <div>
+                Welcome to Mesh, your all-in-one crypto companion that unlocks
+                the power of decentralized finance. Seamlessly track your
+                portfolio, connect with a vibrant community, and thrive in the
+                ever-evolving world of cryptocurrencies.
+              </div>
+            </div>
+          </div>
 
-          <p>
-            Welcome to Mesh, your all-in-one crypto companion that unlocks the
-            power of decentralized finance. Seamlessly track your portfolio,
-            connect with a vibrant community, and thrive in the ever-evolving
-            world of cryptocurrencies.
-          </p>
+          <div className="card">
+            <div className="card-content">
+              <div className="card-icon">🚀</div>
+              <div>
+                Stay Informed: Gain a competitive edge with real-time market
+                data, comprehensive financial metrics, and news updates. Mesh
+                provides you with a clear view of the crypto universe,
+                empowering you to make informed investment decisions.
+              </div>
+            </div>
+          </div>
 
-          <p>
-            Stay Informed: Gain a competitive edge with real-time market data,
-            comprehensive financial metrics, and news updates. Mesh provides you
-            with a clear view of the crypto universe, empowering you to make
-            informed investment decisions.
-          </p>
+          <div className="card">
+            <div className="card-content">
+              <div className="card-icon">🚀</div>
+              <div>
+                Connect: Join a community of crypto enthusiasts and investors.
+                Engage in lively discussions, share insights, and stay connected
+                with the latest trends. Collaborate, learn, and grow together in
+                the exciting realm of blockchain technology.
+              </div>
+            </div>
+          </div>
 
-          <p>
-            Connect: Join a community of crypto enthusiasts and investors.
-            Engage in lively discussions, share insights, and stay connected
-            with the latest trends. Collaborate, learn, and grow together in the
-            exciting realm of blockchain technology.
-          </p>
+          <div className="card">
+            <div className="card-content">
+              <div className="card-icon">🚀</div>
+              <div>
+                Thrive: Mesh is your gateway to success in the crypto
+                revolution. Unleash the potential of your portfolio, analyze
+                trends, and identify opportunities to maximize your returns.
+                With Mesh, you&apos;ll be well-equipped to navigate the crypto
+                landscape with confidence and make waves in the world of
+                finance.
+              </div>
+            </div>
+          </div>
 
-          <p>
-            Thrive: Mesh is your gateway to success in the crypto revolution.
-            Unleash the potential of your portfolio, analyze trends, and
-            identify opportunities to maximize your returns. With Mesh,
-            you&apos;ll be well-equipped to navigate the crypto landscape with
-            confidence and make waves in the world of finance.
-          </p>
-
-          <p>
-            Join Mesh today and embark on a transformative journey where
-            simplicity meets power, and your crypto aspirations become reality
-          </p>
+          <div className="card">
+            <div className="card-content">
+              <div className="card-icon">🚀</div>
+              <div>
+                Join Mesh today and embark on a transformative journey where
+                simplicity meets power, and your crypto aspirations become
+                reality.
+              </div>
+            </div>
+          </div>
         </div>
       </Row>
 
@@ -180,9 +207,9 @@ export default function Home({ data }) {
         <FeatureGrid />
       </div>
 
-      <Row>
+      <div>
         <ReviewList />
-      </Row>
+      </div>
 
       <div>
         <CTACard />
@@ -201,28 +228,38 @@ export default function Home({ data }) {
 const Row = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
+  gap: 24px;
+  padding: 24px;
+
+  background: linear-gradient(to bottom, #ffffff, #f8f8f8);
+
+  h3 {
+    text-align: center;
+  }
 
   .site-description-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     text-align: center;
+    grid-gap: 12px;
 
-    h3 {
-      align-self: center;
-    }
-
-    p {
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border: 1px solid ${Colors.darkGray};
+      padding: 12px;
       font-family: ${FontFamily.secondary};
+      border-radius: 8px;
+      box-shadow: 0px 2px 12px ${Colors.darkGray};
     }
   }
 
-  /* @media ${MediaQueries.MD} {
-    flex-direction: row;
-  } */
+  @media ${MediaQueries.MD} {
+    padding: 48px;
+  }
 `;
 
 const AlternateHomePageWrapper = styled.div`
@@ -242,14 +279,15 @@ const AlternateHomePageWrapper = styled.div`
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       aspect-ratio: 16/9;
       object-fit: cover;
+      box-shadow: 0px 2px 12px ${Colors.darkGray};
     }
 
     @media ${MediaQueries.MD} {
-      /* flex-direction: row;
-      justify-content: space-evenly; */
+      flex-direction: row;
+      justify-content: space-evenly;
 
       img {
-        width: 85%;
+        width: 60%;
       }
     }
   }

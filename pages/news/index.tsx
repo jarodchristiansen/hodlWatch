@@ -2,7 +2,6 @@ import NewsBlock from "@/components/news/news-block";
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
 import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
-import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
@@ -81,23 +80,6 @@ const NewsFeedPage = () => {
   );
 };
 
-// const FilterBar = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   position: sticky;
-//   top: 4.3rem;
-//   z-index: 100;
-//   width: 100%;
-//   justify-content: center;
-//   gap: 2rem;
-//   background-color: white;
-//   padding: 1rem 1rem;
-
-//   @media ${MediaQueries.MD} {
-//     top: 2.6rem;
-//   }
-// `;
-
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -120,22 +102,5 @@ const NewsFeed = styled.div`
     margin: 1rem 0;
   }
 `;
-
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: { session },
-  };
-}
 
 export default NewsFeedPage;
