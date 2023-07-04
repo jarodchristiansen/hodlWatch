@@ -116,8 +116,8 @@ export default function Home({ data }) {
           <div className={"landing-svg"}>
             <LandingCard
               headerText={"Mesh"}
-              header2Text="Your All-in-One Crypto Companion."
-              bodyText="Stay Informed. Connect. Thrive."
+              // header2Text="Your All-in-One Crypto Companion."
+              bodyText="Unlock the Power of Decentralized Finance with Mesh - Your All-in-One Crypto Companion."
               renderSignIn={false}
               renderLearnMore={true}
             />
@@ -130,6 +130,21 @@ export default function Home({ data }) {
           height={500}
           alt="Chart Page Screenshot"
         />
+      </div>
+
+      <div className="intro-paragraph">
+        <p>
+          Welcome to Mesh, your all-in-one crypto companion. At Mesh, we believe
+          in empowering retail traders with the knowledge and tools they need to
+          navigate the complex world of cryptocurrencies. Whether you`&apos`re
+          an experienced investor or just starting out, Mesh is designed to
+          simplify your crypto journey and help you make informed decisions.
+          With our intuitive portfolio tracking, real-time market data, and
+          vibrant community of crypto enthusiasts, you`&apos`ll have everything
+          you need to unlock the power of decentralized finance. Join us today
+          and discover how knowledge can be your key to success in the crypto
+          industry.
+        </p>
       </div>
 
       <Row>
@@ -290,6 +305,12 @@ const AlternateHomePageWrapper = styled.div`
         width: 60%;
       }
     }
+  }
+
+  .intro-paragraph {
+    color: white;
+    padding: 24px;
+    text-align: center;
   }
 `;
 
