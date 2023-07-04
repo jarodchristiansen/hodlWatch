@@ -61,7 +61,7 @@ const CustomizedDot = (props) => {
   // const upperDistance = Math.abs(value - upperBound);
   // const lowerDistance = Math.abs(value - lowerBound);
 
-  // const proximityThreshold = is14Days ? 200 : 20; // Adjust this threshold as needed
+  // const proximityThreshold = is14Days ? 5 : 2; // Adjust this threshold as needed
 
   // const renderPoint =
   //   upperDistance < proximityThreshold || lowerDistance < proximityThreshold;

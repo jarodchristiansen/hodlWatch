@@ -132,21 +132,6 @@ export default function Home({ data }) {
         />
       </div>
 
-      <div className="intro-paragraph">
-        <p>
-          Welcome to Mesh, your all-in-one crypto companion. At Mesh, we believe
-          in empowering retail traders with the knowledge and tools they need to
-          navigate the complex world of cryptocurrencies. Whether you`&apos`re
-          an experienced investor or just starting out, Mesh is designed to
-          simplify your crypto journey and help you make informed decisions.
-          With our intuitive portfolio tracking, real-time market data, and
-          vibrant community of crypto enthusiasts, you`&apos`ll have everything
-          you need to unlock the power of decentralized finance. Join us today
-          and discover how knowledge can be your key to success in the crypto
-          industry.
-        </p>
-      </div>
-
       <Row>
         <h3> Experience Crypto Like Never Before</h3>
 
@@ -224,6 +209,21 @@ export default function Home({ data }) {
 
       <div>
         <ReviewList />
+      </div>
+
+      <div className="intro-paragraph">
+        <p>
+          Welcome to Mesh, your all-in-one crypto companion. At Mesh, we believe
+          in empowering retail traders with the knowledge and tools they need to
+          navigate the complex world of cryptocurrencies. Whether you &apos;re
+          an experienced investor or just starting out, Mesh is designed to
+          simplify your crypto journey and help you make informed decisions.
+          With our intuitive portfolio tracking, real-time market data, and
+          vibrant community of crypto enthusiasts, you &apos;ll have everything
+          you need to unlock the power of decentralized finance. Join us today
+          and discover how knowledge can be your key to success in the crypto
+          industry.
+        </p>
       </div>
 
       <div>
@@ -308,9 +308,19 @@ const AlternateHomePageWrapper = styled.div`
   }
 
   .intro-paragraph {
+    display: flex;
+    flex-direction: column;
     color: white;
-    padding: 24px;
+    padding: 48px 24px;
     text-align: center;
+    background-color: ${Colors.midnight};
+
+    p {
+      @media ${MediaQueries.MD} {
+        max-width: 70%;
+        margin: auto;
+      }
+    }
   }
 `;
 

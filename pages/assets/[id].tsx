@@ -1,10 +1,8 @@
-import BitcoinMacrosContainer from "@/components/assets/BitcoinMacros/BitcoinMacrosContainer";
-import FinancialChartGrid from "@/components/assets/Finance/FinancialChartCGrid";
-import PairDetailsRow from "@/components/assets/Finance/PairDetails";
-import IndicatorGrid from "@/components/assets/Indicators/Charts/Desktop/IndicatorGrid";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import ScrollToTop from "@/components/commons/scroll-to-top/ScrollToTop";
 import SidebarV2 from "@/components/commons/sidebar-nav/SidebarV2";
+import DashboardView from "@/components/views/DashboardView";
+import ReportsView from "@/components/views/ReportsView";
 import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
 import {
   GET_ASSET_HISTORY,
@@ -14,11 +12,6 @@ import { Colors, MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
 import styled from "styled-components";
 
 /**
@@ -53,8 +46,6 @@ const AssetDetailsPage = ({ session }) => {
     getBTCMacros,
     { data: MacroData, loading: MacroLoading, error: MacroError },
   ] = useLazyQuery(GET_BTC_MACROS);
-
-  const availableTimes = [30, 90, 180, 365, 730];
 
   // const availableTimes = [14, 30, 90, 180, 365];
   const isBtcOrEth = id === "btc" || id === "eth";
@@ -151,18 +142,6 @@ const AssetDetailsPage = ({ session }) => {
               </span>
             </div>
           </div>
-
-          {!!data?.description?.en && (
-            <div className="bottom-row">
-              <ReactMarkdown
-                // eslint-disable-next-line react/no-children-prop
-                children={data?.description?.en}
-                remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
-                rehypePlugins={[rehypeRaw]}
-                // key={markdownPiece + Math.random()}
-              />
-            </div>
-          )}
         </AssetDetailsRow>
       </div>
     );
@@ -170,7 +149,12 @@ const AssetDetailsPage = ({ session }) => {
 
   return (
     <AssetDetailsPageContainer>
-      <SidebarV2 open={sidebarOpen} setOpen={setSidebarOpen} view={pageView} />
+      <SidebarV2
+        open={sidebarOpen}
+        setOpen={setSidebarOpen}
+        view={pageView}
+        setPageView={setPageView}
+      />
       <ScrollToTop scrollThreshold={90} />
 
       {loading && (
@@ -181,41 +165,25 @@ const AssetDetailsPage = ({ session }) => {
 
       {pageView === "dashboard" && data && (
         <ViewContainer>
-          {/* {GeckoDetails && !loading && assetDetails} */}
+          {GeckoDetails && !loading && assetDetails}
 
-          <FinancialChartGrid
-            financialData={
-              data?.getAssetHistory?.priceData
-                ? data?.getAssetHistory.priceData
-                : []
-            }
+          <DashboardView
             id={id}
-            time={timeQuery}
+            MacroData={MacroData}
+            GeckoDetails={GeckoDetails}
+            timeQuery={timeQuery}
+            data={data}
+            loading={loading}
+            isBtc
+            isBtcOrEth
           />
+        </ViewContainer>
+      )}
 
-          {isBtcOrEth && (
-            <IndicatorGrid
-              timeQuery={timeQuery}
-              id={id}
-              blockchainData={
-                data?.getAssetHistory?.blockchainData
-                  ? data?.getAssetHistory.blockchainData
-                  : []
-              }
-            />
-          )}
-
-          {id && (
-            <PairRowContainer>
-              <PairDetailsRow id={id} />
-            </PairRowContainer>
-          )}
-
-          {!loading && isBtc && (
-            <BitcoinMacrosContainer
-              MacroData={MacroData?.getBTCMacros?.macro_data}
-            />
-          )}
+      {pageView === "reports" && data && (
+        <ViewContainer>
+          {GeckoDetails && !loading && assetDetails}
+          <ReportsView id={id} />
         </ViewContainer>
       )}
 
@@ -234,11 +202,6 @@ const AssetDetailsPage = ({ session }) => {
             </CollectiveStatsHodler>
           )}
 
-
-
-          <BitcoinMacrosContainer
-            MacroData={MacroData?.getBTCMacros?.macro_data}
-          />
         </div>
       )}
 
@@ -252,6 +215,13 @@ const ViewContainer = styled.div`
   flex-direction: column;
   width: 100%;
   margin: 10px auto;
+
+  .bottom-row {
+    padding: 24px;
+    background-color: white;
+    text-align: center;
+    border-radius: 12px;
+  }
 
   @media ${MediaQueries.SM} {
     width: 95%;
@@ -277,17 +247,17 @@ const CollectiveStatsHodler = styled.div`
 `;
 
 const AssetDetailsRow = styled.div`
-  padding: 0.5rem;
+  padding: 24px;
   background-color: ${Colors.lightGray};
+  border-radius: 12px;
+  margin: auto;
 
   @media ${MediaQueries.MD} {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    width: 100%;
-    max-width: 70rem;
-    padding: 2rem;
-    margin: auto;
+    padding: 24px;
+    max-width: 95%;
   }
   button {
     max-width: 25rem;
@@ -347,18 +317,6 @@ const AssetDetailsRow = styled.div`
       scrollbar-width: none; /* Firefox */
     }
   }
-
-  .bottom-row {
-    text-align: center;
-  }
-`;
-
-const PairRowContainer = styled.div`
-  margin-right: -0.5rem;
-  margin-left: -0.5rem;
-  min-width: 100%;
-  text-align: center;
-  padding: 1rem 0;
 `;
 
 const FilterBar = styled.div`

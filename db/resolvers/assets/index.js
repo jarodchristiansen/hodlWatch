@@ -116,6 +116,17 @@ export const AssetResolver = {
 
     return data;
   },
+  getAssetNews: async (_, { symbol }) => {
+    const data = {};
+
+    let newsData = await fetch(
+      `https://min-api.cryptocompare.com/data/v2/news/?lang=EN&categories=${symbol.toUpperCase()}`
+    ).then((response) => response.json());
+
+    data.newsData = newsData.Data;
+
+    return data.newsData;
+  },
   getAssetPairs: async (_, { symbol }) => {
     const data = {};
 

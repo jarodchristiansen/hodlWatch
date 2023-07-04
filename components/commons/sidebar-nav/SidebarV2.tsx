@@ -6,10 +6,13 @@ interface SidebarProps {
   open: boolean;
   setOpen?: (open: boolean) => void;
   view?: string;
+  setPageView?: (view: string) => void;
 }
 
-const SidebarV2 = ({ open, setOpen, view }: SidebarProps) => {
+const SidebarV2 = ({ open, setOpen, view, setPageView }: SidebarProps) => {
   const isDashboardView = view == "dashboard";
+  const isReportView = view == "reports";
+  const isSettingsView = view == "settings";
 
   return (
     <SidebarContainer open={open}>
@@ -19,17 +22,33 @@ const SidebarV2 = ({ open, setOpen, view }: SidebarProps) => {
       <SidebarContent>
         {open && (
           <>
-            <MenuItem className={isDashboardView && "selected"}>
+            <MenuItem
+              className={isDashboardView && "selected"}
+              onClick={() => setPageView("dashboard")}
+            >
               Dashboard
             </MenuItem>
-            <MenuItem>Reports</MenuItem>
-            <MenuItem>Settings</MenuItem>
+            <MenuItem
+              className={isReportView && "selected"}
+              onClick={() => setPageView("reports")}
+            >
+              Reports
+            </MenuItem>
+            <MenuItem
+              className={isSettingsView && "selected"}
+              onClick={() => setPageView("settings")}
+            >
+              Settings
+            </MenuItem>
           </>
         )}
 
         {!open && (
           <>
-            <MenuItem className={isDashboardView && "selected"}>
+            <MenuItem
+              className={isDashboardView && "selected"}
+              onClick={() => setPageView("dashboard")}
+            >
               <Image
                 alt="dashboard icon"
                 src="/sidebar/dashboard.svg"
@@ -38,7 +57,10 @@ const SidebarV2 = ({ open, setOpen, view }: SidebarProps) => {
               />
             </MenuItem>
 
-            <MenuItem>
+            <MenuItem
+              className={isReportView && "selected"}
+              onClick={() => setPageView("reports")}
+            >
               <Image
                 alt="reports icon"
                 src="/sidebar/reports.svg"
@@ -47,7 +69,10 @@ const SidebarV2 = ({ open, setOpen, view }: SidebarProps) => {
               />
             </MenuItem>
 
-            <MenuItem>
+            <MenuItem
+              className={isSettingsView && "selected"}
+              onClick={() => setPageView("settings")}
+            >
               <Image
                 alt="settings icon"
                 src="/sidebar/settings.svg"
