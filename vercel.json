@@ -25,7 +25,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "style-src 'self' 'unsafe-inline' *.gstatic.com *.googleapis.com https://*.icomoon.io; script-src 'self' *.googletagmanager.com *.tradingview.com 'unsafe-eval' 'unsafe-inline' vitals.vercel-insights.com https://hodl-watch.vercel.app/ *.hodl-watch.vercel.app/"
+          "value": "style-src 'self' 'unsafe-inline' *.gstatic.com *.googleapis.com https://*.icomoon.io; script-src 'self' *.googletagmanager.com *.tradingview.com 'unsafe-eval' 'unsafe-inline' vitals.vercel-insights.com https://hodl-watch.vercel.app/ *.hodl-watch.vercel.app/ https://static.hotjar.com/c/hotjar-3557571.js?sv=6"
         }
       ]
     }
