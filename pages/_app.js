@@ -1,4 +1,5 @@
 import { ApolloProvider } from "@apollo/client";
+import Hotjar from "@hotjar/browser";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
 // import { Web3Modal } from "@web3modal/react";
@@ -9,10 +10,10 @@ import client from "../apollo-client";
 import Layout from "../components/layout/layout";
 import { pageview } from "../lib/gtag";
 
+import "../styles/globals.css";
 // Add this line
 import "@fortawesome/fontawesome-free/css/all.css";
 import "bootstrap/dist/css/bootstrap.css";
-import "../styles/globals.css";
 
 /**
  *
@@ -45,6 +46,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       };
     }
   }, [router.events]);
+
+  useEffect(() => {
+    const siteId = 3557571;
+    const hotjarVersion = 6;
+
+    Hotjar.init(siteId, hotjarVersion);
+  }, []);
 
   return (
     <>
