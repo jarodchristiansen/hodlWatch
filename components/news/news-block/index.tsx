@@ -113,7 +113,7 @@ const NewsItem = styled.div`
     display: flex;
     flex-direction: column;
     gap: 18px;
-    padding: 12px;
+    padding: 18px;
 
     .top-text-row {
       span {

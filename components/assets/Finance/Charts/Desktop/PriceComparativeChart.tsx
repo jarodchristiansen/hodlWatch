@@ -132,7 +132,7 @@ const PriceComparativeChart = ({ data }: FibonacciProps) => {
   };
 
   return (
-    <ChartContainer>
+    <ChartContainer name="price-comparison-chart">
       <div className={"label-row"}>
         <h5>Price Comparative</h5>
 
