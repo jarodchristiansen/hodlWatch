@@ -120,7 +120,10 @@ const FinancialChartGrid = ({
 
     const chartData = [
       !!filteredData?.closes?.length && (
-        <PriceComparativeChart data={filteredData?.closes} key="fib-chart" />
+        <PriceComparativeChart
+          data={filteredData?.closes}
+          key="comparison-chart"
+        />
       ),
       !!filteredData?.closes?.length && (
         <FibonacciRetracementChartDesktop
