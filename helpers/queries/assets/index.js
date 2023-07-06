@@ -25,3 +25,44 @@ export const GET_GECKO_DETAILS = gql`
     }
   }
 `;
+
+export const GET_ASSET_SOCIALS = gql`
+  query GetAssetSocials($symbol: String!) {
+    getAssetSocialData(symbol: $symbol) {
+      time
+      comments
+      posts
+      followers
+      points
+      overview_page_views
+      analysis_page_views
+      markets_page_views
+      charts_page_views
+      trades_page_views
+      forum_page_views
+      influence_page_views
+      total_page_views
+      fb_likes
+      fb_talking_about
+      twitter_followers
+      twitter_following
+      twitter_lists
+      twitter_favourites
+      twitter_statuses
+      reddit_subscribers
+      reddit_active_users
+      reddit_posts_per_hour
+      reddit_posts_per_day
+      reddit_comments_per_hour
+      reddit_comments_per_day
+      code_repo_stars
+      code_repo_forks
+      code_repo_subscribers
+      code_repo_open_pull_issues
+      code_repo_closed_pull_issues
+      code_repo_open_issues
+      code_repo_closed_issues
+      code_repo_contributors
+    }
+  }
+`;
