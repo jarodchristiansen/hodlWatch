@@ -1,8 +1,7 @@
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import PaginationComponent from "@/components/commons/pagination/Pagination";
 import SearchForm from "@/components/forms/SearchForm/SearchForm";
-import GET_ASSET from "@/helpers/queries/assets/getAsset";
-import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
+import { GET_ASSET, GET_ASSETS } from "@/helpers/queries/assets";
 import { Colors, MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { getSession } from "next-auth/react";

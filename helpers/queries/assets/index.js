@@ -66,3 +66,67 @@ export const GET_ASSET_SOCIALS = gql`
     }
   }
 `;
+
+export const GET_ASSET = gql`
+  query GET_ASSET($symbol: String!) {
+    getAsset(symbol: $symbol) {
+      id
+      name
+      symbol
+      image {
+        thumb
+        small
+      }
+    }
+  }
+`;
+
+export const GET_DIFFICULTY_RIBBONS = gql`
+  query GetDifficultyRibbons($symbol: String, $cut: Int) {
+    getDifficultyRibbons(symbol: $symbol, cut: $cut) {
+      t
+      ma128
+      ma14
+      ma200
+      ma25
+      ma40
+      ma60
+      ma9
+      ma90
+    }
+  }
+`;
+
+export const GET_ASSETS_V2 = gql`
+  query GET_ASSETS($offset: Int, $limit: Int) {
+    getAssets(offset: $offset, limit: $limit) {
+      id
+      name
+      symbol
+      image
+    }
+  }
+`;
+
+export const GET_ASSETS = gql`
+  query GET_ASSETS($offset: Int, $limit: Int) {
+    getAssets(offset: $offset, limit: $limit) {
+      id
+      name
+      symbol
+      image
+      current_price
+      market_cap
+      market_cap_rank
+      fully_diluted_valuation
+      circulating_supply
+      total_supply
+      ath
+      ath_change_percentage
+      ath_date
+      atl
+      atl_change_percentage
+      atl_date
+    }
+  }
+`;

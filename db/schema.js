@@ -3,22 +3,6 @@ import { gql } from "apollo-server-micro";
 const typeDefs = gql`
   scalar Date
 
-  # Products
-  type Product {
-    id: ID
-    name: String
-    productionCapacity: Int
-    price: Float
-    description: String
-  }
-
-  input ProductInput {
-    name: String!
-    productionCapacity: Int!
-    price: Float!
-    description: String
-  }
-
   type ImageParts {
     thumb: String
     small: String
@@ -390,8 +374,6 @@ const typeDefs = gql`
   }
 
   type Query {
-    getProducts: [Product]
-    getProduct(id: ID!): Product
     getAssets(offset: Int, limit: Int): [Asset]
     getAssetSocialData(symbol: String!): [SocialStats]
     getAsset(symbol: String!): [Asset]
@@ -415,13 +397,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    #Products
     removeFavorite(input: FavoriteInput): User
     addFavorite(input: FavoriteInput): User
     updateUsername(input: UsernameInput): User
-    newProduct(input: ProductInput): Product
-    updateProduct(id: ID!, input: ProductInput): Product
-    deleteProduct(id: ID!): String
   }
 `;
 
