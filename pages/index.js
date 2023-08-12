@@ -1,18 +1,25 @@
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
-import { Colors, FontFamily, MediaQueries } from "@/styles/variables";
+import {
+  Colors,
+  FontFamily,
+  FontWeight,
+  MediaQueries,
+  Padding,
+} from "@/styles/variables";
 import client from "apollo-client";
-import FeatureGrid from "components/commons/feature-grid/FeatureGrid";
 import LandingCard from "components/commons/info-cards/landing-card";
 import CTACard from "components/ctas/CTACard";
 import ProgressMeter from "components/progressmeter/ProgressMeter";
 import ReviewList from "components/reviews/ReviewList";
 import { useSession } from "next-auth/react";
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import styled from "styled-components";
+
+import FeatureGrid from "../components/commons/feature-grid/FeatureGrid";
+import SEOHead from "../components/seo/SEOHead";
 
 /**
  *
@@ -68,48 +75,74 @@ export default function Home({ data }) {
 
   let id = session?.user?.id;
 
+  const cardContent = [
+    // {
+    //   image: "/landing/stock-chart-card-background.svg",
+    //   title: "Welcome to Mesh",
+    //   text: "Your all-in-one crypto companion that unlocks the power of decentralized finance. Seamlessly track your portfolio, connect with a vibrant community, and thrive in the ever-evolving world of cryptocurrencies.",
+    // },
+    {
+      image: "/landing/informed.png",
+      title: "Stay Informed",
+      text: "Gain a competitive edge with real-time market data, comprehensive financial metrics, and news updates. Mesh provides you with a clear view of the crypto universe, empowering you to make informed investment decisions.",
+    },
+    {
+      image: "",
+      title: "Stay Connected",
+      text: "Join a community of crypto enthusiasts and investors. Engage in lively discussions, share insights, and stay connected with the latest trends. Collaborate, learn, and grow together in the exciting realm of blockchain technology.",
+    },
+    {
+      image: "",
+      title: "Thrive",
+      text: "Mesh is your gateway to success in the crypto revolution. Unleash the potential of your portfolio, analyze trends, and identify opportunities to maximize your returns. With Mesh, you'll be well-equipped to navigate the crypto landscape with confidence and make waves in the world of finance.",
+    },
+    // {
+    //   image: "",
+    //   text: "Join Mesh today and embark on a transformative journey where simplicity meets power, and your crypto aspirations become reality.",
+    // },
+  ];
+
+  const slides = [
+    {
+      title: "Portfolio Tracking",
+      text: "Monitor real-time prices, performance, and allocation across multiple assets.",
+      image: "/assets/chartScreenshot.png",
+    },
+    {
+      title: "Comprehensive Metrics",
+      text: "Dive deep into financial and on-chain metrics to gain valuable insights into crypto assets.",
+      image: "/assets/chartScreenshot.png",
+    },
+    {
+      title: "Social Community",
+      text: "Connect with a vibrant community of crypto enthusiasts and investors.",
+      image: "/assets/chartScreenshot.png",
+    },
+    {
+      title: "News and Updates",
+      text: "Access a curated feed of crypto news, articles, and market updates in real-time.",
+      image: "/assets/chartScreenshot.png",
+    },
+    {
+      title: "User-friendly Interface",
+      text: "Enjoy a sleek and intuitive interface designed for seamless user experience.",
+      image: "/assets/chartScreenshot.png",
+    },
+    {
+      title: "Security and Privacy",
+      text: "Rest assured knowing that your data and assets are protected with robust security measures.",
+      image: "/assets/chartScreenshot.png",
+    },
+  ];
+
   return (
     <AlternateHomePageWrapper>
-      <Head>
-        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
-        <title>
-          Mesh - Blockchain, Crypto, Web3 Data Explorer and Community
-        </title>
-        <meta
-          name="google-site-verification"
-          content="sYZ6VaJuOfDFRSGlLK4-ISx-yHIfZVRdiEK6RXh3eUM"
-        />
-        <meta
-          name="ahrefs-site-verification"
-          content="36afae7f6a8e6e641fd27c84b465e990d8323de93402b68c2c27779626abd7b1"
-        ></meta>
-        <meta property="og:url" content="https://hodl-watch.vercel.app/" />
-        <meta property="og:type" content="website" />
-        <meta property="fb:app_id" content="your fb id" />
-
-        <meta
-          property="og:title"
-          content={
-            "Mesh - Blockchain, Crypto, Web3 Data Explorer and Community"
-          }
-        />
-
-        <meta
-          name="description"
-          content="Crypto and blockchain data explorer, allowing users to build communities centered around their favorite assets with financial, social, and on-chain metrics"
-        />
-        <meta
-          name="twitter:card"
-          content="Web3 centered application highlighting one beauty of blockchain; data."
-        />
-
-        <meta name="twitter:site" content="https://hodl-watch.vercel.app/" />
-        <meta
-          property="og:description"
-          content="Crypto and blockchain data explorer, allowing users to build communities centered around their favorite assets while gaining insight into financial, social, and on-chain metrics"
-        />
-        <meta property="og:image" content={"/assets/assets-page.png"} />
-      </Head>
+      <SEOHead
+        isHomePage={true}
+        metaTitle="Mesh - Blockchain, Crypto, Web3 Data Explorer and Community"
+        metaDescription="Crypto and blockchain data explorer, allowing users to build communities centered around their favorite assets with financial, social, and on-chain metrics"
+        previewImage="/assets/assets-page.png"
+      />
 
       <div className="top-row">
         <div className="left-card">
@@ -125,77 +158,33 @@ export default function Home({ data }) {
         </div>
 
         <Image
-          src="/assets/chartScreenshot.png"
+          src="/assets/3d-ripple.jpg"
           width={400}
           height={500}
           alt="Chart Page Screenshot"
         />
       </div>
-
       <Row>
-        <h3> Experience Crypto Like Never Before</h3>
-
+        <h3>Experience Crypto Like Never Before</h3>
         <div className="site-description-container">
-          <div className="card">
-            <div className="card-content">
-              <div className="card-icon">🚀</div>
-              <div>
-                Welcome to Mesh, your all-in-one crypto companion that unlocks
-                the power of decentralized finance. Seamlessly track your
-                portfolio, connect with a vibrant community, and thrive in the
-                ever-evolving world of cryptocurrencies.
-              </div>
-            </div>
-          </div>
+          {cardContent &&
+            cardContent.map((card) => {
+              return (
+                <div className="card" key={card?.text}>
+                  <div className="card-content">
+                    <h4>{card?.title}</h4>
 
-          <div className="card">
-            <div className="card-content">
-              <div className="card-icon">🚀</div>
-              <div>
-                Stay Informed: Gain a competitive edge with real-time market
-                data, comprehensive financial metrics, and news updates. Mesh
-                provides you with a clear view of the crypto universe,
-                empowering you to make informed investment decisions.
-              </div>
-            </div>
-          </div>
+                    <div>{card?.text}</div>
 
-          <div className="card">
-            <div className="card-content">
-              <div className="card-icon">🚀</div>
-              <div>
-                Connect: Join a community of crypto enthusiasts and investors.
-                Engage in lively discussions, share insights, and stay connected
-                with the latest trends. Collaborate, learn, and grow together in
-                the exciting realm of blockchain technology.
-              </div>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="card-content">
-              <div className="card-icon">🚀</div>
-              <div>
-                Thrive: Mesh is your gateway to success in the crypto
-                revolution. Unleash the potential of your portfolio, analyze
-                trends, and identify opportunities to maximize your returns.
-                With Mesh, you&apos;ll be well-equipped to navigate the crypto
-                landscape with confidence and make waves in the world of
-                finance.
-              </div>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="card-content">
-              <div className="card-icon">🚀</div>
-              <div>
-                Join Mesh today and embark on a transformative journey where
-                simplicity meets power, and your crypto aspirations become
-                reality.
-              </div>
-            </div>
-          </div>
+                    {/* {card?.image && (
+                      <div className="card-background">
+                        <Image src={card.image} height={250} width={250} />{" "}
+                      </div>
+                    )} */}
+                  </div>
+                </div>
+              );
+            })}
         </div>
       </Row>
 
@@ -206,6 +195,10 @@ export default function Home({ data }) {
       <div>
         <FeatureGrid />
       </div>
+
+      {/* <div>
+        <LandingCarousel slides={slides} />
+      </div> */}
 
       <div>
         <ReviewList />
@@ -256,24 +249,49 @@ const Row = styled.div`
 
   .site-description-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     text-align: center;
-    grid-gap: 12px;
+    grid-gap: 24px;
 
     .card {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      border: 1px solid ${Colors.darkGray};
-      padding: 12px;
+      gap: 18px;
+      padding: 32px;
       font-family: ${FontFamily.secondary};
-      border-radius: 8px;
+      border-radius: 12px;
       box-shadow: 0px 2px 12px ${Colors.darkGray};
+      position: relative;
+      /* &:hover {
+        border: 2px solid blue;
+        cursor: pointer;
+      } */
+      text-align: center;
+      border: 2px solid ${Colors.modern.accentBlue};
+
+      /* background: linear-gradient(180deg, transparent 0%, #0088ff 100%); */
+
+      h4 {
+        font-weight: ${FontWeight.bold};
+        padding: 0 0 12px 0;
+      }
+
+      .card-background {
+        /* background-image: url("/public/landing/stock-chart-card-background.svg");
+        background-repeat: no-repeat;
+        height: 100%;
+        width: 100%; */
+
+        /* position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0; */
+      }
     }
   }
 
   @media ${MediaQueries.MD} {
-    padding: 48px;
+    padding: 64px;
   }
 `;
 
@@ -282,7 +300,7 @@ const AlternateHomePageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
-    padding: 32px 24px;
+    padding: ${Padding.xxlarge} 24px;
     align-items: center;
 
     img {
@@ -311,7 +329,7 @@ const AlternateHomePageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     color: white;
-    padding: 48px 24px;
+    padding: 64px 24px;
     text-align: center;
     background-color: ${Colors.midnight};
 

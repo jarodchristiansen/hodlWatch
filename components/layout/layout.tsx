@@ -33,7 +33,7 @@ function Layout(props) {
   return (
     <LayoutContainer isPurplePath={isPurplePath}>
       <Header />
-      <main>{props.children}</main>
+      <PageWrapper>{props.children}</PageWrapper>
 
       <Footer />
     </LayoutContainer>
@@ -44,10 +44,15 @@ interface LayoutProps {
   isPurplePath: boolean;
 }
 
+const PageWrapper = styled.main`
+  padding: 48px 0;
+`;
+
 const LayoutContainer = styled.div<LayoutProps>`
   display: flex;
   flex-direction: column;
   background-color: ${Colors.richBlack};
+  position: relative;
 `;
 
 export default Layout;

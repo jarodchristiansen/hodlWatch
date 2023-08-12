@@ -36,7 +36,7 @@ describe("Styles", () => {
     expect(Padding.medium).toEqual("8px");
     expect(Padding.large).toEqual("16px");
     expect(Padding.xlarge).toEqual("32px");
-    expect(Padding.xxlarge).toEqual("64px");
+    expect(Padding.xxlarge).toEqual("48px");
   });
 
   it("should have the correct font size values", () => {

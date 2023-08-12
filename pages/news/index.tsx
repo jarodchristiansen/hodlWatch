@@ -1,8 +1,8 @@
 import NewsBlock from "@/components/news/news-block";
+import SEOHead from "@/components/seo/SEOHead";
 import { GET_NEWS_FEED } from "@/helpers/queries/news-feed";
 import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
-import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
@@ -51,10 +51,14 @@ const NewsFeedPage = () => {
 
   return (
     <PageWrapper>
-      <Head>
-        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
-        <title>Mesh- NewsFeed</title>
-      </Head>
+      <SEOHead
+        isHomePage={true}
+        metaTitle={"Mesh: Keeping you up to date on all things web3"}
+        metaDescription={
+          "Have questions about cryptocurrency, 'like how many cryptocurrency exchanges are there?' but need some of the details explained? Click to learn more."
+        }
+        // previewImage={"/assets/PieChart.PNG"}
+      />
       {/* <FilterBar>
         <button className="standardized-button">All</button>
         <button className="standardized-button">All</button>

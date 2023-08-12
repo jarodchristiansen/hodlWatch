@@ -10,7 +10,7 @@ const CallToActionContainer = styled.div`
   padding: 32px;
 
   @media ${MediaQueries.MD} {
-    padding: 48px;
+    padding: 64px;
   }
 `;
 
