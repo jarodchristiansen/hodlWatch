@@ -1,11 +1,11 @@
 import { MediaQueries } from "@/styles/variables";
 import { getProviders, getSession } from "next-auth/react";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import SignInForm from "../components/forms/SignInForm";
+import SEOHead from "../components/seo/SEOHead";
 
 /**
  *
@@ -31,10 +31,14 @@ const AuthPage = () => {
 
   return (
     <PageWrapper>
-      <Head>
-        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
-        <title>{isSignIn ? "Sign In" : "Sign Up"}</title>
-      </Head>
+      <SEOHead
+        isHomePage={true}
+        metaTitle={isSignIn ? "Sign In" : "Sign Up"}
+        metaDescription={
+          "Sign in to access everything that Mesh Web3 & Crypto has to offer"
+        }
+        previewImage="/assets/assets-page.png"
+      />
 
       <div className="content-container">
         <div className="form-container">

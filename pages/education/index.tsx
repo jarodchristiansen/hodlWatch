@@ -1,8 +1,8 @@
 import RelatedPostsRow from "@/components/posts/RelatedPosts";
+import SEOHead from "@/components/seo/SEOHead";
 import { GET_POSTS } from "@/helpers/queries/posts/index";
 import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
@@ -56,47 +56,14 @@ const EducationPage = () => {
 
   return (
     <div>
-      <Head>
-        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
-        <title>Cryptocurrency Explained - Blockchain Data Analysis</title>
-
-        <meta
-          name="description"
-          content={
-            "Have questions about cryptocurrency, 'like how many cryptocurrency exchanges are there?' but need some of the details explained? Click to learn more"
-          }
-        />
-        <meta
-          name="twitter:card"
-          content={"Cryptocurrency Explained - Blockchain Data Analysis"}
-        />
-        <meta
-          name="twitter:title"
-          content={"Cryptocurrency Explained - Blockchain Data Analysis"}
-        />
-        <meta
-          name="twitter:site"
-          content={`https://hodl-watch.vercel.app/education`}
-        />
-        <meta property="twitter:image" content={"/assets/PieChart.PNG"} />
-        <meta property="twitter:domain" content="hodl-watch.vercel.app" />
-
-        <meta
-          property="og:title"
-          content={"Cryptocurrency Explained - Blockchain Data Analysis"}
-        />
-
-        <meta
-          property="og:description"
-          content={
-            "Have questions about cryptocurrency, 'like how many cryptocurrency exchanges are there?' but need some of the details explained? Click to learn more"
-          }
-        />
-        <meta property="og:image" content={"/assets/PieChart.PNG"} />
-
-        <meta property="og:image:width" content="400" />
-        <meta property="og:image:height" content="400" />
-      </Head>
+      <SEOHead
+        isHomePage={true}
+        metaTitle={"Cryptocurrency Explained - Blockchain Data Analysis"}
+        metaDescription={
+          "Have questions about cryptocurrency, 'like how many cryptocurrency exchanges are there?' but need some of the details explained? Click to learn more."
+        }
+        previewImage={"/assets/PieChart.PNG"}
+      />
 
       <FilterBar>
         <label htmlFor="article_search">Article:</label>

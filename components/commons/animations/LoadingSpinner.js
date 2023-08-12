@@ -1,10 +1,10 @@
-import { motion, transform } from "framer-motion";
-import { Image } from "react-bootstrap";
+import { motion } from "framer-motion";
 // import Lottie from "lottie-react";
 // // import animationData from "../../public/lotties/spiral-loading.json";
 // import animationData from "../../../public/lotties/spiral-loading.json";
-import Spinner from "react-bootstrap/Spinner";
 
+import { Colors } from "@/styles/variables";
+import styled from "styled-components";
 import ThreeDotsWave from "./ThreeDotsWave";
 
 const LoadingSpinner = () => {
@@ -45,12 +45,16 @@ const LoadingSpinner = () => {
             "d-flex flex-row justify-content-center align-items-center container"
           }
         >
-          <h3>Loading</h3>
+          <LoadingText>Loading</LoadingText>
           <ThreeDotsWave />
         </div>
       </div>
     </div>
   );
 };
+
+const LoadingText = styled.h3`
+  color: ${Colors.lightGray};
+`;
 
 export default LoadingSpinner;

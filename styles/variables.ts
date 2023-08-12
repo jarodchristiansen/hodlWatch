@@ -30,7 +30,8 @@ export const Padding = {
   medium: "8px",
   large: "16px",
   xlarge: "32px",
-  xxlarge: "64px",
+  xxlarge: "48px",
+  xxxlarge: "64px",
 };
 
 export const FontSize = {

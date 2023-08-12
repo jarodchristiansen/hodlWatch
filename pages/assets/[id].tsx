@@ -59,6 +59,13 @@ const AssetDetailsPage = ({ session }) => {
           time: timeQuery,
         },
       });
+
+      getDetails({
+        variables: {
+          name: name || id || "BTC",
+          time: timeQuery,
+        },
+      });
     }
     // getMarketMetrics({
     //   variables: {
@@ -66,12 +73,6 @@ const AssetDetailsPage = ({ session }) => {
     //     time: timeQuery,
     //   },
     // });
-    getDetails({
-      variables: {
-        name: name || id || "BTC",
-        time: timeQuery,
-      },
-    });
   }, [timeQuery, id]);
 
   // useEffect(() => {

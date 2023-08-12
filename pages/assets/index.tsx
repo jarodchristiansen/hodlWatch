@@ -1,16 +1,15 @@
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import PaginationComponent from "@/components/commons/pagination/Pagination";
+import ScrollToTop from "@/components/commons/scroll-to-top/ScrollToTop";
 import SearchForm from "@/components/forms/SearchForm/SearchForm";
-import GET_ASSET from "@/helpers/queries/assets/getAsset";
-import { GET_ASSETS } from "@/helpers/queries/assets/getAssets";
+import SEOHead from "@/components/seo/SEOHead";
+import { GET_ASSET, GET_ASSETS } from "@/helpers/queries/assets";
 import { Colors, MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { getSession } from "next-auth/react";
-import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
-import ScrollToTop from "@/components/commons/scroll-to-top/ScrollToTop";
 import client from "../../apollo-client";
 import AssetsContainer from "../../components/assets/AssetsContainer/AssetsContainer";
 import { GET_COLLECTIVE_STATS } from "../../helpers/queries/collective";
@@ -114,10 +113,16 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
 
   return (
     <PageWrapper>
-      <Head>
-        <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
-        <title>Assets</title>
-      </Head>
+      <SEOHead
+        isHomePage={true}
+        metaTitle={
+          "Mesh: Top Cryptocurrency Assets by Marketing Cap and market leading indicators for them"
+        }
+        metaDescription={
+          "Mesh is a web3 data explorer that provides real-time data on the top cryptocurrency assets by market cap and market leading indicators for them."
+        }
+        previewImage="/assets/assets-page.png"
+      />
 
       {loading && (
         <div className={"container text-center"}>
@@ -229,7 +234,7 @@ const FilterBar = styled.div`
   display: flex;
   flex-direction: row;
   position: sticky;
-  top: 0rem;
+  top: 4.5rem;
   z-index: 100;
   border-bottom: 1px solid gray;
   background-color: ${Colors.richBlack};

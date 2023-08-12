@@ -1,4 +1,4 @@
-// import { Colors, MediaQueries } from "@/styles/variables";
+// import { Colors, FontWeight, MediaQueries } from "@/styles/variables";
 // import styled from "styled-components";
 
 // const FeatureGrid = () => {
@@ -179,13 +179,12 @@
 
 // export default FeatureGrid;
 
-import { Colors, MediaQueries } from "@/styles/variables";
+import { Colors, FontWeight, MediaQueries } from "@/styles/variables";
 import styled from "styled-components";
 
 const FeatureGrid = () => {
   return (
     <GridContainer>
-      <h3>Features</h3>
       <div className="features-grid">
         <div className="feature-card">
           <span className="feature-icon">
@@ -317,12 +316,13 @@ const GridContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${Colors.lightGray};
-  padding: 24px 14px;
+  padding: 36px 14px;
   text-align: center;
   /* align-items: center; */
 
   h3 {
     align-self: center;
+    font-weight: ${FontWeight.bold};
   }
 
   .features-grid {
@@ -340,7 +340,7 @@ const GridContainer = styled.div`
     background-color: ${Colors.elegant.white};
     border: 2px solid ${Colors.darkGray};
     padding: 16px;
-    border-radius: 8px;
+    border-radius: 12px;
   }
 
   .feature-icon {

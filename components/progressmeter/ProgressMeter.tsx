@@ -49,7 +49,7 @@ const Timeline = styled.div`
 
   @media ${MediaQueries.MD} {
     width: 90%;
-    padding: 0 24px 0 4px;
+    padding: 16px 24px 16px 4px;
   }
 `;
 

@@ -30,6 +30,7 @@ interface CloseData {
 const PriceComparativeChart = ({ data }: FibonacciProps) => {
   const [fibonacciData, setFibonacciData] = useState<any>();
   const [showLatest14Days, setShowLatest14Days] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   // const [originalData, setOriginalData] = useState([]);
 
   const handleCheckboxChange = () => {

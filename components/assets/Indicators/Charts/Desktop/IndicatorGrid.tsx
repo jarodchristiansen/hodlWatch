@@ -150,7 +150,7 @@ const GridContainer = styled.div`
 
   @media ${MediaQueries.MD} {
     padding: 24px;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
   }
 `;
 

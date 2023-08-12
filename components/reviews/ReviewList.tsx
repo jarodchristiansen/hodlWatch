@@ -12,6 +12,7 @@ const ReviewListContainer = styled.div`
 
   @media ${MediaQueries.MD} {
     flex-direction: row;
+    padding: 64px 20px;
   }
 `;
 

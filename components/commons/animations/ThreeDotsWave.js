@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 const loadingContainer = {
@@ -13,7 +12,7 @@ const loadingCircle = {
   display: "block",
   width: "0.5rem",
   height: "0.5rem",
-  backgroundColor: "black",
+  backgroundColor: "white",
   borderRadius: "0.25rem",
 };
 

@@ -116,9 +116,39 @@ export const AssetResolver = {
 
     return data;
   },
+  getAssetSocialData: async (_, { symbol }) => {
+    // ABSTRACT THIS LOGIC OUT FOR COINLIST AND CACHE IT ON SERVER TO REDUCE REQUESTS
+    try {
+      const response = await fetch(
+        "https://min-api.cryptocompare.com/data/all/coinlist"
+      ).then((response) => response.json());
+
+      const coins = response.Data;
+
+      // Find the coin object by symbol
+      const coin = Object.values(coins).find(
+        (c) => c.Symbol.toUpperCase() === symbol.toUpperCase()
+      );
+
+      if (coin) {
+        const coinId = coin.Id;
+        // return coinId;
+        if (coinId) {
+          let socialData = await fetch(
+            `https://min-api.cryptocompare.com/data/social/coin/histo/day?coinId=${coinId}&api_key=${process.env.CRYPTO_COMPARE_KEY}`
+          ).then((response) => response.json());
+
+          return socialData.Data;
+        }
+      } else {
+        throw new Error("Coin not found");
+      }
+    } catch (error) {
+      console.error("Error retrieving coinId:", error);
+    }
+  },
   getAssetNews: async (_, { symbol }) => {
     const data = {};
-
     let newsData = await fetch(
       `https://min-api.cryptocompare.com/data/v2/news/?lang=EN&categories=${symbol.toUpperCase()}`
     ).then((response) => response.json());

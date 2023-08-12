@@ -36,8 +36,8 @@ const ChartContainer = ({ children, name = "chart" }) => {
   return (
     <ChartContainerCustom>
       <div className="left-button-row">
-        <button onClick={handleScreenshot}>Save</button>
-        <button onClick={handleExpandChart}>Expand</button>
+        {/* <button onClick={handleScreenshot}>Save</button>
+        <button onClick={handleExpandChart}>Expand</button> */}
         {/* <button onClick={handleScreenshot}>Save</button>
         <button onClick={handleScreenshot}>Save</button> */}
       </div>
