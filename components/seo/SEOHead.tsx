@@ -17,8 +17,6 @@ const SEOHead = ({
   const router = useRouter();
   const { pathname } = router;
 
-  console.log({ router });
-
   return (
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,7 +36,12 @@ const SEOHead = ({
         </>
       )}
 
-      {pathname && <meta property="og:url" content={pathname} />}
+      {pathname && (
+        <meta
+          property="og:url"
+          content={`https://hodl-watch.vercel.app${pathname}`}
+        />
+      )}
 
       <meta property="og:type" content="website" />
       {/* <meta property="fb:app_id" content="your fb id" /> */}
