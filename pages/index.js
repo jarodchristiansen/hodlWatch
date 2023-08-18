@@ -11,13 +11,13 @@ import client from "apollo-client";
 import LandingCard from "components/commons/info-cards/landing-card";
 import CTACard from "components/ctas/CTACard";
 import ProgressMeter from "components/progressmeter/ProgressMeter";
-import ReviewList from "components/reviews/ReviewList";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import styled from "styled-components";
 
+import LandingCarousel from "../components/commons/carousel/LandingCarousel";
 import FeatureGrid from "../components/commons/feature-grid/FeatureGrid";
 import SEOHead from "../components/seo/SEOHead";
 
@@ -82,17 +82,17 @@ export default function Home({ data }) {
     //   text: "Your all-in-one crypto companion that unlocks the power of decentralized finance. Seamlessly track your portfolio, connect with a vibrant community, and thrive in the ever-evolving world of cryptocurrencies.",
     // },
     {
-      image: "/landing/informed.png",
+      image: "/landing/avatar-icon.svg",
       title: "Stay Informed",
       text: "Gain a competitive edge with real-time market data, comprehensive financial metrics, and news updates. Mesh provides you with a clear view of the crypto universe, empowering you to make informed investment decisions.",
     },
     {
-      image: "",
+      image: "/landing/connected-icon.svg",
       title: "Stay Connected",
       text: "Join a community of crypto enthusiasts and investors. Engage in lively discussions, share insights, and stay connected with the latest trends. Collaborate, learn, and grow together in the exciting realm of blockchain technology.",
     },
     {
-      image: "",
+      image: "/landing/growth-chart-icon.svg",
       title: "Thrive",
       text: "Mesh is your gateway to success in the crypto revolution. Unleash the potential of your portfolio, analyze trends, and identify opportunities to maximize your returns. With Mesh, you'll be well-equipped to navigate the crypto landscape with confidence and make waves in the world of finance.",
     },
@@ -100,39 +100,6 @@ export default function Home({ data }) {
     //   image: "",
     //   text: "Join Mesh today and embark on a transformative journey where simplicity meets power, and your crypto aspirations become reality.",
     // },
-  ];
-
-  const slides = [
-    {
-      title: "Portfolio Tracking",
-      text: "Monitor real-time prices, performance, and allocation across multiple assets.",
-      image: "/assets/chartScreenshot.png",
-    },
-    {
-      title: "Comprehensive Metrics",
-      text: "Dive deep into financial and on-chain metrics to gain valuable insights into crypto assets.",
-      image: "/assets/chartScreenshot.png",
-    },
-    {
-      title: "Social Community",
-      text: "Connect with a vibrant community of crypto enthusiasts and investors.",
-      image: "/assets/chartScreenshot.png",
-    },
-    {
-      title: "News and Updates",
-      text: "Access a curated feed of crypto news, articles, and market updates in real-time.",
-      image: "/assets/chartScreenshot.png",
-    },
-    {
-      title: "User-friendly Interface",
-      text: "Enjoy a sleek and intuitive interface designed for seamless user experience.",
-      image: "/assets/chartScreenshot.png",
-    },
-    {
-      title: "Security and Privacy",
-      text: "Rest assured knowing that your data and assets are protected with robust security measures.",
-      image: "/assets/chartScreenshot.png",
-    },
   ];
 
   return (
@@ -172,15 +139,15 @@ export default function Home({ data }) {
               return (
                 <div className="card" key={card?.text}>
                   <div className="card-content">
+                    {card?.image && (
+                      <div className="card-background">
+                        <Image src={card.image} height={150} width={150} />{" "}
+                      </div>
+                    )}
+
                     <h4>{card?.title}</h4>
 
                     <div>{card?.text}</div>
-
-                    {/* {card?.image && (
-                      <div className="card-background">
-                        <Image src={card.image} height={250} width={250} />{" "}
-                      </div>
-                    )} */}
                   </div>
                 </div>
               );
@@ -189,20 +156,20 @@ export default function Home({ data }) {
       </Row>
 
       <div>
+        <LandingCarousel />
+      </div>
+
+      <div>
         <ProgressMeter currentStep={1} />
       </div>
 
-      <div>
-        <FeatureGrid />
-      </div>
-
       {/* <div>
-        <LandingCarousel slides={slides} />
+        <FeatureGrid />
       </div> */}
 
-      <div>
+      {/* <div>
         <ReviewList />
-      </div>
+      </div> */}
 
       <div className="intro-paragraph">
         <p>
@@ -277,15 +244,12 @@ const Row = styled.div`
       }
 
       .card-background {
-        /* background-image: url("/public/landing/stock-chart-card-background.svg");
-        background-repeat: no-repeat;
-        height: 100%;
-        width: 100%; */
+        padding: 24px 0;
 
-        /* position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0; */
+        /* img {
+          border-radius: 50%;
+          border: 2px solid black;
+        } */
       }
     }
   }
