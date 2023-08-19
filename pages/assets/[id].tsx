@@ -1,8 +1,9 @@
+import AssetTopBar from "@/components/assets/TopBar";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import ScrollToTop from "@/components/commons/scroll-to-top/ScrollToTop";
-import SidebarV2 from "@/components/commons/sidebar-nav/SidebarV2";
 import DashboardView from "@/components/views/DashboardView";
 import ReportsView from "@/components/views/ReportsView";
+import SimulationView from "@/components/views/SimulationView";
 import { GET_GECKO_DETAILS } from "@/helpers/queries/assets";
 import {
   GET_ASSET_HISTORY,
@@ -104,9 +105,7 @@ const AssetDetailsPage = ({ session }) => {
               <h5>Symbol</h5>
               <span>{data?.symbol.toUpperCase()}</span>
             </div>
-          </div>
 
-          <div className="mid-row">
             <div>
               <h5>Geneis Date</h5>
               <span>{data?.genesis_date}</span>
@@ -116,7 +115,9 @@ const AssetDetailsPage = ({ session }) => {
               <h5>Community Score</h5>
               <span>{data?.community_score}</span>
             </div>
+          </div>
 
+          <div className="mid-row">
             <div>
               <h5>Developer Score</h5>
               <span>{data?.developer_score}</span>
@@ -150,12 +151,13 @@ const AssetDetailsPage = ({ session }) => {
 
   return (
     <AssetDetailsPageContainer>
-      <SidebarV2
+      <AssetTopBar
         open={sidebarOpen}
         setOpen={setSidebarOpen}
         view={pageView}
         setPageView={setPageView}
       />
+
       <ScrollToTop scrollThreshold={90} />
 
       {loading && (
@@ -166,6 +168,7 @@ const AssetDetailsPage = ({ session }) => {
 
       {pageView === "dashboard" && data && (
         <ViewContainer>
+          <h2>Indicators</h2>
           {GeckoDetails && !loading && assetDetails}
 
           <DashboardView
@@ -183,8 +186,21 @@ const AssetDetailsPage = ({ session }) => {
 
       {pageView === "reports" && data && (
         <ViewContainer>
-          {GeckoDetails && !loading && assetDetails}
+          <h2>News & Reports</h2>
           <ReportsView id={id} />
+        </ViewContainer>
+      )}
+
+      {pageView === "simulator" && data && (
+        <ViewContainer>
+          <h2>Simulator & Analysis</h2>
+          <SimulationView id={id} />
+        </ViewContainer>
+      )}
+
+      {pageView === "settings" && data && (
+        <ViewContainer>
+          <h2>Settingss</h2>
         </ViewContainer>
       )}
 
@@ -216,6 +232,13 @@ const ViewContainer = styled.div`
   flex-direction: column;
   width: 100%;
   margin: 10px auto;
+  padding-top: 64px;
+  text-align: center;
+
+  h2 {
+    color: white;
+    padding: 24px;
+  }
 
   .bottom-row {
     padding: 24px;
@@ -229,6 +252,7 @@ const ViewContainer = styled.div`
   }
 
   @media ${MediaQueries.MD} {
+    padding-top: 48px;
     width: 90%;
   }
 
@@ -237,70 +261,59 @@ const ViewContainer = styled.div`
   }
 `;
 
-const CollectiveStatsHodler = styled.div`
-  padding: 2rem 0;
-
-  @media ${MediaQueries.MD} {
-    margin-right: unset;
-    margin-left: unset;
-    padding: 2rem;
-  }
-`;
-
 const AssetDetailsRow = styled.div`
   padding: 24px;
   background-color: ${Colors.lightGray};
   border-radius: 12px;
   margin: auto;
+  text-align: center;
+  border: 2px solid ${Colors.modern.accentBlue};
 
   @media ${MediaQueries.MD} {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 24px;
+    padding: 48px;
     max-width: 95%;
   }
+
   button {
     max-width: 25rem;
     margin: auto;
   }
 
-  .top-row {
+  .top-row, .mid-row {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 48px;
+
 
     div {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      justify-content: center;
-      border-radius: 12px;
-      padding: 1rem;
+      padding: 12px;
+      border-bottom: 1px solid ${Colors.modern.accentBlue};
+
+      @media ${MediaQueries.MD} {
+         border-bottom: none;
+      }
+    }
+
+    @media ${MediaQueries.MD} {
+      flex-direction: row;
+      border-bottom: none;
     }
   }
 
   .mid-row {
-    display: flex;
-    gap: 1rem;
-    overflow-x: scroll;
-    padding-right: 1rem;
-    text-align: center;
-    justify-content: space-between;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 48px;
 
     div {
-      display: flex;
-      flex-direction: column;
-      border-radius: 12px;
-      justify-content: center;
-      padding: 1rem;
-
-      span {
-        font-weight: bold;
+      &:last-child {
+        border-bottom: none;
       }
     }
+
+  }
 
     .positive {
       color: green;
@@ -320,21 +333,10 @@ const AssetDetailsRow = styled.div`
   }
 `;
 
-const FilterBar = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: sticky;
-  text-align: center;
-  justify-content: center;
-  background-color: white;
-  z-index: 100;
-  top: 0;
-  padding: 1rem 0;
-`;
-
 const AssetDetailsPageContainer = styled.div`
   @media ${MediaQueries.MD} {
     display: flex;
+    flex-direction: column;
   }
 `;
 

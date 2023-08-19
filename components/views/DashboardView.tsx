@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse/lib";
 import remarkRehype from "remark-rehype/lib";
 import styled from "styled-components";
+
 import BitcoinMacrosContainer from "../assets/BitcoinMacros/BitcoinMacrosContainer";
 import FinancialChartGrid from "../assets/Finance/FinancialChartCGrid";
 import PairDetailsRow from "../assets/Finance/PairDetails";
@@ -21,6 +22,12 @@ const DashboardView = ({
 }) => {
   return (
     <div>
+      {id && (
+        <PairRowContainer>
+          <PairDetailsRow id={id} />
+        </PairRowContainer>
+      )}
+
       <FinancialChartGrid
         financialData={
           data?.getAssetHistory?.priceData
@@ -53,12 +60,6 @@ const DashboardView = ({
             // key={markdownPiece + Math.random()}
           />
         </div>
-      )}
-
-      {id && (
-        <PairRowContainer>
-          <PairDetailsRow id={id} />
-        </PairRowContainer>
       )}
 
       {!loading && isBtc && (
