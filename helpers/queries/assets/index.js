@@ -73,10 +73,7 @@ export const GET_ASSET = gql`
       id
       name
       symbol
-      image {
-        thumb
-        small
-      }
+      image
     }
   }
 `;

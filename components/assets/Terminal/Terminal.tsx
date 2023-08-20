@@ -1,3 +1,5 @@
+import SelectChip from "@/components/commons/buttons/SelectChip";
+import { processFinancialHistory } from "@/helpers/financial";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { GET_ASSET_HISTORY } from "@/helpers/queries/assets/getAssetFinancialDetails";
 import { Colors, FontWeight } from "@/styles/variables";
@@ -15,15 +17,29 @@ import {
 } from "recharts";
 import styled from "styled-components";
 
-import { processFinancialHistory } from "@/helpers/financial";
+import AssetSearchDropdown from "../AssetSearchDropdown/AssetSearchDropdown";
 import ChartContainer from "../Finance/Charts/Desktop/ChartContainer";
 
 const Terminal = ({ id }) => {
   const [terminalView, setTerminvalView] = useState("");
   const [comparisonDuration, setComparisonDuration] = useState(0);
+  const [selectedComparisonAssets, setSelectedComparisonAssets] = useState([
+    { title: id },
+  ]);
+  const [comparisonAssetType, setComparisonAssetType] = useState("Crypto");
 
   const [getFirstAssetHistory, { data, loading, error, refetch }] =
     useLazyQuery(GET_ASSET_HISTORY);
+
+  const [
+    getSecondAssetHistory,
+    {
+      data: secondAssetData,
+      loading: secondAssetLoading,
+      error: secondAssetError,
+      refetch: secondAssetRefetch,
+    },
+  ] = useLazyQuery(GET_ASSET_HISTORY);
 
   useEffect(() => {
     if (comparisonDuration) {
@@ -33,8 +49,17 @@ const Terminal = ({ id }) => {
           time: comparisonDuration,
         },
       });
+
+      if (selectedComparisonAssets.length > 1) {
+        getSecondAssetHistory({
+          variables: {
+            symbol: selectedComparisonAssets[1].title,
+            time: comparisonDuration,
+          },
+        });
+      }
     }
-  }, [comparisonDuration]);
+  }, [comparisonDuration, selectedComparisonAssets]);
 
   const handleComparisonEvents = (e) => {
     const value = e.target.value;
@@ -44,6 +69,19 @@ const Terminal = ({ id }) => {
       let years = parseInt(value) * 365;
 
       setComparisonDuration(years);
+    } else if (id === "industry") {
+      setComparisonAssetType(value);
+    }
+  };
+
+  const addAssetToComparison = (selectedId) => {
+    console.log("add", { selectedId });
+
+    if (selectedComparisonAssets.length < 2) {
+      setSelectedComparisonAssets([
+        ...selectedComparisonAssets,
+        { title: selectedId },
+      ]);
     }
   };
 
@@ -60,31 +98,68 @@ const Terminal = ({ id }) => {
           <select
             onChange={handleComparisonEvents}
             id="industry"
-            defaultValue={"TradFI"}
+            defaultValue={"Crypto"}
           >
-            <option value="TradFI">TradFI</option>
             <option value="Crypto">Crypto</option>
+            <option value="TradFI">TradFI</option>
           </select>
 
-          <label htmlFor="asset-search">Test</label>
+          {comparisonAssetType && selectedComparisonAssets.length < 2 && (
+            <AssetSearchDropdown
+              type={comparisonAssetType}
+              addAssetMethod={addAssetToComparison}
+            />
+          )}
+
+          {/* <label htmlFor="asset-search">Test</label>
           <input
             type="text"
             id="asset-search"
             onChange={handleComparisonEvents}
-          />
+          /> */}
         </>
       );
     }
-  }, [terminalView]);
+  }, [terminalView, addAssetToComparison]);
 
+  // Handles processing data for comparison chart, may need abstraction
   const formattedData = useMemo(() => {
-    if (!data?.getAssetHistory?.priceData?.length) return null;
+    if (
+      !data?.getAssetHistory?.priceData?.length ||
+      !selectedComparisonAssets.length
+    )
+      return null;
+
     let filteredData = processFinancialHistory(data?.getAssetHistory.priceData);
 
-    return filteredData;
-  }, [data]);
+    if (
+      !secondAssetData?.getAssetHistory?.priceData?.length ||
+      selectedComparisonAssets.length < 2
+    ) {
+      return filteredData;
+    }
 
-  console.log({ data, formattedData });
+    let secondFilteredData = processFinancialHistory(
+      secondAssetData.getAssetHistory.priceData
+    );
+
+    for (let i = 0; i < filteredData.closes.length; i++) {
+      filteredData.closes[i].secondClose =
+        secondFilteredData.closes[i]?.close || 0;
+    }
+
+    return filteredData;
+  }, [data, secondAssetData, selectedComparisonAssets]);
+
+  const removeAssetFromComparison = (selectedId) => {
+    console.log("remove", { selectedId });
+
+    if (selectedComparisonAssets.length > 1 && selectedId !== id) {
+      setSelectedComparisonAssets(
+        selectedComparisonAssets.filter((asset) => asset.title !== selectedId)
+      );
+    }
+  };
 
   return (
     <TerminalContainer>
@@ -98,7 +173,19 @@ const Terminal = ({ id }) => {
 
       <div className="options-row">{viewOptions}</div>
 
-      <h2>{terminalView.toUpperCase()}</h2>
+      {terminalView === "comparison" && (
+        <div className="options-row">
+          {selectedComparisonAssets.map((asset) => (
+            <SelectChip
+              key={asset.title}
+              title={asset.title}
+              onClick={() => removeAssetFromComparison(asset.title)}
+            />
+          ))}
+        </div>
+      )}
+
+      <h3>{terminalView.toUpperCase()}</h3>
 
       <ChartContainer name="price-comparison-chart">
         <ResponsiveContainer width="100%" height={500}>
@@ -110,7 +197,17 @@ const Terminal = ({ id }) => {
               domain={["auto", "auto"]}
               allowDataOverflow={true}
               width={0}
+              yAxisId="firstAsset"
             />
+
+            <YAxis
+              dataKey="secondClose"
+              domain={["auto", "auto"]}
+              allowDataOverflow={true}
+              width={0}
+              yAxisId="secondAsset"
+            />
+
             <XAxis
               dataKey="time"
               interval={"preserveStartEnd"}
@@ -144,6 +241,17 @@ const Terminal = ({ id }) => {
               strokeWidth={3}
               fillOpacity={1}
               fill="url(#colorUv)"
+              yAxisId="firstAsset"
+            />
+
+            <Area
+              type="monotone"
+              dataKey="secondClose"
+              stroke="#0088FF"
+              strokeWidth={3}
+              fillOpacity={1}
+              fill="url(#colorUv)"
+              yAxisId="secondAsset"
             />
           </ComposedChart>
         </ResponsiveContainer>
@@ -155,6 +263,7 @@ const Terminal = ({ id }) => {
 const TerminalContainer = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: white;
 
   .mode-row {
     display: flex;
@@ -162,7 +271,6 @@ const TerminalContainer = styled.div`
 
   .options-row {
     display: flex;
-    color: white;
   }
 `;
 

@@ -34,13 +34,13 @@ export const AssetResolver = {
 
   getAsset: async (_, { symbol }) => {
     try {
-      const asset = await Asset.find({ symbol });
+      // const asset = await Asset.find({ symbol });
+
       const CoinGeckoClient = new CoinGecko();
 
-      let assets = await CoinGeckoClient.coins.all();
-      // const assets = await Asset.find({});
+      let assets = await CoinGeckoClient.coins.list();
 
-      return assets?.data.filter((e) =>
+      return assets?.data?.filter((e) =>
         e.symbol.toLowerCase().includes(symbol.toLowerCase())
       );
     } catch (err) {
