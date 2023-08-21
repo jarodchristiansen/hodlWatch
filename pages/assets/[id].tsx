@@ -48,7 +48,6 @@ const AssetDetailsPage = ({ session }) => {
     { data: MacroData, loading: MacroLoading, error: MacroError },
   ] = useLazyQuery(GET_BTC_MACROS);
 
-  // const availableTimes = [14, 30, 90, 180, 365];
   const isBtcOrEth = id === "btc" || id === "eth";
   const isBtc = id === "btc";
 
@@ -194,6 +193,7 @@ const AssetDetailsPage = ({ session }) => {
       {pageView === "simulator" && data && (
         <ViewContainer>
           <h2>Simulator & Analysis</h2>
+
           <SimulationView id={id} />
         </ViewContainer>
       )}

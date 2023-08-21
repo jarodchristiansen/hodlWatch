@@ -2,7 +2,7 @@ import SelectChip from "@/components/commons/buttons/SelectChip";
 import { processFinancialHistory } from "@/helpers/financial";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { GET_ASSET_HISTORY } from "@/helpers/queries/assets/getAssetFinancialDetails";
-import { Colors, FontWeight } from "@/styles/variables";
+import { Colors, FontWeight, MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -110,13 +110,6 @@ const Terminal = ({ id }) => {
               addAssetMethod={addAssetToComparison}
             />
           )}
-
-          {/* <label htmlFor="asset-search">Test</label>
-          <input
-            type="text"
-            id="asset-search"
-            onChange={handleComparisonEvents}
-          /> */}
         </>
       );
     }
@@ -264,13 +257,24 @@ const TerminalContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
+  padding: 12px 2px;
+  border-radius: 12px;
+  gap: 12px;
 
-  .mode-row {
-    display: flex;
-  }
-
+  .mode-row,
   .options-row {
     display: flex;
+    gap: 12px;
+    padding: 0 12px;
+
+    select {
+      padding: 4px 0;
+      width: 120px;
+    }
+
+    @media ${MediaQueries.MD} {
+      padding-left: 24px;
+    }
   }
 `;
 

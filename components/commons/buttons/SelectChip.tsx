@@ -1,3 +1,4 @@
+import { Colors } from "@/styles/variables";
 import styled from "styled-components";
 
 const SelectChip = ({ title, onClick }) => {
@@ -14,13 +15,18 @@ const ChipWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.25rem 0.5rem;
   border-radius: 12px;
-  background-color: #ececec;
+  background-color: ${Colors.elegant.accentPurple};
   border: 1px solid black;
+  color: white;
+  font-weight: bold;
 
   button {
     border: none;
+    background-color: ${Colors.elegant.accentPurple};
+    color: white;
+    font-weight: bold;
   }
 `;
 
