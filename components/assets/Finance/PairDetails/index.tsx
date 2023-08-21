@@ -97,7 +97,7 @@ const PairsWholeContainer = styled.div`
 `;
 const PairRowContainer = styled.div`
   display: flex;
-  max-width: 80%;
+  max-width: 90%;
   overflow-x: auto;
   gap: 1rem;
   padding: 1rem 0;
