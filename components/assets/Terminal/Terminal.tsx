@@ -66,7 +66,9 @@ const Terminal = ({ id }) => {
     const id = e.target.id;
 
     if (id === "years") {
-      let years = parseInt(value) * 365;
+      let years = Math.round(parseFloat(value) * 365);
+
+      console.log({ years });
 
       setComparisonDuration(years);
     } else if (id === "industry") {
@@ -90,6 +92,8 @@ const Terminal = ({ id }) => {
       return (
         <>
           <select onChange={handleComparisonEvents} id="years" defaultValue="1">
+            <option value="0.083">1 month</option>
+            <option value="0.5">6 months</option>
             <option value="1">1 Year</option>
             <option value="3">3 Years</option>
             <option value="5">5 Years</option>
@@ -235,6 +239,7 @@ const Terminal = ({ id }) => {
               fillOpacity={1}
               fill="url(#colorUv)"
               yAxisId="firstAsset"
+              name={id.toUpperCase()}
             />
 
             <Area
@@ -245,6 +250,10 @@ const Terminal = ({ id }) => {
               fillOpacity={1}
               fill="url(#colorUv)"
               yAxisId="secondAsset"
+              name={
+                selectedComparisonAssets.length > 1 &&
+                selectedComparisonAssets[1]?.title?.toUpperCase()
+              }
             />
           </ComposedChart>
         </ResponsiveContainer>

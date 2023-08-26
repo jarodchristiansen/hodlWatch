@@ -53,13 +53,16 @@ const PairBlock = (props: PairBlockProps) => {
 };
 
 const PairBlockContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   text-align: center;
   padding: 1rem 1rem;
   border: 2px solid gray;
-  width: fit-content;
-  min-width: 12rem;
+  /* width: fit-content; */
+  min-width: 8rem;
   border-radius: 10px;
   background-color: ${Colors.lightGray};
+  border: 2px solid ${Colors.modern.accentBlue};
 
   .block-header {
     font-weight: bold;
