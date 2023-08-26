@@ -12,7 +12,6 @@ import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracem
 import MACDChart from "./Charts/Desktop/MACDChart";
 import NuplChart from "./Charts/Desktop/NuplChart";
 import OBVChart from "./Charts/Desktop/OBVChart";
-import PriceComparativeChart from "./Charts/Desktop/PriceComparativeChart";
 import RsiChart from "./Charts/Desktop/RSIChart";
 import StochasticOscillatorChart from "./Charts/Desktop/StochasticOscillatorChart";
 import VolumeChartDesktop from "./Charts/Desktop/VolumeChartDesktop";
@@ -53,12 +52,12 @@ const FinancialChartGrid = ({
     let filteredData = processFinancialHistory(financialData);
 
     const chartData = [
-      !!filteredData?.closes?.length && (
-        <PriceComparativeChart
-          data={filteredData?.closes}
-          key="comparison-chart"
-        />
-      ),
+      // !!filteredData?.closes?.length && (
+      //   <PriceComparativeChart
+      //     data={filteredData?.closes}
+      //     key="comparison-chart"
+      //   />
+      // ),
       !!filteredData?.closes?.length && (
         <FibonacciRetracementChartDesktop
           data={filteredData?.closes}
