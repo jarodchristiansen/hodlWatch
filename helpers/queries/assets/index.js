@@ -68,8 +68,8 @@ export const GET_ASSET_SOCIALS = gql`
 `;
 
 export const GET_ASSET = gql`
-  query GET_ASSET($symbol: String!) {
-    getAsset(symbol: $symbol) {
+  query GET_ASSET($symbol: String!, $type: String) {
+    getAsset(symbol: $symbol, type: $type) {
       id
       name
       symbol

@@ -377,7 +377,7 @@ const typeDefs = gql`
     getAssets(offset: Int, limit: Int): [Asset]
     getAssetsByName(symbol: String, offset: Int, limit: Int): [Asset]
     getAssetSocialData(symbol: String!): [SocialStats]
-    getAsset(symbol: String!): [Asset]
+    getAsset(symbol: String!, type: String): [Asset]
     getBTCMacros(symbol: String!): BTCMacros
     getAssetNews(symbol: String!): [NewsFeedEntries]
     getAssetPairs(symbol: String!): AssetPairResponse

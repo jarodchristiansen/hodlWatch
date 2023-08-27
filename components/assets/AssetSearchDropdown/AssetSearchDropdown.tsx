@@ -12,16 +12,21 @@ const AssetSearchDropdown = ({ type, addAssetMethod }) => {
     const value = e.target.value;
     setSearchValue(value);
 
-    if (value.length > 2) {
+    if (value.length > 2 && type == "Crypto") {
       getAsset({
-        variables: { symbol: value },
+        variables: { symbol: value, type },
+      });
+      setIsOpen(true); // Open the dropdown when options are available
+    } else if (value.length > 2 && type == "TradFI") {
+      getAsset({
+        variables: { symbol: value, type },
       });
       setIsOpen(true); // Open the dropdown when options are available
     }
   };
 
   useEffect(() => {
-    if (!data || data.getAsset.length === 0) {
+    if (!data || data?.getAsset?.length === 0) {
       setIsOpen(false); // Close the dropdown if no options are available
     }
   }, [data]);
@@ -32,7 +37,7 @@ const AssetSearchDropdown = ({ type, addAssetMethod }) => {
       <Input type="text" onChange={updateSearchValue} />
 
       {/* Use the isOpen state to conditionally render the Select */}
-      {isOpen && data && data.getAsset.length > 0 && (
+      {isOpen && data && data?.getAsset?.length > 0 && (
         <div className="option-container">
           {/* Remove the "Select an option" prompt */}
           {data.getAsset.map((asset) => (

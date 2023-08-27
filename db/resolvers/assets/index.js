@@ -32,17 +32,33 @@ export const AssetResolver = {
     }
   },
 
-  getAsset: async (_, { symbol }) => {
+  getAsset: async (_, { symbol, type }) => {
     try {
-      // const asset = await Asset.find({ symbol });
+      if (!type || type === "Crypto") {
+        const CoinGeckoClient = new CoinGecko();
 
-      const CoinGeckoClient = new CoinGecko();
+        let assets = await CoinGeckoClient.coins.list();
 
-      let assets = await CoinGeckoClient.coins.list();
+        return assets?.data?.filter((e) =>
+          e.symbol.toLowerCase().includes(symbol.toLowerCase())
+        );
+      } else if (type === "TradFI") {
+        const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${symbol}&apikey=${process.env.ALPHA_VANTAGE}`;
 
-      return assets?.data?.filter((e) =>
-        e.symbol.toLowerCase().includes(symbol.toLowerCase())
-      );
+        const data = await fetch(url).then((response) => response.json());
+
+        const { bestMatches } = data;
+
+        const formattedData = bestMatches?.map((match) => {
+          return {
+            id: match["1. symbol"],
+            symbol: match["1. symbol"],
+            name: match["2. name"],
+          };
+        });
+
+        return formattedData;
+      }
     } catch (err) {
       throw new Error(err);
     }
