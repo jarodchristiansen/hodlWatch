@@ -14,7 +14,7 @@ const AssetSearchDropdown = ({ type, addAssetMethod }) => {
 
     if (value.length > 2 && type == "Crypto") {
       getAsset({
-        variables: { symbol: value },
+        variables: { symbol: value, type },
       });
       setIsOpen(true); // Open the dropdown when options are available
     } else if (value.length > 2 && type == "TradFI") {
