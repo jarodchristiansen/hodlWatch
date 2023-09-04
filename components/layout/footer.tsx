@@ -111,6 +111,10 @@ const FooterContainer = styled.div`
     h4 {
       font-weight: bold;
     }
+
+    h6 {
+      color: white;
+    }
   }
 
   .social-row {
