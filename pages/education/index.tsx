@@ -1,33 +1,59 @@
-import RelatedPostsRow from "@/components/posts/RelatedPosts";
 import SEOHead from "@/components/seo/SEOHead";
-import { GET_POSTS } from "@/helpers/queries/posts/index";
 import { MediaQueries } from "@/styles/variables";
-import { useLazyQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import styled from "styled-components";
+import { EducationPageContent } from "../../content/EducationPageContent";
 
 /**
  *
  * @returns Education Page filtering the posts created from HodlWatch-Admin portal
  */
 const EducationPage = () => {
-  const [getPosts, { data, loading: newsLoading, error, called, refetch }] =
-    useLazyQuery(GET_POSTS);
+  // const [getPosts, { data, loading: newsLoading, error, called, refetch }] =
+  //   useLazyQuery(GET_POSTS);
 
-  useEffect(() => {
-    getPosts({
-      variables: {
-        filter: "Education",
-      },
-    });
-  });
+  // useEffect(() => {
+  //   getPosts({
+  //     variables: {
+  //       filter: "Education",
+  //     },
+  //   });
+  // });
+
+  // const PostCards = useMemo(() => {
+  //   if (!data?.getPosts) return [];
+
+  //   return data.getPosts.map((post) => {
+  //     return (
+  //       <Link href={`/education${post.slug}`} key={post.slug}>
+  //         <PostRow>
+  //           <div>
+  //             <Image
+  //               src={post.header_image}
+  //               height={300}
+  //               width={100}
+  //               alt="block-logo"
+  //               priority
+  //               unoptimized={true}
+  //             />
+  //           </div>
+
+  //           <h2> {post.post_title}</h2>
+  //           <span>Subject: {post.category}</span>
+  //           <span>
+  //             {post?.description?.length &&
+  //               post?.description?.slice(0, 125) + "..."}
+  //           </span>
+  //         </PostRow>
+  //       </Link>
+  //     );
+  //   });
+  // }, [data?.getPosts]);
 
   const PostCards = useMemo(() => {
-    if (!data?.getPosts) return [];
-
-    return data.getPosts.map((post) => {
+    return EducationPageContent("cards").map((post) => {
       return (
         <Link href={`/education${post.slug}`} key={post.slug}>
           <PostRow>
@@ -42,7 +68,7 @@ const EducationPage = () => {
               />
             </div>
 
-            <h2> {post.post_title}</h2>
+            <h2> {post.title}</h2>
             <span>Subject: {post.category}</span>
             <span>
               {post?.description?.length &&
@@ -52,7 +78,7 @@ const EducationPage = () => {
         </Link>
       );
     });
-  }, [data?.getPosts]);
+  }, []);
 
   return (
     <div>
@@ -65,10 +91,10 @@ const EducationPage = () => {
         previewImage={"/assets/PieChart.PNG"}
       />
 
-      <FilterBar>
+      {/* <FilterBar>
         <label htmlFor="article_search">Article:</label>
         <input type="text" name="article_search" />
-      </FilterBar>
+      </FilterBar> */}
 
       <PageHolder>
         <InterstitialRow>
@@ -86,7 +112,7 @@ const EducationPage = () => {
           </div>
         </InterstitialRow>
 
-        {data?.getPosts && (
+        {!!PostCards && (
           <div className="grid-holder">
             <h1>Crypto Insights: Indicators & Background</h1>
 
@@ -94,11 +120,11 @@ const EducationPage = () => {
               <div className="left-card">{PostCards}</div>
             </div>
 
-            <InterstitialRow>
+            {/* <InterstitialRow>
               <div className="related-row">
                 <RelatedPostsRow tempPost={data.getPosts[0]} />
               </div>
-            </InterstitialRow>
+            </InterstitialRow> */}
           </div>
         )}
       </PageHolder>
