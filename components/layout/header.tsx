@@ -71,7 +71,7 @@ function Header() {
         <div key={route?.route}>
           {!!route.guarded && !!session && (
             <TextContainer>
-              <Link href={route.route}>{route.text}</Link>
+              <Nav.Link href={route.route}>{route.text}</Nav.Link>
               {selectedRoute == route.key && (
                 <span className="active-underline-span"></span>
               )}
@@ -80,7 +80,7 @@ function Header() {
 
           {!route.guarded && (
             <TextContainer>
-              <Link href={route.route}>{route.text}</Link>
+              <Nav.Link href={route.route}>{route.text}</Nav.Link>
               {selectedRoute == route.key && (
                 <span className="active-underline-span"></span>
               )}
