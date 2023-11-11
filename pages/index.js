@@ -10,7 +10,6 @@ import {
 import client from "apollo-client";
 import LandingCard from "components/commons/info-cards/landing-card";
 import CTACard from "components/ctas/CTACard";
-import ProgressMeter from "components/progressmeter/ProgressMeter";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +18,7 @@ import styled from "styled-components";
 
 import LandingCarousel from "../components/commons/carousel/LandingCarousel";
 import FeatureGrid from "../components/commons/feature-grid/FeatureGrid";
+import ReviewList from "../components/reviews/ReviewList";
 import SEOHead from "../components/seo/SEOHead";
 
 /**
@@ -160,16 +160,12 @@ export default function Home({ data }) {
       </div>
 
       <div>
-        <ProgressMeter currentStep={1} />
+        <FeatureGrid />
       </div>
 
-      {/* <div>
-        <FeatureGrid />
-      </div> */}
-
-      {/* <div>
+      <div>
         <ReviewList />
-      </div> */}
+      </div>
 
       <div className="intro-paragraph">
         <p>
@@ -229,14 +225,8 @@ const Row = styled.div`
       border-radius: 12px;
       box-shadow: 0px 2px 12px ${Colors.darkGray};
       position: relative;
-      /* &:hover {
-        border: 2px solid blue;
-        cursor: pointer;
-      } */
       text-align: center;
       border: 2px solid ${Colors.modern.accentBlue};
-
-      /* background: linear-gradient(180deg, transparent 0%, #0088ff 100%); */
 
       h4 {
         font-weight: ${FontWeight.bold};
@@ -245,11 +235,6 @@ const Row = styled.div`
 
       .card-background {
         padding: 24px 0;
-
-        /* img {
-          border-radius: 50%;
-          border: 2px solid black;
-        } */
       }
     }
   }

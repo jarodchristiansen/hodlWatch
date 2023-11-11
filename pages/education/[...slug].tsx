@@ -1,7 +1,6 @@
 import RelatedPostsRow from "@/components/posts/RelatedPosts";
 import { GET_POST } from "@/helpers/queries/posts";
-import { Colors } from "@/styles/variables";
-import { MediaQueries } from "@/styles/variables";
+import { Colors, MediaQueries } from "@/styles/variables";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";

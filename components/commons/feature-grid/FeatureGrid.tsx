@@ -1,4 +1,4 @@
-// import { Colors, FontWeight, MediaQueries } from "@/styles/variables";
+// import { Colors, FontFamily, FontWeight, MediaQueries } from "@/styles/variables";
 // import styled from "styled-components";
 
 // const FeatureGrid = () => {
@@ -179,7 +179,12 @@
 
 // export default FeatureGrid;
 
-import { Colors, FontWeight, MediaQueries } from "@/styles/variables";
+import {
+  Colors,
+  FontFamily,
+  FontWeight,
+  MediaQueries,
+} from "@/styles/variables";
 import styled from "styled-components";
 
 const FeatureGrid = () => {
@@ -335,26 +340,26 @@ const GridContainer = styled.div`
       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     }
   }
-
   .feature-card {
-    background-color: ${Colors.elegant.white};
-    border: 2px solid ${Colors.darkGray};
-    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 32px;
+    font-family: ${FontFamily.secondary};
     border-radius: 12px;
-  }
+    box-shadow: 0px 2px 12px ${Colors.darkGray};
+    position: relative;
+    text-align: center;
+    border: 2px solid ${Colors.modern.accentBlue};
 
-  .feature-icon {
-    /* Add styles for the feature icon */
-  }
+    h4 {
+      font-weight: ${FontWeight.bold};
+      padding: 0 0 12px 0;
+    }
 
-  h4 {
-    margin-top: 0;
-    margin-bottom: 12px;
-  }
-
-  p {
-    margin-top: 0;
-    margin-bottom: 8px;
+    .card-background {
+      padding: 24px 0;
+    }
   }
 `;
 
