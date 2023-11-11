@@ -1,6 +1,6 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { currencyFormat } from "@/helpers/formatters/currency";
-import { Colors, FontWeight } from "@/styles/variables";
+import { ChartDimensions, Colors, FontWeight } from "@/styles/variables";
 import Link from "next/link";
 // import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
@@ -254,7 +254,7 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
         />
       </div>
       {fibonacciData && (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={fibonacciData}>
             <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
 

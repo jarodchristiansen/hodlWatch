@@ -11,10 +11,10 @@ function FinanceChartModal(props) {
   return (
     <>
       <FaInfoCircle
-        size={20}
+        size={30}
         color={"black"}
         onClick={() => handleShow()}
-        style={{ position: "absolute", right: "12px", top: "5px" }}
+        style={{ position: "absolute", right: "6px", top: "6px" }}
       />
 
       <Modal show={show} onHide={handleClose}>

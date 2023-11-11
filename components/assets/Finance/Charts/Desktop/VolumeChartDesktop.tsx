@@ -1,7 +1,7 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 // import FinanceChartModal from "./FinanceChartModal";
 import { currencyFormat } from "@/helpers/formatters/currency";
-import { Colors } from "@/styles/variables";
+import { ChartDimensions, Colors } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -60,7 +60,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
       </div>
 
       {chartData && (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <YAxis dataKey="volumeTo" yAxisId="left-axis" width={0} />

@@ -1,6 +1,6 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { currencyFormat } from "@/helpers/formatters/currency";
-import { Colors } from "@/styles/variables";
+import { ChartDimensions, Colors } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -93,7 +93,7 @@ const EMAChartDesktop = ({ data }) => {
         />
       </div>
       {emaData && (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={emaData}>
             <CartesianGrid strokeDasharray="3 3" />
 

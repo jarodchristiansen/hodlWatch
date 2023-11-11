@@ -71,3 +71,8 @@ export const MediaQueries = {
   LG: "(min-width: 992px)",
   XL: "(min-width: 1200px)",
 };
+
+export const ChartDimensions = {
+  height: 500,
+  width: "100%",
+};

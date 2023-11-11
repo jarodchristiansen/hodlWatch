@@ -1,4 +1,5 @@
 import { MediaQueries } from "@/styles/variables";
+import Image from "next/image";
 import { useEffect } from "react";
 import styled from "styled-components";
 
@@ -30,7 +31,14 @@ const ExpandedChartModal = ({
   return (
     <ModalOverlay isOpen={isOpen}>
       <ModalContainer>
-        <CloseButton onClick={onClose}>Close</CloseButton>
+        <Image
+          src="/landing/close-icon.svg"
+          alt="close"
+          width={30}
+          height={30}
+          className="close-icon"
+          onClick={onClose}
+        />
         {children}
       </ModalContainer>
     </ModalOverlay>
@@ -60,6 +68,13 @@ const ModalContainer = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
 
+  .close-icon {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    cursor: pointer;
+  }
+
   @media ${MediaQueries.MD} {
     min-width: 700px;
   }
@@ -71,13 +86,6 @@ const ModalContainer = styled.div`
   @media ${MediaQueries.XL} {
     min-width: 1020px;
   }
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 40px;
-  left: 6px;
-  cursor: pointer;
 `;
 
 export default ExpandedChartModal;
