@@ -2,10 +2,10 @@ import { ApolloServer } from "apollo-server-micro";
 import Cors from "micro-cors";
 
 import connectDb from "../../db/config";
-import resolvers from "../../db/resolvers/index";
 // import { ApolloServer } from "@apollo/server";
 
-import typeDefs from "../../db/schema";
+import typeDefs from "../../db/graphql_schema/schema";
+import resolvers from "../../db/resolvers/index";
 
 // import { createContext } from "graphql/context";
 

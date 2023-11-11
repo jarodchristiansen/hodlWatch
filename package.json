@@ -26,6 +26,7 @@
     "@apollo/client": "^3.7.3",
     "@apollo/server": "^4.3.0",
     "@fortawesome/fontawesome-free": "^6.4.0",
+    "@graphql-tools/merge": "^9.0.0",
     "@hotjar/browser": "^1.0.9",
     "@next-auth/mongodb-adapter": "^1.1.1",
     "@types/styled-components": "^5.1.26",
