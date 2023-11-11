@@ -62,7 +62,7 @@ const PairBlockContainer = styled.div`
   min-width: 8rem;
   border-radius: 10px;
   background-color: ${Colors.lightGray};
-  border: 2px solid ${Colors.modern.accentBlue};
+  border: 2px solid ${Colors.accentBlue};
 
   .block-header {
     font-weight: bold;

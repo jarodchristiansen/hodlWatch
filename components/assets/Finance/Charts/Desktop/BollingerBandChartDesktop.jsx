@@ -14,6 +14,7 @@ import {
   YAxis,
 } from "recharts";
 
+import { ChartDimensions } from "@/styles/variables";
 import ChartContainer from "./ChartContainer";
 
 const BollingerBandChart = ({ data }) => {
@@ -71,7 +72,7 @@ const BollingerBandChart = ({ data }) => {
         />
       </div>
       {emaData && (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={emaData}>
             <CartesianGrid strokeDasharray="3 3" />
 

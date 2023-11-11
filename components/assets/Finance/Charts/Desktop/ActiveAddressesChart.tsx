@@ -11,6 +11,7 @@ import {
   YAxis,
 } from "recharts";
 
+import { ChartDimensions } from "@/styles/variables";
 import ChartContainer from "./ChartContainer";
 
 /**
@@ -48,7 +49,7 @@ const ActiveAddressesChart = ({ data }) => {
       </div>
 
       {chartData && (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <YAxis dataKey="active_addresses" yAxisId="left-axis" width={0} />

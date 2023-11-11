@@ -212,7 +212,7 @@ const CheckMarkContainer = styled.div`
     padding: 0.5rem;
 
     :checked {
-      color: ${Colors.elegant.accentPurple};
+      color: ${Colors.accentPurple};
     }
   }
 `;

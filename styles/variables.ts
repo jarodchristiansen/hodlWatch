@@ -4,25 +4,12 @@ export const Colors = {
   darkGray: "#a9a9a9",
   richBlack: "#171523",
   midnight: "#080411",
-
-  modern: {
-    white: "#FFFFFC",
-    black: "#000000",
-    secondaryGray: "#4A4A4A",
-    accentBlue: "#0088FF",
-  },
-  fresh: {
-    white: "#FFFFFC",
-    secondaryAqua: "#83D0C9",
-    black: "#000000",
-    accentBlue: "#1F4F59",
-  },
-  elegant: {
-    white: "#FFFFFC",
-    black: "#000000",
-    secondaryGray: "#B7B7B7",
-    accentPurple: "#6B4CFF",
-  },
+  accentBlue: "#0088FF",
+  secondaryGray: "#4A4A4A",
+  secondaryAqua: "#83D0C9",
+  accentPurple: "#6B4CFF",
+  white: "#FFFFFC",
+  black: "#000000",
 };
 
 export const Padding = {
@@ -83,4 +70,9 @@ export const MediaQueries = {
   MD: "(min-width: 768px)",
   LG: "(min-width: 992px)",
   XL: "(min-width: 1200px)",
+};
+
+export const ChartDimensions = {
+  height: 500,
+  width: "100%",
 };

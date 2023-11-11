@@ -94,10 +94,9 @@ const SidebarContainer = styled.div<SidebarProps>`
   top: 0;
   background-color: ${Colors.midnight};
   transition: width 0.3s ease;
-  /* z-index: 100; */
 
   .selected {
-    background-color: ${Colors.fresh.accentBlue};
+    background-color: ${Colors.accentBlue};
   }
 
   @media ${MediaQueries.MD} {
@@ -123,7 +122,7 @@ const ToggleIcon = styled.div`
     height: 60px;
     cursor: pointer;
     font-size: 20px;
-    background-color: ${Colors.elegant.white};
+    background-color: ${Colors.white};
     margin: 18px auto;
   }
 `;
@@ -143,14 +142,14 @@ const SidebarContent = styled.div`
 const MenuItem = styled.div`
   padding: 24px 8px;
   cursor: pointer;
-  color: ${Colors.elegant.white};
+  color: ${Colors.white};
 
   img {
     padding: 4px;
   }
 
   &:hover {
-    background-color: ${Colors.fresh.accentBlue};
+    background-color: ${Colors.accentBlue};
   }
 `;
 

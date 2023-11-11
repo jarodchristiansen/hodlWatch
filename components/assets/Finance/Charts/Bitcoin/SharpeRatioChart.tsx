@@ -13,6 +13,7 @@ import {
 } from "recharts";
 
 // import FinanceChartModal from "../FinanceChartModal";
+import { ChartDimensions } from "@/styles/variables";
 import ChartContainer from "../Desktop/ChartContainer";
 import FinanceChartModal from "../FinanceChartModal";
 
@@ -130,7 +131,7 @@ const SharpeRatioChart = ({ data }) => {
       </div>
 
       {chartData && (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <YAxis

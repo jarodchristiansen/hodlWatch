@@ -1,7 +1,7 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 // import FinanceChartModal from "./FinanceChartModal";
 import { currencyFormat } from "@/helpers/formatters/currency";
-import { Colors } from "@/styles/variables";
+import { ChartDimensions, Colors } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -60,7 +60,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
       </div>
 
       {chartData && (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <YAxis dataKey="volumeTo" yAxisId="left-axis" width={0} />
@@ -77,7 +77,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
               <linearGradient id="toExchange" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="70%"
-                  stopColor={Colors.elegant.accentPurple}
+                  stopColor={Colors.accentPurple}
                   stopOpacity={0.4}
                 />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
@@ -87,7 +87,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
               type="monotone"
               dataKey="volumeTo"
               yAxisId="left-axis"
-              stroke={Colors.elegant.accentPurple}
+              stroke={Colors.accentPurple}
               dot={false}
               strokeWidth={2}
               name="Volume To Exchanges"

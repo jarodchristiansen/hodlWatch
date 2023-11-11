@@ -17,14 +17,14 @@ const ChipWrapper = styled.div`
   gap: 0.5rem;
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
-  background-color: ${Colors.elegant.accentPurple};
+  background-color: ${Colors.accentPurple};
   border: 1px solid black;
   color: white;
   font-weight: bold;
 
   button {
     border: none;
-    background-color: ${Colors.elegant.accentPurple};
+    background-color: ${Colors.accentPurple};
     color: white;
     font-weight: bold;
   }

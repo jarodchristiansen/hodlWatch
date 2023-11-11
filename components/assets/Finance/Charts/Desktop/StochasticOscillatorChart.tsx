@@ -1,4 +1,5 @@
 // import FinanceChartModal from "./FinanceChartModal";
+import { ChartDimensions } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -72,7 +73,7 @@ const StochasticOscillatorChart = ({ data }) => {
         <h5>Stochastic Oscillator</h5>
       </div>
       {stochasticData && (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={stochasticData}>
             <CartesianGrid strokeDasharray="3 3" />
 

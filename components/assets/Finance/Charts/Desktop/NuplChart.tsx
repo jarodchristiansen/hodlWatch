@@ -12,6 +12,7 @@ import {
   YAxis,
 } from "recharts";
 
+import { ChartDimensions } from "@/styles/variables";
 import ChartContainer from "./ChartContainer";
 
 const NuplChart = ({ data }) => {
@@ -68,7 +69,7 @@ const NuplChart = ({ data }) => {
         <h5>NUPL (Net Unrealized Profit and Loss)</h5>
       </div>
       {nuplData && (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={nuplData}>
             <CartesianGrid strokeDasharray="3 3" />
 

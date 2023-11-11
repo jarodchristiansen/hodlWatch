@@ -13,6 +13,7 @@ import {
   YAxis,
 } from "recharts";
 
+import { ChartDimensions } from "@/styles/variables";
 import ChartContainer from "./ChartContainer";
 
 const ADXChart = ({ data }) => {
@@ -176,7 +177,7 @@ const ADXChart = ({ data }) => {
         />
       </div>
       {emaData && (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={emaData}>
             <CartesianGrid strokeDasharray="3 3" />
 

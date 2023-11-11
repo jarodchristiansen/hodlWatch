@@ -258,8 +258,8 @@ const CardFront = styled.div`
   }
 
   button {
-    color: ${Colors.elegant.white};
-    background-color: ${Colors.elegant.accentPurple};
+    color: ${Colors.white};
+    background-color: ${Colors.accentPurple};
     border-radius: 8px;
     padding: 8px;
     font-weight: 600;
@@ -304,8 +304,8 @@ const AssetCardWrapper = styled.div`
   }
 
   button {
-    color: ${Colors.elegant.white};
-    background-color: ${Colors.elegant.accentPurple};
+    color: ${Colors.white};
+    background-color: ${Colors.accentPurple};
     border-radius: 8px;
     padding: 8px;
     font-weight: 600;

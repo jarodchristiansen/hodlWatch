@@ -87,14 +87,14 @@ const PairsWholeContainer = styled.div`
   gap: 12px;
 
   .top-pairs-header {
-    color: ${Colors.elegant.white};
+    color: ${Colors.white};
   }
 
   button {
     width: 120px;
     margin: auto;
     border-radius: 10px;
-    background-color: ${Colors.elegant.accentPurple};
+    background-color: ${Colors.accentPurple};
     color: white;
     padding: 8px 12px;
     font-weight: bold;

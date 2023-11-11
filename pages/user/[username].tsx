@@ -336,7 +336,7 @@ const CentralWrapper = styled.div`
   .back-button {
     align-self: flex-start;
     padding: 0 1rem;
-    color: ${Colors.elegant.accentPurple};
+    color: ${Colors.accentPurple};
     font-weight: bold;
     font-size: 18px;
   }
