@@ -168,7 +168,7 @@
 //     padding-inline-start: 12px;
 //     padding-inline-end: 12px;
 //     padding-top: 12px;
-//     background-color: ${Colors.elegant.white};
+//     background-color: ${Colors.white};
 //     border: 2px solid ${Colors.lightGray};
 
 //     li {
@@ -350,7 +350,7 @@ const GridContainer = styled.div`
     box-shadow: 0px 2px 12px ${Colors.darkGray};
     position: relative;
     text-align: center;
-    border: 2px solid ${Colors.modern.accentBlue};
+    border: 2px solid ${Colors.accentBlue};
 
     h4 {
       font-weight: ${FontWeight.bold};

@@ -267,7 +267,7 @@ const AssetDetailsRow = styled.div`
   border-radius: 12px;
   margin: auto;
   text-align: center;
-  border: 2px solid ${Colors.modern.accentBlue};
+  border: 2px solid ${Colors.accentBlue};
 
   @media ${MediaQueries.MD} {
     display: flex;
@@ -291,7 +291,7 @@ const AssetDetailsRow = styled.div`
 
     div {
       padding: 12px;
-      border-bottom: 1px solid ${Colors.modern.accentBlue};
+      border-bottom: 1px solid ${Colors.accentBlue};
 
       @media ${MediaQueries.MD} {
          border-bottom: none;

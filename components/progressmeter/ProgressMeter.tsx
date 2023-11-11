@@ -75,7 +75,7 @@ const StepMarker = styled.div`
 
 const StepTitle = styled.h4`
   margin: 0;
-  color: ${Colors.elegant.white};
+  color: ${Colors.white};
 `;
 
 const ProgressMeter = () => {

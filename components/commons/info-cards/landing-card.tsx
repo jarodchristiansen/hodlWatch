@@ -135,7 +135,7 @@ const InfoCardContainer = styled.div<InfoCardContainerProps>`
 
   .info-card-header {
     text-align: center;
-    color: ${Colors.elegant.white};
+    color: ${Colors.white};
 
     .heading-text {
       font-size: 48px;
@@ -149,8 +149,7 @@ const InfoCardContainer = styled.div<InfoCardContainerProps>`
 
     span {
       font-size: 20px;
-      color: ${(props) =>
-        props.renderSignIn ? Colors.elegant.white : Colors.elegant.white};
+      color: ${(props) => (props.renderSignIn ? Colors.white : Colors.white)};
       font-style: italic;
       font-style: ${(props) => props.renderSignIn && "normal"};
     }
@@ -172,7 +171,7 @@ const CTAButton = styled.button`
   padding: 12px 24px;
   font-size: 16px;
   font-weight: bold;
-  background-color: ${Colors.elegant.accentPurple};
+  background-color: ${Colors.accentPurple};
   color: #fff;
   border: 2px solid black;
   border-radius: 4px;

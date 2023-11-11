@@ -18,7 +18,7 @@ const Title = styled.h2`
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 16px;
-  color: ${Colors.elegant.white};
+  color: ${Colors.white};
 `;
 
 const Description = styled.p`
@@ -30,7 +30,7 @@ const CTAButton = styled.button`
   padding: 12px 24px;
   font-size: 16px;
   font-weight: bold;
-  background-color: ${Colors.elegant.accentPurple};
+  background-color: ${Colors.accentPurple};
   color: #fff;
   border: none;
   border-radius: 4px;

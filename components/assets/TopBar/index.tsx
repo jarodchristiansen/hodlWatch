@@ -71,7 +71,7 @@ const TopBarContainer = styled.div<TopBarProps>`
   z-index: 100;
 
   .selected {
-    background-color: ${Colors.fresh.accentBlue};
+    background-color: ${Colors.accentBlue};
   }
 
   @media ${MediaQueries.MD} {
@@ -99,14 +99,14 @@ const TopContent = styled.div`
 const MenuItem = styled.div`
   padding: 24px 8px;
   cursor: pointer;
-  color: ${Colors.elegant.white};
+  color: ${Colors.white};
 
   img {
     padding: 4px;
   }
 
   &:hover {
-    background-color: ${Colors.fresh.accentBlue};
+    background-color: ${Colors.accentBlue};
   }
 
   @media ${MediaQueries.MD} {

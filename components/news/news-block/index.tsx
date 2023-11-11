@@ -117,7 +117,7 @@ const NewsItem = styled.div`
 
     .top-text-row {
       span {
-        color: ${Colors.elegant.accentPurple};
+        color: ${Colors.accentPurple};
       }
 
       @media ${MediaQueries.MD} {

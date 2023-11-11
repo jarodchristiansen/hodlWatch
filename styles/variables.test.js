@@ -15,20 +15,14 @@ describe("Styles", () => {
     expect(Colors.lightGray).toEqual("#f4f4f4");
     expect(Colors.darkGray).toEqual("#a9a9a9");
 
-    expect(Colors.modern.white).toEqual("#FFFFFC");
-    expect(Colors.modern.black).toEqual("#000000");
-    expect(Colors.modern.secondaryGray).toEqual("#4A4A4A");
-    expect(Colors.modern.accentBlue).toEqual("#0088FF");
+    expect(Colors.white).toEqual("#FFFFFC");
+    expect(Colors.black).toEqual("#000000");
+    expect(Colors.secondaryGray).toEqual("#4A4A4A");
+    expect(Colors.accentBlue).toEqual("#0088FF");
 
-    expect(Colors.fresh.white).toEqual("#FFFFFC");
-    expect(Colors.fresh.secondaryAqua).toEqual("#83D0C9");
-    expect(Colors.fresh.black).toEqual("#000000");
-    expect(Colors.fresh.accentBlue).toEqual("#1F4F59");
+    expect(Colors.secondaryAqua).toEqual("#83D0C9");
 
-    expect(Colors.elegant.white).toEqual("#FFFFFC");
-    expect(Colors.elegant.black).toEqual("#000000");
-    expect(Colors.elegant.secondaryGray).toEqual("#B7B7B7");
-    expect(Colors.elegant.accentPurple).toEqual("#6B4CFF");
+    expect(Colors.accentPurple).toEqual("#6B4CFF");
   });
 
   it("should have the correct padding values", () => {

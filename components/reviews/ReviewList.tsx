@@ -18,7 +18,7 @@ const ReviewListContainer = styled.div`
 
 const ReviewCard = styled.div`
   padding: 16px;
-  background-color: ${Colors.elegant.white};
+  background-color: ${Colors.white};
   border-radius: 8px;
   scroll-snap-align: start;
   box-sizing: border-box;
@@ -35,13 +35,13 @@ const Author = styled.p`
   font-size: 14px;
   margin-bottom: 4px;
   font-weight: 600;
-  color: ${Colors.elegant.accentPurple};
+  color: ${Colors.accentPurple};
 `;
 
 const Occupation = styled.p`
   font-size: 14px;
   font-weight: bold;
-  color: ${Colors.elegant.secondaryGray};
+  color: ${Colors.secondaryGray};
 `;
 
 const ReviewList: React.FC = () => {

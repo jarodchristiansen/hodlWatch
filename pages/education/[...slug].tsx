@@ -234,7 +234,7 @@ const BackButton = styled.div`
   span {
     font-weight: bold;
     font-size: 1rem;
-    color: ${Colors.elegant.accentPurple};
+    color: ${Colors.accentPurple};
   }
 `;
 

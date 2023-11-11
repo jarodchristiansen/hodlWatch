@@ -101,7 +101,7 @@ function Header() {
       className="navbar-main"
       style={{
         backgroundColor: Colors.midnight,
-        color: Colors.elegant.white,
+        color: Colors.white,
         position: "fixed",
         width: "100vw",
         zIndex: 1000,
@@ -155,7 +155,7 @@ const RouteRow = styled.div`
 `;
 
 const SignOutSpan = styled.span`
-  color: ${Colors.elegant.white};
+  color: ${Colors.white};
 
   @media ${MediaQueries.MD} {
     white-space: nowrap;
@@ -167,14 +167,14 @@ const TextContainer = styled.div`
   flex-direction: column;
 
   a {
-    color: ${Colors.elegant.white};
+    color: ${Colors.white};
     font-weight: bold;
     text-decoration: none;
   }
 
   .active-underline-span {
     height: 2px;
-    color: ${Colors.elegant.accentPurple};
+    color: ${Colors.accentPurple};
   }
 `;
 

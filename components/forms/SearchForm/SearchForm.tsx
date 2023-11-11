@@ -1,5 +1,5 @@
 import { BorderRadius, Colors, FontWeight } from "@/styles/variables";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 interface SearchFormProps {
@@ -52,8 +52,8 @@ const SearchForm = ({
 };
 
 const SubmitButton = styled.button`
-  background-color: ${Colors.elegant.accentPurple};
-  color: ${Colors.elegant.white};
+  background-color: ${Colors.accentPurple};
+  color: ${Colors.white};
   font-weight: ${FontWeight.bold};
   border-radius: ${BorderRadius.small};
   border: 1px solid black;
