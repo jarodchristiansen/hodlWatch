@@ -1,4 +1,5 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
+import { ChartDimensions } from "@/styles/variables";
 // import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
 import {
@@ -12,7 +13,6 @@ import {
   YAxis,
 } from "recharts";
 
-import { ChartDimensions } from "@/styles/variables";
 import ChartContainer from "./ChartContainer";
 
 const MACDChart = ({ data }) => {
@@ -200,7 +200,7 @@ const MACDChart = ({ data }) => {
             <Line
               type="monotone"
               dataKey="histogram"
-              stroke="black"
+              stroke="white"
               dot={false}
               strokeWidth={2}
               name="Histogram"

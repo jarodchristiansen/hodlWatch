@@ -94,7 +94,7 @@ const PairsWholeContainer = styled.div`
     width: 120px;
     margin: auto;
     border-radius: 10px;
-    background-color: ${Colors.accentPurple};
+    background-color: ${Colors.primary};
     color: white;
     padding: 8px 12px;
     font-weight: bold;

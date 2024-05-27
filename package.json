@@ -29,6 +29,7 @@
     "@graphql-tools/merge": "^9.0.0",
     "@hotjar/browser": "^1.0.9",
     "@next-auth/mongodb-adapter": "^1.1.1",
+    "@react-three/fiber": "^8.16.3",
     "@types/styled-components": "^5.1.26",
     "apollo-server": "^3.11.1",
     "apollo-server-micro": "^3.11.1",
@@ -54,12 +55,14 @@
     "react-horizontal-scrolling-menu": "^3.2.3",
     "react-icons": "^4.7.1",
     "react-markdown": "^8.0.4",
+    "react-ts-tradingview-widgets": "^1.2.4",
     "recharts": "^2.2.0",
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "three": "^0.164.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^4.0.1",

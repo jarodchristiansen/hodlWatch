@@ -1,6 +1,6 @@
-import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
+import TimeSwitcher from "@/components/commons/switchers/TimeSwitcher";
 import { currencyFormat } from "@/helpers/formatters/currency";
-import { ChartDimensions, Colors, FontWeight } from "@/styles/variables";
+import { ChartDimensions, Colors } from "@/styles/variables";
 import Link from "next/link";
 // import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
@@ -26,13 +26,16 @@ const CustomizedDot = (props) => {
   let upperWeight;
   let lowerWeight;
 
-  if (close > 10000) {
-    upperWeight = 1.0005;
-    lowerWeight = 0.9995;
-  } else {
-    upperWeight = 1.003;
-    lowerWeight = 0.997;
-  }
+  // if (close > 10000) {
+  //   upperWeight = 1.0005;
+  //   lowerWeight = 0.9995;
+  // } else {
+  //   upperWeight = 1.003;
+  //   lowerWeight = 0.997;
+  // }
+
+  upperWeight = 1.003;
+  lowerWeight = 0.997;
 
   let upperBound = value * upperWeight;
   let lowerBound = value * lowerWeight;
@@ -138,6 +141,9 @@ interface CloseData {
 const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
   const [fibonacciData, setFibonacciData] = useState<any>();
   const [showLatest14Days, setShowLatest14Days] = useState(false);
+
+  const [showNDays, setShowNDays] = useState(365);
+
   // const [originalData, setOriginalData] = useState([]);
 
   const handleCheckboxChange = () => {
@@ -146,11 +152,13 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
 
   useEffect(() => {
     processFibonacciData(data);
-  }, [showLatest14Days]);
+  }, [showLatest14Days, showNDays]);
 
   const processFibonacciData = (data) => {
     if (showLatest14Days) {
       data = data.slice(-30);
+    } else {
+      data = data.slice(-showNDays);
     }
 
     let closeData = [];
@@ -246,16 +254,18 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
 
         <FinanceChartModal text={modalText} />
 
-        <ToggleSwitch
-          label={"30 days"}
-          label2={"1 year"}
-          toggleState={showLatest14Days}
-          setToggleState={handleCheckboxChange}
-        />
+        <div className="time-container">
+          <TimeSwitcher showNDays={showNDays} onChange={setShowNDays} />
+        </div>
       </div>
       {fibonacciData && (
         <ResponsiveContainer width="100%" height={ChartDimensions.height}>
-          <ComposedChart data={fibonacciData}>
+          <ComposedChart
+            data={fibonacciData}
+            {...{
+              overflow: "visible",
+            }}
+          >
             <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
 
             <YAxis
@@ -266,29 +276,25 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
               width={0}
               // formatter={(value) => currencyFormat(value)}
             />
-            <XAxis
-              dataKey="time"
-              interval={"preserveStartEnd"}
-              tick={{ fontWeight: FontWeight.bold }}
-            />
+            <XAxis dataKey="time" angle={-45} />
 
             <Tooltip formatter={(value) => currencyFormat(value)} />
             {/* <Legend /> */}
 
-            <Line
+            {/* <Line
               type="monotone"
               dataKey="min"
               stroke="#b30000"
               dot={false}
               // dot={{ stroke: "#b30000", strokeWidth: 2 }}
               strokeWidth={2}
-            />
+            /> */}
 
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="70%"
-                  stopColor={Colors.accentPurple}
+                  stopColor={Colors.modern.purplePrimary}
                   stopOpacity={0.2}
                 />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
@@ -298,7 +304,7 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
             <Area
               type="monotone"
               dataKey="close"
-              stroke="#806cfe"
+              stroke={Colors.modern.purplePrimary}
               strokeWidth={3}
               fillOpacity={1}
               fill="url(#colorUv)"
@@ -307,14 +313,14 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
             <Line
               type="monotone"
               dataKey="fib1"
-              stroke="black"
+              stroke={Colors.accent}
               dot={<CustomizedDot is14Days={showLatest14Days} />}
               name={"Profit 3/Topping"}
             />
             <Line
               type="monotone"
               dataKey="fib2"
-              stroke="blue"
+              stroke="red"
               dot={<CustomizedDot is14Days={showLatest14Days} />}
               name={"Take Profit 2"}
             />

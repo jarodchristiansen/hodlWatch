@@ -92,11 +92,11 @@ const SidebarContainer = styled.div<SidebarProps>`
   width: 100%;
   position: relative;
   top: 0;
-  background-color: ${Colors.midnight};
+  background-color: ${Colors.black};
   transition: width 0.3s ease;
 
   .selected {
-    background-color: ${Colors.accentBlue};
+    background-color: ${Colors.secondary};
   }
 
   @media ${MediaQueries.MD} {
@@ -105,7 +105,7 @@ const SidebarContainer = styled.div<SidebarProps>`
     position: sticky;
     top: 0;
     left: 0;
-    background-color: ${Colors.midnight};
+    background-color: ${Colors.black};
     transition: width 0.3s ease;
     z-index: 100;
   }
@@ -149,7 +149,7 @@ const MenuItem = styled.div`
   }
 
   &:hover {
-    background-color: ${Colors.accentBlue};
+    background-color: ${Colors.primary};
   }
 `;
 

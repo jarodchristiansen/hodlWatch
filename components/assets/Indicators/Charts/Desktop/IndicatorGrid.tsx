@@ -1,14 +1,13 @@
-import { Colors, MediaQueries } from "@/styles/variables";
-import styled from "styled-components";
-
-import { FormatUnixTime } from "@/helpers/formatters/time";
-import { useEffect, useState } from "react";
 // @ts-ignore
 
 import ActiveAddressesChart from "@/components/assets/Finance/Charts/Desktop/ActiveAddressesChart";
 import AverageTransactionValueChart from "@/components/assets/Finance/Charts/Desktop/AverageTransactionValueChart";
 import HashRateDifficultyChart from "@/components/assets/Finance/Charts/Desktop/HashRateDifficultyChart";
 import TransactionSizeChart from "@/components/assets/Finance/Charts/Desktop/TransactionSizeChart";
+import { FormatUnixTime } from "@/helpers/formatters/time";
+import { Colors, MediaQueries } from "@/styles/variables";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 interface IndicatorAccordion {
   timeQuery: number;
@@ -149,8 +148,8 @@ const GridContainer = styled.div`
   padding: 24px 0;
 
   @media ${MediaQueries.MD} {
-    padding: 24px;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    padding: 24px 0;
+    grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
   }
 `;
 
@@ -161,8 +160,16 @@ const ChartCard = styled.div`
 
   border: 1px solid black;
   border-radius: 10px;
-  padding: 1rem 1rem;
-  background-color: ${Colors.lightGray};
+  /* padding: 1rem; */
+  background-color: ${Colors.black};
+
+  .label-row {
+    color: white;
+    padding: 24px;
+    background-color: ${Colors.primary};
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
 `;
 
 export default IndicatorGrid;

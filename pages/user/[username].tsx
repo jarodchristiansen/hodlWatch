@@ -336,7 +336,7 @@ const CentralWrapper = styled.div`
   .back-button {
     align-self: flex-start;
     padding: 0 1rem;
-    color: ${Colors.accentPurple};
+    color: ${Colors.accent};
     font-weight: bold;
     font-size: 18px;
   }
@@ -362,7 +362,7 @@ const UserDetailsCard = styled.div`
   width: 100%;
   border: 2px solid black;
   border-radius: 14px;
-  background-color: ${Colors.lightGray};
+  background-color: ${Colors.white};
 
   .detail-header {
     display: flex;
@@ -404,7 +404,7 @@ const UserFavoritesList = styled.div`
   flex-direction: column;
   max-height: 40rem;
   overflow-y: auto;
-  background-color: ${Colors.lightGray};
+  background-color: ${Colors.white};
 
   ::-webkit-scrollbar {
     display: none;

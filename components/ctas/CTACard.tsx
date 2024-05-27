@@ -23,14 +23,14 @@ const Title = styled.h2`
 
 const Description = styled.p`
   font-size: 16px;
-  color: ${Colors.lightGray};
+  color: ${Colors.white};
 `;
 
 const CTAButton = styled.button`
   padding: 12px 24px;
   font-size: 16px;
   font-weight: bold;
-  background-color: ${Colors.accentPurple};
+  background-color: ${Colors.primary};
   color: #fff;
   border: none;
   border-radius: 4px;

@@ -43,7 +43,7 @@ const Timeline = styled.div`
   padding: 0 24px 0 8px;
 
   p {
-    color: ${Colors.lightGray};
+    color: ${Colors.white};
     font-weight: ${FontWeight.light};
   }
 

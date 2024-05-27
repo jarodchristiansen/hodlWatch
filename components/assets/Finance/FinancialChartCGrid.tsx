@@ -1,8 +1,8 @@
+import { processFinancialHistory } from "@/helpers/financial";
 import { Colors, MediaQueries } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { processFinancialHistory } from "@/helpers/financial";
 import SharpeRatioChart from "./Charts/Bitcoin/SharpeRatioChart";
 import ADXChart from "./Charts/Desktop/ADXChart";
 import ATRChart from "./Charts/Desktop/ATRChart";
@@ -148,13 +148,13 @@ const GridContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   /* grid-template-rows: 1fr 1fr 1fr; */
   grid-template-rows: auto;
-  grid-gap: 24px;
+  grid-gap: 48px;
   width: 100%;
   padding: 24px 0;
 
   @media ${MediaQueries.MD} {
     padding: 24px 0;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
   }
 `;
 
@@ -165,8 +165,16 @@ const ChartCard = styled.div`
 
   border: 1px solid black;
   border-radius: 10px;
-  padding: 1rem;
-  background-color: ${Colors.lightGray};
+  /* padding: 1rem; */
+  background-color: ${Colors.black};
+
+  .label-row {
+    color: white;
+    padding: 24px;
+    background-color: ${Colors.primary};
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
 `;
 
 export default FinancialChartGrid;

@@ -3,6 +3,7 @@ import { GET_ASSET_NEWS } from "@/helpers/queries/news-feed";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
+
 import LoadingSpinner from "../commons/animations/LoadingSpinner";
 import NewsBlock from "../news/news-block";
 

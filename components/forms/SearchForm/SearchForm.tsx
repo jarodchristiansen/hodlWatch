@@ -52,7 +52,7 @@ const SearchForm = ({
 };
 
 const SubmitButton = styled.button`
-  background-color: ${Colors.accentPurple};
+  background-color: ${Colors.primary};
   color: ${Colors.white};
   font-weight: ${FontWeight.bold};
   border-radius: ${BorderRadius.small};
@@ -64,8 +64,6 @@ const StyledInput = styled.input`
   font-weight: ${FontWeight.bold};
   border-radius: ${BorderRadius.small};
   border: 1px solid gray;
-  /* padding: 0.5rem 1rem; */
-  /* box-shadow: 2px 4px 6px gray; */
 `;
 
 export default SearchForm;

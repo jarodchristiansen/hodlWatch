@@ -93,7 +93,7 @@ const InfoColumnsContainer = styled.div`
 
 const FooterContainer = styled.div`
   width: 100%;
-  background: ${Colors.midnight};
+  background: ${Colors.black};
 
   color: white;
   padding: 2rem 2rem;
