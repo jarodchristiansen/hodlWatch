@@ -60,7 +60,7 @@ const FavoriteCountCircle = styled.div`
   bottom: 0.5rem;
   right: 0.2rem;
   border-radius: 50%;
-  color: ${Colors.accentPurple};
+  color: ${Colors.accent};
   color: white;
   font-weight: 600;
   width: 1.5rem;

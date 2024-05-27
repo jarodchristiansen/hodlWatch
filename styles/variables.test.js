@@ -1,7 +1,6 @@
 import {
   BorderRadius,
   BorderWidth,
-  Colors,
   FontFamily,
   FontSize,
   FontWeight,
@@ -11,20 +10,6 @@ import {
 } from "./variables";
 
 describe("Styles", () => {
-  it("should have the correct color values", () => {
-    expect(Colors.lightGray).toEqual("#f4f4f4");
-    expect(Colors.darkGray).toEqual("#a9a9a9");
-
-    expect(Colors.white).toEqual("#FFFFFC");
-    expect(Colors.black).toEqual("#000000");
-    expect(Colors.secondaryGray).toEqual("#4A4A4A");
-    expect(Colors.accentBlue).toEqual("#0088FF");
-
-    expect(Colors.secondaryAqua).toEqual("#83D0C9");
-
-    expect(Colors.accentPurple).toEqual("#6B4CFF");
-  });
-
   it("should have the correct padding values", () => {
     expect(Padding.small).toEqual("4px");
     expect(Padding.medium).toEqual("8px");

@@ -130,7 +130,7 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
         </div>
       )}
 
-      <>
+      <div className="main-container">
         <FilterBar>
           <SearchForm
             queryValue={queryValue}
@@ -149,17 +149,17 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
           </div>
         )} */}
 
+        {/* <div>
+          <CryptoHeatMap />
+        </div> */}
+
         <div>
           {!!renderedAssets && renderedAssets}
 
           <ScrollToTop scrollThreshold={90} />
 
           {!error && (
-            <div
-              className={
-                "pagination-container d-flex justify-content-center align-items-center flex-wrap mt-3"
-              }
-            >
+            <div className={"pagination-container"}>
               <PaginationComponent
                 active={offsetState}
                 setOffsetState={setOffsetState}
@@ -175,7 +175,7 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
             </div>
           )}
         </div>
-      </>
+      </div>
     </PageWrapper>
   );
 };
@@ -227,17 +227,22 @@ const CollectiveStatsHeader = styled.div`
 `;
 
 const PageWrapper = styled.div`
-  min-height: 100vh;
+  padding-top: 48px;
+
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
 `;
 
 const FilterBar = styled.div`
   display: flex;
   flex-direction: row;
-  position: sticky;
-  top: 4.5rem;
-  z-index: 100;
+  /* position: sticky; */
+  /* z-index: 100; */
   border-bottom: 1px solid gray;
-  background-color: ${Colors.richBlack};
+  background-color: ${Colors.black};
 
   text-align: right;
   white-space: nowrap;
@@ -255,7 +260,8 @@ const AssetContainerWrapper = styled.div`
   padding: 2rem 0;
 
   @media ${MediaQueries.MD} {
-    padding: 2rem 6rem;
+    /* padding: 2rem 6rem; */
+    padding: 48px 62px;
   }
 `;
 

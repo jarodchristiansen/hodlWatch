@@ -85,20 +85,21 @@ const NewsBlock = (props: NewsBlockProps) => {
 const NewsItem = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.lightGray};
+  border: 1px solid lightgray;
   align-items: center;
   text-align: center;
-  padding: 12px;
+  padding: 18px;
   border-radius: 12px;
   gap: 24px;
   position: relative;
+  color: white;
 
   h4 {
     font-size: 1.3rem;
     font-weight: ${FontWeight.bold};
 
     @media ${MediaQueries.MD} {
-      max-width: 450px;
+      max-width: 700px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -117,7 +118,7 @@ const NewsItem = styled.div`
 
     .top-text-row {
       span {
-        color: ${Colors.accentPurple};
+        color: ${Colors.accentYellow};
       }
 
       @media ${MediaQueries.MD} {
@@ -152,7 +153,7 @@ const NewsItem = styled.div`
   @media ${MediaQueries.MD} {
     flex-direction: row;
     justify-content: space-evenly;
-    max-width: 780px;
+    min-width: 100%;
     gap: 24px;
     text-align: start;
   }

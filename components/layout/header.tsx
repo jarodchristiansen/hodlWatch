@@ -7,6 +7,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import styled from "styled-components";
 
+import PotentialLogo from "../../public/landing/potentialLogo.svg";
+
 /**
  *
  * @returns Header component above pages
@@ -100,7 +102,7 @@ function Header() {
       onSelect={handleSelect}
       className="navbar-main"
       style={{
-        backgroundColor: Colors.midnight,
+        backgroundColor: Colors.secondary,
         color: Colors.white,
         position: "fixed",
         width: "100vw",
@@ -111,7 +113,7 @@ function Header() {
         <Navbar.Brand onClick={() => setSelectedRoute("")}>
           <Link href={"/"} passHref legacyBehavior>
             <Image
-              src={"/assets/cube-svgrepo-com.svg"}
+              src={PotentialLogo}
               className={"pointer-link"}
               height={50}
               width={50}
@@ -174,7 +176,7 @@ const TextContainer = styled.div`
 
   .active-underline-span {
     height: 2px;
-    color: ${Colors.accentPurple};
+    color: ${Colors.accent};
   }
 `;
 

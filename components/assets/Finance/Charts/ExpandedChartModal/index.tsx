@@ -46,7 +46,7 @@ const ExpandedChartModal = ({
 };
 
 const ModalOverlay = styled.div<ModalOverlayProps>`
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   position: fixed;
   top: 0;
   left: 0;
@@ -57,7 +57,7 @@ const ModalOverlay = styled.div<ModalOverlayProps>`
 `;
 
 const ModalContainer = styled.div`
-  background-color: white;
+  background-color: black;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -67,6 +67,7 @@ const ModalContainer = styled.div`
   max-width: 90%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
+  height: 70%;
 
   .close-icon {
     position: absolute;

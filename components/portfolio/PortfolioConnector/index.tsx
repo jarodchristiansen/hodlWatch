@@ -359,7 +359,7 @@ const FormContainer = styled.form`
   box-shadow: 2px 4px 8px lightgray;
   text-align: center;
   gap: 1rem;
-  background-color: ${Colors.lightGray};
+  background-color: ${Colors.white};
 
   div {
     display: flex;

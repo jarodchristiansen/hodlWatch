@@ -1,3 +1,4 @@
+import { Colors } from "@/styles/variables";
 import styled from "styled-components";
 
 const ToggleSwitch = ({ label, label2, toggleState, setToggleState }) => {
@@ -45,11 +46,13 @@ const ToggleContainer = styled.div`
   }
 
   .label-text {
-    margin-left: 16px;
+    margin-left: 48px;
+    color: ${Colors.white};
   }
 
   .label-text-left {
-    margin-right: 12px;
+    margin-right: 48px;
+    color: ${Colors.white};
   }
 
   .toggle {
@@ -87,7 +90,7 @@ const ToggleContainer = styled.div`
 const Underline = styled.div`
   width: 100%;
   height: 2px;
-  background-color: #4a06c9;
+  background-color: ${Colors.accent};
   opacity: 0;
   transform: translateX(100%);
 `;

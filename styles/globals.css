@@ -14,6 +14,21 @@ a {
   box-sizing: border-box;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
+}
+
+p {
+  font-family: "Lato", sans-serif;
+  /* font-family: "Source Sans Pro", sans-serif; */
+}
+
 .loading-spinner-background-image {
   background-image: url("/public/vercel.svg");
 }
@@ -75,9 +90,6 @@ a {
   font-weight: normal;
 }
 
-.tradingview-widget-copyright {
-  display: none;
-}
 .screener {
   max-width: 100%;
 }

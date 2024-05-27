@@ -1,3 +1,4 @@
+import Button from "@/components/commons/buttons/Button";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import {
   formatPercentage,
@@ -174,7 +175,7 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
 
               <h4 className="card-title">{title || name || "Card Title"}</h4>
 
-              <h6 className="card-subtitle my-2 text-muted">
+              <h6 className="card-subtitle">
                 {symbol.toUpperCase() || "Card subtitle"}
               </h6>
 
@@ -188,11 +189,23 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
                 />
               </ImageContainer>
 
-              <Link href={exploreLink} as={`/assets/${symbol}?name=${name}`}>
-                <button>Explore</button>
-              </Link>
+              <div className="button-container">
+                <Link
+                  href={exploreLink}
+                  as={`/assets/${symbol}?name=${name}`}
+                  className="explore-link"
+                >
+                  <Button primary>Explore</Button>
+                </Link>
 
-              <button onClick={() => changeCardView("B")}>Snapshot</button>
+                <Button
+                  secondary
+                  whiteOutline
+                  onClick={() => changeCardView("B")}
+                >
+                  Snapshot
+                </Button>
+              </div>
             </div>
           </AssetCardWrapper>
         )}
@@ -241,7 +254,7 @@ const ImageContainer = styled.div`
 
 const CardFront = styled.div`
   border-radius: 12px;
-  background-color: ${Colors.lightGray};
+  background-color: ${Colors.modern.accentGray};
   border: 1px solid black;
   text-align: center;
   margin: 1rem 0;
@@ -259,7 +272,7 @@ const CardFront = styled.div`
 
   button {
     color: ${Colors.white};
-    background-color: ${Colors.accentPurple};
+    background-color: ${Colors.modern.purplePrimary};
     border-radius: 8px;
     padding: 8px;
     font-weight: 600;
@@ -273,11 +286,11 @@ const CardBack = styled.div`
 
 const AssetCardWrapper = styled.div`
   border-radius: 12px;
-  background-color: ${Colors.lightGray};
   border: 1px solid black;
   text-align: center;
   margin: 1rem 0;
-  box-shadow: 2px 4px 8px gray;
+  border: 1px solid ${Colors.accentYellow};
+  color: ${Colors.white};
 
   .holder {
     position: relative;
@@ -303,12 +316,19 @@ const AssetCardWrapper = styled.div`
     }
   }
 
-  button {
-    color: ${Colors.white};
-    background-color: ${Colors.accentPurple};
-    border-radius: 8px;
-    padding: 8px;
-    font-weight: 600;
+  .card-title {
+    font-weight: ${FontWeight.bold};
+    padding: 12px;
+  }
+
+  .card-subtitle {
+    font-weight: ${FontWeight.bold};
+  }
+
+  .button-container {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
   }
 `;
 

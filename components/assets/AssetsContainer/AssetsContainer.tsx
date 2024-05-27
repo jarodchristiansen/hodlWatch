@@ -1,9 +1,9 @@
 import { GET_USER } from "@/helpers/queries/user";
+import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 
-import { MediaQueries } from "@/styles/variables";
 import AssetCard from "../AssetCard/AssetCard";
 
 /**
@@ -102,10 +102,10 @@ const GridComponent = styled.div`
   margin: 0 auto;
   display: grid;
   column-gap: 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 
   @media ${MediaQueries.MD} {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
   }
 `;
 

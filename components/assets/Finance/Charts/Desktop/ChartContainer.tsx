@@ -1,9 +1,11 @@
+import Button from "@/components/commons/buttons/Button";
 import { FontWeight } from "@/styles/variables";
 import { saveAs } from "file-saver";
 import html2canvas from "html2canvas";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import styled from "styled-components";
+
 import ExpandedChartModal from "../ExpandedChartModal";
 
 const ChartContainer = ({ children, name = "chart" }) => {
@@ -56,9 +58,11 @@ const ChartContainer = ({ children, name = "chart" }) => {
         {isExpanded && (
           <ExpandedChartModal isOpen={isExpanded} onClose={handleCloseChart}>
             <div ref={isExpanded ? chartRef : null}>
-              {/* <div className="left-button-row">
-                <button onClick={handleScreenshot}>Save</button>
-              </div> */}
+              <div className="left-button-row">
+                <Button primary whiteOutline onClick={handleScreenshot}>
+                  Save
+                </Button>
+              </div>
 
               {children}
             </div>
@@ -79,6 +83,7 @@ const ChartContainerCustom = styled.div`
     /* display: none; */
 
     .expand-icon {
+      /* display: none; */
       cursor: pointer;
     }
 
@@ -94,7 +99,7 @@ const ChartContainerCustom = styled.div`
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    align-items: center;
+    /* align-items: center; */
     gap: 12px;
     background: rgba(194, 191, 191, 0.1);
 
@@ -102,6 +107,19 @@ const ChartContainerCustom = styled.div`
       padding-top: 8px;
       font-weight: ${FontWeight.bold};
     }
+
+    .time-container {
+      align-self: start;
+    }
+  }
+
+  tspan {
+    fill: white;
+    font-weight: 700;
+  }
+
+  .recharts-wrapper {
+    overflow: visible;
   }
 `;
 

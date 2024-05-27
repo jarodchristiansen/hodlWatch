@@ -1,5 +1,6 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { currencyFormat } from "@/helpers/formatters/currency";
+import { ChartDimensions } from "@/styles/variables";
 import boll from "bollinger-bands";
 // import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
@@ -14,7 +15,6 @@ import {
   YAxis,
 } from "recharts";
 
-import { ChartDimensions } from "@/styles/variables";
 import ChartContainer from "./ChartContainer";
 
 const BollingerBandChart = ({ data }) => {
@@ -118,7 +118,7 @@ const BollingerBandChart = ({ data }) => {
             <Line
               type="monotone"
               dataKey="lowerBand"
-              stroke="black"
+              stroke="white"
               dot={false}
               name="Lower Band"
             />

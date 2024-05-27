@@ -9,29 +9,21 @@ import {
   GET_ASSET_HISTORY,
   GET_BTC_MACROS,
 } from "@/helpers/queries/assets/getAssetFinancialDetails";
-import { Colors, MediaQueries } from "@/styles/variables";
+import { Colors, FontWeight, MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
-/**
- *
- * @returns AssetDetailsPage that includes the financial/social/details for digital asset
- */
 const AssetDetailsPage = ({ session }) => {
   const [timeQuery, setTimeQuery] = useState(365);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [pageView, setPageView] = useState("dashboard");
 
   const router = useRouter();
+  const { asPath } = router;
 
-  let id = "";
-
-  if (router?.query?.id) {
-    id = router.query.id as string;
-  }
-
+  let id = router?.query?.id || "";
   let symbol = router.query?.symbol;
   let name = router.query?.name;
 
@@ -67,84 +59,67 @@ const AssetDetailsPage = ({ session }) => {
         },
       });
     }
-    // getMarketMetrics({
-    //   variables: {
-    //     symbol: id || "BTC",
-    //     time: timeQuery,
-    //   },
-    // });
   }, [timeQuery, id]);
 
-  // useEffect(() => {
-  //   if (isBtc) {
-  //     // fetch btcMacrosQuery
-  //     getBTCMacros({
-  //       variables: {
-  //         symbol: id,
-  //       },
-  //     });
-  //   }
-  // }, [isBtc]);
-
   const assetDetails = useMemo(() => {
-    if (!GeckoDetails?.getGeckoAssetDetails) return [];
+    if (!GeckoDetails?.getGeckoAssetDetails) return null;
 
-    let data = GeckoDetails?.getGeckoAssetDetails;
+    const data = GeckoDetails?.getGeckoAssetDetails;
 
     return (
-      <div className={"w-100"}>
-        <AssetDetailsRow>
-          <div className="top-row">
-            <div>
-              <h5>Name</h5>
-              <span>{data?.name}</span>
-            </div>
+      <>
+        <AssetDetailsTable>
+          <tbody>
+            <tr>
+              <td>Name</td>
 
-            <div>
-              <h5>Symbol</h5>
-              <span>{data?.symbol.toUpperCase()}</span>
-            </div>
+              <td>Symbol</td>
 
-            <div>
-              <h5>Geneis Date</h5>
-              <span>{data?.genesis_date}</span>
-            </div>
+              <td>Geneis Date</td>
 
-            <div>
-              <h5>Community Score</h5>
-              <span>{data?.community_score}</span>
-            </div>
-          </div>
+              <td>Community Score</td>
+            </tr>
+            <tr>
+              <td>{data?.name}</td>
+              <td>{data?.symbol.toUpperCase()}</td>
+              <td>{data?.genesis_date}</td>
 
-          <div className="mid-row">
-            <div>
-              <h5>Developer Score</h5>
-              <span>{data?.developer_score}</span>
-            </div>
+              <td>{data?.community_score}</td>
+            </tr>
+            <tr>
+              <td>Developer Score</td>
+              <td>Market Cap Rank</td>
+              <td>Liquidity Score</td>
+              <td>Community Sentiment</td>
+            </tr>
+            <tr>
+              <td>{data?.developer_score}</td>
 
-            <div>
-              <h5>Liquidity Score</h5>
-              <span>{data?.liquidity_score}</span>
-            </div>
+              <td>{data?.market_cap_rank}</td>
+              <td>{data?.liquidity_score}</td>
 
-            <div>
-              <h5>Market Cap Rank</h5>
-              <span>{data?.market_cap_rank}</span>
-            </div>
-
-            <div>
-              <h5>Community Sentiment</h5>
-              <span className="negative">
-                {data?.sentiment_votes_down_percentage + "%"}
-              </span>
-              /
-              <span className="positive">
-                {data?.sentiment_votes_up_percentage + "%"}
-              </span>
-            </div>
-          </div>
-        </AssetDetailsRow>
-      </div>
+              <td>
+                <span className="negative">
+                  {data?.sentiment_votes_down_percentage + "% Down Votes"}
+                </span>
+                {" / "}
+                <span className="positive">
+                  {data?.sentiment_votes_up_percentage + "% Up Votes"}
+                </span>
+              </td>
+            </tr>
+            {/* <tr>
+              <td colSpan={4}>
+                Categories:
+                {data?.categories?.map((category, index) => (
+                  <span key={index}>{category}</span>
+                ))}
+              </td>
+            </tr> */}
+          </tbody>
+        </AssetDetailsTable>
+        <AssetDescription>{data?.description?.en}</AssetDescription>
+      </>
     );
   }, [GeckoDetails?.getGeckoAssetDetails]);
 
@@ -156,19 +131,18 @@ const AssetDetailsPage = ({ session }) => {
         view={pageView}
         setPageView={setPageView}
       />
-
       <ScrollToTop scrollThreshold={90} />
 
+      <div>{GeckoDetails && !loading && assetDetails}</div>
+
       {loading && (
-        <div className={"container text-center"}>
+        <div className="container text-center">
           <LoadingSpinner />
         </div>
       )}
-
       {pageView === "dashboard" && data && (
         <ViewContainer>
           <h2>Indicators</h2>
-          {GeckoDetails && !loading && assetDetails}
 
           <DashboardView
             id={id}
@@ -182,47 +156,23 @@ const AssetDetailsPage = ({ session }) => {
           />
         </ViewContainer>
       )}
-
       {pageView === "reports" && data && (
         <ViewContainer>
           <h2>News & Reports</h2>
           <ReportsView id={id} />
         </ViewContainer>
       )}
-
       {pageView === "simulator" && data && (
         <ViewContainer>
           <h2>Simulator & Analysis</h2>
-
           <SimulationView id={id} />
         </ViewContainer>
       )}
-
       {pageView === "settings" && data && (
         <ViewContainer>
           <h2>Settingss</h2>
         </ViewContainer>
       )}
-
-      {/* 
-      {!loading && (
-        <div className={"container text-center"}>
-
-          {!GeckoLoading && GeckoDetails && (
-            <CollectiveStatsHodler>
-              <CollectiveStatsId
-                favoriteCount={
-                  GeckoDetails?.getGeckoAssetDetails?.favorite_count || 0
-                }
-                id={id}
-              />
-            </CollectiveStatsHodler>
-          )}
-
-        </div>
-      )}
-
-    */}
     </AssetDetailsPageContainer>
   );
 };
@@ -234,6 +184,7 @@ const ViewContainer = styled.div`
   margin: 10px auto;
   padding-top: 64px;
   text-align: center;
+  gap: 48px;
 
   h2 {
     color: white;
@@ -261,76 +212,46 @@ const ViewContainer = styled.div`
   }
 `;
 
-const AssetDetailsRow = styled.div`
-  padding: 24px;
-  background-color: ${Colors.lightGray};
+const AssetDetailsTable = styled.table`
+  width: 95%;
+  border-collapse: collapse;
+  border: 2px solid ${Colors.primary};
   border-radius: 12px;
+  color: ${Colors.white};
+  margin: auto;
+
+  th,
+  td {
+    border: 1px solid ${Colors.primary};
+    padding: 18px;
+    text-align: left;
+  }
+
+  tr:nth-child(odd) {
+    /* color: black; */
+    /* background-color: ${Colors.white}; */
+    background-color: ${Colors.secondary};
+    font-weight: ${FontWeight.bold};
+  }
+
+  .negative {
+    color: red;
+  }
+
+  .positive {
+    color: #14d114;
+  }
+`;
+
+const AssetDescription = styled.div`
+  width: 95%;
+  padding: 24px;
+  background-color: ${Colors.secondary};
+  border: 2px solid lightgray;
+  color: ${Colors.white};
+  /* font-weight: 700; */
   margin: auto;
   text-align: center;
-  border: 2px solid ${Colors.accentBlue};
-
-  @media ${MediaQueries.MD} {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 48px;
-    max-width: 95%;
-  }
-
-  button {
-    max-width: 25rem;
-    margin: auto;
-  }
-
-  .top-row, .mid-row {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 48px;
-
-
-    div {
-      padding: 12px;
-      border-bottom: 1px solid ${Colors.accentBlue};
-
-      @media ${MediaQueries.MD} {
-         border-bottom: none;
-      }
-    }
-
-    @media ${MediaQueries.MD} {
-      flex-direction: row;
-      border-bottom: none;
-    }
-  }
-
-  .mid-row {
-    padding-top: 48px;
-
-    div {
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-
-  }
-
-    .positive {
-      color: green;
-      padding: 0 0.5rem;
-    }
-
-    .negative {
-      color: red;
-      padding: 0 0.5rem;
-    }
-
-    ::-webkit-scrollbar {
-      display: none;
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-    }
-  }
 `;
 
 const AssetDetailsPageContainer = styled.div`
@@ -339,22 +260,5 @@ const AssetDetailsPageContainer = styled.div`
     flex-direction: column;
   }
 `;
-
-// export async function getServerSideProps(context) {
-//   const session = await getSession(context);
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: "/auth",
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: { session },
-//   };
-// }
 
 export default AssetDetailsPage;

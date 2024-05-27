@@ -59,10 +59,11 @@ const PairBlockContainer = styled.div`
   padding: 1rem 1rem;
   border: 2px solid gray;
   /* width: fit-content; */
-  min-width: 8rem;
-  border-radius: 10px;
-  background-color: ${Colors.lightGray};
-  border: 2px solid ${Colors.accentBlue};
+  min-width: 200px;
+  border-radius: 8px;
+  border: 1px solid ${Colors.accentYellow};
+  color: ${Colors.white};
+  gap: 12px;
 
   .block-header {
     font-weight: bold;
@@ -70,11 +71,10 @@ const PairBlockContainer = styled.div`
 
   .label {
     display: flex;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     text-align: center;
     justify-content: center;
     font-weight: bold;
-    padding-top: 0.5rem;
   }
 `;
 

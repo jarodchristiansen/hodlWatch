@@ -19,40 +19,56 @@ const AssetTopBar = ({ open, setOpen, view, setPageView }: TopBarProps) => {
       <TopContent>
         {!open && (
           <>
-            <MenuItem onClick={() => setPageView("dashboard")}>
+            <MenuItem
+              onClick={() => setPageView("dashboard")}
+              className={isDashboardView && "selected"}
+            >
               <Image
                 alt="dashboard icon"
                 src="/sidebar/charts-icon.svg"
                 height={60}
                 width={60}
               />
+              <span>Indicators</span>
             </MenuItem>
 
-            <MenuItem onClick={() => setPageView("reports")}>
+            <MenuItem
+              onClick={() => setPageView("reports")}
+              className={isReportView && "selected"}
+            >
               <Image
                 alt="reports icon"
                 src="/sidebar/news-icon.svg"
                 height={60}
                 width={60}
               />
+              <span>News</span>
             </MenuItem>
 
-            <MenuItem onClick={() => setPageView("simulator")}>
+            <MenuItem
+              onClick={() => setPageView("simulator")}
+              className={view === "simulator" && "selected"}
+            >
               <Image
                 alt="settings icon"
                 src="/sidebar/simulator-icon.svg"
                 height={60}
                 width={60}
               />
+              <span>Simulator</span>
             </MenuItem>
 
-            <MenuItem onClick={() => setPageView("settings")}>
+            <MenuItem
+              onClick={() => setPageView("settings")}
+              className={isSettingsView && "selected"}
+            >
               <Image
                 alt="settings icon"
                 src="/sidebar/settings-icon.svg"
                 height={60}
                 width={60}
               />
+              <span>Settings</span>
             </MenuItem>
           </>
         )}
@@ -62,51 +78,48 @@ const AssetTopBar = ({ open, setOpen, view, setPageView }: TopBarProps) => {
 };
 
 const TopBarContainer = styled.div<TopBarProps>`
-  height: 60px;
+  padding-top: 32px;
+  height: 200px;
   width: 100%;
-  position: sticky; /* Change to sticky */
-  top: 75px;
-  background-color: ${Colors.midnight};
-  transition: width 0.3s ease;
-  z-index: 100;
 
   .selected {
-    background-color: ${Colors.accentBlue};
+    background-color: ${Colors.primary};
   }
 
   @media ${MediaQueries.MD} {
     width: 100%;
-    background-color: ${Colors.midnight};
-    transition: width 0.3s ease;
-    z-index: 100;
   }
 `;
 
 const TopContent = styled.div`
   display: flex;
   justify-content: center;
-  background-color: ${Colors.midnight};
-  border-top: 2px solid white;
 
   @media ${MediaQueries.MD} {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 18px;
+    gap: 48px;
   }
 `;
 
 const MenuItem = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 24px 8px;
+  text-align: center;
+  gap: 16px;
+  align-items: center;
+
   cursor: pointer;
   color: ${Colors.white};
 
-  img {
-    padding: 4px;
+  span {
+    font-weight: bold;
   }
 
   &:hover {
-    background-color: ${Colors.accentBlue};
+    background-color: ${Colors.primary};
   }
 
   @media ${MediaQueries.MD} {

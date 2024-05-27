@@ -1,10 +1,11 @@
-import { motion } from "framer-motion";
 // import Lottie from "lottie-react";
 // // import animationData from "../../public/lotties/spiral-loading.json";
 // import animationData from "../../../public/lotties/spiral-loading.json";
 
 import { Colors } from "@/styles/variables";
+import { motion } from "framer-motion";
 import styled from "styled-components";
+
 import ThreeDotsWave from "./ThreeDotsWave";
 
 const LoadingSpinner = () => {
@@ -54,7 +55,7 @@ const LoadingSpinner = () => {
 };
 
 const LoadingText = styled.h3`
-  color: ${Colors.lightGray};
+  color: ${Colors.white};
 `;
 
 export default LoadingSpinner;

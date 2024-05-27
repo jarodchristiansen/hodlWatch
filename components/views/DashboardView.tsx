@@ -1,8 +1,3 @@
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
-import remarkParse from "remark-parse/lib";
-import remarkRehype from "remark-rehype/lib";
 import styled from "styled-components";
 
 import BitcoinMacrosContainer from "../assets/BitcoinMacros/BitcoinMacrosContainer";
@@ -50,7 +45,7 @@ const DashboardView = ({
         />
       )}
 
-      {!!GeckoDetails?.getGeckoAssetDetails?.description?.en && (
+      {/* {!!GeckoDetails?.getGeckoAssetDetails?.description?.en && (
         <div className="bottom-row">
           <ReactMarkdown
             // eslint-disable-next-line react/no-children-prop
@@ -60,7 +55,7 @@ const DashboardView = ({
             // key={markdownPiece + Math.random()}
           />
         </div>
-      )}
+      )} */}
 
       {!loading && isBtc && (
         <BitcoinMacrosContainer

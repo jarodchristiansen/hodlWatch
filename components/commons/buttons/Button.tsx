@@ -1,6 +1,3 @@
-import React from "react";
-import styled from "styled-components";
-
 import {
   BorderRadius,
   Colors,
@@ -9,11 +6,14 @@ import {
   Opacity,
   Padding,
 } from "@/styles/variables";
+import React from "react";
+import styled from "styled-components";
 
 interface ButtonProps {
   primary?: boolean;
   secondary?: boolean;
   disabled?: boolean;
+  whiteOutline?: boolean;
   onClick?: () => void;
   children: any;
 }
@@ -29,20 +29,22 @@ const ButtonContainer = styled.button<ButtonProps>`
   cursor: pointer;
   border-radius: ${BorderRadius.medium};
   border: none;
-  outline: none;
+  outline: ${(props) => (props.whiteOutline ? "1px solid white" : "none")};
 
   background-color: ${(props) =>
-    props.primary ? Colors.accentBlue : Colors.midnight};
-  color: ${Colors.lightGray};
+    props.primary ? Colors.primary : Colors.black};
+  color: ${Colors.white};
 
   &:hover {
     background-color: ${(props) =>
-      props.disabled ? "inherit" : Colors.richBlack};
-    color: ${Colors.lightGray};
+      props.disabled ? "inherit" : Colors.primary};
+    outline: ${(props) => (props.disabled ? "none" : "1px solid white")};
+
+    color: ${Colors.white};
   }
 
   &:focus {
-    box-shadow: 0 0 0 3px ${Colors.midnight};
+    box-shadow: 0 0 0 3px ${Colors.black};
   }
 
   &:disabled {
@@ -55,6 +57,7 @@ const Button: React.FC<ButtonProps> = ({
   primary = false,
   secondary = false,
   disabled = false,
+  whiteOutline = false,
   onClick,
   children,
 }) => {
@@ -64,6 +67,7 @@ const Button: React.FC<ButtonProps> = ({
       secondary={secondary}
       disabled={disabled}
       onClick={onClick}
+      whiteOutline={whiteOutline}
     >
       {children}
     </ButtonContainer>

@@ -77,7 +77,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
               <linearGradient id="toExchange" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="70%"
-                  stopColor={Colors.accentPurple}
+                  stopColor={Colors.accent}
                   stopOpacity={0.4}
                 />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
@@ -87,7 +87,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
               type="monotone"
               dataKey="volumeTo"
               yAxisId="left-axis"
-              stroke={Colors.accentPurple}
+              stroke={Colors.accent}
               dot={false}
               strokeWidth={2}
               name="Volume To Exchanges"
