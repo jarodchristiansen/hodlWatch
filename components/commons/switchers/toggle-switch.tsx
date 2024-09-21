@@ -62,8 +62,8 @@ const ToggleContainer = styled.div`
     width: 60px;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: -8px -4px 8px 0px #ffffff, 8px 4px 12px 0px #d1d9e6,
-      4px 4px 4px 0px #d1d9e6 inset, -4px -4px 4px 0px #ffffff inset;
+    /* box-shadow: -8px -4px 8px 0px #ffffff, 8px 4px 12px 0px #d1d9e6,
+      4px 4px 4px 0px #d1d9e6 inset, -4px -4px 4px 0px #ffffff inset; */
     border: 1px solid lightgray;
   }
 
@@ -78,7 +78,7 @@ const ToggleContainer = styled.div`
     border-radius: 15px;
     transform: translate3d(-75%, 0, 0);
     transition: transform 0.4s cubic-bezier(0.85, 0.05, 0.18, 1.35);
-    box-shadow: -8px -4px 8px 0px #ffffff, 8px 4px 12px 0px #d1d9e6;
+    /* box-shadow: -8px -4px 8px 0px #ffffff, 8px 4px 12px 0px #d1d9e6; */
     border: 1px solid lightgray;
   }
 

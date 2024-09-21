@@ -1,25 +1,15 @@
-import {
-  Colors,
-  FontFamily,
-  FontWeight,
-  MediaQueries,
-} from "@/styles/variables";
+import { Colors, MediaQueries } from "@/styles/variables";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import styled from "styled-components";
 
 import FeatureGrid from "../components/commons/feature-grid/FeatureGrid";
+import LandingPageCard from "../components/commons/info-cards/LandingPageCard";
 import HeroBanner from "../components/commons/landing/HeroBanner";
 import CTACard from "../components/ctas/CTACard";
 import ReviewList from "../components/reviews/ReviewList";
 import SEOHead from "../components/seo/SEOHead";
 
 const cardContent = [
-  // {
-  //   image: "/landing/stock-chart-card-background.svg",
-  //   title: "Welcome to Mesh",
-  //   text: "Your all-in-one crypto companion that unlocks the power of decentralized finance. Seamlessly track your portfolio, connect with a vibrant community, and thrive in the ever-evolving world of cryptocurrencies.",
-  // },
   {
     image: "/landing/avatar-icon.svg",
     title: "Stay Informed",
@@ -35,10 +25,6 @@ const cardContent = [
     title: "Thrive",
     text: "Mesh is your gateway to success in the crypto revolution. Unleash the potential of your portfolio, analyze trends, and identify opportunities to maximize your returns. With Mesh, you will be well-equipped to navigate the crypto landscape with confidence and make waves in the world of finance.",
   },
-  // {
-  //   image: "",
-  //   text: "Join Mesh today and embark on a transformative journey where simplicity meets power, and your crypto aspirations become reality.",
-  // },
 ];
 
 export default function Home({ data }) {
@@ -59,25 +45,9 @@ export default function Home({ data }) {
 
       <Row>
         <SiteDescriptionContainer>
-          {cardContent &&
-            cardContent.map((card) => (
-              <div className="card" key={card?.text}>
-                <div className="card-content">
-                  {card?.image && (
-                    <div className="card-background">
-                      <Image
-                        src={card.image}
-                        height={150}
-                        width={150}
-                        alt="feature card"
-                      />
-                    </div>
-                  )}
-                  <h4>{card?.title}</h4>
-                  <div>{card?.text}</div>
-                </div>
-              </div>
-            ))}
+          {cardContent.map((card) => (
+            <LandingPageCard key={card.title} {...card} />
+          ))}
         </SiteDescriptionContainer>
       </Row>
 
@@ -104,10 +74,6 @@ export default function Home({ data }) {
         <FeatureGrid />
       </Row>
 
-      {/* <ProofOfWorkAnimation /> */}
-
-      {/* <LandingCarousel /> */}
-
       <CTACard />
     </HomePageWrapper>
   );
@@ -124,7 +90,7 @@ const TopRow = styled.div`
   flex-direction: column;
   gap: 24px;
   align-items: center;
-  background-color: black;
+  background-color: ${Colors.black};
 
   @media ${MediaQueries.MD} {
     flex-direction: row;
@@ -135,7 +101,7 @@ const TopRow = styled.div`
 const Row = styled.div`
   display: flex;
   flex-direction: column;
-  color: black;
+  color: ${Colors.black};
   gap: 24px;
   padding: 24px;
 
@@ -154,35 +120,12 @@ const SiteDescriptionContainer = styled.div`
   text-align: center;
   grid-gap: 24px;
   padding: 24px 0;
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    padding: 32px;
-    font-family: ${FontFamily.secondary};
-    border-radius: 12px;
-    position: relative;
-    text-align: center;
-    border: 0.5px solid ${Colors.accentYellow};
-    background-color: black;
-    color: white;
-
-    h4 {
-      font-weight: ${FontWeight.bold};
-      padding: 0 0 12px 0;
-    }
-
-    .card-background {
-      padding: 24px 0;
-    }
-  }
 `;
 
 const IntroParagraph = styled.div`
   display: flex;
   flex-direction: column;
-  color: white;
+  color: ${Colors.white};
   padding: 0 24px;
   text-align: center;
   background-color: ${Colors.black};
@@ -200,17 +143,23 @@ const IntroParagraph = styled.div`
 export const getServerSideProps = async (context) => {
   let data = {};
 
-  // const response = await getNewsFeed(); // any async promise here.
+  try {
+    // const response = await getNewsFeed(); // replace with your actual data fetching logic.
+    // data = response.data;
 
-  // data = response.data;
+    if (!data) {
+      return {
+        notFound: true,
+      };
+    }
 
-  if (!data) {
+    return {
+      props: { data }, // will be passed to the page component as props
+    };
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: data, // will be passed to the page component as props
-  };
 };

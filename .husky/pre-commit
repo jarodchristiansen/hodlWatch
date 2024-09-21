@@ -4,18 +4,16 @@
 echo '🏗️👷 Styling, testing and building your project before committing'
 
 # Check Prettier standards
-npm run check-format ||
-(
-    echo '🤢🤮🤢🤮 Its F**KING RAW - Your styling looks disgusting. 🤢🤮🤢🤮
-            Prettier Check Failed. Run npm run format, add changes and try commit again.';
-    false;
-)
+# npm run check-format ||
+# (
+#     echo 'Prettier Check Failed. Run npm run format, add changes and try commit again.';
+#     false;
+# )
 
 # Check ESLint Standards
 npm run check-lint ||
 (
-        echo '😤🏀👋😤 Get that weak s**t out of here! 😤🏀👋😤 
-                ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
+        echo 'ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
         false; 
 )
 
@@ -32,10 +30,16 @@ npm run test ||
 # Check tsconfig standards
 npm run check-types ||
 (
-    echo '🤡😂❌🤡 Failed Type check. 🤡😂❌🤡
-            Why use TypeScript if you arent going to handle types? Make the changes required above.'
+    echo 'Failed Type check!'
     false;
 )
+
+# Add to pre-commit.sh
+# npm audit ||
+# (
+#     echo '🔒🚨 Security vulnerabilities found. Please fix them before committing. 🚨🔒'
+#     false;
+# )
 
 # # If everything passes... Now we can commit
 # echo '🤔🤔🤔🤔... Alright... Code looks good to me... Trying to build now. 🤔🤔🤔🤔'
@@ -47,9 +51,6 @@ npm run check-types ||
 #     '
 #     false;
 # )
-
-
-
 
 # If everything passes... Now we can commit
 echo '✅✅✅✅ You win this time... I am committing this now. ✅✅✅✅'

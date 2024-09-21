@@ -142,8 +142,6 @@ const AssetDetailsPage = ({ session }) => {
       )}
       {pageView === "dashboard" && data && (
         <ViewContainer>
-          <h2>Indicators</h2>
-
           <DashboardView
             id={id}
             MacroData={MacroData}
@@ -158,13 +156,11 @@ const AssetDetailsPage = ({ session }) => {
       )}
       {pageView === "reports" && data && (
         <ViewContainer>
-          <h2>News & Reports</h2>
           <ReportsView id={id} />
         </ViewContainer>
       )}
       {pageView === "simulator" && data && (
         <ViewContainer>
-          <h2>Simulator & Analysis</h2>
           <SimulationView id={id} />
         </ViewContainer>
       )}
@@ -213,6 +209,7 @@ const ViewContainer = styled.div`
 `;
 
 const AssetDetailsTable = styled.table`
+  display: none;
   width: 95%;
   border-collapse: collapse;
   border: 2px solid ${Colors.primary};
@@ -241,9 +238,14 @@ const AssetDetailsTable = styled.table`
   .positive {
     color: #14d114;
   }
+
+  @media ${MediaQueries.MD} {
+    display: table;
+  }
 `;
 
 const AssetDescription = styled.div`
+  display: none;
   width: 95%;
   padding: 24px;
   background-color: ${Colors.secondary};
@@ -252,6 +254,10 @@ const AssetDescription = styled.div`
   /* font-weight: 700; */
   margin: auto;
   text-align: center;
+
+  @media ${MediaQueries.MD} {
+    display: block;
+  }
 `;
 
 const AssetDetailsPageContainer = styled.div`
