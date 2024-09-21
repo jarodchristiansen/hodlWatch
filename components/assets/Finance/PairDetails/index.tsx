@@ -111,7 +111,7 @@ const PairRowContainer = styled.div`
 
   @media ${MediaQueries.MD} {
     padding: 24px;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 `;
 

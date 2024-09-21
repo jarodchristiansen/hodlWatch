@@ -9,22 +9,10 @@ const TimeSwitcher = ({ showNDays, onChange }: any) => {
   return (
     <TimeSwitcherWrapper>
       <TimeOption
-        className={showNDays === 365 && "selected"}
-        onClick={() => onChange(365)}
+        className={showNDays === 14 && "selected"}
+        onClick={() => onChange(14)}
       >
-        1 year
-      </TimeOption>
-      <TimeOption
-        className={showNDays === 180 && "selected"}
-        onClick={() => onChange(180)}
-      >
-        6 months
-      </TimeOption>
-      <TimeOption
-        className={showNDays === 90 && "selected"}
-        onClick={() => onChange(90)}
-      >
-        3 months
+        14 days
       </TimeOption>
       <TimeOption
         className={showNDays === 30 && "selected"}
@@ -33,13 +21,23 @@ const TimeSwitcher = ({ showNDays, onChange }: any) => {
         30 days
       </TimeOption>
       <TimeOption
-        className={showNDays === 14 && "selected"}
-        onClick={() => onChange(14)}
+        className={showNDays === 90 && "selected"}
+        onClick={() => onChange(90)}
       >
-        14 days
+        3 months
       </TimeOption>
-
-      {/* <Underline selected={showNDays} /> */}
+      <TimeOption
+        className={showNDays === 180 && "selected"}
+        onClick={() => onChange(180)}
+      >
+        6 months
+      </TimeOption>
+      <TimeOption
+        className={showNDays === 365 && "selected"}
+        onClick={() => onChange(365)}
+      >
+        1 year
+      </TimeOption>
     </TimeSwitcherWrapper>
   );
 };
@@ -49,8 +47,10 @@ export default TimeSwitcher;
 const TimeSwitcherWrapper = styled.div`
   position: relative;
   display: flex;
-  background-color: #f2f2f2;
-  max-width: 380px;
+  /* background-color: #f2f2f2; */
+  background-color: black;
+  color: white;
+  /* max-width: 380px; */
   border-radius: 12px;
   justify-content: space-evenly;
 `;
@@ -63,16 +63,17 @@ const TimeOption = styled.span`
   cursor: pointer;
   font-weight: bold;
   transition: color 0.3s ease;
-  color: black;
+  color: white;
   min-width: 65px;
 
   &:hover {
-    background-color: #e2e2e2;
+    background-color: #575656;
   }
 
   &.selected {
-    background-color: ${Colors.accent};
-    color: ${Colors.white};
+    color: ${Colors.black};
+    background-color: white;
+    border: 1px solid white;
   }
 `;
 

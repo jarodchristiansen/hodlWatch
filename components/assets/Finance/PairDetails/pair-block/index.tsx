@@ -61,7 +61,7 @@ const PairBlockContainer = styled.div`
   /* width: fit-content; */
   min-width: 200px;
   border-radius: 8px;
-  border: 1px solid ${Colors.accentYellow};
+  border: 1px solid "#ffffff";
   color: ${Colors.white};
   gap: 12px;
 

@@ -158,23 +158,23 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
 
           <ScrollToTop scrollThreshold={90} />
 
-          {!error && (
-            <div className={"pagination-container"}>
-              <PaginationComponent
-                active={offsetState}
-                setOffsetState={setOffsetState}
-                fetchMore={fetchMore}
-                refetch={refetch}
-              />
-            </div>
-          )}
-
           {error && (
             <div>
               <span>Error Loading Assets, please refresh the page</span>
             </div>
           )}
         </div>
+
+        {!error && (
+          <div className={"pagination-container"}>
+            <PaginationComponent
+              active={offsetState}
+              setOffsetState={setOffsetState}
+              fetchMore={fetchMore}
+              refetch={refetch}
+            />
+          </div>
+        )}
       </div>
     </PageWrapper>
   );
@@ -233,6 +233,11 @@ const PageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 64px;
+  }
+
+  .pagination-container {
+    display: flex;
+    justify-content: center;
   }
 `;
 

@@ -109,7 +109,7 @@ const ChartContainerCustom = styled.div`
     }
 
     .time-container {
-      align-self: start;
+      align-self: center;
     }
   }
 

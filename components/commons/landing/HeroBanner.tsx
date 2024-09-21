@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import ChartsIcon from "../../../public/assets/chartsIcon.svg";
-import Button from "../buttons/Button";
 
 const HeroBanner = ({}) => {
   const router = useRouter();
@@ -29,14 +28,14 @@ const HeroBanner = ({}) => {
           /> */}
         </div>
 
-        <div className="button-container">
+        {/* <div className="button-container">
           <Button secondary whiteOutline>
             Learn More
           </Button>
           <Button primary onClick={() => routeToAuth("signUp")}>
             Sign Up
           </Button>
-        </div>
+        </div> */}
       </div>
 
       <div className="main-contain">
@@ -72,7 +71,7 @@ const HeroBannerContainer = styled.div`
   color: white;
   gap: 48px;
   width: 100%;
-  padding: 24px;
+  padding: 12px 24px;
 
   .top-row {
     display: flex;
@@ -100,7 +99,7 @@ const HeroBannerContainer = styled.div`
     display: flex;
     flex-direction: column-reverse;
     text-align: center;
-    padding: 48px 12px;
+    padding: 24px 12px;
 
     .left-side {
       display: flex;
@@ -128,8 +127,7 @@ const HeroBannerContainer = styled.div`
     }
 
     .right-side {
-      padding-top: 82px;
-      padding-bottom: 24px;
+      align-self: center;
 
       img {
         width: 100%;
@@ -139,7 +137,10 @@ const HeroBannerContainer = styled.div`
         transform: scaleX(-1);
       }
 
-      align-self: center;
+      @media ${MediaQueries.MD} {
+        padding-top: 80px;
+        padding-bottom: 24px;
+      }
     }
 
     @media ${MediaQueries.MD} {

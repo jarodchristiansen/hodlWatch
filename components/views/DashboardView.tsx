@@ -3,7 +3,6 @@ import styled from "styled-components";
 import BitcoinMacrosContainer from "../assets/BitcoinMacros/BitcoinMacrosContainer";
 import FinancialChartGrid from "../assets/Finance/FinancialChartCGrid";
 import PairDetailsRow from "../assets/Finance/PairDetails";
-import IndicatorGrid from "../assets/Indicators/Charts/Desktop/IndicatorGrid";
 
 const DashboardView = ({
   timeQuery,
@@ -17,12 +16,6 @@ const DashboardView = ({
 }) => {
   return (
     <div>
-      {id && (
-        <PairRowContainer>
-          <PairDetailsRow id={id} />
-        </PairRowContainer>
-      )}
-
       <FinancialChartGrid
         financialData={
           data?.getAssetHistory?.priceData
@@ -33,7 +26,13 @@ const DashboardView = ({
         time={timeQuery}
       />
 
-      {isBtcOrEth && (
+      {id && (
+        <PairRowContainer>
+          <PairDetailsRow id={id} />
+        </PairRowContainer>
+      )}
+
+      {/* {isBtcOrEth && (
         <IndicatorGrid
           timeQuery={timeQuery}
           id={id}
@@ -43,7 +42,7 @@ const DashboardView = ({
               : []
           }
         />
-      )}
+      )} */}
 
       {/* {!!GeckoDetails?.getGeckoAssetDetails?.description?.en && (
         <div className="bottom-row">

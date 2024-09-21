@@ -1,12 +1,14 @@
 import { Colors, MediaQueries } from "@/styles/variables";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
+
 import FeatureGrid from "../components/commons/feature-grid/FeatureGrid";
 import LandingPageCard from "../components/commons/info-cards/LandingPageCard";
 import HeroBanner from "../components/commons/landing/HeroBanner";
 import CTACard from "../components/ctas/CTACard";
 import ReviewList from "../components/reviews/ReviewList";
 import SEOHead from "../components/seo/SEOHead";
+
 const cardContent = [
   {
     image: "/landing/avatar-icon.svg",

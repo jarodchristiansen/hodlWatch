@@ -102,7 +102,7 @@ function Layout(props) {
 
   return (
     <LayoutContainer isPurplePath={isPurplePath}>
-      {!isHomePath && <Header />}
+      <Header />
       <PageWrapper isHomePath={isHomePath}>{props.children}</PageWrapper>
       <Footer />
     </LayoutContainer>

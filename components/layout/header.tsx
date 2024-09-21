@@ -1,13 +1,9 @@
 import { Colors, MediaQueries } from "@/styles/variables";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import styled from "styled-components";
-
-import PotentialLogo from "../../public/landing/potentialLogo.svg";
 
 /**
  *
@@ -102,15 +98,16 @@ function Header() {
       onSelect={handleSelect}
       className="navbar-main"
       style={{
-        backgroundColor: Colors.secondary,
+        backgroundColor: "#000000",
         color: Colors.white,
         position: "fixed",
         width: "100vw",
         zIndex: 1000,
+        borderBottom: "2px solid white",
       }}
     >
       <Container>
-        <Navbar.Brand onClick={() => setSelectedRoute("")}>
+        {/* <Navbar.Brand onClick={() => setSelectedRoute("")}>
           <Link href={"/"} passHref legacyBehavior>
             <Image
               src={PotentialLogo}
@@ -120,9 +117,17 @@ function Header() {
               alt="block-logo"
             />
           </Link>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
+        </Navbar.Brand> */}
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          style={{
+            border: "2px solid white",
+          }}
+        />
+        <Navbar.Collapse
+          id="responsive-navbar-nav"
+          // style={{ borderBottom: "2px solid white", padding: "24px 0" }}
+        >
           <RouteRow>
             {routeObjects}
             {session && (
@@ -149,6 +154,10 @@ const RouteRow = styled.div`
   font-weight: 600;
   text-align: center;
   padding: 12px 0;
+
+  /* > div:not(:last-child) {
+    border-bottom: solid 1px white;
+  } */
 
   @media ${MediaQueries.MD} {
     flex-direction: row;
