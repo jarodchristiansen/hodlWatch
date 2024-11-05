@@ -2,14 +2,22 @@
 
 [![codecov](https://codecov.io/gh/jarodchristiansen/hodlWatch/branch/main/graph/badge.svg?token=GHT2GI9U4T)](https://codecov.io/gh/jarodchristiansen/hodlWatch)
 
-- Mesh is a Full-stack application built using Next.JS, TypeScript, Styled-Components, Apollo, Next-Auth, with Jest for unit testing, Cypress for e2e testing, CodeCov CI/CD intergration utilizing Github Actions. The application itself allows users to explore 12,000+ digital assets from an aggregation of indexes
 
-![alt text](https://github.com/jarodchristiansen/hodlWatch/blob/main/public/assets/assets-page.png?raw=true)
+Mesh is a Next.js application that aggregates and analyzes cryptocurrency market data, providing users with key economic indicators and market trends.
 
-- Allows users to explore financial, social, and on-chain data for each asset, with an expansive set of indicators available for registered users
+## Features
+- Live market data tracking
+- Economic indicators for major cryptocurrencies as well as macroeconomic trends
+- GraphQL API integration for real-time updates. Integrates with TradingView using Websockets
+- User-friendly dashboard with key metrics like Fibonacci Retracement, Sharpe Ratio, Sortino Ratio, Net Realized Profit-Loss etc
 
-![alt text](https://github.com/jarodchristiansen/hodlWatch/blob/main/public/assets/charts.png?raw=true)
+## Tech Stack
+- Frontend: Next.js, TypeScript, GraphQL (Apollo), MongoDB
+- Data: CoinGecko API, FRED, Apollo Server
 
-- Users can connect their exchange accounts via the built in API and analyze their portfolio, comparative analytics against the communities' data gets stronger with each user that joins the platform
+## Getting Started
+1. **Clone the repository:** `git clone [<repo_url>](https://github.com/jarodchristiansen/hodlWatch/)`
+2. **Install dependencies:** `npm install`
+3. **Set up environment variables** for API keys.
+4. **Run the app:** `npm run dev`
 
-![alt text](https://github.com/jarodchristiansen/hodlWatch/blob/main/public/assets/PieChart.PNG?raw=true)
