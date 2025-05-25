@@ -1,6 +1,7 @@
-import AssetTopBar from "@/components/assets/TopBar";
+import AssetSummaryCard from "@/components/assets/AssetSummaryCard";
 import LoadingSpinner from "@/components/commons/animations/LoadingSpinner";
 import ScrollToTop from "@/components/commons/scroll-to-top/ScrollToTop";
+import SidebarV2 from "@/components/commons/sidebar-nav/SidebarV2";
 import DashboardView from "@/components/views/DashboardView";
 import ReportsView from "@/components/views/ReportsView";
 import SimulationView from "@/components/views/SimulationView";
@@ -9,11 +10,16 @@ import {
   GET_ASSET_HISTORY,
   GET_BTC_MACROS,
 } from "@/helpers/queries/assets/getAssetFinancialDetails";
-import { Colors, FontWeight, MediaQueries } from "@/styles/variables";
+import { Colors, MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import styled from "styled-components";
+
+const SIDEBAR_WIDTH_CLOSED = 56;
+const SIDEBAR_WIDTH_OPEN = 220;
 
 const AssetDetailsPage = ({ session }) => {
   const [timeQuery, setTimeQuery] = useState(365);
@@ -59,119 +65,129 @@ const AssetDetailsPage = ({ session }) => {
         },
       });
     }
-  }, [timeQuery, id]);
+  }, [timeQuery, id, getDetails, getFinancials, name]);
 
   const assetDetails = useMemo(() => {
     if (!GeckoDetails?.getGeckoAssetDetails) return null;
 
     const data = GeckoDetails?.getGeckoAssetDetails;
 
+    if (!data?.description?.en) return null;
+
     return (
-      <>
-        <AssetDetailsTable>
-          <tbody>
-            <tr>
-              <td>Name</td>
-
-              <td>Symbol</td>
-
-              <td>Geneis Date</td>
-
-              <td>Community Score</td>
-            </tr>
-            <tr>
-              <td>{data?.name}</td>
-              <td>{data?.symbol.toUpperCase()}</td>
-              <td>{data?.genesis_date}</td>
-
-              <td>{data?.community_score}</td>
-            </tr>
-            <tr>
-              <td>Developer Score</td>
-              <td>Market Cap Rank</td>
-              <td>Liquidity Score</td>
-              <td>Community Sentiment</td>
-            </tr>
-            <tr>
-              <td>{data?.developer_score}</td>
-
-              <td>{data?.market_cap_rank}</td>
-              <td>{data?.liquidity_score}</td>
-
-              <td>
-                <span className="negative">
-                  {data?.sentiment_votes_down_percentage + "% Down Votes"}
-                </span>
-                {" / "}
-                <span className="positive">
-                  {data?.sentiment_votes_up_percentage + "% Up Votes"}
-                </span>
-              </td>
-            </tr>
-            {/* <tr>
-              <td colSpan={4}>
-                Categories:
-                {data?.categories?.map((category, index) => (
-                  <span key={index}>{category}</span>
-                ))}
-              </td>
-            </tr> */}
-          </tbody>
-        </AssetDetailsTable>
-        <AssetDescription>{data?.description?.en}</AssetDescription>
-      </>
+      <StyledMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {data.description.en}
+        </ReactMarkdown>
+      </StyledMarkdown>
     );
   }, [GeckoDetails?.getGeckoAssetDetails]);
 
+  // Extract summary info for AssetSummaryCard
+  const summary = useMemo(() => {
+    const details = GeckoDetails?.getGeckoAssetDetails;
+    return {
+      name: details?.name || id,
+      symbol: details?.symbol || id,
+      price: details?.market_data?.current_price?.usd,
+      priceChange24h: details?.market_data?.price_change_percentage_24h,
+      image: details?.image?.large || details?.image,
+      genesisDate: details?.genesis_date,
+      communityScore: details?.community_score,
+      developerScore: details?.developer_score,
+      marketCapRank: details?.market_cap_rank,
+      liquidityScore: details?.liquidity_score,
+      sentimentUp: details?.sentiment_votes_up_percentage,
+      sentimentDown: details?.sentiment_votes_down_percentage,
+    };
+  }, [GeckoDetails, id]);
+
   return (
-    <AssetDetailsPageContainer>
-      <AssetTopBar
+    <AssetDetailsPageLayout>
+      <SidebarV2
         open={sidebarOpen}
         setOpen={setSidebarOpen}
         view={pageView}
         setPageView={setPageView}
       />
-      <ScrollToTop scrollThreshold={90} />
-
-      <div>{GeckoDetails && !loading && assetDetails}</div>
-
-      {loading && (
-        <div className="container text-center">
-          <LoadingSpinner />
-        </div>
-      )}
-      {pageView === "dashboard" && data && (
-        <ViewContainer>
-          <DashboardView
-            id={id}
-            MacroData={MacroData}
-            GeckoDetails={GeckoDetails}
-            timeQuery={timeQuery}
-            data={data}
-            loading={loading}
-            isBtc
-            isBtcOrEth
-          />
-        </ViewContainer>
-      )}
-      {pageView === "reports" && data && (
-        <ViewContainer>
-          <ReportsView id={id} />
-        </ViewContainer>
-      )}
-      {pageView === "simulator" && data && (
-        <ViewContainer>
-          <SimulationView id={id} />
-        </ViewContainer>
-      )}
-      {pageView === "settings" && data && (
-        <ViewContainer>
-          <h2>Settingss</h2>
-        </ViewContainer>
-      )}
-    </AssetDetailsPageContainer>
+      <MainContentArea $sidebarOpen={sidebarOpen}>
+        <AssetSummaryCard
+          name={summary.name}
+          symbol={summary.symbol}
+          price={summary.price}
+          priceChange24h={summary.priceChange24h}
+          image={summary.image}
+          genesisDate={summary.genesisDate}
+          communityScore={summary.communityScore}
+          developerScore={summary.developerScore}
+          marketCapRank={summary.marketCapRank}
+          liquidityScore={summary.liquidityScore}
+          sentimentUp={summary.sentimentUp}
+          sentimentDown={summary.sentimentDown}
+        />
+        <ScrollToTop scrollThreshold={90} />
+        <div>{GeckoDetails && !loading && assetDetails}</div>
+        {loading && (
+          <div className="container text-center">
+            <LoadingSpinner />
+          </div>
+        )}
+        {pageView === "dashboard" && data && (
+          <ViewContainer>
+            <DashboardView
+              id={id}
+              MacroData={MacroData}
+              GeckoDetails={GeckoDetails}
+              timeQuery={timeQuery}
+              data={data}
+              loading={loading}
+              isBtc={isBtc}
+              isBtcOrEth={isBtcOrEth}
+            />
+          </ViewContainer>
+        )}
+        {pageView === "reports" && data && (
+          <ViewContainer>
+            <ReportsView id={id} />
+          </ViewContainer>
+        )}
+        {pageView === "simulator" && data && (
+          <ViewContainer>
+            <SimulationView id={id} />
+          </ViewContainer>
+        )}
+        {pageView === "settings" && data && (
+          <ViewContainer>
+            <h2>Settings</h2>
+          </ViewContainer>
+        )}
+      </MainContentArea>
+    </AssetDetailsPageLayout>
   );
 };
+
+const AssetDetailsPageLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  @media ${MediaQueries.MD} {
+    flex-direction: row;
+  }
+`;
+
+const MainContentArea = styled.div<{ $sidebarOpen?: boolean }>`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.5rem;
+  margin-left: 0;
+  transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  @media ${MediaQueries.MD} {
+    padding: 2rem 2.5rem 2rem 0.5rem;
+    margin-left: ${({ $sidebarOpen }) =>
+      $sidebarOpen ? `${SIDEBAR_WIDTH_OPEN}px` : `${SIDEBAR_WIDTH_CLOSED}px`};
+  }
+`;
 
 const ViewContainer = styled.div`
   display: flex;
@@ -208,42 +224,6 @@ const ViewContainer = styled.div`
   }
 `;
 
-const AssetDetailsTable = styled.table`
-  display: none;
-  width: 95%;
-  border-collapse: collapse;
-  border: 2px solid ${Colors.primary};
-  border-radius: 12px;
-  color: ${Colors.white};
-  margin: auto;
-
-  th,
-  td {
-    border: 1px solid ${Colors.primary};
-    padding: 18px;
-    text-align: left;
-  }
-
-  tr:nth-child(odd) {
-    /* color: black; */
-    /* background-color: ${Colors.white}; */
-    background-color: ${Colors.secondary};
-    font-weight: ${FontWeight.bold};
-  }
-
-  .negative {
-    color: red;
-  }
-
-  .positive {
-    color: #14d114;
-  }
-
-  @media ${MediaQueries.MD} {
-    display: table;
-  }
-`;
-
 const AssetDescription = styled.div`
   display: none;
   width: 95%;
@@ -260,10 +240,71 @@ const AssetDescription = styled.div`
   }
 `;
 
-const AssetDetailsPageContainer = styled.div`
-  @media ${MediaQueries.MD} {
-    display: flex;
-    flex-direction: column;
+const StyledMarkdown = styled.div`
+  width: 95%;
+  margin: 2rem auto 0 auto;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(
+    90deg,
+    ${Colors.charcoal} 0%,
+    ${Colors.primary} 100%
+  );
+  border-radius: 14px;
+  border: 1.5px solid ${Colors.primary};
+  color: ${Colors.white};
+  font-size: 1.08rem;
+  line-height: 1.7;
+  box-shadow: 0 2px 12px 0 rgba(20, 20, 40, 0.1);
+  text-align: left;
+  word-break: break-word;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: ${Colors.accent};
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  p,
+  ul,
+  ol {
+    margin-bottom: 1rem;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.5rem;
+  }
+
+  a {
+    color: ${Colors.accent};
+    text-decoration: underline;
+
+    &:hover {
+      color: ${Colors.secondary};
+    }
+  }
+
+  code {
+    background: ${Colors.secondary};
+    color: ${Colors.accent};
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.98em;
+  }
+
+  blockquote {
+    border-left: 4px solid ${Colors.accent};
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.5em 1em;
+    margin: 1em 0;
+    color: ${Colors.accent};
+    font-style: italic;
   }
 `;
 

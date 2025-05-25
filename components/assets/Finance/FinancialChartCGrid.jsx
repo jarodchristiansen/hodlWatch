@@ -3,35 +3,19 @@ import { Colors, MediaQueries } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import SharpeRatioChart from "./Charts/Bitcoin/SharpeRatioChart";
-import ADXChart from "./Charts/Desktop/ADXChart";
-import ATRChart from "./Charts/Desktop/ATRChart";
-import BollingerBandChart from "./Charts/Desktop/BollingerBandChartDesktop";
-import EMAChartDesktop from "./Charts/Desktop/EmaChartDesktop";
-import FibonacciRetracementChartDesktop from "./Charts/Desktop/FibonacciRetracementChartDesktop";
-import MACDChart from "./Charts/Desktop/MACDChart";
-import NuplChart from "./Charts/Desktop/NuplChart";
-import OBVChart from "./Charts/Desktop/OBVChart";
-import RsiChart from "./Charts/Desktop/RSIChart";
-import StochasticOscillatorChart from "./Charts/Desktop/StochasticOscillatorChart";
-import VolumeChartDesktop from "./Charts/Desktop/VolumeChartDesktop";
+import {
+  chartCardStyleOverrides,
+  defaultChartCardStyle,
+} from "./chartCardStyleConfig";
+import { chartConfig } from "./chartConfig";
 
 const FinancialChartGrid = ({ financialData, id, time }) => {
   const [processedFinancialData, setProcessedFinancialData] = useState([]);
-  const [selectedCharts, setSelectedCharts] = useState({
-    fibonacci: true,
-    ema: true,
-    bollinger: true,
-    macd: true,
-    sharpe: false,
-    volume: false,
-    rsi: false,
-    atr: false,
-    obv: false,
-    adx: false,
-    nupl: false,
-    stochastic: false,
-  });
+  // Use chartConfig to set initial selected charts
+  const defaultSelected = Object.fromEntries(
+    chartConfig.map((c) => [c.key, !!c.showByDefault])
+  );
+  const [selectedCharts, setSelectedCharts] = useState(defaultSelected);
 
   useEffect(() => {
     if (financialData) {
@@ -44,273 +28,135 @@ const FinancialChartGrid = ({ financialData, id, time }) => {
     setProcessedFinancialData(filteredData);
   };
 
-  const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
-    setSelectedCharts((prev) => ({ ...prev, [name]: checked }));
+  const handleChartSelect = (key) => {
+    setSelectedCharts((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
+  // Use chartConfig for options
+  const chartOptions = chartConfig.map(({ key, label }) => ({ key, label }));
+
+  // Render charts dynamically from config
   const renderCharts = () => {
-    const chartData = [];
-
-    if (selectedCharts.fibonacci && processedFinancialData?.closes?.length) {
-      chartData.push(
-        <FibonacciRetracementChartDesktop
-          data={processedFinancialData?.closes}
-          key="fib-chart"
-        />
-      );
-    }
-    if (selectedCharts.ema && processedFinancialData?.closes?.length) {
-      chartData.push(
-        <EMAChartDesktop
-          data={processedFinancialData?.closes}
-          key="ema-chart"
-        />
-      );
-    }
-    if (selectedCharts.bollinger && processedFinancialData?.closes?.length) {
-      chartData.push(
-        <BollingerBandChart
-          data={processedFinancialData?.closes}
-          key="bband-chart"
-        />
-      );
-    }
-    if (selectedCharts.macd && processedFinancialData?.closes?.length) {
-      chartData.push(
-        <MACDChart data={processedFinancialData?.closes} key="macd-chart" />
-      );
-    }
-    if (selectedCharts.sharpe && processedFinancialData?.closes?.length) {
-      chartData.push(
-        <SharpeRatioChart
-          data={processedFinancialData?.closes}
-          key="sharpe-chart"
-        />
-      );
-    }
-    if (selectedCharts.volume && processedFinancialData?.volume?.length) {
-      chartData.push(
-        <VolumeChartDesktop
-          data={processedFinancialData?.volume}
-          key="volume-chart"
-        />
-      );
-    }
-    if (selectedCharts.rsi && processedFinancialData?.closes?.length) {
-      chartData.push(
-        <RsiChart data={processedFinancialData?.closes} key="rsi-chart" />
-      );
-    }
-    if (selectedCharts.atr && processedFinancialData?.closes?.length) {
-      chartData.push(<ATRChart data={financialData} key="atr-chart" />);
-    }
-    if (selectedCharts.obv && processedFinancialData?.closes?.length) {
-      chartData.push(<OBVChart data={financialData} key="obv-chart" />);
-    }
-    if (selectedCharts.adx && processedFinancialData?.closes?.length) {
-      chartData.push(<ADXChart data={financialData} key="adx-chart" />);
-    }
-    if (selectedCharts.nupl && processedFinancialData?.closes?.length) {
-      chartData.push(<NuplChart data={financialData} key="nupl-chart" />);
-    }
-    if (selectedCharts.stochastic && processedFinancialData?.closes?.length) {
-      chartData.push(
-        <StochasticOscillatorChart
-          data={processedFinancialData?.closes}
-          key="stochastic-chart"
-        />
-      );
-    }
-
-    return chartData;
+    return chartConfig
+      .filter((c) => selectedCharts[c.key])
+      .map((c, idx) => {
+        const ChartComponent = c.component;
+        const chartData = c.dataSelector(processedFinancialData);
+        // Only render if data is present
+        if (!chartData || (Array.isArray(chartData) && !chartData.length))
+          return null;
+        const styleOverride = chartCardStyleOverrides[c.key] || {};
+        return (
+          <ChartCard key={c.key} $styleOverride={styleOverride}>
+            <ChartComponent data={chartData} />
+          </ChartCard>
+        );
+      });
   };
 
   return (
-    <div>
-      <CheckboxContainer>
-        <h3>Select Charts to Display:</h3>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              name="fibonacci"
-              checked={selectedCharts.fibonacci}
-              onChange={handleCheckboxChange}
-            />
-            Fibonacci
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="ema"
-              checked={selectedCharts.ema}
-              onChange={handleCheckboxChange}
-            />
-            EMA
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="bollinger"
-              checked={selectedCharts.bollinger}
-              onChange={handleCheckboxChange}
-            />
-            Bollinger Band
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="macd"
-              checked={selectedCharts.macd}
-              onChange={handleCheckboxChange}
-            />
-            MACD
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              name="sharpe"
-              checked={selectedCharts.sharpe}
-              onChange={handleCheckboxChange}
-            />
-            Sharpe Ratio
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              name="volume"
-              checked={selectedCharts.volume}
-              onChange={handleCheckboxChange}
-            />
-            Volume
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              name="rsi"
-              checked={selectedCharts.rsi}
-              onChange={handleCheckboxChange}
-            />
-            RSI
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              name="obv"
-              checked={selectedCharts.obv}
-              onChange={handleCheckboxChange}
-            />
-            On-balance Volume
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              name="adx"
-              checked={selectedCharts.adx}
-              onChange={handleCheckboxChange}
-            />
-            Average Directional Index
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              name="nupl"
-              checked={selectedCharts.nupl}
-              onChange={handleCheckboxChange}
-            />
-            Net Unrealized Profit/Loss
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              name="stochastic"
-              checked={selectedCharts.stochastic}
-              onChange={handleCheckboxChange}
-            />
-            Stochastic Oscillator
-          </label>
-        </div>
-
-        {/* Add more checkboxes as needed */}
-      </CheckboxContainer>
-      <GridContainer>
-        {renderCharts().map((chart, idx) => (
-          <ChartCard key={idx}>{chart}</ChartCard>
+    <div style={{ overflowX: "hidden", width: "100%" }}>
+      <HorizontalSelectorBar>
+        {chartOptions.map((option) => (
+          <SelectorButton
+            key={option.key}
+            active={selectedCharts[option.key]}
+            onClick={() => handleChartSelect(option.key)}
+          >
+            {option.label}
+          </SelectorButton>
         ))}
-      </GridContainer>
+      </HorizontalSelectorBar>
+      <GridContainer>{renderCharts()}</GridContainer>
     </div>
   );
 };
 
-const CheckboxContainer = styled.div`
-  padding: 20px;
-  color: white;
-
-  div {
-    display: grid;
-    padding-top: 24px;
-    justify-content: center;
-
-    gap: 10px; // Adjust as needed for spacing between checkboxes
-
-    label {
-      display: flex;
-      align-items: center; // Center checkbox vertically
-      cursor: pointer; // Change cursor on hover for better UX
-    }
-
-    input[type="checkbox"] {
-      margin-right: 8px; // Space between checkbox and label
-
-      /* Double-sized Checkboxes */
-      -ms-transform: scale(1.5); /* IE */
-      -moz-transform: scale(1.5); /* FF */
-      -webkit-transform: scale(1.5); /* Safari and Chrome */
-      -o-transform: scale(1.5); /* Opera */
-      transform: scale(1.5);
-      padding: 10px;
-    }
-
-    @media ${MediaQueries.MD} {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 3fr));
-    }
-  }
-`;
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-template-rows: auto;
-  grid-gap: 48px;
+  grid-template-columns: 1fr;
+  grid-gap: 32px;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 24px 0;
-
-  @media ${MediaQueries.MD} {
-    padding: 24px 0;
-    grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
-  }
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  max-width: 100%;
 `;
 
-const ChartCard = styled.div`
+const ChartCard = styled.div.attrs((props) => ({
+  style: props.$styleOverride || {},
+}))`
   display: flex;
   flex-direction: column;
   text-align: center;
-  border: 1px solid white;
-  border-radius: 10px;
-  background-color: ${Colors.black};
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 1;
+  background: ${({ $styleOverride }) =>
+    $styleOverride?.background || defaultChartCardStyle.background};
+  border: ${({ $styleOverride }) =>
+    $styleOverride?.border || defaultChartCardStyle.border};
+  border-radius: ${({ $styleOverride }) =>
+    $styleOverride?.borderRadius || defaultChartCardStyle.borderRadius};
+  box-shadow: ${({ $styleOverride }) =>
+    $styleOverride?.boxShadow || defaultChartCardStyle.boxShadow};
+  padding: ${({ $styleOverride }) =>
+    $styleOverride?.padding || defaultChartCardStyle.padding};
+  color: ${({ $styleOverride }) =>
+    $styleOverride?.color || defaultChartCardStyle.color};
+  transition: ${defaultChartCardStyle.transition};
+  &:hover {
+    box-shadow: 0 8px 32px 0 rgba(80, 80, 120, 0.18);
+    transform: translateY(-2px) scale(1.015);
+  }
+`;
 
-  .label-row {
-    color: white;
-    padding: 24px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+const HorizontalSelectorBar = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 0.5rem;
+  padding: 1rem 0.5rem 1.5rem 0.5rem;
+  background: none;
+  scrollbar-width: thin;
+  scrollbar-color: ${Colors.primary} ${Colors.charcoal};
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  @media ${MediaQueries.MD} {
+    width: 100%;
+  }
+  &::-webkit-scrollbar {
+    height: 6px;
+    background: ${Colors.charcoal};
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${Colors.primary};
+    border-radius: 4px;
+  }
+`;
+
+const SelectorButton = styled.button`
+  background: ${({ active }) => (active ? Colors.primary : Colors.charcoal)};
+  color: ${Colors.white};
+  border: 1.5px solid ${Colors.primary};
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  min-width: 0;
+  flex-shrink: 1;
+  box-sizing: border-box;
+  &:hover,
+  &:focus {
+    background: ${Colors.accent};
+    color: ${Colors.charcoal};
   }
 `;
 

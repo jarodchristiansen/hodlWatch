@@ -181,46 +181,69 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
 };
 
 const CollectiveStatsHeader = styled.div`
-  padding: 2rem;
-  background-color: #faf5ff;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(
+    90deg,
+    ${Colors.primary} 0%,
+    ${Colors.charcoal} 100%
+  );
+  color: ${Colors.accent};
+  border-radius: 18px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 24px 0 rgba(20, 20, 40, 0.18);
   text-align: center;
   justify-content: center;
+  border: 1px solid ${Colors.accent}33;
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: ${Colors.accent};
+    letter-spacing: 0.5px;
+  }
 
   .mid-row {
     display: flex;
-    gap: 1rem;
-    overflow-x: scroll;
+    gap: 2rem;
+    overflow-x: auto;
     text-align: center;
     justify-content: center;
-    gap: 1rem;
-    padding: 2rem;
-
-    margin-left: -2rem;
-    margin-right: -2rem;
-
-    @media ${MediaQueries.MD} {
-      margin-left: unset;
-      margin-right: unset;
-    }
-
-    ::-webkit-scrollbar {
+    padding: 1.5rem 0.5rem;
+    margin: 0 -1.5rem;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
       display: none;
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
     }
 
     div {
       display: flex;
       flex-direction: column;
-      background-color: #ffffff;
-      border-radius: 8px;
-      justify-content: center;
-      padding: 1rem;
-      border: 1px solid black;
-      box-shadow: 2px 4px 8px lightgray;
+      align-items: center;
+      background: linear-gradient(
+        135deg,
+        ${Colors.charcoal} 60%,
+        ${Colors.primary} 100%
+      );
+      border-radius: 12px;
+      min-width: 140px;
+      padding: 1.25rem 1rem;
+      border: 1px solid ${Colors.accent}33;
+      box-shadow: 0 2px 12px 0 rgba(20, 20, 40, 0.1);
+      color: ${Colors.accent};
+      margin: 0 0.5rem;
 
+      h5 {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: ${Colors.accent};
+        letter-spacing: 0.2px;
+      }
       span {
-        font-weight: bold;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #fffbe6;
       }
     }
   }
@@ -228,45 +251,59 @@ const CollectiveStatsHeader = styled.div`
 
 const PageWrapper = styled.div`
   padding-top: 48px;
+  min-height: 100vh;
+  background: linear-gradient(
+    120deg,
+    ${Colors.primary} 0%,
+    ${Colors.charcoal} 100%
+  );
 
   .main-container {
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1.5rem;
   }
 
   .pagination-container {
     display: flex;
     justify-content: center;
+    margin-top: 2rem;
   }
 `;
 
 const FilterBar = styled.div`
   display: flex;
   flex-direction: row;
-  /* position: sticky; */
-  /* z-index: 100; */
-  border-bottom: 1px solid gray;
-  background-color: ${Colors.black};
-
+  align-items: center;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    ${Colors.charcoal} 60%,
+    ${Colors.primary} 100%
+  );
+  border: 1px solid ${Colors.accent}33;
+  box-shadow: 0 2px 12px 0 rgba(20, 20, 40, 0.1);
   text-align: right;
   white-space: nowrap;
   justify-content: flex-end;
-
-  padding: 1rem 2rem;
+  padding: 1.25rem 2rem;
+  margin-bottom: 1.5rem;
 
   @media ${MediaQueries.MD} {
-    /* position: relative; */
-    padding: 1rem 6rem;
+    padding: 1.25rem 4rem;
   }
 `;
 
 const AssetContainerWrapper = styled.div`
   padding: 2rem 0;
-
+  background: transparent;
+  border-radius: 16px;
   @media ${MediaQueries.MD} {
-    /* padding: 2rem 6rem; */
-    padding: 48px 62px;
+    padding: 48px 0;
   }
 `;
 

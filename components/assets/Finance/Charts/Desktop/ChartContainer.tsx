@@ -106,6 +106,8 @@ const ChartContainerCustom = styled.div`
     h5 {
       padding-top: 8px;
       font-weight: ${FontWeight.bold};
+      color: white;
+      font-size: 24px;
     }
 
     .time-container {
