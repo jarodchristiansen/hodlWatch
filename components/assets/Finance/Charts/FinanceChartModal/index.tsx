@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
 import { FaInfoCircle } from "react-icons/fa";
 
 function FinanceChartModal(props) {
@@ -17,20 +16,25 @@ function FinanceChartModal(props) {
         style={{ position: "absolute", right: "6px", top: "6px" }}
       />
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{text?.modalHeader || "Modal Heading"}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {text?.modalBodyText() || "This is the modal description"}
-          {/*<img src{text?.modalBodyImage || ''} />*/}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {show && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={handleClose}>
+              &times;
+            </span>
+            <h2>{text?.modalHeader || "Modal Heading"}</h2>
+            <div>
+              {text?.modalBodyText() || "This is the modal description"}
+              {/*<img src{text?.modalBodyImage || ''} />*/}
+            </div>
+            <div className="modal-footer">
+              <button className="btn" onClick={handleClose}>
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

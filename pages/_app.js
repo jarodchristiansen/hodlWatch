@@ -13,7 +13,6 @@ import { pageview } from "../lib/gtag";
 import "../styles/globals.css";
 // Add this line
 import "@fortawesome/fontawesome-free/css/all.css";
-import "bootstrap/dist/css/bootstrap.css";
 
 /**
  *

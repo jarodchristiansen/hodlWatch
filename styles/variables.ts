@@ -3,6 +3,7 @@ export const Colors = {
   primary: "#1A3E72", // Deep Navy Blue
   secondary: "#3A506B", // Muted Blue-Gray (was #007A33)
   accent: "#FEE715", // Vibrant Gold-Yellow
+  gold: "#FFD700", // Gold for premium accent
   background: "#F5F7FA", // Light Gray
   midGray: "#828fab", // Mid-Gray
   cardShadow: "#E0E0E0", // Card shadow

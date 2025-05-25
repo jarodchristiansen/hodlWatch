@@ -12,7 +12,6 @@ import { useMutation } from "@apollo/client";
 import { motion, useCycle } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
-import { Image } from "react-bootstrap";
 import styled from "styled-components";
 
 interface AssetCardProps {
@@ -132,133 +131,122 @@ const AssetCard = ({ asset, email, favorited }: AssetCardProps) => {
         transition: { duration: 0.7 },
       }}
     >
-      <motion.div
-        className="card-flip"
-        initial={false}
-        animate={isFlipped ? "back" : "front"}
-        variants={flipVariants}
-        transition={{ duration: 0.4 }}
-      >
-        {cardView === "A" && (
-          <AssetCardWrapper>
-            <div className={"card-body py-4 holder"}>
-              {!favorited && (
-                <div
-                  onClick={addToFavorites}
-                  className="favorite-button"
-                  data-testid="add-button"
+      <CardContainer>
+        <motion.div
+          className="card-flip"
+          initial={false}
+          animate={isFlipped ? "back" : "front"}
+          variants={flipVariants}
+          transition={{ duration: 0.4 }}
+        >
+          {cardView === "A" && (
+            <CardFront>
+              <div className={"card-body holder"}>
+                <FavoriteButton
+                  onClick={favorited ? removeFromFavorites : addToFavorites}
+                  data-testid={favorited ? "remove-button" : "add-button"}
                 >
-                  <Image
-                    src={"/images/empty-star.svg"}
+                  <img
+                    src={
+                      favorited
+                        ? "/images/filled-star.svg"
+                        : "/images/empty-star.svg"
+                    }
                     className={"pointer-link"}
-                    height={"40px"}
-                    width={"40px"}
-                    alt="non-favorited asset icon"
+                    height={"32px"}
+                    width={"32px"}
+                    alt={
+                      favorited
+                        ? "favorited asset icon"
+                        : "non-favorited asset icon"
+                    }
                   />
-                </div>
-              )}
-              {favorited && (
-                <div
-                  onClick={removeFromFavorites}
-                  className="favorite-button"
-                  data-testid="remove-button"
-                >
-                  <Image
-                    src={"/images/filled-star.svg"}
-                    className={"pointer-link"}
-                    height={"40px"}
-                    width={"40px"}
-                    alt="favorited asset icon"
-                  />
-                </div>
-              )}
-
-              <h4 className="card-title">{title || name || "Card Title"}</h4>
-
-              <h6 className="card-subtitle">
-                {symbol.toUpperCase() || "Card subtitle"}
-              </h6>
-
-              <ImageContainer>
-                <Image
-                  className="image"
-                  src={image}
-                  alt={name || title}
-                  // @ts-ignore
-                  unoptimized={"true"}
-                />
-              </ImageContainer>
-
-              <div className="button-container">
-                <Link
-                  href={exploreLink}
-                  as={`/assets/${symbol}?name=${name}`}
-                  className="explore-link"
-                >
-                  <Button primary>Explore</Button>
-                </Link>
-
-                <Button
-                  secondary
-                  whiteOutline
-                  onClick={() => changeCardView("B")}
-                >
-                  Snapshot
-                </Button>
+                </FavoriteButton>
+                <Title>{title || name || "Card Title"}</Title>
+                <Symbol>{symbol.toUpperCase() || "Card subtitle"}</Symbol>
+                <ImageContainer>
+                  <img className="image" src={image} alt={name || title} />
+                </ImageContainer>
+                <ButtonRow>
+                  <Link
+                    href={exploreLink}
+                    as={`/assets/${symbol}?name=${name}`}
+                    className="explore-link"
+                  >
+                    <StyledButton primary>Explore</StyledButton>
+                  </Link>
+                  <StyledButton secondary onClick={() => changeCardView("B")}>
+                    Snapshot
+                  </StyledButton>
+                </ButtonRow>
               </div>
-            </div>
-          </AssetCardWrapper>
-        )}
+            </CardFront>
+          )}
 
-        {cardView === "B" && (
-          <AssetCardWrapper className={cardView === "B" ? "flipped" : ""}>
-            <div className={"card-body py-4 holder"}>
-              <h4>{title || name}</h4>
-
-              <div className="snapshot-container">
-                <p>All Time High: {currencyFormat(ath)}</p>
-                <p>All Time Low: {currencyFormat(atl)}</p>
-                <p>
-                  Ath Change Percentage:{" "}
-                  {formatPercentage(ath_change_percentage)}
-                </p>
-                <p>ATH Date: {FormatUnixTimeWithTime(ath_date)}</p>
-                <p>
-                  ATL Change Percentage:{" "}
-                  {formatPercentage(atl_change_percentage)}
-                </p>
-                <p>ATL Date: {FormatUnixTimeWithTime(atl_date)}</p>
-                <p>
-                  Circulating Supply: {numberWithCommas(circulating_supply)}
-                </p>
-                <p>Total Supply: {numberWithCommas(total_supply)}</p>
+          {cardView === "B" && (
+            <CardBack>
+              <div className={"card-body holder"}>
+                <Title>{title || name}</Title>
+                <SnapshotContainer>
+                  <SnapshotItem>
+                    All Time High: <span>{currencyFormat(ath)}</span>
+                  </SnapshotItem>
+                  <SnapshotItem>
+                    All Time Low: <span>{currencyFormat(atl)}</span>
+                  </SnapshotItem>
+                  <SnapshotItem>
+                    Ath Change %:{" "}
+                    <span>{formatPercentage(ath_change_percentage)}</span>
+                  </SnapshotItem>
+                  <SnapshotItem>
+                    ATH Date: <span>{FormatUnixTimeWithTime(ath_date)}</span>
+                  </SnapshotItem>
+                  <SnapshotItem>
+                    ATL Change %:{" "}
+                    <span>{formatPercentage(atl_change_percentage)}</span>
+                  </SnapshotItem>
+                  <SnapshotItem>
+                    ATL Date: <span>{FormatUnixTimeWithTime(atl_date)}</span>
+                  </SnapshotItem>
+                  <SnapshotItem>
+                    Circulating Supply:{" "}
+                    <span>{numberWithCommas(circulating_supply)}</span>
+                  </SnapshotItem>
+                  <SnapshotItem>
+                    Total Supply: <span>{numberWithCommas(total_supply)}</span>
+                  </SnapshotItem>
+                </SnapshotContainer>
+                <ButtonRow>
+                  <StyledButton onClick={() => changeCardView("A")}>
+                    Main View
+                  </StyledButton>
+                </ButtonRow>
               </div>
-
-              <button onClick={() => changeCardView("A")}>Main View</button>
-            </div>
-          </AssetCardWrapper>
-        )}
-      </motion.div>
+            </CardBack>
+          )}
+        </motion.div>
+      </CardContainer>
     </motion.div>
   );
 };
 
-const ImageContainer = styled.div`
-  padding: 2rem;
-
-  .image {
-    width: 100px;
-    height: 100px;
-  }
-`;
-
-const CardFront = styled.div`
-  border-radius: 12px;
-  background-color: ${Colors.midGray};
-  border: 1px solid black;
+// Styled-components redesign
+const CardContainer = styled.div`
+  background: rgba(24, 26, 32, 0.98);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.18), 0 1.5px 6px 0 rgba(0, 0, 0, 0.1);
+  color: #fff;
+  margin: 1.5rem 0;
+  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
   text-align: center;
-  margin: 1rem 0;
-  box-shadow: 2px 4px 8px gray;
+  position: relative;
+  min-width: 0;
+  transition: box-shadow 0.3s, transform 0.3s;
+
+  &:hover {
+    box-shadow: 0 8px 32px 0 rgba(40, 40, 60, 0.35), 0 2px 0 0 #ffd700;
+    transform: translateY(-2px) scale(1.025);
+  }
 
   .holder {
     position: relative;
@@ -266,70 +254,174 @@ const CardFront = styled.div`
 
   .favorite-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-
-  button {
-    color: ${Colors.white};
-    background-color: ${Colors.primary};
-    border-radius: 8px;
-    padding: 8px;
-    font-weight: 600;
-  }
-  /* Styles for the front side of the card */
-`;
-
-const CardBack = styled.div`
-  /* Styles for the back side of the card */
-`;
-
-const AssetCardWrapper = styled.div`
-  border-radius: 12px;
-  border: 1px solid black;
-  text-align: center;
-  margin: 1rem 0;
-  border: 1px solid ${Colors.secondary};
-  color: ${Colors.white};
-
-  .holder {
-    position: relative;
-  }
-
-  .favorite-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-
-  &.flipped {
-    transform: rotateY(180deg);
-  }
-
-  .snapshot-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 12px;
-
-    p {
-      font-weight: ${FontWeight.bold};
+    top: 18px;
+    right: 18px;
+    z-index: 2;
+    background: rgba(30, 30, 40, 0.7);
+    border-radius: 50%;
+    padding: 4px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+    transition: background 0.2s;
+    &:hover {
+      background: rgba(255, 215, 0, 0.15);
     }
   }
 
   .card-title {
     font-weight: ${FontWeight.bold};
-    padding: 12px;
+    font-size: 1.45rem;
+    color: ${Colors.white};
+    margin: 1.2rem 0 0.2rem 0;
+    letter-spacing: 0.01em;
   }
 
   .card-subtitle {
     font-weight: ${FontWeight.bold};
+    font-size: 1.1rem;
+    color: ${Colors.gold};
+    margin-bottom: 1.1rem;
+    letter-spacing: 0.08em;
   }
 
   .button-container {
     display: flex;
-    gap: 18px;
+    gap: 1.2rem;
     justify-content: center;
+    margin-top: 1.5rem;
   }
+
+  .snapshot-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.2rem;
+    padding: 0 0.5rem 1.2rem 0.5rem;
+    background: rgba(30, 30, 40, 0.7);
+    border-radius: 10px;
+    margin-bottom: 1.2rem;
+    p {
+      font-weight: ${FontWeight.bold};
+      color: ${Colors.white};
+      font-size: 1.02rem;
+      margin: 0.2rem 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 1.2rem 0.5rem 1rem 0.5rem;
+    .card-title {
+      font-size: 1.1rem;
+    }
+    .card-subtitle {
+      font-size: 0.95rem;
+    }
+    .button-container {
+      gap: 0.7rem;
+    }
+  }
+`;
+
+const CardFront = styled.div`
+  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const CardBack = styled.div`
+  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.h4`
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0.2rem 0;
+  color: #fff;
+  letter-spacing: 0.01em;
+`;
+
+const Symbol = styled.h6`
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #b0b8c1;
+  margin-bottom: 1.1rem;
+  letter-spacing: 0.08em;
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 1.2rem auto;
+  .image {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #23283a 60%, #181c24 100%);
+    box-shadow: 0 2px 12px 0 rgba(40, 40, 60, 0.18);
+    object-fit: cover;
+    border: 2.5px solid ${Colors.gold};
+    padding: 6px;
+  }
+`;
+
+const ButtonRow = styled.div`
+  display: flex;
+  gap: 1.1rem;
+  justify-content: center;
+  margin-top: 1.2rem;
+`;
+
+const StyledButton = styled(Button)`
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.6rem 1.4rem;
+  background: ${({ primary }) => (primary ? Colors.primary : "transparent")};
+  color: ${({ primary }) => (primary ? "#fff" : Colors.primary)};
+  border: 2px solid ${Colors.primary};
+  box-shadow: none;
+  transition: background 0.18s, color 0.18s;
+  &:hover {
+    background: ${Colors.primary};
+    color: #fff;
+    opacity: 0.92;
+  }
+`;
+
+const FavoriteButton = styled.div`
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  cursor: pointer;
+  z-index: 2;
+  background: rgba(24, 26, 32, 0.85);
+  border-radius: 50%;
+  padding: 0.3rem;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.12);
+  transition: background 0.18s;
+  &:hover {
+    background: rgba(255, 215, 0, 0.18);
+  }
+`;
+
+const SnapshotContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1.2rem;
+  padding: 0 0.5rem 1.2rem 0.5rem;
+  background: rgba(30, 30, 40, 0.7);
+  border-radius: 10px;
+  margin-bottom: 1.2rem;
+`;
+
+const SnapshotItem = styled.div`
+  font-weight: ${FontWeight.bold};
+  color: ${Colors.white};
+  font-size: 1.02rem;
+  margin: 0.2rem 0;
 `;
 
 export default AssetCard;

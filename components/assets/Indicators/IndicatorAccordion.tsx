@@ -6,8 +6,7 @@
 // import PriceBTCChartDesktop from "../Finance/Charts/Desktop/PriceBTCChartDesktop";
 // import GET_ASSET_FINANCIALS from "../../../helpers/queries/assets/getAssetFinancialDetails";
 import { FormatUnixTime } from "@/helpers/formatters/time";
-import React, { useContext, useEffect, useState } from "react";
-import { Accordion } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 // @ts-ignore
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -161,9 +160,9 @@ const IndicatorAccordion = ({
 
   return (
     <div className={"text-center w-100 accordion-container"}>
-      <Accordion.Item eventKey="2">
-        <Accordion.Header>Indicator Panel</Accordion.Header>
-        <Accordion.Body>
+      <div className="indicator-accordion">
+        <div className="accordion-header">Indicator Panel</div>
+        <div className="accordion-body">
           <ScrollMenu
             Footer={RenderArrows}
             transitionDuration={2500}
@@ -175,8 +174,8 @@ const IndicatorAccordion = ({
               </div>
             ))}
           </ScrollMenu>
-        </Accordion.Body>
-      </Accordion.Item>
+        </div>
+      </div>
     </div>
   );
 };

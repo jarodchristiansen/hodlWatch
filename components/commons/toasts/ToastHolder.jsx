@@ -1,20 +1,15 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row, Toast } from "react-bootstrap";
 
 const ToastHolder = ({ toggleShowA, showA, setShowA, toastText }) => {
-  // const [showA, setShowA] = useState(false);
-
-  // const toggleShowA = () => setShowA(!showA);
-
   return (
-    <Row>
-      <Col md={12} className="mb-2">
-        {/*<Button onClick={toggleShowA} className="mb-2">*/}
-        {/*  Toggle Toast <strong>with</strong> Animation*/}
-        {/*</Button>*/}
-        <Toast show={showA} onClose={toggleShowA}>
-          <Toast.Header>
+    <div>
+      {/* <Button onClick={toggleShowA} className="mb-2">
+        Toggle Toast <strong>with</strong> Animation
+      </Button> */}
+      {showA && (
+        <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+          <div className="toast-header">
             <Image
               src="holder.js/20x20?text=%20"
               className="rounded me-2"
@@ -22,7 +17,12 @@ const ToastHolder = ({ toggleShowA, showA, setShowA, toastText }) => {
             />
             <strong className="me-auto">Bootstrap</strong>
             <small>11 mins ago</small>
-          </Toast.Header>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+              onClick={toggleShowA}
           <Toast.Body>
             Woohoo, you&apos;re reading this text in a Toast!
           </Toast.Body>

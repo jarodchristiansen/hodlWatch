@@ -2,7 +2,6 @@ import { Colors, FontFamily, FontSize, MediaQueries } from "@/styles/variables";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
 import styled from "styled-components";
 
 /**
@@ -12,6 +11,7 @@ import styled from "styled-components";
 function Header() {
   const { data: session, status } = useSession();
   const [selectedRoute, setSelectedRoute] = useState<string | number>("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const router = useRouter();
   const { asPath } = router;
@@ -49,6 +49,7 @@ function Header() {
 
   useEffect(() => {
     setRouterAsPath();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asPath]);
 
   const setRouterAsPath = () => {
@@ -67,83 +68,166 @@ function Header() {
 
       return (
         <div key={route?.route}>
-          {!!route.guarded && !!session && (
-            <TextContainer>
-              <Nav.Link href={route.route}>{route.text}</Nav.Link>
-              {selectedRoute == route.key && (
-                <span className="active-underline-span"></span>
-              )}
-            </TextContainer>
-          )}
-
-          {!route.guarded && (
-            <TextContainer>
-              <Nav.Link href={route.route}>{route.text}</Nav.Link>
-              {selectedRoute == route.key && (
-                <span className="active-underline-span"></span>
-              )}
-            </TextContainer>
-          )}
+          <TextContainer>
+            <NavLink
+              href={route.route}
+              onClick={() => {
+                setSelectedRoute(route.key);
+                setMenuOpen(false);
+              }}
+              $active={selectedRoute === route.key}
+            >
+              {route.text}
+            </NavLink>
+            {selectedRoute == route.key && (
+              <span className="active-underline-span"></span>
+            )}
+          </TextContainer>
         </div>
       );
     });
-  }, [routes?.length, selectedRoute, session]);
+  }, [routes, selectedRoute, session]);
 
   return (
-    <Navbar
-      collapseOnSelect
-      expand="lg"
-      variant="dark"
-      onSelect={handleSelect}
-      className="navbar-main"
-      style={{
-        backgroundColor: Colors.charcoal,
-        color: Colors.white,
-        position: "fixed",
-        width: "100vw",
-        zIndex: 1000,
-        borderBottom: `2px solid ${Colors.accent}`,
-        fontFamily: FontFamily.primary,
-      }}
-    >
-      <Container>
-        {/* <Navbar.Brand onClick={() => setSelectedRoute("")}>
-          <Link href={"/"} passHref legacyBehavior>
-            <Image
-              src={PotentialLogo}
-              className={"pointer-link"}
-              height={50}
-              width={50}
-              alt="block-logo"
-            />
-          </Link>
-        </Navbar.Brand> */}
-        <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          style={{
-            border: `2px solid ${Colors.accent}`,
-          }}
-        />
-        <Navbar.Collapse id="responsive-navbar-nav">
+    <HeaderBar>
+      <HeaderInner>
+        <LogoArea>
+          <LogoLink href="/">HodlWatch</LogoLink>
+        </LogoArea>
+        <Hamburger
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+          <span />
+        </Hamburger>
+        <NavMenu $open={menuOpen}>
           <RouteRow>
             {routeObjects}
             {session && (
-              <Nav.Link
-                eventKey={"5"}
-                role={"link"}
-                onClick={handleSignout}
-                className={"pointer-link fw-bold"}
-                style={{ color: Colors.accent }}
-              >
-                <SignOutSpan>{"Sign Out"}</SignOutSpan>
-              </Nav.Link>
+              <TextContainer>
+                <NavLink
+                  as="button"
+                  onClick={handleSignout}
+                  $active={false}
+                  style={{ color: Colors.accent }}
+                >
+                  <SignOutSpan>Sign Out</SignOutSpan>
+                </NavLink>
+              </TextContainer>
             )}
           </RouteRow>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        </NavMenu>
+      </HeaderInner>
+    </HeaderBar>
   );
 }
+
+const HeaderBar = styled.header`
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: ${Colors.charcoal};
+  color: ${Colors.white};
+  border-bottom: 2px solid ${Colors.accent};
+  font-family: ${FontFamily.primary};
+`;
+
+const HeaderInner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 64px;
+  @media ${MediaQueries.MD} {
+    height: 80px;
+  }
+`;
+
+const LogoArea = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const LogoLink = styled.a`
+  color: ${Colors.accent};
+  font-family: ${FontFamily.headline};
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  &:hover {
+    color: ${Colors.white};
+  }
+`;
+
+const Hamburger = styled.button`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+  span {
+    display: block;
+    height: 4px;
+    width: 100%;
+    background: ${Colors.accent};
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  @media ${MediaQueries.MD} {
+    display: none;
+  }
+`;
+
+const NavMenu = styled.nav<{ $open: boolean }>`
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100vw;
+  background: ${Colors.charcoal};
+  box-shadow: 0 4px 24px 0 ${Colors.cardShadow};
+  padding: 24px 0 12px 0;
+  display: ${({ $open }) => ($open ? "block" : "none")};
+  @media ${MediaQueries.MD} {
+    position: static;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    display: flex !important;
+    width: auto;
+    top: auto;
+  }
+`;
+
+const NavLink = styled.a<{ $active: boolean }>`
+  color: ${({ $active }) => ($active ? Colors.accent : Colors.white)};
+  font-family: ${FontFamily.primary};
+  font-weight: bold;
+  text-decoration: none;
+  font-size: ${FontSize.large};
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  &:hover {
+    color: ${Colors.accent};
+    background: rgba(255, 255, 255, 0.04);
+  }
+`;
 
 const RouteRow = styled.div`
   display: flex;
