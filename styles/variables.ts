@@ -1,25 +1,12 @@
+// Update Colors for professional palette
 export const Colors = {
-  // lightGray: "#f4f4f4",
-  // midGray: "#597081",
-  // darkGray: "#a9a9a9",
-  // richBlack: "#171523",
-  // midnight: "#080411",
-  // accentBlue: "#0088FF",
-  // secondaryGray: "#4A4A4A",
-  // secondaryAqua: "#83D0C9",
-  // accentPurple: "#6F42C1",
-  modern: {
-    purplePrimary: "#6F42C1",
-    secondaryTeal: "#37D67A",
-    accentGray: "#F9F7F6",
-  },
-
-  primary: "#0052cc",
-  secondary: "#002152",
-  accent: "#ff9500",
-  accentYellow: "#f2c94c",
-  midBlue: "#2f80ed",
-  // These can stay consistent
+  primary: "#1A3E72", // Deep Navy Blue
+  secondary: "#3A506B", // Muted Blue-Gray (was #007A33)
+  accent: "#FEE715", // Vibrant Gold-Yellow
+  background: "#F5F7FA", // Light Gray
+  midGray: "#828fab", // Mid-Gray
+  cardShadow: "#E0E0E0", // Card shadow
+  charcoal: "#101820", // Charcoal Black
   white: "#FFFFFC",
   black: "#000000",
 };
@@ -33,18 +20,19 @@ export const Padding = {
   xxxlarge: "64px",
 };
 
+// Update FontSize for hierarchy
 export const FontSize = {
-  small: "12px",
-  medium: "16px",
-  large: "24px",
-  xlarge: "32px",
-  xxlarge: "64px",
+  small: "14px", // for small text
+  medium: "16px", // body
+  large: "24px", // H2
+  xlarge: "32px", // H1
+  xxlarge: "36px", // Large H1
 };
 
+// Update FontFamily for professional look
 export const FontFamily = {
-  primary: "Arial",
-  secondary: "Helvetica",
-  tertiary: "Times New Roman",
+  primary: "'Lato', 'Inter', Arial, sans-serif", // Body
+  headline: "'Futura', 'Merriweather', Arial, sans-serif", // Headlines
 };
 
 export const FontWeight = {

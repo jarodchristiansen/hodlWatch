@@ -1,8 +1,7 @@
-import { Colors, MediaQueries } from "@/styles/variables";
+import { Colors, FontFamily, MediaQueries } from "@/styles/variables";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 
-import FeatureGrid from "../components/commons/feature-grid/FeatureGrid";
 import LandingPageCard from "../components/commons/info-cards/LandingPageCard";
 import HeroBanner from "../components/commons/landing/HeroBanner";
 import CTACard from "../components/ctas/CTACard";
@@ -51,30 +50,10 @@ export default function Home({ data }) {
         </SiteDescriptionContainer>
       </Row>
 
-      <Row>
+      <ReviewRow>
         <ReviewList />
-      </Row>
-
-      <IntroParagraph>
-        <p>
-          Welcome to Mesh, your all-in-one crypto companion. At Mesh, we believe
-          in empowering retail traders with the knowledge and tools they need to
-          navigate the complex world of cryptocurrencies. Whether you are an
-          experienced investor or just starting out, Mesh is designed to
-          simplify your crypto journey and help you make informed decisions.
-          With our intuitive portfolio tracking, real-time market data, and
-          vibrant community of crypto enthusiasts, you will have everything you
-          need to unlock the power of decentralized finance. Join us today and
-          discover how knowledge can be your key to success in the crypto
-          industry.
-        </p>
-      </IntroParagraph>
-
-      <Row>
-        <FeatureGrid />
-      </Row>
-
-      <CTACard />
+      </ReviewRow>
+      <StyledCTACard />
     </HomePageWrapper>
   );
 }
@@ -82,62 +61,66 @@ export default function Home({ data }) {
 const HomePageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  /* gap: 64px; */
+  font-family: ${FontFamily.primary};
+  min-height: 100vh;
 `;
 
-const TopRow = styled.div`
+const TopRow = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 24px;
   align-items: center;
-  background-color: ${Colors.black};
+  justify-content: center;
+  color: ${Colors.white};
+
+  min-height: 420px;
 
   @media ${MediaQueries.MD} {
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding: 96px 0 0 0;
   }
 `;
 
-const Row = styled.div`
+const Row = styled.section`
   display: flex;
   flex-direction: column;
-  color: ${Colors.black};
-  gap: 24px;
-  padding: 24px;
-
-  h3 {
-    text-align: center;
-  }
+  align-items: center;
+  width: 100%;
+  gap: 48px;
+  padding: 64px 0;
+  background: transparent;
+  background: ${Colors.primary};
 
   @media ${MediaQueries.MD} {
-    padding: 64px;
+    padding: 80px 0;
   }
 `;
 
 const SiteDescriptionContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  text-align: center;
-  grid-gap: 24px;
-  padding: 24px 0;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
-const IntroParagraph = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: ${Colors.white};
-  padding: 0 24px;
-  text-align: center;
-  background-color: ${Colors.black};
-  justify-content: center;
+// Enhance ReviewList and CTACard styling for cohesion
+const ReviewRow = styled.section`
+  padding: 64px 0;
+`;
 
-  p {
-    @media ${MediaQueries.MD} {
-      max-width: 90%;
-      text-align: center;
-      margin: auto;
-    }
-  }
+const StyledCTACard = styled(CTACard)`
+  /* margin: 0 auto 48px auto;
+  box-shadow: 0 4px 24px 0 ${Colors.cardShadow};
+  border-radius: 24px;
+  border-top: 4px solid ${Colors.primary};
+  background: linear-gradient(
+    90deg,
+    ${Colors.primary} 60%,
+    ${Colors.charcoal} 100%
+  ); */
 `;
 
 export const getServerSideProps = async (context) => {

@@ -254,7 +254,7 @@ const ImageContainer = styled.div`
 
 const CardFront = styled.div`
   border-radius: 12px;
-  background-color: ${Colors.modern.accentGray};
+  background-color: ${Colors.midGray};
   border: 1px solid black;
   text-align: center;
   margin: 1rem 0;
@@ -272,7 +272,7 @@ const CardFront = styled.div`
 
   button {
     color: ${Colors.white};
-    background-color: ${Colors.modern.purplePrimary};
+    background-color: ${Colors.primary};
     border-radius: 8px;
     padding: 8px;
     font-weight: 600;
@@ -289,7 +289,7 @@ const AssetCardWrapper = styled.div`
   border: 1px solid black;
   text-align: center;
   margin: 1rem 0;
-  border: 1px solid ${Colors.accentYellow};
+  border: 1px solid ${Colors.secondary};
   color: ${Colors.white};
 
   .holder {

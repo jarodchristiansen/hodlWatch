@@ -25,17 +25,28 @@ const CardWrapper = styled.div`
   flex-direction: column;
   gap: 18px;
   padding: 32px;
-  font-family: ${FontFamily.secondary};
-  border-radius: 12px;
+  font-family: ${FontFamily.primary};
+  border-radius: 20px;
   position: relative;
   text-align: center;
-  border: 0.5px solid ${Colors.accentYellow};
-  background-color: ${Colors.black};
+  background: ${Colors.charcoal};
   color: ${Colors.white};
+  border: none;
+  transition: box-shadow 0.2s, transform 0.2s;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.03);
+  }
 
   h4 {
+    font-family: ${FontFamily.headline};
     font-weight: ${FontWeight.bold};
-    padding: 0 0 12px 0;
+    font-size: 1.5rem;
+    color: ${Colors.primary};
+    margin-bottom: 12px;
+
+    padding: 6px 0;
+    background-color: ${Colors.midGray};
   }
 
   .card-background {

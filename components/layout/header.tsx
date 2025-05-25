@@ -1,4 +1,4 @@
-import { Colors, MediaQueries } from "@/styles/variables";
+import { Colors, FontFamily, FontSize, MediaQueries } from "@/styles/variables";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
@@ -93,17 +93,17 @@ function Header() {
     <Navbar
       collapseOnSelect
       expand="lg"
-      // bg="dark"
       variant="dark"
       onSelect={handleSelect}
       className="navbar-main"
       style={{
-        backgroundColor: "#000000",
+        backgroundColor: Colors.charcoal,
         color: Colors.white,
         position: "fixed",
         width: "100vw",
         zIndex: 1000,
-        borderBottom: "2px solid white",
+        borderBottom: `2px solid ${Colors.accent}`,
+        fontFamily: FontFamily.primary,
       }}
     >
       <Container>
@@ -121,13 +121,10 @@ function Header() {
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
           style={{
-            border: "2px solid white",
+            border: `2px solid ${Colors.accent}`,
           }}
         />
-        <Navbar.Collapse
-          id="responsive-navbar-nav"
-          // style={{ borderBottom: "2px solid white", padding: "24px 0" }}
-        >
+        <Navbar.Collapse id="responsive-navbar-nav">
           <RouteRow>
             {routeObjects}
             {session && (
@@ -136,6 +133,7 @@ function Header() {
                 role={"link"}
                 onClick={handleSignout}
                 className={"pointer-link fw-bold"}
+                style={{ color: Colors.accent }}
               >
                 <SignOutSpan>{"Sign Out"}</SignOutSpan>
               </Nav.Link>
@@ -154,10 +152,9 @@ const RouteRow = styled.div`
   font-weight: 600;
   text-align: center;
   padding: 12px 0;
-
-  /* > div:not(:last-child) {
-    border-bottom: solid 1px white;
-  } */
+  font-family: ${FontFamily.primary};
+  font-size: ${FontSize.large};
+  background: transparent;
 
   @media ${MediaQueries.MD} {
     flex-direction: row;
@@ -166,8 +163,9 @@ const RouteRow = styled.div`
 `;
 
 const SignOutSpan = styled.span`
-  color: ${Colors.white};
-
+  color: ${Colors.accent};
+  font-family: ${FontFamily.primary};
+  font-weight: bold;
   @media ${MediaQueries.MD} {
     white-space: nowrap;
   }
@@ -176,16 +174,25 @@ const SignOutSpan = styled.span`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-
+  align-items: center;
   a {
     color: ${Colors.white};
+    font-family: ${FontFamily.primary};
     font-weight: bold;
     text-decoration: none;
+    font-size: ${FontSize.large};
+    transition: color 0.2s;
+    &:hover {
+      color: ${Colors.accent};
+    }
   }
-
   .active-underline-span {
-    height: 2px;
-    color: ${Colors.accent};
+    height: 3px;
+    background: ${Colors.accent};
+    width: 100%;
+    display: block;
+    margin-top: 2px;
+    border-radius: 2px;
   }
 `;
 
