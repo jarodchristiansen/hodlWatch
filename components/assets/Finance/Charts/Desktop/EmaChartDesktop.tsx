@@ -113,7 +113,7 @@ const EMAChartDesktop = ({ data }) => {
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="70%"
-                  stopColor={Colors.modern.purplePrimary}
+                  stopColor={Colors.primary}
                   stopOpacity={0.2}
                 />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />

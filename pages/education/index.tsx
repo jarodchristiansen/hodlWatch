@@ -1,5 +1,5 @@
 import SEOHead from "@/components/seo/SEOHead";
-import { MediaQueries } from "@/styles/variables";
+import { Colors, FontFamily, FontSize, MediaQueries } from "@/styles/variables";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -211,28 +211,41 @@ const PostRow = styled.div`
   flex-direction: column;
   padding: 2rem;
   text-align: center;
-  border: 2px solid black;
-  border-radius: 12px;
-  box-shadow: 2px 4px 8px lightgray;
-  gap: 1rem;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px 0 ${Colors.cardShadow};
+  gap: 1.5rem;
   margin: 1rem 0;
-  background-color: white;
+  background-color: ${Colors.white};
+  transition: box-shadow 0.2s, transform 0.2s;
+  align-items: center;
+  min-height: 340px;
 
   img {
     width: 100%;
     height: auto;
+    border-radius: 12px;
+    margin-bottom: 1rem;
   }
 
   span {
-    color: gray;
-    font-weight: bold;
+    color: ${Colors.midGray};
+    font-weight: 600;
+    font-size: ${FontSize.medium};
   }
 
-  h2:hover,
-  span:hover {
+  h2 {
+    font-family: ${FontFamily.headline};
+    font-size: ${FontSize.large};
+    color: ${Colors.primary};
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 16px 0 ${Colors.secondary};
+    transform: translateY(-4px) scale(1.02);
     cursor: pointer;
-    color: blue;
-    text-decoration: underline;
   }
 `;
 

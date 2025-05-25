@@ -159,11 +159,11 @@ const GridContainer = styled.div`
     flex-direction: column;
     gap: 18px;
     padding: 32px;
-    font-family: ${FontFamily.secondary};
+    font-family: ${FontFamily.primary};
     border-radius: 12px;
     position: relative;
     text-align: center;
-    border: 0.5px solid ${Colors.accentYellow};
+    border: 0.5px solid ${Colors.secondary};
     background-color: black;
     color: white;
 

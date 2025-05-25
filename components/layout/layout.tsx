@@ -61,7 +61,7 @@
 
 // export default Layout;
 
-import { Colors } from "@/styles/variables";
+import { Colors, FontFamily, FontSize } from "@/styles/variables";
 import { useRouter } from "next/dist/client/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -80,44 +80,46 @@ interface LayoutProps {
  */
 function Layout(props) {
   const [isPurplePath, setIsPurplePath] = useState(false);
-
   const router = useRouter();
   const { asPath } = router;
 
+  // Move determineLayoutBackground inside useEffect to avoid dependency warning
   useEffect(() => {
-    determineLayoutBackground();
-  }, [asPath]);
-
-  const determineLayoutBackground = () => {
     if (asPath.includes("/auth") || asPath.includes("/assets/")) {
       setIsPurplePath(true);
     } else {
       setIsPurplePath(false);
     }
-  };
-
-  console.log({ asPath }, "IN LAYOUT");
+  }, [asPath]);
 
   const isHomePath = asPath === "/";
 
+  // Remove header/footer on landing page for distraction-free focus
   return (
     <LayoutContainer isPurplePath={isPurplePath}>
-      <Header />
+      {<Header />}
       <PageWrapper isHomePath={isHomePath}>{props.children}</PageWrapper>
-      <Footer />
+      {<Footer />}
     </LayoutContainer>
   );
 }
 
 const PageWrapper = styled.main<{ isHomePath: boolean }>`
   padding: ${(props) => (!props.isHomePath ? "48px 0" : "0")};
+  font-family: ${FontFamily.primary};
+  font-size: ${FontSize.medium};
+  line-height: 1.5;
+  background: ${Colors.charcoal};
+  min-height: 100vh;
 `;
 
 const LayoutContainer = styled.div<LayoutProps>`
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.black};
+  background-color: ${Colors.primary};
   position: relative;
+  min-height: 100vh;
+  font-family: ${FontFamily.primary};
 `;
 
 export default Layout;

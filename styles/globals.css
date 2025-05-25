@@ -1,13 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lato:wght@400;700&family=Futura:wght@400;700&family=Merriweather:wght@400;700&display=swap");
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Sarabun", sans-serif;
+  font-family: "Lato", "Inter", Arial, sans-serif;
+  background: #f5f7fa;
+  color: #101820;
 }
 
 a {
-  color: inherit;
+  color: #1a3e72;
   text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #007a33;
 }
 
 * {
@@ -20,13 +28,58 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Montserrat", sans-serif;
-  /* font-family: "Poppins", sans-serif; */
+  font-family: "Futura", "Merriweather", Arial, sans-serif;
+  font-weight: 700;
+  color: #1a3e72;
+  margin-bottom: 0.5em;
+}
+h1 {
+  font-size: 36px;
+}
+h2 {
+  font-size: 28px;
+}
+h3 {
+  font-size: 24px;
+}
+p,
+li,
+label,
+input,
+textarea {
+  font-family: "Lato", "Inter", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-p {
-  font-family: "Lato", sans-serif;
-  /* font-family: "Source Sans Pro", sans-serif; */
+section {
+  margin-bottom: 32px;
+}
+
+/* Card style for grouping */
+.card,
+.info-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px 0 #e0e0e0;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+/* Utility for accent CTA */
+.cta {
+  background: #fee715;
+  color: #101820;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-size: 18px;
+  border: none;
+  transition: background 0.2s;
+}
+.cta:hover {
+  background: #007a33;
+  color: #fff;
 }
 
 .loading-spinner-background-image {

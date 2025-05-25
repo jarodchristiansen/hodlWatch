@@ -1,4 +1,4 @@
-import { Colors, MediaQueries } from "@/styles/variables";
+import { Colors, FontFamily, FontSize, MediaQueries } from "@/styles/variables";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
@@ -72,6 +72,55 @@ const Footer = () => {
   );
 };
 
+const FooterContainer = styled.div`
+  width: 100%;
+  background: ${Colors.primary};
+  color: ${Colors.white};
+  padding: 2rem 2rem;
+  border-top: 2px solid ${Colors.midGray};
+  font-family: ${FontFamily.primary};
+  font-size: ${FontSize.medium};
+
+  .text-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    h4 {
+      font-weight: bold;
+      font-family: ${FontFamily.headline};
+      font-size: ${FontSize.large};
+      color: ${Colors.accent};
+    }
+
+    h6 {
+      color: ${Colors.white};
+      font-family: ${FontFamily.primary};
+      font-size: ${FontSize.medium};
+    }
+  }
+
+  .social-row {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+
+    svg {
+      color: ${Colors.accent};
+      transition: color 0.2s;
+
+      &:hover {
+        color: ${Colors.secondary};
+      }
+    }
+  }
+`;
+
 const InfoColumnsContainer = styled.div`
   width: 100%;
   margin: 0 auto;
@@ -88,40 +137,7 @@ const InfoColumnsContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
-`;
-
-const FooterContainer = styled.div`
-  width: 100%;
-  background: ${Colors.black};
-
-  color: white;
-  padding: 2rem 2rem;
-  border-top: 2px solid gray;
-
-  .text-column {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-
-    h4 {
-      font-weight: bold;
-    }
-
-    h6 {
-      color: white;
-    }
-  }
-
-  .social-row {
-    padding-top: 2rem;
-    display: flex;
-    flex-direction: row;
-    gap: 3rem;
+    align-items: flex-start;
   }
 `;
 

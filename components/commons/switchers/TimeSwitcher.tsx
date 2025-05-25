@@ -71,7 +71,7 @@ const TimeOption = styled.span`
   }
 
   &.selected {
-    color: ${Colors.black};
+    color: ${Colors.primary};
     background-color: white;
     border: 1px solid white;
   }
