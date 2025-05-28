@@ -250,10 +250,8 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
   return (
     <ChartContainer>
       <div className={"label-row"}>
-        <h5>Fibonacci Retracement</h5>
-
+        {/* Remove redundant <h5>Fibonacci Retracement</h5> header, keep modal and time switcher */}
         <FinanceChartModal text={modalText} />
-
         <div className="time-container">
           <TimeSwitcher showNDays={showNDays} onChange={setShowNDays} />
         </div>

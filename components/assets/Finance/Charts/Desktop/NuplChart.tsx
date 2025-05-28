@@ -1,5 +1,6 @@
 // import FinanceChartModal from "./FinanceChartModal";
 import { FormatUnixTime } from "@/helpers/formatters/time";
+import { ChartDimensions } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -12,7 +13,6 @@ import {
   YAxis,
 } from "recharts";
 
-import { ChartDimensions } from "@/styles/variables";
 import ChartContainer from "./ChartContainer";
 
 const NuplChart = ({ data }) => {
@@ -66,7 +66,7 @@ const NuplChart = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"label-row"}>
-        <h5>NUPL (Net Unrealized Profit and Loss)</h5>
+        {/* Removed <h5>NUPL (Net Unrealized Profit and Loss)</h5> header, now handled by chart grid */}
       </div>
       {nuplData && (
         <ResponsiveContainer width="100%" height={ChartDimensions.height}>

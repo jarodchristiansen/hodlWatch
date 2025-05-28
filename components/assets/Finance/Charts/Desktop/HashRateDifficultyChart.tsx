@@ -1,4 +1,5 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
+import { ChartDimensions } from "@/styles/variables";
 import { useEffect, useState } from "react";
 // import FinanceChartModal from "./FinanceChartModal";
 import {
@@ -11,7 +12,6 @@ import {
   YAxis,
 } from "recharts";
 
-import { ChartDimensions } from "@/styles/variables";
 import ChartContainer from "./ChartContainer";
 
 /**
@@ -38,8 +38,6 @@ const HashRateDifficultyChart = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"label-row"}>
-        <h5>Hashrate/Difficulty</h5>
-
         <ToggleSwitch
           label={"30 days"}
           label2={"1 year"}

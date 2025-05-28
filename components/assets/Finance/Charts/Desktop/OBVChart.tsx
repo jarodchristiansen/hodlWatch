@@ -1,6 +1,7 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 // import FinanceChartModal from "./FinanceChartModal";
 import { FormatUnixTime } from "@/helpers/formatters/time";
+import { ChartDimensions } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -13,7 +14,6 @@ import {
   YAxis,
 } from "recharts";
 
-import { ChartDimensions } from "@/styles/variables";
 import ChartContainer from "./ChartContainer";
 
 const OBVChart = ({ data }) => {
@@ -94,8 +94,6 @@ const OBVChart = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"label-row"}>
-        <h5>OBV (On-balance Volume)</h5>
-
         <ToggleSwitch
           label={"30 days"}
           label2={"1 year"}

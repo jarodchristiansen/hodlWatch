@@ -92,7 +92,7 @@ function Header() {
     <HeaderBar>
       <HeaderInner>
         <LogoArea>
-          <LogoLink href="/">HodlWatch</LogoLink>
+          <LogoLink href="/">Mesh</LogoLink>
         </LogoArea>
         <Hamburger
           aria-label="Toggle navigation menu"

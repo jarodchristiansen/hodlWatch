@@ -49,8 +49,6 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
   return (
     <ChartContainer>
       <div className="label-row">
-        <h5>Volume Chart</h5>
-
         <ToggleSwitch
           label={"30 days"}
           label2={"1 year"}
