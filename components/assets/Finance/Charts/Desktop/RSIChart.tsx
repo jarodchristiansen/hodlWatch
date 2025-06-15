@@ -1,4 +1,5 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
+import { ChartDimensions } from "@/styles/variables";
 // import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
 import {
@@ -12,7 +13,6 @@ import {
   YAxis,
 } from "recharts";
 
-import { ChartDimensions } from "@/styles/variables";
 import ChartContainer from "./ChartContainer";
 
 const RsiChart = ({ data }) => {
@@ -100,8 +100,6 @@ const RsiChart = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"label-row"}>
-        <h5>RSI (Relative Strength Index)</h5>
-
         <ToggleSwitch
           label={"30 days"}
           label2={"1 year"}

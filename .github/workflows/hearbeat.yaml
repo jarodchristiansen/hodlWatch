@@ -1,0 +1,42 @@
+name: 🫀 Daily Heartbeat
+
+on:
+  schedule:
+    # Runs every day at 00:05 UTC. Adjust as needed.
+    - cron: "5 0 * * *"
+  workflow_dispatch: # Allow manual runs too
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Needed to be able to push back changes
+          persist-credentials: true
+
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Adjust commit time for rate limiting
+        run: |
+          SECONDS=$((RANDOM % 7200))
+          echo "Sleeping for $SECONDS seconds to randomize commit time."
+          sleep $SECONDS
+
+      - name: Run heartbeat update
+        run: bash .github/scripts/update_heartbeat.sh
+
+      - name: Commit & push changes
+        run: |
+          git add heartbeat.md
+          if [ -f .commitmsg ]; then
+            git commit -F .commitmsg || echo "No changes to commit"
+            rm .commitmsg
+          else
+            git commit -m "chore: doc update on $(date -u +'%Y-%m-%d')" || echo "No changes to commit"
+          fi
+          git push

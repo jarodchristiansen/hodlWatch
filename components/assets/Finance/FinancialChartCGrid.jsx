@@ -1,5 +1,6 @@
 import { processFinancialHistory } from "@/helpers/financial";
 import { Colors, MediaQueries } from "@/styles/variables";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -42,12 +43,25 @@ const FinancialChartGrid = ({ financialData, id, time }) => {
       .map((c, idx) => {
         const ChartComponent = c.component;
         const chartData = c.dataSelector(processedFinancialData);
-        // Only render if data is present
         if (!chartData || (Array.isArray(chartData) && !chartData.length))
           return null;
         const styleOverride = chartCardStyleOverrides[c.key] || {};
         return (
           <ChartCard key={c.key} $styleOverride={styleOverride}>
+            <ChartHeader>
+              {c.icon && (
+                <Image
+                  src={c.icon}
+                  alt={c.label + " icon"}
+                  width={28}
+                  height={28}
+                />
+              )}
+              <h5 style={c.headerStyle}>{c.header}</h5>
+            </ChartHeader>
+            {c.description && (
+              <ChartDescription>{c.description}</ChartDescription>
+            )}
             <ChartComponent data={chartData} />
           </ChartCard>
         );
@@ -158,6 +172,33 @@ const SelectorButton = styled.button`
     background: ${Colors.accent};
     color: ${Colors.charcoal};
   }
+`;
+
+const ChartHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  h5 {
+    font-size: 1.18rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+  }
+  img {
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+  }
+`;
+const ChartDescription = styled.div`
+  color: #bfc4d0;
+  font-size: 0.98rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  min-height: 24px;
 `;
 
 export default FinancialChartGrid;

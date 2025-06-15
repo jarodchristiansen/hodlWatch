@@ -11,6 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
 import ChartContainer from "./ChartContainer";
 
 const StochasticOscillatorChart = ({ data }) => {
@@ -70,7 +71,7 @@ const StochasticOscillatorChart = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"label-row"}>
-        <h5>Stochastic Oscillator</h5>
+        {/* Removed <h5>Stochastic Oscillator</h5> header, now handled by chart grid */}
       </div>
       {stochasticData && (
         <ResponsiveContainer width="100%" height={ChartDimensions.height}>

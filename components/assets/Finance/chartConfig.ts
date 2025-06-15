@@ -21,6 +21,8 @@ export interface ChartConfig {
   showByDefault?: boolean;
   header: string;
   headerStyle?: React.CSSProperties;
+  description?: string;
+  icon?: string; // path to icon or SVG
 }
 
 // Centralized chart config array
@@ -33,6 +35,8 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data?.closes,
     showByDefault: true,
     headerStyle: { color: "#ffb347" },
+    description: "Shows key Fibonacci retracement levels for price action.",
+    icon: "/landing/fibonacci-icon.svg",
   },
   {
     key: "ema",
@@ -42,6 +46,9 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data?.closes,
     showByDefault: true,
     headerStyle: { color: "#b30000" },
+    description:
+      "Exponential moving averages (30/50/100/200) for trend analysis.",
+    icon: "/landing/ema-icon.svg",
   },
   {
     key: "bollinger",
@@ -51,6 +58,8 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data?.closes,
     showByDefault: true,
     headerStyle: { color: "#806cfe" },
+    description: "Bollinger Bands for volatility and mean reversion signals.",
+    icon: "/landing/bollinger-icon.svg",
   },
   {
     key: "macd",
@@ -60,6 +69,8 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data?.closes,
     showByDefault: true,
     headerStyle: { color: "#00BFBF" },
+    description: "Moving Average Convergence Divergence for momentum.",
+    icon: "/landing/macd-icon.svg",
   },
   {
     key: "sharpe",
@@ -69,6 +80,8 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data?.closes,
     showByDefault: false,
     headerStyle: { color: "#00BFBF" },
+    description: "Risk-adjusted return (Sharpe Ratio) over time.",
+    icon: "/landing/sharpe-icon.svg",
   },
   {
     key: "volume",
@@ -78,6 +91,8 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data?.volume,
     showByDefault: false,
     headerStyle: { color: "#fff" },
+    description: "Trading volume for liquidity and activity.",
+    icon: "/landing/volume-icon.svg",
   },
   {
     key: "rsi",
@@ -87,6 +102,8 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data?.closes,
     showByDefault: false,
     headerStyle: { color: "#fff" },
+    description: "Relative Strength Index for overbought/oversold signals.",
+    icon: "/landing/rsi-icon.svg",
   },
   {
     key: "obv",
@@ -96,6 +113,8 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data,
     showByDefault: false,
     headerStyle: { color: "#fff" },
+    description: "On-balance volume for volume/price confirmation.",
+    icon: "/landing/obv-icon.svg",
   },
   {
     key: "adx",
@@ -105,6 +124,8 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data,
     showByDefault: false,
     headerStyle: { color: "#fff" },
+    description: "Average Directional Index for trend strength.",
+    icon: "/landing/adx-icon.svg",
   },
   {
     key: "nupl",
@@ -114,6 +135,8 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data,
     showByDefault: false,
     headerStyle: { color: "#fff" },
+    description: "Net Unrealized Profit/Loss for market sentiment.",
+    icon: "/landing/nupl-icon.svg",
   },
   {
     key: "stochastic",
@@ -123,6 +146,8 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data?.closes,
     showByDefault: false,
     headerStyle: { color: "#fff" },
+    description: "Stochastic Oscillator for momentum and reversal.",
+    icon: "/landing/stochastic-icon.svg",
   },
   {
     key: "atr",
@@ -132,5 +157,7 @@ export const chartConfig: ChartConfig[] = [
     dataSelector: (data) => data,
     showByDefault: false,
     headerStyle: { color: "#fff" },
+    description: "Average True Range for volatility measurement.",
+    icon: "/landing/atr-icon.svg",
   },
 ];
