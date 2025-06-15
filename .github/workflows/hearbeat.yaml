@@ -2,8 +2,13 @@ name: 🫀 Daily Heartbeat
 
 on:
   schedule:
-    # Runs every day at 00:05 UTC. Adjust as needed.
+    # Runs at 6 random-ish times per day (UTC)
     - cron: "5 0 * * *"
+    - cron: "37 3 * * *"
+    - cron: "12 7 * * *"
+    - cron: "44 11 * * *"
+    - cron: "19 16 * * *"
+    - cron: "53 21 * * *"
   workflow_dispatch: # Allow manual runs too
 
 jobs:
@@ -21,9 +26,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Randomly decide whether to proceed
+        run: |
+          # 1 in 3 chance to proceed (adjust as needed)
+          if [ $((RANDOM % 3)) -ne 0 ]; then
+            echo "Skipping this run to randomize commit timing."
+            exit 0
+          fi
+
       - name: Adjust commit time for rate limiting
         run: |
-          SECONDS=$((RANDOM % 7200))
+          SECONDS=$((RANDOM % 120))
           echo "Sleeping for $SECONDS seconds to randomize commit time."
           sleep $SECONDS
 
