@@ -1,3 +1,4 @@
+import { BorderRadius, Colors, FontFamily, FontSize } from "@/styles/variables";
 import { signIn } from "next-auth/react";
 import {
   FaCoins,
@@ -136,35 +137,50 @@ const ProviderContainer = ({
 };
 
 const ProviderButton = styled.button`
-  background-color: black;
-  color: white;
-  border-radius: 8px;
-  border: 2px solid black;
-  box-shadow: 2px 4px 8px gray;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  font-family: ${FontFamily.primary};
+  font-size: ${FontSize.medium};
+  font-weight: 700;
+  color: ${Colors.white};
+  background-color: ${Colors.primary};
+  border: 2px solid ${Colors.primary};
+  border-radius: ${BorderRadius.medium};
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 
-  .button-content {
+  .button-icon {
     display: flex;
+    align-items: center;
+  }
+
+  .button-label {
     white-space: nowrap;
-    gap: 1rem;
-    padding: 0.5rem 0.5rem;
   }
 
-  :hover {
-    background-color: white;
-    color: black;
+  &:hover:not(:disabled) {
+    background-color: ${Colors.secondary};
+    border-color: ${Colors.secondary};
+    color: ${Colors.white};
   }
 
-  :disabled {
-    background-color: white;
-    color: black;
+  &:focus-visible {
+    outline: 2px solid ${Colors.accent};
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
     cursor: not-allowed;
-    pointer-events: all !important;
   }
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  white-space: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
   padding: 2rem 0;
   gap: 1rem;

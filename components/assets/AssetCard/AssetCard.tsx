@@ -7,7 +7,7 @@ import {
 import { FormatUnixTimeWithTime } from "@/helpers/formatters/time";
 import { ADD_FAVORITE, REMOVE_FAVORITE } from "@/helpers/mutations/user";
 import { GET_USER } from "@/helpers/queries/user";
-import { Colors, FontWeight } from "@/styles/variables";
+import { Colors, FontWeight, Surfaces } from "@/styles/variables";
 import { useMutation } from "@apollo/client";
 import { motion, useCycle } from "framer-motion";
 import Link from "next/link";
@@ -244,7 +244,7 @@ const CardContainer = styled.div`
   transition: box-shadow 0.3s, transform 0.3s;
 
   &:hover {
-    box-shadow: 0 8px 32px 0 rgba(40, 40, 60, 0.35), 0 2px 0 0 #ffd700;
+    box-shadow: 0 8px 32px 0 rgba(40, 40, 60, 0.35), 0 2px 0 0 ${Colors.gold};
     transform: translateY(-2px) scale(1.025);
   }
 
@@ -257,7 +257,7 @@ const CardContainer = styled.div`
     top: 18px;
     right: 18px;
     z-index: 2;
-    background: rgba(30, 30, 40, 0.7);
+    background: ${Surfaces.cardPanel};
     border-radius: 50%;
     padding: 4px;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
@@ -338,7 +338,7 @@ const Title = styled.h4`
   font-size: 1.45rem;
   font-weight: 700;
   margin: 0.5rem 0 0.2rem 0;
-  color: #fff;
+  color: ${Colors.white};
   letter-spacing: 0.01em;
 `;
 
@@ -359,7 +359,11 @@ const ImageContainer = styled.div`
     width: 84px;
     height: 84px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #23283a 60%, #181c24 100%);
+    background: linear-gradient(
+      135deg,
+      ${Surfaces.imageWellFrom} 60%,
+      ${Surfaces.imageWellTo} 100%
+    );
     box-shadow: 0 2px 12px 0 rgba(40, 40, 60, 0.18);
     object-fit: cover;
     border: 2.5px solid ${Colors.gold};
@@ -380,7 +384,7 @@ const StyledButton = styled(Button)`
   border-radius: 8px;
   padding: 0.6rem 1.4rem;
   background: ${({ primary }) => (primary ? Colors.primary : "transparent")};
-  color: ${({ primary }) => (primary ? "#fff" : Colors.primary)};
+  color: ${({ primary }) => (primary ? Colors.white : Colors.primary)};
   border: 2px solid ${Colors.primary};
   box-shadow: none;
   transition: background 0.18s, color 0.18s;
@@ -397,7 +401,7 @@ const FavoriteButton = styled.div`
   right: 18px;
   cursor: pointer;
   z-index: 2;
-  background: rgba(24, 26, 32, 0.85);
+  background: ${Surfaces.cardPanelStrong};
   border-radius: 50%;
   padding: 0.3rem;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.12);
@@ -412,7 +416,7 @@ const SnapshotContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem 1.2rem;
   padding: 0 0.5rem 1.2rem 0.5rem;
-  background: rgba(30, 30, 40, 0.7);
+  background: ${Surfaces.cardPanel};
   border-radius: 10px;
   margin-bottom: 1.2rem;
 `;

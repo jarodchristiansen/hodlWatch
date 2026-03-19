@@ -1,4 +1,5 @@
-import { Colors, FontFamily, MediaQueries } from "@/styles/variables";
+import { Colors, FontFamily, FontSize, MediaQueries, SectionSpacing } from "@/styles/variables";
+import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
 
@@ -11,18 +12,18 @@ import SEOHead from "../components/seo/SEOHead";
 const cardContent = [
   {
     image: "/landing/avatar-icon.svg",
-    title: "Stay Informed",
-    text: "Gain a competitive edge with real-time market data, comprehensive financial metrics, and news updates. Mesh provides you with a clear view of the crypto universe, empowering you to make informed investment decisions.",
+    title: "Live data & indicators",
+    text: "WebSocket-powered price feeds for 10,000+ assets, plus on-demand metrics: Fibonacci retracement levels, Sharpe ratio, Sortino ratio, and net realized profit-loss. Data sourced via CoinGecko and CryptoCompare APIs with GraphQL aggregation.",
   },
   {
     image: "/landing/connected-icon.svg",
-    title: "Stay Connected",
-    text: "Join a community of crypto enthusiasts and investors. Engage in lively discussions, share insights, and stay connected with the latest trends. Collaborate, learn, and grow together in the exciting realm of blockchain technology.",
+    title: "Portfolio & community",
+    text: "Track favorites and build a feed around the assets you care about. User data and favorites are persisted via MongoDB with real-time updates. Integrates with NextAuth for secure sign-in and session management.",
   },
   {
     image: "/landing/growth-chart-icon.svg",
-    title: "Thrive",
-    text: "Mesh is your gateway to success in the crypto revolution. Unleash the potential of your portfolio, analyze trends, and identify opportunities to maximize your returns. With Mesh, you will be well-equipped to navigate the crypto landscape with confidence and make waves in the world of finance.",
+    title: "Charts & macro context",
+    text: "TradingView-style charts and macro indicators (e.g. BTC-focused metrics) delivered through a single Apollo-backed API. Filter, compare, and export—all from one dashboard.",
   },
 ];
 
@@ -30,7 +31,7 @@ export default function Home({ data }) {
   const { data: session } = useSession();
 
   return (
-    <HomePageWrapper>
+    <HomePageWrapper id="main-content">
       <SEOHead
         isHomePage={true}
         metaTitle="Mesh - Blockchain, Crypto, Web3 Data Explorer and Community"
@@ -42,10 +43,22 @@ export default function Home({ data }) {
         <HeroBanner />
       </TopRow>
 
-      <Row>
+      <Row id="features">
+        <FeatureSectionTitle>Why Mesh</FeatureSectionTitle>
         <SiteDescriptionContainer>
-          {cardContent.map((card) => (
-            <LandingPageCard key={card.title} {...card} />
+          {cardContent.map((card, index) => (
+            <MotionCard
+              key={card.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.4, delay: index * 0.12 }}
+            >
+              <LandingPageCard
+                {...card}
+                variant={index === 1 ? "light" : "default"}
+              />
+            </MotionCard>
           ))}
         </SiteDescriptionContainer>
       </Row>
@@ -53,7 +66,9 @@ export default function Home({ data }) {
       <ReviewRow>
         <ReviewList />
       </ReviewRow>
-      <StyledCTACard />
+      <CTASectionWrapper>
+        <StyledCTACard />
+      </CTASectionWrapper>
     </HomePageWrapper>
   );
 }
@@ -61,7 +76,7 @@ export default function Home({ data }) {
 const HomePageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* gap: 64px; */
+  gap: 64px;
   font-family: ${FontFamily.primary};
   min-height: 100vh;
 `;
@@ -88,39 +103,112 @@ const Row = styled.section`
   align-items: center;
   width: 100%;
   gap: 48px;
-  padding: 64px 0;
-  background: transparent;
-  background: ${Colors.primary};
+  padding: ${SectionSpacing.relaxed} 24px;
+  background: linear-gradient(180deg, ${Colors.primary} 0%, #152a50 100%);
 
   @media ${MediaQueries.MD} {
-    padding: 80px 0;
+    padding: ${SectionSpacing.loose} 32px;
   }
 `;
 
+const FeatureSectionTitle = styled.h2`
+  font-family: ${FontFamily.headline};
+  font-size: ${FontSize.pageSection};
+  font-weight: 700;
+  color: ${Colors.white};
+  margin: 0 0 8px 0;
+  text-align: center;
+`;
+
+const MotionCard = styled(motion.div)``;
+
 const SiteDescriptionContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
   gap: 40px;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+
+  @media (max-width: 400px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
-// Enhance ReviewList and CTACard styling for cohesion
+const UnderTheHoodRow = styled.section`
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: ${SectionSpacing.relaxed} 32px;
+  background: ${Colors.charcoal};
+  color: ${Colors.white};
+
+  @media ${MediaQueries.MD} {
+    padding: ${SectionSpacing.loose} 48px;
+  }
+`;
+
+const UnderTheHoodTitle = styled.h3`
+  font-family: ${FontFamily.headline};
+  font-size: 1.5rem;
+  color: ${Colors.accent};
+  margin-bottom: 1rem;
+  text-align: center;
+`;
+
+const UnderTheHoodList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: ${FontFamily.primary};
+  font-size: 1rem;
+  line-height: 1.8;
+  max-width: 720px;
+  margin: 0 auto;
+
+  li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: ${Colors.accent};
+  }
+`;
+
 const ReviewRow = styled.section`
-  padding: 64px 0;
+  padding: ${SectionSpacing.xxxlarge} 24px;
+
+  @media ${MediaQueries.MD} {
+    padding: ${SectionSpacing.xxxlarge} 32px;
+  }
+`;
+
+const CTASectionWrapper = styled.section`
+  width: 100%;
+  padding: ${SectionSpacing.relaxed} 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media ${MediaQueries.MD} {
+    padding: ${SectionSpacing.loose} 32px;
+  }
 `;
 
 const StyledCTACard = styled(CTACard)`
-  /* margin: 0 auto 48px auto;
-  box-shadow: 0 4px 24px 0 ${Colors.cardShadow};
+  margin: 0 auto;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
   border-radius: 24px;
-  border-top: 4px solid ${Colors.primary};
-  background: linear-gradient(
-    90deg,
-    ${Colors.primary} 60%,
-    ${Colors.charcoal} 100%
-  ); */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(26, 62, 114, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 `;
 
 export const getServerSideProps = async (context) => {

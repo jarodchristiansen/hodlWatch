@@ -2,7 +2,12 @@ import SelectChip from "@/components/commons/buttons/SelectChip";
 import { processFinancialHistory } from "@/helpers/financial";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { GET_ASSET_HISTORY } from "@/helpers/queries/assets/getAssetFinancialDetails";
-import { Colors, FontWeight, MediaQueries } from "@/styles/variables";
+import {
+  ChartColors,
+  Colors,
+  FontWeight,
+  MediaQueries,
+} from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -247,7 +252,7 @@ const ComparisonTerminal = ({ id }) => {
             <Line
               type="monotone"
               dataKey="min"
-              stroke="#b30000"
+              stroke={ChartColors.negative}
               dot={false}
               strokeWidth={2}
             />
@@ -266,7 +271,7 @@ const ComparisonTerminal = ({ id }) => {
             <Area
               type="monotone"
               dataKey="close"
-              stroke="#806cfe"
+              stroke={ChartColors.seriesMuted}
               strokeWidth={3}
               fillOpacity={1}
               fill="url(#colorUv)"
@@ -277,7 +282,7 @@ const ComparisonTerminal = ({ id }) => {
             <Area
               type="monotone"
               dataKey="secondClose"
-              stroke="#0088FF"
+              stroke={ChartColors.seriesAlt}
               strokeWidth={3}
               fillOpacity={1}
               fill="url(#colorUv)"

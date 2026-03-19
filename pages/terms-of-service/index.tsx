@@ -4,17 +4,17 @@ const TermsOfServicePage = () => {
   return (
     <TermsContainer>
       <h1>Terms Of Service</h1>
-      <h2>Updated: December, 27th, 2022</h2>
+      <h2>Updated: March 2026</h2>
 
       <span>
         These terms and conditions are the agreement between you as a
         &quot;User&quot; (also referred to herein as &quot;you&quot; and
-        &quot;your&quot;) of the website www.hodl-watch.vercel.app/ By accepting
+        &quot;your&quot;) of the website this website (Mesh) By accepting
         these Terms and Conditions on the Websites by means of clicking the
         &quot;I accept&quot; button or another affirmatory action, you are
         consenting to these Terms and Conditions that may be amended from time
         to time as set forth herein. Please review our Privacy Notice located at
-        www.hodl-watch.vercel.app//privacy-notice, which is incorporated into
+        this website&apos;s privacy notice, which is incorporated into
         these Terms and Conditions by this reference and therefore an integral
         part thereof.
       </span>
@@ -31,7 +31,7 @@ const TermsOfServicePage = () => {
         Services. It is a core part of our Services that our user community
         benefit from the overall trends (e.g. how many of our users have
         Bitcoins in their portfolio). By merging the Services of the Services
-        provided through the website www.hodl-watch.vercel.app/, and enabling a
+        provided through the website this website (Mesh), and enabling a
         single sign on, we further extent our offerings and provide you with
         even better Services.
       </span>
@@ -129,13 +129,13 @@ const TermsOfServicePage = () => {
         SERVICE IS AT YOUR SOLE RISK AND ACKNOWLEDGE THAT THE SERVICE AND
         ANYTHING CONTAINED WITHIN THE SERVICE, INCLUDING, BUT NOT LIMITED TO,
         CONTENT AND INFORMATION, ARE PROVIDED &quot;AS IS&quot; AND &quot;AS
-        AVAILABLE&quot; ON A COMPLEMENTARY AND VOLUNTARY BASIS. HODLWATCH DOES
+        AVAILABLE&quot; ON A COMPLEMENTARY AND VOLUNTARY BASIS. Mesh DOES
         NOT MAKE ANY EXPRESS OR IMPLIED WARRANTIES, REPRESENTATIONS OR
         ENDORSEMENTS WHATSOEVER WITH REGARD TO THE SERVICE. IN PARTICULAR, YOU
-        AGREE THAT HODLWATCH ASSUMES NO WARRANTY FOR THE CORRECTNESS, ACCURACY
-        AND COMPLETENESS OF THE SERVICE AND THE WEBSITE. HODLWATCH&apos;S
+        AGREE THAT Mesh ASSUMES NO WARRANTY FOR THE CORRECTNESS, ACCURACY
+        AND COMPLETENESS OF THE SERVICE AND THE WEBSITE. Mesh&apos;S
         LIABILITY AND WARRANTY ARE LIMITED TO INTENT AND GROSS NEGLIGENCE. IN NO
-        EVENT WILL HODLWATCH, ITS AFFILIATES, MEMBERS, MANAGERS, OFFICERS,
+        EVENT WILL Mesh, ITS AFFILIATES, MEMBERS, MANAGERS, OFFICERS,
         EMPLOYEES, AGENTS OR THE ASSIGNEES OF SAME BE LIABLE FOR (I) ANY
         INCIDENTAL, CONSEQUENTIAL, INDIRECT SPECIAL, EXEMPLARY OR PUNITIVE
         DAMAGES (INCLUDING, BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS,
@@ -143,17 +143,17 @@ const TermsOfServicePage = () => {
         REPUTATIONAL DAMAGE, LOSS OF PROGRAMS OR INFORMATION OR DATA, AND THE
         LIKE) ARISING OUT OF THE USE OF OR INABILITY TO USE THE SERVICE,
         INABILITY TO USE THE SERVICE, OR ANY INFORMATION PROVIDED ON OR
-        DOWNLOADED FROM THE SERVICE, EVEN IF HODLWATCH HAS BEEN ADVISED OF THE
+        DOWNLOADED FROM THE SERVICE, EVEN IF Mesh HAS BEEN ADVISED OF THE
         POSSIBILITY OF SUCH LOSSES OR DAMAGES. OR (II) ANY CLAIM BASED ON
         ERRORS, OMISSIONS OR OTHER INACCURACIES IN THE SERVICE. EVEN
-        THOUGHHODLWATCH STRIVES TO MAKE THE SERVICE AVAILABLE 24/7, HODLWATCH
+        THOUGH MESH STRIVES TO MAKE THE SERVICE AVAILABLE 24/7, Mesh
         DOES NOT GUARANTEE UNINTERRUPTED AVAILABILITY OF THE SERVICE AND SHALL
         NOT BE LIABLE FOR ANY DELAYS, ERRORS OR INTERRUPTIONS IN THE
-        TRANSMISSION OR DELIVERY OF DATA VIA THE SERVICE. HODLWATCH DOES NOT
+        TRANSMISSION OR DELIVERY OF DATA VIA THE SERVICE. Mesh DOES NOT
         WARRANT THAT THE SERVICE AND THE WEBSITE ARE FREE OF VIRUSES, WORMS OR
         &quot;TROJAN HORSES,&quot; OR ANY OTHER HARMFUL, INVASIVE, OR CORRUPTED
         FILES, OR OTHER HARMFUL COMPONENTS OR THAT THIS WEBSITE OR THE SERVICE
-        DO NOT VIOLATE ANY THIRD PARTY RIGHTS. HODLWATCH HEREBY EXCLUDES ALL
+        DO NOT VIOLATE ANY THIRD PARTY RIGHTS. Mesh HEREBY EXCLUDES ALL
         WARRANTY AND GUARANTEES TO THE FULLEST EXTENT PERMITTED BY LAW. BY USING
         THE SERVICE, YOU ACKNOWLEDGE AND AGREE THAT INTERNET TRANSMISSIONS ARE
         NEVER COMPLETELY PRIVATE OR SECURE. YOU UNDERSTAND THAT TRANSMISSIONS TO
@@ -167,22 +167,22 @@ const TermsOfServicePage = () => {
       <span>
         NEITHER THIS WEBSITE NOR THE SERVICE PROVIDES ANY INVESTMENT ADVICE. ALL
         DATA IS PROVIDED FOR INFORMATION PURPOSES ONLY AND IS NOT INTENDED FOR
-        TRADING PURPOSES. WHILE HODLWATCH USES COMMERCIALLY REASONABLE EFFORTS
+        TRADING PURPOSES. WHILE Mesh USES COMMERCIALLY REASONABLE EFFORTS
         TO PERIODICALLY UPDATE THE INFORMATION PROVIDED ON THE WEBSITE AND THE
-        SERVICE, HODLWATCH CANNOT GUARANTEE THAT THE INFORMATION PROVIDED IS
+        SERVICE, Mesh CANNOT GUARANTEE THAT THE INFORMATION PROVIDED IS
         ACCURATE, COMPLETE, OR UP-TO-DATE. NO INVESTMENT DECISION SHALL BE BASED
         ON THE INFORMATION CONTAINED ON THE WEBSITE OR THROUGH THE SERVICE AND
-        YOU ARE SOLELY RESPONSIBLE FOR YOUR OWN INVESTMENT DECISIONS. HODLWATCH
+        YOU ARE SOLELY RESPONSIBLE FOR YOUR OWN INVESTMENT DECISIONS. Mesh
         IS NEITHER LIABLE NOR RESPONSIBLE FOR ANY INJURY, LOSSES OR DAMAGES
         ARISING IN CONNECTION WITH ANY INVESTMENT DECISION TAKEN OR MADE BY YOU
-        BASED ON INFORMATION HODLWATCH PROVIDES. NOTHING CONTAINED IN THE
+        BASED ON INFORMATION Mesh PROVIDES. NOTHING CONTAINED IN THE
         SERVICE SHALL CONSTITUTE ANY TYPE OF INVESTMENT ADVICE OR RECOMMENDATION
         (I.E., RECOMMENDATIONS AS TO WHETHER OR NOT TO &quot;BUY&quot;,
         &quot;SELL&quot;, &quot;HOLD&quot;, OR TO ENTER OR NOT TO ENTER INTO ANY
         OTHER TRANSACTION INVOLVING ANY CRYPTOCURRENCY). ALL INFORMATION
-        PROVIDED BY HODLWATCH IS IMPERSONAL AND NOT TAILORED TO YOUR
-        NEEDS.HODLWATCH DOES NOT EXPRESS ANY OPINION ON THE FUTURE OR EXPECTED
-        VALUE OF ANY CRYPTOCURRENCY AND HODLWATCH DOES NOT EXPLICITLY OR
+        PROVIDED BY Mesh IS IMPERSONAL AND NOT TAILORED TO YOUR
+        NEEDS.Mesh DOES NOT EXPRESS ANY OPINION ON THE FUTURE OR EXPECTED
+        VALUE OF ANY CRYPTOCURRENCY AND Mesh DOES NOT EXPLICITLY OR
         IMPLICITLY RECOMMEND OR SUGGEST AN INVESTMENT STRATEGY OF ANY KIND. BY
         USING THE WEBSITE AND SERVICE YOU ACKNOWLEDGE THESE DISCLAIMERS. THE
         INFORMATION PROVIDED RELATES TO A DYNAMIC, HIGH RISK TYPE OF CURRENCY
@@ -299,7 +299,7 @@ const TermsOfServicePage = () => {
         your records, and you waive any other requirement that these Terms and
         Conditions be evidenced by a written document. These Terms and
         Conditions, together with the Privacy Notice at
-        www.hodl-watch.vercel.app/privacy-notice and any other legal notices
+        this website&apos;s privacy notice and any other legal notices
         published by us, constitute the entire agreement between you and us with
         regard to your use of the Service. Our failure to insist on or to
         enforce strict performance of these Terms and Conditions shall not be

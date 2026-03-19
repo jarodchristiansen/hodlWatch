@@ -1,9 +1,15 @@
-import { Colors, MediaQueries } from "@/styles/variables";
+import {
+  BorderRadius,
+  Colors,
+  FontFamily,
+  FontSize,
+  MediaQueries,
+  Shadows,
+} from "@/styles/variables";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-// import { ToastContainer } from "react-nextjs-toast";
 import styled from "styled-components";
 
 import ToggleSwitch from "../commons/switchers/toggle-switch";
@@ -202,40 +208,54 @@ const CheckMarkContainer = styled.div`
   align-items: center;
 
   .term-text {
-    color: blue;
+    color: ${Colors.primary};
     text-decoration: underline;
   }
 
   .form-check-input {
     cursor: pointer;
-    border: 2px solid black;
+    border: 2px solid ${Colors.charcoal};
+    border-radius: ${BorderRadius.small};
     padding: 0.5rem;
-
-    :checked {
-      color: ${Colors.accent};
-    }
+    accent-color: ${Colors.primary};
   }
 `;
 
 const ProviderWrapper = styled.div`
   padding-top: 2rem;
 
+  h6 {
+    font-family: ${FontFamily.headline};
+    font-size: ${FontSize.medium};
+    color: ${Colors.charcoal};
+    margin-bottom: 0.5rem;
+  }
+
   .provider-note {
-    font-size: 14px;
-    color: gray;
+    font-size: ${FontSize.small};
+    color: ${Colors.midGray};
+    display: block;
+    margin-bottom: 1rem;
   }
 `;
 
 const StyledInput = styled.input`
-  border: 2px solid gray;
-  border-radius: 12px;
-  color: gray;
+  border: 2px solid ${Colors.midGray};
+  border-radius: ${BorderRadius.medium};
+  color: ${Colors.charcoal};
+  font-family: ${FontFamily.primary};
+  font-size: ${FontSize.medium};
   font-weight: 500;
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
 
   ::placeholder {
-    color: gray;
-    font-weight: 500;
+    color: ${Colors.midGray};
+  }
+
+  :focus-visible {
+    outline: 2px solid ${Colors.accent};
+    outline-offset: 2px;
   }
 `;
 
@@ -243,13 +263,25 @@ const FormStyling = styled.form`
   width: 100%;
   text-align: center;
   padding: 2rem;
-  border-radius: 14px;
-  box-shadow: 0px 4px 8px gray;
-  border: 1px solid black;
-  background-color: white;
+  border-radius: ${BorderRadius.large};
+  box-shadow: ${Shadows.elevated};
+  border: 1px solid ${Colors.charcoal};
+  background-color: ${Colors.white};
+  font-family: ${FontFamily.primary};
 
   .form-header {
     padding: 2rem 0;
+    font-family: ${FontFamily.headline};
+    color: ${Colors.primary};
+    font-size: ${FontSize.xlarge};
+  }
+
+  .form-label {
+    display: block;
+    text-align: left;
+    margin-bottom: 0.25rem;
+    color: ${Colors.charcoal};
+    font-size: ${FontSize.small};
   }
 
   .input-container {
@@ -259,8 +291,8 @@ const FormStyling = styled.form`
 
   @media ${MediaQueries.MD} {
     min-width: 35rem;
-    border-radius: unset;
-    box-shadow: unset;
+    border-radius: 0;
+    box-shadow: none;
   }
 `;
 

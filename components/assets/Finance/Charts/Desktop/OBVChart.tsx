@@ -1,7 +1,7 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 // import FinanceChartModal from "./FinanceChartModal";
 import { FormatUnixTime } from "@/helpers/formatters/time";
-import { ChartDimensions } from "@/styles/variables";
+import { ChartColors, ChartDimensions } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -134,7 +134,7 @@ const OBVChart = ({ data }) => {
 
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="70%" stopColor="#806cfe" stopOpacity={0.1} />
+                <stop offset="70%" stopColor={ChartColors.seriesMuted} stopOpacity={0.1} />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
               </linearGradient>
             </defs>
@@ -142,7 +142,7 @@ const OBVChart = ({ data }) => {
             <Area
               type="monotone"
               dataKey="close"
-              stroke="#806cfe"
+              stroke={ChartColors.seriesMuted}
               strokeWidth={2}
               fillOpacity={1}
               fill="url(#colorUv)"
@@ -153,7 +153,7 @@ const OBVChart = ({ data }) => {
             <Line
               type="monotone"
               dataKey="obv"
-              stroke="#00BFBF"
+              stroke={ChartColors.seriesCool}
               dot={false}
               strokeWidth={2}
               name="OBV"

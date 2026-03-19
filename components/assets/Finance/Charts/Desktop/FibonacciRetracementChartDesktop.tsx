@@ -1,6 +1,6 @@
 import TimeSwitcher from "@/components/commons/switchers/TimeSwitcher";
 import { currencyFormat } from "@/helpers/formatters/currency";
-import { ChartDimensions, Colors } from "@/styles/variables";
+import { ChartColors, ChartDimensions, Colors } from "@/styles/variables";
 import Link from "next/link";
 // import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
@@ -282,7 +282,7 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
             {/* <Line
               type="monotone"
               dataKey="min"
-              stroke="#b30000"
+              stroke={ChartColors.negative}
               dot={false}
               // dot={{ stroke: "#b30000", strokeWidth: 2 }}
               strokeWidth={2}
@@ -339,7 +339,7 @@ const FibonacciRetracementChartDesktop = ({ data }: FibonacciProps) => {
             <Line
               type="monotone"
               dataKey="max"
-              stroke="#999900"
+              stroke={ChartColors.warning}
               name={"Max"}
               strokeWidth={2}
               dot={false}

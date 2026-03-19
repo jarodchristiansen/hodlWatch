@@ -1,6 +1,7 @@
 import {
   BorderRadius,
   Colors,
+  FocusRing,
   FontSize,
   FontWeight,
   Opacity,
@@ -43,8 +44,9 @@ const ButtonContainer = styled.button<ButtonProps>`
     color: ${Colors.white};
   }
 
-  &:focus {
-    box-shadow: 0 0 0 3px ${Colors.black};
+  &:focus-visible {
+    outline: ${FocusRing.width} ${FocusRing.style} ${FocusRing.color};
+    outline-offset: ${FocusRing.offset};
   }
 
   &:disabled {

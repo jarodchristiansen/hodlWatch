@@ -1,5 +1,13 @@
 import SEOHead from "@/components/seo/SEOHead";
-import { Colors, FontFamily, FontSize, MediaQueries } from "@/styles/variables";
+import {
+  BorderRadius,
+  Colors,
+  FontFamily,
+  FontSize,
+  MediaQueries,
+  Shadows,
+  Transitions,
+} from "@/styles/variables";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -99,16 +107,10 @@ const EducationPage = () => {
       <PageHolder>
         <InterstitialRow>
           <div className="header-column">
-            <span>
-              <h4>
-                Remember, nothing in these articles should be interpreted as
-                financial advice
-              </h4>
-              <h6>
-                (we think we&apos;re pretty good, but we aren&apos;t financial
-                advisors)
-              </h6>
-            </span>
+            <h4>
+              Nothing in these articles constitutes financial or investment
+              advice.
+            </h4>
           </div>
         </InterstitialRow>
 
@@ -134,10 +136,10 @@ const EducationPage = () => {
 
 const InterstitialRow = styled.div`
   width: 100%;
-  background-color: #1a1919;
-  color: white;
+  background-color: ${Colors.charcoal};
+  color: ${Colors.white};
   padding: 2rem 2rem;
-  border-top: 2px solid gray;
+  border-top: 2px solid ${Colors.midGray};
   text-align: center;
 
   .header-column {
@@ -173,9 +175,9 @@ const InterstitialRow = styled.div`
     gap: 1rem;
 
     div {
-      background-color: white;
-      color: black;
-      border-radius: 12px;
+      background-color: ${Colors.white};
+      color: ${Colors.charcoal};
+      border-radius: ${BorderRadius.medium};
     }
 
     @media ${MediaQueries.MD} {
@@ -211,20 +213,20 @@ const PostRow = styled.div`
   flex-direction: column;
   padding: 2rem;
   text-align: center;
-  border: none;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px 0 ${Colors.cardShadow};
+  border: 1px solid ${Colors.midGray};
+  border-radius: ${BorderRadius.large};
+  box-shadow: ${Shadows.card};
   gap: 1.5rem;
   margin: 1rem 0;
   background-color: ${Colors.white};
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition: box-shadow ${Transitions.default}, transform ${Transitions.default};
   align-items: center;
   min-height: 340px;
 
   img {
     width: 100%;
     height: auto;
-    border-radius: 12px;
+    border-radius: ${BorderRadius.medium};
     margin-bottom: 1rem;
   }
 
@@ -243,7 +245,7 @@ const PostRow = styled.div`
   }
 
   &:hover {
-    box-shadow: 0 4px 16px 0 ${Colors.secondary};
+    box-shadow: ${Shadows.cardHover};
     transform: translateY(-4px) scale(1.02);
     cursor: pointer;
   }

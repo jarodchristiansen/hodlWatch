@@ -1,4 +1,11 @@
-import { Colors, FontFamily, FontWeight } from "@/styles/variables";
+import {
+  BorderRadius,
+  Colors,
+  FontFamily,
+  FontWeight,
+  Shadows,
+  Transitions,
+} from "@/styles/variables";
 import Image from "next/image";
 import styled from "styled-components";
 
@@ -6,11 +13,12 @@ interface CardProps {
   image: any;
   title: string;
   text: string;
+  variant?: "default" | "light";
 }
 
-const LandingPageCard = ({ image, title, text }: CardProps) => {
+const LandingPageCard = ({ image, title, text, variant = "default" }: CardProps) => {
   return (
-    <CardWrapper>
+    <CardWrapper $variant={variant}>
       <div className="card-background">
         <Image src={image} height={150} width={150} alt="feature card" />
       </div>
@@ -20,33 +28,35 @@ const LandingPageCard = ({ image, title, text }: CardProps) => {
   );
 };
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.div<{ $variant?: "default" | "light" }>`
   display: flex;
   flex-direction: column;
   gap: 18px;
   padding: 32px;
   font-family: ${FontFamily.primary};
-  border-radius: 20px;
+  border-radius: ${BorderRadius.large};
   position: relative;
   text-align: center;
-  background: ${Colors.charcoal};
-  color: ${Colors.white};
-  border: none;
-  transition: box-shadow 0.2s, transform 0.2s;
+  background: ${(p) => (p.$variant === "light" ? "rgba(255, 255, 252, 0.95)" : Colors.charcoal)};
+  color: ${(p) => (p.$variant === "light" ? Colors.charcoal : Colors.white)};
+  border: 1px solid ${(p) => (p.$variant === "light" ? Colors.accentLight : Colors.secondary)};
+  box-shadow: ${Shadows.card};
+  transition: box-shadow ${Transitions.default}, transform ${Transitions.default};
 
   &:hover {
-    transform: translateY(-4px) scale(1.03);
+    box-shadow: ${Shadows.cardHover};
+    transform: translateY(-4px) scale(1.02);
   }
 
   h4 {
     font-family: ${FontFamily.headline};
     font-weight: ${FontWeight.bold};
     font-size: 1.5rem;
-    color: ${Colors.primary};
+    color: ${(p) => (p.$variant === "light" ? Colors.primary : Colors.accent)};
     margin-bottom: 12px;
-
     padding: 6px 0;
-    background-color: ${Colors.midGray};
+    background-color: ${(p) => (p.$variant === "light" ? "rgba(212, 168, 75, 0.15)" : Colors.secondary)};
+    border-radius: ${BorderRadius.small};
   }
 
   .card-background {

@@ -65,18 +65,19 @@ const EducationArticle = ({ data }) => {
           !noGoCharacters.some((char) => markdownPiece.includes(char));
 
         return (
-          <div key={markdownPiece + Math.random()}>
+          <div key={markdownPiece + idx}>
             <ReactMarkdown
               // eslint-disable-next-line react/no-children-prop
               children={markdownPiece}
               remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
               rehypePlugins={[rehypeRaw]}
             />
-            {/* Adds interstitial on odd idx and prevents being under headings, within list,  */}
             {renderRepetitionCondition && (
-              <InterstitialPlaceholder key={markdownPiece + idx}>
-                This is a CTA Placeholder For the Moment
-              </InterstitialPlaceholder>
+              <InterstitialCTA key={`cta-${idx}`}>
+                <Link href="/assets">Explore assets</Link>
+                <span> · </span>
+                <Link href="/auth?path=SignUp">Sign up</Link>
+              </InterstitialCTA>
             )}
           </div>
         );
@@ -183,9 +184,11 @@ const EducationArticle = ({ data }) => {
           )}
         </div>
 
-        <InterstitialPlaceholder>
-          CTA Placholder at bottom if no other at bottom
-        </InterstitialPlaceholder>
+        <InterstitialCTA>
+          <Link href="/assets">Explore assets</Link>
+          <span> · </span>
+          <Link href="/auth?path=SignUp">Sign up for Mesh</Link>
+        </InterstitialCTA>
 
         <div className="share-button-container">
           <ProviderButton onClick={shareToFacebook}>
@@ -239,12 +242,13 @@ const BackButton = styled.div`
 `;
 
 const DisclaimerHeader = styled.div`
-  background-color: gray;
-  width: "100%";
+  width: 100%;
   text-align: center;
-  color: white;
-  font-weight: bold;
-  padding: 0.5rem 0;
+  color: ${Colors.white};
+  background-color: ${Colors.charcoal};
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
 `;
 
 const ContentContainer = styled.div`
@@ -317,13 +321,24 @@ const ContentContainer = styled.div`
   }
 `;
 
-const InterstitialPlaceholder = styled.div`
+const InterstitialCTA = styled.div`
   display: flex;
-  justify-self: center;
   justify-content: center;
-  background-color: #ececec;
+  align-items: center;
+  gap: 0.5rem;
   padding: 1rem;
-  margin: 1rem;
+  margin: 1rem 0;
+  background-color: rgba(26, 62, 114, 0.08);
+  border-radius: 8px;
+
+  a {
+    color: ${Colors.primary};
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: ${Colors.accent};
+  }
 `;
 
 const MarkdownContainer = styled.div`
