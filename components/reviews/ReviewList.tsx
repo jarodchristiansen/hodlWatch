@@ -116,7 +116,7 @@ const ReviewList: React.FC = () => {
               <Quote>{review.quote}</Quote>
               <Author>{review.author}</Author>
               <Occupation>{review.occupation}</Occupation>
-              <YearsInCrypto>{`Years in Web3: ${review.yearsInCrypto}`}</YearsInCrypto>
+              <YearsInCrypto>{`Years in crypto: ${review.yearsInCrypto}`}</YearsInCrypto>
             </ReviewCard>
           ))}
         </ReviewListContainer>
@@ -147,7 +147,7 @@ const ReviewList: React.FC = () => {
 
 const ReviewListWrapper = styled.div`
   width: 100%;
-  margin: 24px auto;
+  margin: 0 auto;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -211,6 +211,11 @@ const ReviewListContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  /* Center cards on desktop; keep mobile scroll alignment unchanged. */
+  @media ${MediaQueries.MD} {
+    justify-content: center;
+  }
 `;
 
 const ReviewCard = styled(motion.div)`
@@ -232,10 +237,10 @@ const ReviewCard = styled(motion.div)`
     box-shadow 0.3s cubic-bezier(0.4, 1.4, 0.6, 1);
   overflow: hidden;
 
-  &:hover {
-    transform: translateY(-12px) scale(1.025);
-    box-shadow: 0 12px 40px 0 rgba(20, 24, 36, 0.35), 0 2px 0 0 ${Colors.accent};
-  }
+  // &:hover {
+  //   transform: translateY(-12px) scale(1.025);
+  //   box-shadow: 0 12px 40px 0 rgba(20, 24, 36, 0.35), 0 2px 0 0 ${Colors.accent};
+  // }
 
   /* InitialsAvatar is a styled div, no img rules needed */
 

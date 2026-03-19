@@ -48,23 +48,23 @@ const SEOHead = ({
 
       <meta
         property="og:title"
-        content={metaTitle ? metaTitle : "Mesh: Web3 data explorer"}
+        content={metaTitle ? metaTitle : "Mesh: Crypto market data and portfolios"}
       />
 
       <meta
         name="description"
-        content={metaDescription ? metaDescription : "Web3 data explorer"}
+        content={metaDescription ? metaDescription : "Crypto market data, portfolio tracking, and community in one place."}
       />
       <meta
         name="twitter:card"
-        content={metaTitle ? metaTitle : "Mesh: Web3 data explorer"}
+        content={metaTitle ? metaTitle : "Mesh: Crypto market data and portfolios"}
       />
 
       {pathname && <meta name="twitter:site" content={pathname} />}
 
       <meta
         property="og:description"
-        content={metaDescription ? metaDescription : "Web3 data explorer"}
+        content={metaDescription ? metaDescription : "Crypto market data, portfolio tracking, and community in one place."}
       />
       <meta property="og:image" content={previewImage && previewImage} />
       <meta property="og:image:width" content="400" />

@@ -1,6 +1,7 @@
 import {
   Colors,
   FontFamily,
+  FontSize,
   FontWeight,
   MediaQueries,
 } from "@/styles/variables";
@@ -31,13 +32,13 @@ const HeroBannerContainer = styled.section`
   justify-content: center;
   border-radius: 0 0 40px 40px;
   box-shadow: 0 2px 12px 0 rgba(26, 62, 114, 0.18);
-  padding: 0 0 56px 0;
-  min-height: 540px;
+  padding: 0 0 44px 0;
+  min-height: 500px;
   position: relative;
   overflow: hidden;
 
   @media ${MediaQueries.MD} {
-    padding: 72px 0 108px 0;
+    padding: 56px 0 88px 0;
   }
 
   .main-contain {
@@ -47,7 +48,7 @@ const HeroBannerContainer = styled.section`
     gap: 48px;
     width: 100%;
     max-width: 1200px;
-    padding: 80px 32px 0 32px;
+    padding: 64px 32px 0 32px;
     position: relative;
     z-index: 1;
 
@@ -55,7 +56,7 @@ const HeroBannerContainer = styled.section`
       flex-direction: row;
       justify-content: space-between;
       gap: 100px;
-      padding: 100px 64px 0 64px;
+      padding: 88px 64px 0 64px;
     }
 
     .left-side {
@@ -87,7 +88,7 @@ const HeroBannerContainer = styled.section`
         font-size: 1.22rem;
         color: ${Colors.white};
         opacity: 0.88;
-        margin-bottom: 2.2em;
+        margin-bottom: 1.7em;
         line-height: 1.7;
         max-width: 95%;
       }
@@ -115,7 +116,14 @@ const HeroCTARow = styled.div`
   flex-wrap: wrap;
   gap: 16px;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 4px;
+`;
+
+const HeroTrustLine = styled.p`
+  font-size: ${FontSize.small};
+  color: ${Colors.accentLight};
+  opacity: 0.9;
+  margin: 12px 0 0 0;
 `;
 
 const HeroCTA = styled.button`
@@ -125,7 +133,7 @@ const HeroCTA = styled.button`
   font-size: 1.18rem;
   font-weight: ${FontWeight.bold};
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 20px 48px;
   box-shadow: 0 1px 6px 0 ${Colors.cardShadow};
   cursor: pointer;
@@ -151,7 +159,7 @@ const HeroSecondaryLink = styled(Link)`
   font-weight: ${FontWeight.bold};
   color: ${Colors.accentLight};
   border: 2px solid ${Colors.accentLight};
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 18px 36px;
   text-decoration: none;
   transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
@@ -311,9 +319,9 @@ const HeroBanner = ({}) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.27 }}
           >
-            Built on a GraphQL API with Apollo Client, WebSocket price feeds, and
-            key indicators—Fibonacci retracement, Sharpe ratio, net realized
-            P/L—so you can analyze and act on crypto markets with confidence.
+            Real-time prices and key metrics—Fibonacci levels, Sharpe ratio, net
+            realized P/L—in one place. Analyze and act on crypto markets with
+            confidence.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -324,6 +332,7 @@ const HeroBanner = ({}) => {
               <HeroCTA onClick={() => routeToAuth("signUp")}>Get Started</HeroCTA>
               <HeroSecondaryLink href="/assets">Explore assets</HeroSecondaryLink>
             </HeroCTARow>
+            <HeroTrustLine>Free to start · No credit card required</HeroTrustLine>
           </motion.div>
         </div>
 
@@ -332,7 +341,7 @@ const HeroBanner = ({}) => {
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
-            <Image src={ChartsIcon} alt="charts icon" height={420} width={560} />
+            <Image src={ChartsIcon} alt="Dashboard with real-time crypto charts and metrics" height={420} width={560} />
           </HeroImageWrapper>
         </div>
       </div>
