@@ -1,5 +1,6 @@
 import { BorderRadius, Colors, FontFamily, FontSize } from "@/styles/variables";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
 import {
   FaCoins,
   FaFacebook,
@@ -48,6 +49,7 @@ interface ProvidersAsProps {
     };
   };
   isSubmitDisabled?: boolean;
+  callbackUrl?: string;
 }
 
 /**
@@ -58,24 +60,9 @@ interface ProvidersAsProps {
 const ProviderContainer = ({
   providers,
   isSubmitDisabled,
+  callbackUrl,
 }: ProvidersAsProps) => {
-  const signInOthers = async (e, provider) => {
-    // console.log({ provider });
-    // e.preventDefault();
-    // const result = await signIn(
-    //   provider.id
-    //   //     , {
-    //   //   callbackUrl: `${window.location.origin}`,
-    //   // }
-    // );
-    // console.log({ result });
-    //
-    // if (!result?.error) {
-    //   await getSession().then((session) => {
-    //     console.log({ session });
-    //   });
-    // }
-  };
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   const selectIcon = (name) => {
     switch (name) {
@@ -115,19 +102,20 @@ const ProviderContainer = ({
             provider.name !== "Credentials" && (
               <div key={provider.name}>
                 <ProviderButton
-                  disabled={isSubmitDisabled}
-                  onClick={(e) => {
-                    signIn(provider.id, { redirect: true, callbackUrl: "/" })
-                      .then(() => {})
-                      .catch((err) => new Error(err));
-                    // signInOthers(e, provider)
+                  disabled={isSubmitDisabled || isSigningIn}
+                  onClick={() => {
+                    setIsSigningIn(true);
+                    signIn(provider.id, {
+                      redirect: true,
+                      callbackUrl: callbackUrl ?? "/",
+                    }).catch(() => setIsSigningIn(false));
                   }}
                   type={"button"}
                 >
-                  <div className="button-content">
-                    {selectIcon(provider?.name)}
-                    {/* <span>{provider?.name}</span> */}
-                  </div>
+                  {selectIcon(provider?.name)}
+                  <span className="button-label">
+                    Continue with {provider?.name ?? provider?.id}
+                  </span>
                 </ProviderButton>
               </div>
             )

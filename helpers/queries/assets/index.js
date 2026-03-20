@@ -19,6 +19,17 @@ export const GET_GECKO_DETAILS = gql`
       community_score
       liquidity_score
       favorite_count
+      image {
+        thumb
+        small
+        large
+      }
+      market_data {
+        current_price {
+          usd
+        }
+        price_change_percentage_24h
+      }
       description {
         en
       }
@@ -115,6 +126,7 @@ export const GET_ASSETS = gql`
       current_price
       market_cap
       market_cap_rank
+      price_change_percentage_24h
       fully_diluted_valuation
       circulating_supply
       total_supply

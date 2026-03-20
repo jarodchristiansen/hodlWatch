@@ -12,6 +12,7 @@ export const assetTypeDefs = gql`
     current_price: Float
     market_cap: Float
     market_cap_rank: Float
+    price_change_percentage_24h: Float
     fully_diluted_valuation: Float
     circulating_supply: Float
     total_supply: Float
@@ -152,10 +153,27 @@ export const assetTypeDefs = gql`
     community_score: Float
     liquidity_score: Float
     public_interest_score: Float
+    image: GeckoImage
+    market_data: GeckoMarketData
     description: AssetGeckoDescription
     community_data: GeckoCommunityData
     devloper_data: GeckoDeveloperData
     favorite_count: Float
+  }
+
+  type GeckoImage {
+    thumb: String
+    small: String
+    large: String
+  }
+
+  type GeckoMarketData {
+    current_price: GeckoCurrentPrice
+    price_change_percentage_24h: Float
+  }
+
+  type GeckoCurrentPrice {
+    usd: Float
   }
 
   type AssetGeckoDescription {

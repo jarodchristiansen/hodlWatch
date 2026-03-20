@@ -2,6 +2,191 @@ const CoinGecko = require("coingecko-api");
 import Asset from "../../models/asset";
 import btc_macros from "../../models/btc_macro";
 
+function escapeRegex(s) {
+  return String(s || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/** Normalize whatever `coingecko-api` returns from `coins.list()` into an array of { id, symbol, name }. */
+function normalizeCoinsListResponse(coinList) {
+  if (Array.isArray(coinList)) return coinList;
+  if (Array.isArray(coinList?.data)) return coinList.data;
+  // Some versions wrap differently
+  if (Array.isArray(coinList?.data?.data)) return coinList.data.data;
+  if (coinList?.data && typeof coinList.data === "object" && !Array.isArray(coinList.data)) {
+    const vals = Object.values(coinList.data);
+    if (
+      vals.length &&
+      vals.every((x) => x && typeof x === "object" && typeof x.id === "string")
+    ) {
+      return vals;
+    }
+  }
+  return [];
+}
+
+async function fetchCoinsListFromRest() {
+  try {
+    const res = await fetch(
+      "https://api.coingecko.com/api/v3/coins/list?include_platform=false"
+    );
+    if (!res.ok) return [];
+    const json = await res.json();
+    return Array.isArray(json) ? json : [];
+  } catch {
+    return [];
+  }
+}
+
+async function searchCoinGeckoId(query) {
+  const q = (query || "").toString().trim();
+  if (!q) return null;
+  try {
+    const res = await fetch(
+      `https://api.coingecko.com/api/v3/search?query=${encodeURIComponent(q)}`
+    );
+    if (!res.ok) return null;
+    const json = await res.json();
+    const coins = json?.coins;
+    if (!Array.isArray(coins) || !coins.length) return null;
+    return coins[0]?.id || null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Full coin payload from CoinGecko REST — includes genesis_date, community_score,
+ * developer_score, liquidity_score, sentiment_votes_* (often omitted by `coingecko-api` npm fetch).
+ */
+async function fetchCoinGeckoCoinDetailRest(coinId) {
+  if (!coinId) return null;
+  try {
+    const res = await fetch(
+      `https://api.coingecko.com/api/v3/coins/${encodeURIComponent(
+        coinId
+      )}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=true&sparkline=false`
+    );
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json && typeof json === "object" ? json : null;
+  } catch {
+    return null;
+  }
+}
+
+/** CoinGecko public coin detail responses often omit community/developer/liquidity scores; derive 0–100 proxies from nested data they still send. */
+function asNumericScore(v) {
+  if (typeof v === "number" && !Number.isNaN(v)) return v;
+  if (typeof v === "string" && v.trim() !== "" && !Number.isNaN(Number(v))) {
+    return Number(v);
+  }
+  return null;
+}
+
+function fillCoinGeckoScoresIfMissing(data) {
+  if (!data || typeof data !== "object") return data;
+  const md = data.market_data;
+  const cd = data.community_data;
+  const dd = data.developer_data;
+
+  if (data.community_score == null) {
+    const watch = asNumericScore(data.watchlist_portfolio_users) ?? 0;
+    const reddit = asNumericScore(cd?.reddit_subscribers) ?? 0;
+    const telegram = asNumericScore(cd?.telegram_channel_user_count) ?? 0;
+    const active = asNumericScore(cd?.reddit_accounts_active_48h) ?? 0;
+    const posts = asNumericScore(cd?.reddit_average_posts_48h) ?? 0;
+    const comments = asNumericScore(cd?.reddit_average_comments_48h) ?? 0;
+    const engagement = posts * 80 + comments;
+    const composite =
+      1 +
+      watch / 100000 +
+      reddit / 6000 +
+      telegram / 2500 +
+      active / 400 +
+      engagement / 150;
+    if (composite > 1) {
+      data.community_score = Math.min(
+        100,
+        Math.round(24 * Math.log10(composite) * 10) / 10
+      );
+    }
+  }
+
+  if (data.developer_score == null && dd && typeof dd === "object") {
+    const stars = asNumericScore(dd.stars) ?? 0;
+    const forks = asNumericScore(dd.forks) ?? 0;
+    const merged = asNumericScore(dd.pull_requests_merged) ?? 0;
+    const contributors = asNumericScore(dd.pull_request_contributors) ?? 0;
+    const commits = asNumericScore(dd.commit_count_4_weeks) ?? 0;
+    const composite =
+      1 +
+      stars / 2000 +
+      forks / 350 +
+      merged / 700 +
+      contributors / 45 +
+      commits / 18;
+    if (composite > 1) {
+      data.developer_score = Math.min(
+        100,
+        Math.round(27 * Math.log10(composite) * 10) / 10
+      );
+    }
+  }
+
+  if (data.liquidity_score == null && md && typeof md === "object") {
+    const vol = asNumericScore(md.total_volume?.usd);
+    const mcap = asNumericScore(md.market_cap?.usd);
+    if (vol != null && mcap != null && mcap > 0) {
+      const turnover = vol / mcap;
+      data.liquidity_score = Math.min(
+        100,
+        Math.round(turnover * 2500 * 10) / 10
+      );
+    } else if (vol != null && vol > 0) {
+      data.liquidity_score = Math.min(
+        100,
+        Math.round(16 * Math.log10(vol / 1e6) * 10) / 10
+      );
+    }
+  }
+
+  return data;
+}
+
+function buildDetailsFromDbAsset(dbAsset, fallbackToken) {
+  if (!dbAsset) return null;
+  const sym = (dbAsset.symbol || fallbackToken || "").toString();
+  const img = dbAsset.image;
+  const image =
+    img && typeof img === "string"
+      ? { large: img, small: img, thumb: img }
+      : null;
+
+  const hasPrice = typeof dbAsset.current_price === "number";
+  const hasChg =
+    typeof dbAsset.price_change_percentage_24h === "number";
+
+  return {
+    id: sym ? sym.toLowerCase() : String(fallbackToken || "").toLowerCase(),
+    name: dbAsset.name || dbAsset.title || sym || fallbackToken,
+    symbol: sym || fallbackToken,
+    image,
+    market_cap_rank:
+      typeof dbAsset.market_cap_rank === "number"
+        ? dbAsset.market_cap_rank
+        : null,
+    market_data: {
+      current_price: hasPrice ? { usd: dbAsset.current_price } : null,
+      price_change_percentage_24h: hasChg
+        ? dbAsset.price_change_percentage_24h
+        : null,
+    },
+    description: dbAsset.description
+      ? { en: String(dbAsset.description) }
+      : null,
+  };
+}
+
 export const AssetResolver = {
   getAssets: async (_, { offset, limit, topListBy }) => {
     try {
@@ -35,13 +220,19 @@ export const AssetResolver = {
   getAsset: async (_, { symbol, type }) => {
     try {
       if (!type || type === "Crypto") {
-        const CoinGeckoClient = new CoinGecko();
+        // Prefer DB-backed search so the UI receives the same rich asset shape
+        // used by `getAssets` (current_price, market_cap_rank, etc).
+        const q = (symbol || "").trim();
+        if (!q) return [];
 
-        let assets = await CoinGeckoClient.coins.list();
+        const rx = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
+        const results = await Asset.find({
+          $or: [{ symbol: rx }, { name: rx }],
+        })
+          .limit(50)
+          .sort("-market_cap");
 
-        return assets?.data?.filter((e) =>
-          e.symbol.toLowerCase().includes(symbol.toLowerCase())
-        );
+        return results;
       } else if (type === "TradFI") {
         const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${symbol}&apikey=${process.env.ALPHA_VANTAGE}`;
 
@@ -254,46 +445,127 @@ export const AssetResolver = {
 
   getGeckoAssetDetails: async (_, { name, time }) => {
     try {
-      let data = {};
+      const raw = (name || "").toString().trim();
+      if (!raw) throw new Error("Asset not found");
 
-      // // How to get details on contracts from erc-20
-      const CoinGeckoClient = new CoinGecko();
-
-      let coinList = await CoinGeckoClient.coins.list();
-
-      let geckoProp = coinList?.data?.filter(
-        (asset) => name.toLowerCase() === asset.name.toLowerCase()
-      );
-
-      let dbAsset = await Asset.findOne({ name }).catch(
-        (err) => new Error(err)
-      );
+      let dbAsset = await Asset.findOne({
+        name: new RegExp(`^${escapeRegex(raw)}$`, "i"),
+      }).catch(() => null);
 
       if (!dbAsset) {
-        dbAsset = await Asset.findOne({ symbol: name }).catch(
-          (err) => new Error(err)
+        dbAsset = await Asset.findOne({
+          symbol: new RegExp(`^${escapeRegex(raw)}$`, "i"),
+        }).catch(() => null);
+      }
+
+      const CoinGeckoClient = new CoinGecko();
+      let coinList = await CoinGeckoClient.coins.list();
+      let list = normalizeCoinsListResponse(coinList);
+
+      if (!list.length) {
+        list = await fetchCoinsListFromRest();
+      }
+
+      const q = raw.toLowerCase();
+      const qSym = q.replace(/[^a-z0-9]/g, "");
+
+      const byId = list.find((c) => (c?.id || "").toLowerCase() === q);
+      const byName = list.find((c) => (c?.name || "").toLowerCase() === q);
+      const bySymbolExact = list.find(
+        (c) => (c?.symbol || "").toLowerCase() === q
+      );
+      const bySymbolLoose =
+        bySymbolExact ||
+        list.find(
+          (c) =>
+            (c?.symbol || "").toLowerCase().replace(/[^a-z0-9]/g, "") === qSym
         );
+
+      let resolvedId = (byId || byName || bySymbolLoose)?.id;
+
+      if (!resolvedId) {
+        resolvedId = await searchCoinGeckoId(raw);
       }
 
-      if (geckoProp) {
-        let geckoData = await CoinGeckoClient.coins.fetch(geckoProp[0].id, {
-          market_data: false,
-          localization: false,
-        });
+      let data = {};
 
-        data = geckoData?.data;
+      if (resolvedId) {
+        const restCoin = await fetchCoinGeckoCoinDetailRest(resolvedId);
+        if (restCoin) {
+          data = restCoin;
+        } else {
+          const geckoData = await CoinGeckoClient.coins.fetch(resolvedId, {
+            market_data: true,
+            localization: false,
+          });
+          const payload = geckoData?.data ?? geckoData;
+          if (payload && typeof payload === "object") {
+            data = payload;
+          }
+        }
       }
+
+      const dbFallback = buildDetailsFromDbAsset(dbAsset, raw);
+
+      if (dbFallback) {
+        if (!data || typeof data !== "object" || !data.id) {
+          data = { ...dbFallback };
+        } else {
+          if (
+            (!data.market_data?.current_price ||
+              typeof data.market_data.current_price.usd !== "number") &&
+            typeof dbFallback.market_data?.current_price?.usd === "number"
+          ) {
+            data.market_data = data.market_data || {};
+            data.market_data.current_price =
+              data.market_data.current_price ||
+              dbFallback.market_data.current_price;
+          }
+          if (
+            data.market_data &&
+            (data.market_data.price_change_percentage_24h === undefined ||
+              data.market_data.price_change_percentage_24h === null) &&
+            typeof dbFallback.market_data?.price_change_percentage_24h ===
+              "number"
+          ) {
+            data.market_data.price_change_percentage_24h =
+              dbFallback.market_data.price_change_percentage_24h;
+          }
+          const hasImg =
+            data.image &&
+            (data.image.large || data.image.small || data.image.thumb);
+          if (!hasImg && dbFallback.image?.large) {
+            data.image = dbFallback.image;
+          }
+          if (!data.name && dbFallback.name) data.name = dbFallback.name;
+          if (!data.symbol && dbFallback.symbol)
+            data.symbol = dbFallback.symbol;
+          if (
+            (data.market_cap_rank === undefined ||
+              data.market_cap_rank === null) &&
+            dbFallback.market_cap_rank != null
+          ) {
+            data.market_cap_rank = dbFallback.market_cap_rank;
+          }
+          if (!data.description?.en && dbFallback.description?.en) {
+            data.description = dbFallback.description;
+          }
+        }
+      }
+
+      fillCoinGeckoScoresIfMissing(data);
 
       data.favorite_count = dbAsset?.favorite_count;
 
-      // let zrx = "0xe41d2489571d322189246dafa5ebde1f4699f498";
-      // let contract = await CoinGeckoClient.coins.fetchCoinContractInfo(zrx);
-
-      if (data) {
-        return data;
-      } else {
+      if (
+        !data ||
+        typeof data !== "object" ||
+        (!data.id && !data.name && !data.symbol)
+      ) {
         throw new Error("Asset not found");
       }
+
+      return data;
     } catch (err) {
       throw new Error(err);
     }

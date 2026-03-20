@@ -1,5 +1,6 @@
 import { Colors, MediaQueries } from "@/styles/variables";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface SidebarProps {
@@ -12,10 +13,19 @@ interface SidebarProps {
 const SidebarV2 = ({ open, setOpen, view, setPageView }: SidebarProps) => {
   const isDashboardView = view == "dashboard";
   const isReportView = view == "reports";
+  const isSimulatorView = view == "simulator";
   const isSettingsView = view == "settings";
 
-  // Detect mobile
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(!!mq.matches);
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
 
   return (
     <>
@@ -67,6 +77,21 @@ const SidebarV2 = ({ open, setOpen, view, setPageView }: SidebarProps) => {
                 </MenuItem>
                 <MenuItem
                   $open={open}
+                  className={isSimulatorView ? "selected" : ""}
+                  onClick={() => setPageView && setPageView("simulator")}
+                >
+                  <Image
+                    alt="simulator icon"
+                    src="/sidebar/simulator.svg"
+                    height={32}
+                    width={32}
+                    className="icon"
+                  />
+                  <span className="label">Simulator</span>
+                  {!open && <Tooltip>Simulator</Tooltip>}
+                </MenuItem>
+                <MenuItem
+                  $open={open}
                   className={isSettingsView ? "selected" : ""}
                   onClick={() => setPageView && setPageView("settings")}
                 >
@@ -112,6 +137,19 @@ const SidebarV2 = ({ open, setOpen, view, setPageView }: SidebarProps) => {
                 </MenuItem>
                 <MenuItem
                   $open={open}
+                  className={isSimulatorView ? "selected" : ""}
+                  onClick={() => setPageView && setPageView("simulator")}
+                >
+                  <Image
+                    alt="simulator icon"
+                    src="/sidebar/simulator.svg"
+                    height={32}
+                    width={32}
+                    className="icon"
+                  />
+                </MenuItem>
+                <MenuItem
+                  $open={open}
                   className={isSettingsView ? "selected" : ""}
                   onClick={() => setPageView && setPageView("settings")}
                 >
@@ -146,7 +184,7 @@ const SidebarContainer = styled.div<{ $open: boolean }>`
   left: 0;
   background-color: ${Colors.black};
   transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;
-  z-index: 200;
+  z-index: 9000;
   box-shadow: 2px 0 12px 0 rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
@@ -155,10 +193,6 @@ const SidebarContainer = styled.div<{ $open: boolean }>`
   @media ${MediaQueries.MD} {
     height: 100vh;
     width: ${({ $open }) => ($open ? "220px" : "56px")};
-
-    &:hover {
-      width: 220px;
-    }
   }
 
   @media (max-width: 767px) {
@@ -167,7 +201,7 @@ const SidebarContainer = styled.div<{ $open: boolean }>`
     left: 0;
     height: 100vh;
     width: 220px;
-    z-index: 9999;
+    z-index: 9000;
     background: ${Colors.black};
     box-shadow: ${({ $open }) =>
       $open ? "2px 0 12px 0 rgba(0,0,0,0.18)" : "none"};
@@ -270,7 +304,7 @@ const MobileSidebarOverlay = styled.div`
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.35);
-    z-index: 9998;
+    z-index: 8999;
   }
   display: none;
 `;
@@ -284,7 +318,7 @@ const MobileHamburger = styled.div`
   position: fixed;
   top: 16px;
   left: 16px;
-  z-index: 10000;
+  z-index: 9001;
   background: ${Colors.black};
   color: ${Colors.white};
   border-radius: 50%;

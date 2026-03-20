@@ -10,7 +10,7 @@ import {
   GET_ASSET_HISTORY,
   GET_BTC_MACROS,
 } from "@/helpers/queries/assets/getAssetFinancialDetails";
-import { Colors, MediaQueries } from "@/styles/variables";
+import { BorderRadius, Colors, FontFamily, MediaQueries, Surfaces } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
@@ -21,17 +21,25 @@ import styled from "styled-components";
 const SIDEBAR_WIDTH_CLOSED = 56;
 const SIDEBAR_WIDTH_OPEN = 220;
 
+/** Next.js `router.query` values are `string | string[] | undefined` */
+function queryAsString(value: string | string[] | undefined): string | undefined {
+  if (value == null) return undefined;
+  if (typeof value === "string") return value;
+  if (Array.isArray(value) && value.length > 0) return value[0];
+  return undefined;
+}
+
 const AssetDetailsPage = ({ session }) => {
   const [timeQuery, setTimeQuery] = useState(365);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [pageView, setPageView] = useState("dashboard");
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   const router = useRouter();
   const { asPath } = router;
 
-  let id = router?.query?.id || "";
-  let symbol = router.query?.symbol;
-  let name = router.query?.name;
+  const id = queryAsString(router.query?.id) ?? "";
+  const name = queryAsString(router.query?.name);
 
   const [getFinancials, { data, loading, error, refetch }] =
     useLazyQuery(GET_ASSET_HISTORY);
@@ -48,6 +56,31 @@ const AssetDetailsPage = ({ session }) => {
 
   const isBtcOrEth = id === "btc" || id === "eth";
   const isBtc = id === "btc";
+
+  // Keep view state shareable + back/forward friendly
+  useEffect(() => {
+    const viewFromUrl = router?.query?.view;
+    if (
+      typeof viewFromUrl === "string" &&
+      ["dashboard", "reports", "simulator", "settings"].includes(viewFromUrl) &&
+      viewFromUrl !== pageView
+    ) {
+      setPageView(viewFromUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router?.query?.view]);
+
+  const setView = (view: string) => {
+    setPageView(view);
+    router.replace(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, view },
+      },
+      undefined,
+      { shallow: true }
+    );
+  };
 
   useEffect(() => {
     if (id) {
@@ -66,6 +99,14 @@ const AssetDetailsPage = ({ session }) => {
       });
     }
   }, [timeQuery, id, getDetails, getFinancials, name]);
+
+  useEffect(() => {
+    if (id && isBtc && pageView === "dashboard") {
+      getBTCMacros({
+        variables: { symbol: id.toUpperCase() },
+      });
+    }
+  }, [getBTCMacros, id, isBtc, pageView]);
 
   const assetDetails = useMemo(() => {
     if (!GeckoDetails?.getGeckoAssetDetails) return null;
@@ -91,7 +132,11 @@ const AssetDetailsPage = ({ session }) => {
       symbol: details?.symbol || id,
       price: details?.market_data?.current_price?.usd,
       priceChange24h: details?.market_data?.price_change_percentage_24h,
-      image: details?.image?.large || details?.image,
+      image:
+        details?.image?.large ||
+        details?.image?.small ||
+        details?.image?.thumb ||
+        null,
       genesisDate: details?.genesis_date,
       communityScore: details?.community_score,
       developerScore: details?.developer_score,
@@ -102,15 +147,23 @@ const AssetDetailsPage = ({ session }) => {
     };
   }, [GeckoDetails, id]);
 
+  const pageReady = !!data && !!GeckoDetails;
+  const pageLoading =
+    (!!id && (!pageReady && (loading || GeckoLoading))) || false;
+
   return (
     <AssetDetailsPageLayout>
       <SidebarV2
         open={sidebarOpen}
         setOpen={setSidebarOpen}
         view={pageView}
-        setPageView={setPageView}
+        setPageView={setView}
       />
       <MainContentArea $sidebarOpen={sidebarOpen}>
+        {pageLoading && (
+          <LoadingSpinner overlay message="Loading asset workspace" />
+        )}
+
         <AssetSummaryCard
           name={summary.name}
           symbol={summary.symbol}
@@ -126,12 +179,45 @@ const AssetDetailsPage = ({ session }) => {
           sentimentDown={summary.sentimentDown}
         />
         <ScrollToTop scrollThreshold={90} />
-        <div>{GeckoDetails && !loading && assetDetails}</div>
-        {loading && (
-          <div className="container text-center">
-            <LoadingSpinner />
-          </div>
+
+        {(error || GeckoError || MacroError) && (
+          <ErrorBanner role="status">
+            <div className="msg">Some sections failed to load. Try refreshing the page.</div>
+            {process.env.NODE_ENV !== "production" && (
+              <details className="details">
+                <summary>Show error details (dev)</summary>
+                <pre>
+                  {JSON.stringify(
+                    {
+                      assetHistory: error?.message || error || null,
+                      gecko: GeckoError?.message || GeckoError || null,
+                      macros: MacroError?.message || MacroError || null,
+                    },
+                    null,
+                    2
+                  )}
+                </pre>
+              </details>
+            )}
+          </ErrorBanner>
         )}
+
+        {!!assetDetails && (
+          <AboutSection>
+            <AboutHeader>
+              <button
+                type="button"
+                onClick={() => setAboutOpen((v) => !v)}
+                aria-expanded={aboutOpen}
+              >
+                About {summary?.name}
+                <span aria-hidden="true">{aboutOpen ? "▾" : "▸"}</span>
+              </button>
+            </AboutHeader>
+            {aboutOpen && <div>{assetDetails}</div>}
+          </AboutSection>
+        )}
+
         {pageView === "dashboard" && data && (
           <ViewContainer>
             <DashboardView
@@ -170,6 +256,7 @@ const AssetDetailsPageLayout = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: linear-gradient(120deg, ${Colors.primary} 0%, ${Colors.charcoal} 100%);
   @media ${MediaQueries.MD} {
     flex-direction: row;
   }
@@ -194,8 +281,8 @@ const ViewContainer = styled.div`
   flex-direction: column;
   width: 100%;
   margin: 10px auto;
-  padding-top: 64px;
-  text-align: center;
+  padding-top: 24px;
+  text-align: left;
   gap: 48px;
 
   h2 {
@@ -215,7 +302,7 @@ const ViewContainer = styled.div`
   }
 
   @media ${MediaQueries.MD} {
-    padding-top: 48px;
+    padding-top: 32px;
     width: 90%;
   }
 
@@ -224,37 +311,85 @@ const ViewContainer = styled.div`
   }
 `;
 
-const AssetDescription = styled.div`
-  display: none;
+const ErrorBanner = styled.div`
   width: 95%;
-  padding: 24px;
-  background-color: ${Colors.secondary};
-  border: 2px solid lightgray;
-  color: ${Colors.white};
-  /* font-weight: 700; */
-  margin: auto;
-  text-align: center;
+  margin: 16px auto 0 auto;
+  border-radius: ${BorderRadius.large};
+  padding: 12px 14px;
+  background: rgba(231, 76, 60, 0.14);
+  border: 1px solid rgba(231, 76, 60, 0.28);
+  color: rgba(255, 255, 255, 0.92);
+  font-family: ${FontFamily.primary};
+  font-weight: 700;
 
-  @media ${MediaQueries.MD} {
-    display: block;
+  .details {
+    margin-top: 10px;
+  }
+
+  summary {
+    cursor: pointer;
+    font-weight: 900;
+    color: ${Colors.white};
+  }
+
+  pre {
+    margin: 10px 0 0 0;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.88);
+  }
+`;
+
+const AboutSection = styled.section`
+  width: 95%;
+  margin: 16px auto 0 auto;
+  border-radius: ${BorderRadius.xlarge};
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: ${Surfaces.cardPanelStrong};
+  overflow: hidden;
+`;
+
+const AboutHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    border: none;
+    color: ${Colors.white};
+    font-family: ${FontFamily.primary};
+    font-weight: 900;
+    cursor: pointer;
+    padding: 0;
+
+    &:focus-visible {
+      outline: 2px solid ${Colors.accent};
+      outline-offset: 4px;
+      border-radius: 10px;
+    }
   }
 `;
 
 const StyledMarkdown = styled.div`
   width: 95%;
-  margin: 2rem auto 0 auto;
-  padding: 2rem 1.5rem;
-  background: linear-gradient(
-    90deg,
-    ${Colors.charcoal} 0%,
-    ${Colors.primary} 100%
-  );
-  border-radius: 14px;
-  border: 1.5px solid ${Colors.primary};
+  margin: 0 auto;
+  padding: 14px 14px 16px 14px;
+  background: transparent;
   color: ${Colors.white};
   font-size: 1.08rem;
   line-height: 1.7;
-  box-shadow: 0 2px 12px 0 rgba(20, 20, 40, 0.1);
   text-align: left;
   word-break: break-word;
 

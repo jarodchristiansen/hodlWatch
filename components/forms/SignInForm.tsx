@@ -6,7 +6,6 @@ import {
   MediaQueries,
   Shadows,
 } from "@/styles/variables";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -21,138 +20,70 @@ import ProviderContainer from "./ProviderContainer/ProviderContainer";
  * @returns Sign In/Sign Up Forms
  */
 const SignInForm = ({ providers }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const [isSignIn, setIsSignIn] = useState(router.query.path === "SignIn");
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [isSignIn, setIsSignIn] = useState(true);
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
 
-  const handleSignInSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const getQueryString = (value: unknown) =>
+    typeof value === "string" ? value : undefined;
 
-    await signIn("credentials", {
-      email,
-      password,
-    });
-  };
+  const callbackUrl = getQueryString(router.query.callbackUrl);
+  const errorCode = getQueryString(router.query.error);
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = e.target;
-
-    if (name) {
-      switch (name) {
-        case "email":
-          setEmail(e.target.value);
-          break;
-        case "password":
-          setPassword(e.target.value);
-        case "passwordConfirm":
-      }
-    }
-  };
-
+  // Avoid redirect/jank on first render when `router.query.path` is not ready yet.
   useEffect(() => {
-    isSignIn
-      ? router.push("/auth?path=SignIn")
-      : router.push("/auth?path=SignUp");
-  }, [isSignIn]);
+    if (!router.isReady) return;
+    const path = getQueryString(router.query.path);
+    setIsSignIn(path === "SignIn");
+  }, [router.isReady, router.query.path]);
+
+  const handleToggleChange = (nextIsSignIn: boolean) => {
+    setIsSignIn(nextIsSignIn);
+    if (!router.isReady) return;
+
+    const nextPath = nextIsSignIn ? "SignIn" : "SignUp";
+    const nextCallback = callbackUrl
+      ? `&callbackUrl=${encodeURIComponent(callbackUrl)}`
+      : "";
+    router.push(`/auth?path=${nextPath}${nextCallback}`);
+  };
+
+  const renderError = () => {
+    if (!errorCode) return null;
+
+    // NextAuth error codes vary by provider; keep messaging generic and trust-building.
+    let message =
+      "We couldn't sign you in. Please try again or use a different provider.";
+    if (errorCode === "AccessDenied") {
+      message = "Access denied. Please try a different sign-in method.";
+    } else if (errorCode === "OAuthSignin") {
+      message = "OAuth sign-in failed. Please try again.";
+    }
+
+    return (
+      <div role="alert" aria-live="polite" className="error-banner">
+        {message}
+      </div>
+    );
+  };
 
   return (
-    <FormStyling onSubmit={handleSignInSubmit}>
+    <FormStyling>
       <ToggleSwitch
         label={"Sign In"}
         label2={"Sign Up"}
         toggleState={isSignIn}
-        setToggleState={setIsSignIn}
+        setToggleState={handleToggleChange}
       />
 
-      {isSignIn ? (
-        <>
-          {" "}
-          <h1 className="form-header">Sign In</h1>
-        </>
-      ) : (
-        <>
-          <h1 className="form-header">Sign Up</h1>
-        </>
-      )}
+      <h1 className="form-header">{isSignIn ? "Sign In" : "Sign Up"}</h1>
 
-      {isSignIn ? (
-        <>
-          <div className="input-container">
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              Email Address
-            </label>
-            <StyledInput
-              name={"email"}
-              type="email"
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              onChange={handleFormChange}
-              autoComplete={"true"}
-            />
-          </div>
-          <div className="input-container">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Password
-            </label>
-            <StyledInput
-              name={"password"}
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-              onChange={handleFormChange}
-              autoComplete={"true"}
-            />
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="input-container">
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              Email Address
-            </label>
-            <StyledInput
-              name={"email"}
-              type="email"
-              className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              onChange={handleFormChange}
-              autoComplete={"false"}
-            />
-          </div>
-          <div className="input-container">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Password
-            </label>
-            <StyledInput
-              name={"password"}
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-              onChange={handleFormChange}
-              autoComplete={"false"}
-            />
-          </div>
-
-          <div className="input-container">
-            <label htmlFor="confirmPasswordInput" className="form-label">
-              Confirm Password
-            </label>
-            <StyledInput
-              name={"passwordConfirm"}
-              type="passwordConfirm"
-              className="form-control"
-              id="confirmPasswordInput"
-              onChange={handleFormChange}
-              autoComplete={"false"}
-            />
-          </div>
-        </>
-      )}
+      <p className="subcopy">
+        {isSignIn
+          ? "Choose a provider to sign in and pick up where you left off."
+          : "Create your account in seconds. Pick a provider to continue."}
+      </p>
 
       {/* <SubmitWrapper>
         <button type="submit" className="standardized-button">
@@ -160,18 +91,21 @@ const SignInForm = ({ providers }) => {
         </button>
       </SubmitWrapper> */}
 
+      {renderError()}
+
       <CheckMarkContainer>
         <input
           type="checkbox"
           className="form-check-input"
-          id="exampleCheck1"
-          onChange={() => setIsSubmitDisabled(!isSubmitDisabled)}
+          id="terms-checkbox"
+          checked={isTermsAccepted}
+          onChange={(e) => setIsTermsAccepted(e.target.checked)}
         />
 
-        <label className="form-check-label">
-          <span>You agree to our {"  "}</span>
+        <label className="form-check-label" htmlFor="terms-checkbox">
+          <span>You agree to our&nbsp;</span>
           <Link href="/terms-of-service" passHref legacyBehavior>
-            <a target="#">
+            <a>
               <span className="term-text">Terms of Service</span>
             </a>
           </Link>
@@ -182,13 +116,14 @@ const SignInForm = ({ providers }) => {
         <h6>Sign in with:</h6>
 
         <span className="provider-note">
-          Note: Signing in with providers for the first time also creates
-          account
+          Note: Signing in with providers for the first time also creates an
+          account.
         </span>
 
         <ProviderContainer
           providers={providers}
-          isSubmitDisabled={isSubmitDisabled}
+          isSubmitDisabled={!isTermsAccepted}
+          callbackUrl={callbackUrl}
         />
       </ProviderWrapper>
       {/* <ToastContainer position={"bottom"} /> */}
@@ -239,26 +174,6 @@ const ProviderWrapper = styled.div`
   }
 `;
 
-const StyledInput = styled.input`
-  border: 2px solid ${Colors.midGray};
-  border-radius: ${BorderRadius.medium};
-  color: ${Colors.charcoal};
-  font-family: ${FontFamily.primary};
-  font-size: ${FontSize.medium};
-  font-weight: 500;
-  padding: 0.5rem 0.75rem;
-  width: 100%;
-
-  ::placeholder {
-    color: ${Colors.midGray};
-  }
-
-  :focus-visible {
-    outline: 2px solid ${Colors.accent};
-    outline-offset: 2px;
-  }
-`;
-
 const FormStyling = styled.form`
   width: 100%;
   text-align: center;
@@ -268,6 +183,24 @@ const FormStyling = styled.form`
   border: 1px solid ${Colors.charcoal};
   background-color: ${Colors.white};
   font-family: ${FontFamily.primary};
+
+  .subcopy {
+    margin: 0 auto 1.25rem auto;
+    max-width: 30rem;
+    color: ${Colors.midGray};
+    font-size: ${FontSize.small};
+  }
+
+  .error-banner {
+    margin: 0 auto 1rem auto;
+    max-width: 30rem;
+    padding: 0.75rem 1rem;
+    border-radius: ${BorderRadius.medium};
+    border: 1px solid ${Colors.accentMuted};
+    color: ${Colors.charcoal};
+    background: rgba(212, 168, 75, 0.15);
+    font-size: ${FontSize.small};
+  }
 
   .form-header {
     padding: 2rem 0;

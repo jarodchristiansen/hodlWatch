@@ -61,7 +61,7 @@ export default function Home({ data }) {
     <HomePageWrapper id="main-content">
       <SEOHead
         isHomePage={true}
-        metaTitle="Mesh – Crypto market data, portfolios & community in one place"
+        metaTitle="Mesh: Crypto market data, portfolios & community in one place"
         metaDescription="Real-time crypto data, portfolio tracking, and a community around the assets you care about."
         previewImage="/assets/assets-page.png"
       />

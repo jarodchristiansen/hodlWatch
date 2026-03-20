@@ -80,23 +80,30 @@ describe("AssetCard", () => {
     expect(screen.getByTestId("remove-button")).toBeTruthy();
   });
 
-  test("clicking the main view button changes the card view", () => {
+  test("clicking Details toggles the expanded metrics drawer", () => {
     const email = "example@example.com";
     const favorited = true;
 
-    render(<AssetCard asset={asset} email={email} favorited={favorited} />);
+    render(
+      <MockedProvider mocks={[]} addTypename={false}>
+        <AssetCard asset={asset} email={email} favorited={favorited} />
+      </MockedProvider>
+    );
 
-    // Click the main view button
-    const snapshotButton = screen.getByText("Snapshot");
-    fireEvent.click(snapshotButton);
+    const detailsBtn = screen.getByRole("button", { name: /^Details$/i });
+    expect(detailsBtn).toHaveAttribute("aria-expanded", "false");
 
-    // Click the main view button
-    const mainViewButton = screen.getByText("Main View");
-    fireEvent.click(mainViewButton);
+    fireEvent.click(detailsBtn);
 
-    // Check if the card view is changed to "A"
-    const cardViewA = screen.getByText("Snapshot");
-    expect(cardViewA).toBeInTheDocument();
+    const hideBtn = screen.getByRole("button", { name: /^Hide details$/i });
+    expect(hideBtn).toHaveAttribute("aria-expanded", "true");
+
+    fireEvent.click(hideBtn);
+
+    expect(screen.getByRole("button", { name: /^Details$/i })).toHaveAttribute(
+      "aria-expanded",
+      "false"
+    );
   });
 
   // test("clicking the add button calls addFavorite", () => {

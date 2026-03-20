@@ -48,9 +48,7 @@ const ReportsView = ({ id }) => {
   return (
     <NewsFeedContainer>
       {loading && (
-        <div className={"container text-center"}>
-          <LoadingSpinner />
-        </div>
+        <LoadingSpinner overlay message="Loading reports" />
       )}
       {data && NewsFeed}
     </NewsFeedContainer>

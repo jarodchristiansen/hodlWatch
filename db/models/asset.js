@@ -50,6 +50,10 @@ const AssetsSchema = new Schema({
     type: Number,
     trim: false,
   },
+  price_change_percentage_24h: {
+    type: Number,
+    trim: false,
+  },
   fully_diluted_valuation: {
     type: Number,
     trim: false,

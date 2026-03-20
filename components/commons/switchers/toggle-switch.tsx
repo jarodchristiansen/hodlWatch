@@ -47,12 +47,12 @@ const ToggleContainer = styled.div`
 
   .label-text {
     margin-left: 48px;
-    color: ${Colors.white};
+    color: ${Colors.black};
   }
 
   .label-text-left {
     margin-right: 48px;
-    color: ${Colors.white};
+    color: ${Colors.black};
   }
 
   .toggle {

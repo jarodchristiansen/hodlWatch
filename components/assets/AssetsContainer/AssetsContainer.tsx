@@ -6,13 +6,21 @@ import styled from "styled-components";
 
 import AssetCard from "../AssetCard/AssetCard";
 
+type ViewMode = "grid" | "list";
+
+interface AssetsContainerProps {
+  assets: any[] | null;
+  session: any;
+  viewMode?: ViewMode;
+}
+
 /**
  *
  * @param assets: Digital assets that are currently being renderered
  * @param session: Signed in user's session
  * @returns AssetsContainer that shows the digital assets currently searched
  */
-const AssetsContainer = ({ assets, session }) => {
+const AssetsContainer = ({ assets, session, viewMode = "grid" }: AssetsContainerProps) => {
   const [currentAssets, setCurrentAssets] = useState(assets || null);
 
   const [
@@ -51,7 +59,7 @@ const AssetsContainer = ({ assets, session }) => {
 
     return currentAssets.map((asset) => {
       return (
-        <div data-testid={`asset-card`} key={asset.id}>
+        <div data-testid={`asset-card`} key={asset.id} className={viewMode === "list" ? "list-item" : undefined}>
           <AssetCard
             asset={asset}
             email={session?.user?.email}
@@ -59,6 +67,7 @@ const AssetsContainer = ({ assets, session }) => {
               (e) => e.symbol.toLowerCase() === asset.symbol.toLowerCase()
             )}
             refetchFavorites={() => refetchUser()}
+            viewMode={viewMode}
           />
         </div>
       );
@@ -69,6 +78,7 @@ const AssetsContainer = ({ assets, session }) => {
     dataLoading,
     refetchUser,
     session?.user?.email,
+    viewMode,
   ]);
 
   return (
@@ -77,7 +87,13 @@ const AssetsContainer = ({ assets, session }) => {
 
       <div className={"w-100"}>
         {currentAssets && currentAssets.length > 1 && (
-          <GridComponent ref={ref}>{AssetCards}</GridComponent>
+          <>
+            {viewMode === "grid" ? (
+              <GridComponent ref={ref}>{AssetCards}</GridComponent>
+            ) : (
+              <ListComponent ref={ref}>{AssetCards}</ListComponent>
+            )}
+          </>
         )}
       </div>
 
@@ -90,6 +106,7 @@ const AssetsContainer = ({ assets, session }) => {
               e.symbol.toLowerCase() === currentAssets[0].symbol.toLowerCase()
           )}
           refetchFavorites={() => refetchUser()}
+          viewMode={viewMode}
           data-testid={`asset-card`}
         />
       )}
@@ -101,11 +118,24 @@ const GridComponent = styled.div`
   animation: fadeIn 2s;
   margin: 0 auto;
   display: grid;
-  column-gap: 3rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 
   @media ${MediaQueries.MD} {
-    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  }
+`;
+
+const ListComponent = styled.div`
+  animation: fadeIn 2s;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  .list-item {
+    width: 100%;
   }
 `;
 

@@ -8,7 +8,40 @@ import styled from "styled-components";
 
 import ThreeDotsWave from "./ThreeDotsWave";
 
-const LoadingSpinner = () => {
+const LoadingSpinner = ({ overlay = false, message = "Loading" }) => {
+  if (overlay) {
+    return (
+      <Overlay role="status" aria-live="polite" aria-busy="true">
+        <SpinnerCard>
+          <motion.img
+            data-testid={"loading-element"}
+            src={"/bitcoin_PNG48.png"}
+            style={{
+              height: "120px",
+              width: "120px",
+              borderRadius: "50%",
+            }}
+            animate={{
+              rotate: [0, 90, 180, 90, 0],
+            }}
+            transition={{
+              duration: 10,
+              ease: "easeInOut",
+              times: [0, 0.2, 0.5, 0.8, 1],
+              repeat: Infinity,
+              repeatDelay: 1,
+            }}
+          />
+
+          <div className="loading-row">
+            <LoadingText>{message}</LoadingText>
+            <ThreeDotsWave />
+          </div>
+        </SpinnerCard>
+      </Overlay>
+    );
+  }
+
   return (
     <div
       className={
@@ -46,7 +79,7 @@ const LoadingSpinner = () => {
             "d-flex flex-row justify-content-center align-items-center container"
           }
         >
-          <LoadingText>Loading</LoadingText>
+          <LoadingText>{message}</LoadingText>
           <ThreeDotsWave />
         </div>
       </div>
@@ -54,8 +87,44 @@ const LoadingSpinner = () => {
   );
 };
 
+const Overlay = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(16, 24, 32, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+`;
+
+const SpinnerCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 18px 18px;
+  border-radius: 18px;
+  background: rgba(24, 26, 32, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.32);
+
+  .loading-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+`;
+
 const LoadingText = styled.h3`
   color: ${Colors.white};
+  font-size: 1.05rem;
+  margin: 0;
 `;
 
 export default LoadingSpinner;

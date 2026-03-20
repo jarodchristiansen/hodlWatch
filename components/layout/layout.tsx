@@ -52,12 +52,15 @@ function Layout(props) {
 }
 
 const PageWrapper = styled.main<{ isHomePath: boolean }>`
-  padding: ${(props) => (!props.isHomePath ? `${SectionSpacing.default} 0` : "0")};
+  /* Top padding only: bottom padding created a dead band above the footer. */
+  padding: ${(props) =>
+    !props.isHomePath ? `${SectionSpacing.default} 0 0` : "0"};
   font-family: ${FontFamily.primary};
   font-size: ${FontSize.medium};
   line-height: 1.5;
   background: ${Colors.charcoal};
-  min-height: 100vh;
+  /* Height follows content so the footer sits flush after the last block (no stretched empty main). */
+  min-height: 0;
 `;
 
 const SkipLink = styled.a`
