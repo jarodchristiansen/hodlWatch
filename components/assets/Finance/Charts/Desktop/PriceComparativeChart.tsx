@@ -1,6 +1,6 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { currencyFormat } from "@/helpers/formatters/currency";
-import { Colors, FontWeight } from "@/styles/variables";
+import { ChartColors, Colors, FontWeight } from "@/styles/variables";
 import Link from "next/link";
 // import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
@@ -171,7 +171,7 @@ const PriceComparativeChart = ({ data }: FibonacciProps) => {
             <Line
               type="monotone"
               dataKey="min"
-              stroke="#b30000"
+              stroke={ChartColors.negative}
               dot={false}
               // dot={{ stroke: "#b30000", strokeWidth: 2 }}
               strokeWidth={2}
@@ -191,7 +191,7 @@ const PriceComparativeChart = ({ data }: FibonacciProps) => {
             <Area
               type="monotone"
               dataKey="close"
-              stroke="#806cfe"
+              stroke={ChartColors.seriesMuted}
               strokeWidth={3}
               fillOpacity={1}
               fill="url(#colorUv)"

@@ -1,5 +1,11 @@
 import { FormatUnixTime } from "@/helpers/formatters/time";
-import { Colors, FontWeight, MediaQueries } from "@/styles/variables";
+import {
+  BorderRadius,
+  Colors,
+  FontWeight,
+  MediaQueries,
+  Shadows,
+} from "@/styles/variables";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -85,18 +91,28 @@ const NewsBlock = (props: NewsBlockProps) => {
 const NewsItem = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid lightgray;
+  border: 1px solid ${Colors.midGray};
   align-items: center;
   text-align: center;
   padding: 18px;
-  border-radius: 12px;
+  border-radius: ${BorderRadius.large};
   gap: 24px;
   position: relative;
-  color: white;
+  color: ${Colors.white};
+  background: ${Colors.charcoal};
+  box-shadow: ${Shadows.card};
 
   h4 {
     font-size: 1.3rem;
     font-weight: ${FontWeight.bold};
+    color: ${Colors.white};
+
+    a {
+      color: ${Colors.white};
+      &:hover {
+        color: ${Colors.accent};
+      }
+    }
 
     @media ${MediaQueries.MD} {
       max-width: 700px;
@@ -107,7 +123,7 @@ const NewsItem = styled.div`
   }
 
   img {
-    border-radius: 12px;
+    border-radius: ${BorderRadius.medium};
   }
 
   .text-column {
@@ -118,7 +134,7 @@ const NewsItem = styled.div`
 
     .top-text-row {
       span {
-        color: ${Colors.secondary};
+        color: ${Colors.midGray};
       }
 
       @media ${MediaQueries.MD} {
@@ -128,11 +144,11 @@ const NewsItem = styled.div`
     }
 
     .story-body {
-      background-color: #acb6bd1a;
+      background-color: rgba(58, 80, 107, 0.3);
       text-align: center;
       padding: 12px;
-      border: 1px solid lightgray;
-      border-radius: 6px;
+      border: 1px solid ${Colors.midGray};
+      border-radius: ${BorderRadius.small};
     }
   }
 
@@ -143,6 +159,7 @@ const NewsItem = styled.div`
     max-width: 40%;
     margin: auto;
     font-weight: ${FontWeight.bold};
+    color: ${Colors.white};
 
     @media ${MediaQueries.MD} {
       max-width: 40%;

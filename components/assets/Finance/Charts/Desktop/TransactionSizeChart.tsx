@@ -1,5 +1,5 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
-import { ChartDimensions } from "@/styles/variables";
+import { ChartColors, ChartDimensions } from "@/styles/variables";
 import { useEffect, useState } from "react";
 // import FinanceChartModal from "./FinanceChartModal";
 import {
@@ -90,7 +90,7 @@ const TransactionSizeChart = ({ data }) => {
                 x2="0"
                 y2="1"
               >
-                <stop offset="70%" stopColor="#00BFBF" stopOpacity={0.1} />
+                <stop offset="70%" stopColor={ChartColors.seriesCool} stopOpacity={0.1} />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
               </linearGradient>
             </defs>
@@ -98,7 +98,7 @@ const TransactionSizeChart = ({ data }) => {
               type="monotone"
               dataKey="large_transaction_count"
               yAxisId="right-axis"
-              stroke="#00BFBF"
+              stroke={ChartColors.seriesCool}
               dot={false}
               strokeWidth={2}
               name="Large Transaction Count"

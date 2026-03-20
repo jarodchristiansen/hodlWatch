@@ -1,4 +1,6 @@
+import { BorderRadius, Colors, FontFamily, FontSize } from "@/styles/variables";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
 import {
   FaCoins,
   FaFacebook,
@@ -47,6 +49,7 @@ interface ProvidersAsProps {
     };
   };
   isSubmitDisabled?: boolean;
+  callbackUrl?: string;
 }
 
 /**
@@ -57,24 +60,9 @@ interface ProvidersAsProps {
 const ProviderContainer = ({
   providers,
   isSubmitDisabled,
+  callbackUrl,
 }: ProvidersAsProps) => {
-  const signInOthers = async (e, provider) => {
-    // console.log({ provider });
-    // e.preventDefault();
-    // const result = await signIn(
-    //   provider.id
-    //   //     , {
-    //   //   callbackUrl: `${window.location.origin}`,
-    //   // }
-    // );
-    // console.log({ result });
-    //
-    // if (!result?.error) {
-    //   await getSession().then((session) => {
-    //     console.log({ session });
-    //   });
-    // }
-  };
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   const selectIcon = (name) => {
     switch (name) {
@@ -114,19 +102,20 @@ const ProviderContainer = ({
             provider.name !== "Credentials" && (
               <div key={provider.name}>
                 <ProviderButton
-                  disabled={isSubmitDisabled}
-                  onClick={(e) => {
-                    signIn(provider.id, { redirect: true, callbackUrl: "/" })
-                      .then(() => {})
-                      .catch((err) => new Error(err));
-                    // signInOthers(e, provider)
+                  disabled={isSubmitDisabled || isSigningIn}
+                  onClick={() => {
+                    setIsSigningIn(true);
+                    signIn(provider.id, {
+                      redirect: true,
+                      callbackUrl: callbackUrl ?? "/",
+                    }).catch(() => setIsSigningIn(false));
                   }}
                   type={"button"}
                 >
-                  <div className="button-content">
-                    {selectIcon(provider?.name)}
-                    {/* <span>{provider?.name}</span> */}
-                  </div>
+                  {selectIcon(provider?.name)}
+                  <span className="button-label">
+                    Continue with {provider?.name ?? provider?.id}
+                  </span>
                 </ProviderButton>
               </div>
             )
@@ -136,35 +125,50 @@ const ProviderContainer = ({
 };
 
 const ProviderButton = styled.button`
-  background-color: black;
-  color: white;
-  border-radius: 8px;
-  border: 2px solid black;
-  box-shadow: 2px 4px 8px gray;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  font-family: ${FontFamily.primary};
+  font-size: ${FontSize.medium};
+  font-weight: 700;
+  color: ${Colors.white};
+  background-color: ${Colors.primary};
+  border: 2px solid ${Colors.primary};
+  border-radius: ${BorderRadius.medium};
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 
-  .button-content {
+  .button-icon {
     display: flex;
+    align-items: center;
+  }
+
+  .button-label {
     white-space: nowrap;
-    gap: 1rem;
-    padding: 0.5rem 0.5rem;
   }
 
-  :hover {
-    background-color: white;
-    color: black;
+  &:hover:not(:disabled) {
+    background-color: ${Colors.secondary};
+    border-color: ${Colors.secondary};
+    color: ${Colors.white};
   }
 
-  :disabled {
-    background-color: white;
-    color: black;
+  &:focus-visible {
+    outline: 2px solid ${Colors.accent};
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
     cursor: not-allowed;
-    pointer-events: all !important;
   }
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  white-space: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
   padding: 2rem 0;
   gap: 1rem;

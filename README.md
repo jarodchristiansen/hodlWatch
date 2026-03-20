@@ -21,3 +21,9 @@ Mesh is a Next.js application that aggregates and analyzes cryptocurrency market
 3. **Set up environment variables** for API keys.
 4. **Run the app:** `npm run dev`
 
+## Design tokens
+
+Use [`styles/variables.ts`](styles/variables.ts) as the single source for **colors** (`Colors`, `ChartColors`, `Surfaces`), **typography** (`FontFamily`, `FontSize`, `FontWeight`), **spacing** (`SectionSpacing`, `Padding`, `ContentWidth`), and **motion** (`Transitions`). Prefer these tokens in styled-components and TS/TSX instead of raw hex or arbitrary `px` for section rhythm.
+
+Global CSS in [`styles/globals.css`](styles/globals.css) mirrors core tokens as CSS custom properties (`:root`). New UI should align with the navy / charcoal / gold palette; chart series use `ChartColors` from the same file.
+

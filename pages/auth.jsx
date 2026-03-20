@@ -44,8 +44,6 @@ const AuthPage = () => {
         <div className="form-container">
           {providers && <SignInForm providers={providers} />}
         </div>
-
-        <div className="image-container"></div>
       </div>
     </PageWrapper>
   );
@@ -55,10 +53,12 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 2rem 0;
+  /* Fixed header is 64px; layout already adds ~48px top padding.
+   * This extra breathing room avoids any overlap on initial paint. */
+  padding: 2.5rem 0 2rem;
 
   @media ${MediaQueries.MD} {
-    padding: 4rem;
+    padding: 4rem 0;
   }
 
   .content-container {
@@ -66,21 +66,14 @@ const PageWrapper = styled.div`
     flex-direction: column;
     width: 100%;
     margin: auto;
+    align-items: center;
+  }
 
-    .image-container {
-      background-size: cover;
-      width: 100%;
-      background-position: center;
-      background-image: url("/assets/bitcoin-charts-signin.jpg");
-    }
-
-    @media ${MediaQueries.MD} {
-      border: 1px solid black;
-      display: flex;
-      flex-direction: row;
-      justify-content: stretch;
-      width: 100%;
-    }
+  .form-container {
+    width: 100%;
+    max-width: 44rem;
+    display: flex;
+    justify-content: center;
   }
 `;
 

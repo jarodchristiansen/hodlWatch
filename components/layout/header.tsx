@@ -1,8 +1,11 @@
 import { Colors, FontFamily, FontSize, MediaQueries } from "@/styles/variables";
+import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+
+const HERO_HEIGHT_THRESHOLD = 400;
 
 /**
  *
@@ -12,9 +15,11 @@ function Header() {
   const { data: session, status } = useSession();
   const [selectedRoute, setSelectedRoute] = useState<string | number>("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
   const router = useRouter();
   const { asPath } = router;
+  const isHomePage = asPath === "/";
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -51,6 +56,19 @@ function Header() {
     setRouterAsPath();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asPath]);
+
+  useEffect(() => {
+    if (!isHomePage) {
+      setScrolledPastHero(false);
+      return;
+    }
+    const onScroll = () => {
+      setScrolledPastHero(window.scrollY > HERO_HEIGHT_THRESHOLD);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isHomePage]);
 
   const setRouterAsPath = () => {
     let matchingRoute = routes.filter((item) => asPath.includes(item.route));
@@ -226,6 +244,30 @@ const NavLink = styled.a<{ $active: boolean }>`
   &:hover {
     color: ${Colors.accent};
     background: rgba(255, 255, 255, 0.04);
+  }
+`;
+
+const HeaderCTAPill = styled(Link)`
+  display: inline-block;
+  padding: 10px 20px;
+  background: rgba(212, 168, 75, 0.25);
+  color: ${Colors.accent};
+  font-family: ${FontFamily.primary};
+  font-weight: bold;
+  font-size: ${FontSize.medium};
+  text-decoration: none;
+  border-radius: 8px;
+  border: 2px solid ${Colors.accent};
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: ${Colors.accent};
+    color: ${Colors.charcoal};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${Colors.accent};
+    outline-offset: 2px;
   }
 `;
 

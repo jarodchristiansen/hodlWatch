@@ -13,7 +13,7 @@ import {
 } from "recharts";
 
 // import FinanceChartModal from "../FinanceChartModal";
-import { ChartDimensions } from "@/styles/variables";
+import { ChartColors, ChartDimensions } from "@/styles/variables";
 import ChartContainer from "../Desktop/ChartContainer";
 import FinanceChartModal from "../FinanceChartModal";
 
@@ -166,7 +166,7 @@ const SharpeRatioChart = ({ data }) => {
             />
             <defs>
               <linearGradient id="rolling_sharpe" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="70%" stopColor="#00BFBF" stopOpacity={0.1} />
+                <stop offset="70%" stopColor={ChartColors.seriesCool} stopOpacity={0.1} />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
               </linearGradient>
             </defs>
@@ -174,7 +174,7 @@ const SharpeRatioChart = ({ data }) => {
               type="monotone"
               dataKey="rolling_sharpe"
               yAxisId="right-axis"
-              stroke="#00BFBF"
+              stroke={ChartColors.seriesCool}
               dot={false}
               strokeWidth={2}
               name="Sharpe Ratio"

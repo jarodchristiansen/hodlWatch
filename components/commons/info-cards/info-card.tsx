@@ -1,3 +1,11 @@
+import {
+  BorderRadius,
+  Colors,
+  FontFamily,
+  FontSize,
+  Padding,
+  Shadows,
+} from "@/styles/variables";
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
@@ -44,23 +52,37 @@ const InfoCard = ({
 };
 
 const InfoCardContainer = styled.div`
-  animation: "fade-in";
-  border-radius: 17px;
-  border: 2px solid gray;
-  padding: 2rem 2rem;
-  margin: 2rem;
-  box-shadow: 2px 4px 8px lightgray;
+  border-radius: ${BorderRadius.large};
+  border: 2px solid ${Colors.midGray};
+  padding: ${Padding.xlarge};
+  margin: ${Padding.xlarge};
+  box-shadow: ${Shadows.card};
   min-width: 18rem;
+  background: ${Colors.white};
+  font-family: ${FontFamily.primary};
 
   .info-card-header {
-    border-bottom: 2px solid lightgray;
+    border-bottom: 2px solid ${Colors.midGray};
     text-align: center;
     padding: 1rem 0;
+  }
+
+  .heading-text {
+    font-family: ${FontFamily.headline};
+    font-size: ${FontSize.large};
+    color: ${Colors.primary};
+    font-weight: 700;
   }
 
   .info-card-body {
     text-align: center;
     padding: 1rem 0;
+  }
+
+  .body-text {
+    font-size: ${FontSize.medium};
+    color: ${Colors.charcoal};
+    line-height: 1.5;
   }
 
   .button-container {

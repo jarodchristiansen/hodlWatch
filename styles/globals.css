@@ -1,21 +1,64 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lato:wght@400;700&family=Futura:wght@400;700&family=Merriweather:wght@400;700&display=swap");
 
+/* Design tokens as CSS custom properties — single source for global styles */
+:root {
+  --color-primary: #1a3e72;
+  --color-secondary: #3a506b;
+  --color-accent: #d4a84b;
+  --color-accent-light: #f5e6b3;
+  --color-accent-muted: #c9a227;
+  --color-charcoal: #101820;
+  --color-white: #fffffc;
+  --color-background: #f5f7fa;
+  --color-card-shadow: #e0e0e0;
+  --font-primary: "Lato", "Inter", Arial, sans-serif;
+  --font-headline: "Futura", "Merriweather", Arial, sans-serif;
+  --font-size-medium: 16px;
+  --font-size-large: 24px;
+  --font-size-xlarge: 32px;
+  --radius-medium: 8px;
+  --radius-large: 16px;
+  --focus-ring-color: #d4a84b;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --shadow-card: 0 2px 8px 0 #e0e0e0;
+  --transition-default: 0.2s ease;
+  --color-link-hover: #3a506b;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Lato", "Inter", Arial, sans-serif;
-  background: #f5f7fa;
-  color: #101820;
+  font-family: var(--font-primary);
+  background: var(--color-background);
+  color: var(--color-charcoal);
 }
 
 a {
-  color: #1a3e72;
+  color: var(--color-primary);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color var(--transition-default);
 }
 a:hover {
-  color: #007a33;
+  color: var(--color-link-hover);
+}
+
+/* Keyboard-visible focus — consistent and accessible */
+*:focus {
+  outline: none;
+}
+*:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 * {
@@ -28,19 +71,20 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Futura", "Merriweather", Arial, sans-serif;
+  font-family: var(--font-headline);
   font-weight: 700;
-  color: #1a3e72;
+  color: var(--color-primary);
   margin-bottom: 0.5em;
 }
+/* Aligned with styles/variables FontSize (xxlarge / large) */
 h1 {
-  font-size: 36px;
+  font-size: var(--font-size-xxlarge);
 }
 h2 {
-  font-size: 28px;
+  font-size: var(--font-size-page-section);
 }
 h3 {
-  font-size: 24px;
+  font-size: var(--font-size-large);
 }
 p,
 li,
@@ -56,30 +100,30 @@ section {
   margin-bottom: 32px;
 }
 
-/* Card style for grouping */
+/* Card style for grouping — aligned with tokens */
 .card,
 .info-card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px 0 #e0e0e0;
+  background: var(--color-white);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-card);
   padding: 24px;
   margin-bottom: 24px;
 }
 
 /* Utility for accent CTA */
 .cta {
-  background: #fee715;
-  color: #101820;
+  background: var(--color-accent);
+  color: var(--color-charcoal);
   font-weight: 700;
-  border-radius: 8px;
+  border-radius: var(--radius-medium);
   padding: 12px 32px;
   font-size: 18px;
   border: none;
-  transition: background 0.2s;
+  transition: background var(--transition-default);
 }
 .cta:hover {
-  background: #007a33;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-white);
 }
 
 .loading-spinner-background-image {
@@ -119,13 +163,13 @@ section {
 }
 
 .accordion-button:not(.collapsed) {
-  background-color: #806cfe;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-white);
   font-weight: bold;
 }
 .accordion-button.collapsed {
-  background-color: #3b3274;
-  color: white;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
   font-weight: bold;
 }
 
@@ -149,4 +193,34 @@ section {
 
 .pointer-link {
   cursor: pointer;
+}
+
+/* Standardized button — matches components/commons/buttons/Button (primary variant) */
+.standardized-button {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border-radius: var(--radius-medium);
+  border: none;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  transition: background-color var(--transition-default), color var(--transition-default);
+}
+.standardized-button:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+}
+.standardized-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.standardized-button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }

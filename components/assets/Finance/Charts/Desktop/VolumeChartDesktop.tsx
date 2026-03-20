@@ -1,7 +1,7 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 // import FinanceChartModal from "./FinanceChartModal";
 import { currencyFormat } from "@/helpers/formatters/currency";
-import { ChartDimensions, Colors } from "@/styles/variables";
+import { ChartColors, ChartDimensions, Colors } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -94,7 +94,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
             />
             <defs>
               <linearGradient id="fromExchange" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="70%" stopColor="#00BFBF" stopOpacity={0.1} />
+                <stop offset="70%" stopColor={ChartColors.seriesCool} stopOpacity={0.1} />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
               </linearGradient>
             </defs>
@@ -102,7 +102,7 @@ const VolumeChartDesktop = ({ data }: VolumeChartProps) => {
               type="monotone"
               dataKey="volumeFrom"
               yAxisId="right-axis"
-              stroke="#00BFBF"
+              stroke={ChartColors.seriesCool}
               dot={false}
               strokeWidth={2}
               name="Volume From Exchanges"

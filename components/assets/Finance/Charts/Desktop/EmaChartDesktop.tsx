@@ -1,6 +1,6 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { currencyFormat } from "@/helpers/formatters/currency";
-import { ChartDimensions, Colors } from "@/styles/variables";
+import { ChartColors, ChartDimensions, Colors } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -123,7 +123,7 @@ const EMAChartDesktop = ({ data }) => {
             <Area
               type="monotone"
               dataKey="close"
-              stroke="#806cfe"
+              stroke={ChartColors.seriesMuted}
               strokeWidth={2}
               fillOpacity={1}
               fill="url(#colorUv)"
@@ -132,7 +132,7 @@ const EMAChartDesktop = ({ data }) => {
             <Line
               type="monotone"
               dataKey="thirtyEma"
-              stroke="#b30000"
+              stroke={ChartColors.negative}
               dot={false}
               strokeWidth={2}
               name="30 Day Ema"

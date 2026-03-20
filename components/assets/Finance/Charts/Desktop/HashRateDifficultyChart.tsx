@@ -1,5 +1,5 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
-import { ChartDimensions } from "@/styles/variables";
+import { ChartColors, ChartDimensions } from "@/styles/variables";
 import { useEffect, useState } from "react";
 // import FinanceChartModal from "./FinanceChartModal";
 import {
@@ -78,7 +78,7 @@ const HashRateDifficultyChart = ({ data }) => {
             />
             <defs>
               <linearGradient id="hash_rate" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="70%" stopColor="#00BFBF" stopOpacity={0.1} />
+                <stop offset="70%" stopColor={ChartColors.seriesCool} stopOpacity={0.1} />
                 <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.1} />
               </linearGradient>
             </defs>
@@ -86,7 +86,7 @@ const HashRateDifficultyChart = ({ data }) => {
               type="monotone"
               dataKey="hash_rate"
               yAxisId="right-axis"
-              stroke="#00BFBF"
+              stroke={ChartColors.seriesCool}
               dot={false}
               strokeWidth={2}
               name="HashRate"
