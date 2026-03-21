@@ -27,9 +27,8 @@ jobs:
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
-          # Optional repo variable COINGECKO_SYNC_MAX_PAGES overrides default (20) when set
+          # With COINGECKO_API_KEY (Pro): set repo variable for more pages (default 20 in script).
+          # Without a key, the script caps pages + enforces min delay on GitHub Actions.
           MAX_PAGES: ${{ vars.COINGECKO_SYNC_MAX_PAGES }}
-          # Free CoinGecko tier + GitHub shared IPs hit 429 often; ease off before/ between pages
           COINGECKO_INITIAL_DELAY_SEC: "25"
-          PAGE_SLEEP_SEC: "3"
         run: python scripts/sync_coingecko_assets.py
