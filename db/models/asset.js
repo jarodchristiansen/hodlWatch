@@ -18,6 +18,13 @@ const AssetsSchema = new Schema({
     required: true,
     trim: true,
   },
+  /** CoinGecko coin id (e.g. "bitcoin") — stable key for upserts / sync */
+  coingecko_id: {
+    type: String,
+    trim: true,
+    unique: true,
+    sparse: true,
+  },
   description: {
     type: String,
     trim: true,
