@@ -9,6 +9,8 @@ Environment:
   MAX_PAGES         — optional, max API pages (250 coins/page), default 20
   PAGE_SLEEP_SEC    — optional, delay between pages, default 1.2
   COINGECKO_API_KEY — optional, Pro API key (uses pro-api.coingecko.com)
+  COINGECKO_MAX_RETRIES — optional, per-request retries (429/5xx/network), default 12
+  COINGECKO_INITIAL_DELAY_SEC — optional, sleep before first request (helps CI / shared IPs), default 0
 
 Does not overwrite: favorite_count, description, tags, linkUrl, title, category, size.
 
@@ -26,8 +28,13 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 import requests
+from requests import Response
 from pymongo import MongoClient, UpdateOne
 from pymongo.collection import Collection
+
+DEFAULT_UA = (
+    "HodlWatch-CoinGeckoSync/1.0 (+https://github.com; automated daily asset metadata sync)"
+)
 
 PER_PAGE = 250
 FREE_BASE = "https://api.coingecko.com/api/v3"
@@ -74,11 +81,23 @@ def coin_to_update_doc(coin: Dict[str, Any]) -> Dict[str, Any]:
     return {k: v for k, v in doc.items() if v is not None and v != ""}
 
 
+def _response_snippet(resp: Response, limit: int = 400) -> str:
+    try:
+        text = resp.text or ""
+    except Exception:
+        return "(no body)"
+    text = text.strip().replace("\n", " ")
+    if len(text) > limit:
+        return text[:limit] + "…"
+    return text or "(empty)"
+
+
 def fetch_markets_page(
     session: requests.Session,
     base_url: str,
     page: int,
     headers: Optional[Dict[str, str]],
+    max_retries: int,
 ) -> List[Dict[str, Any]]:
     params = {
         "vs_currency": "usd",
@@ -88,26 +107,83 @@ def fetch_markets_page(
         "sparkline": "false",
     }
     url = f"{base_url}/coins/markets"
+    req_headers: Dict[str, str] = {"User-Agent": DEFAULT_UA, "Accept": "application/json"}
+    if headers:
+        req_headers.update(headers)
+
     last_exc: Optional[BaseException] = None
-    for attempt in range(5):
+    last_resp: Optional[Response] = None
+
+    for attempt in range(max_retries):
         try:
-            resp = session.get(url, params=params, headers=headers or {}, timeout=60)
+            resp = session.get(
+                url, params=params, headers=req_headers, timeout=90
+            )
         except requests.RequestException as exc:
             last_exc = exc
-            time.sleep(min(30, 2 ** attempt))
+            wait = min(90, 5 * (2**attempt))
+            print(
+                f"CoinGecko request error (attempt {attempt + 1}/{max_retries}): {exc!r}; "
+                f"sleeping {wait}s",
+                file=sys.stderr,
+            )
+            time.sleep(wait)
             continue
+
+        last_resp = resp
+
         if resp.status_code == 429:
-            time.sleep(min(60, 2 ** attempt + 1))
+            # Respect Retry-After when present (seconds)
+            ra = resp.headers.get("Retry-After")
+            try:
+                wait = min(180, max(int(ra), 5 * (2**attempt)))
+            except (TypeError, ValueError):
+                wait = min(180, 10 * (2**attempt))
+            print(
+                f"CoinGecko 429 rate limit page={page} attempt {attempt + 1}/{max_retries}; "
+                f"sleeping {wait}s",
+                file=sys.stderr,
+            )
+            time.sleep(wait)
             continue
+
         if resp.status_code >= 500:
-            time.sleep(min(30, 2 ** attempt))
+            wait = min(120, 5 * (2**attempt))
+            print(
+                f"CoinGecko {resp.status_code} page={page} attempt {attempt + 1}/{max_retries}; "
+                f"sleeping {wait}s — {_response_snippet(resp)}",
+                file=sys.stderr,
+            )
+            time.sleep(wait)
             continue
-        resp.raise_for_status()
-        data = resp.json()
+
+        if resp.status_code >= 400:
+            raise RuntimeError(
+                f"CoinGecko HTTP {resp.status_code} for page={page}: {_response_snippet(resp)}"
+            )
+
+        try:
+            data = resp.json()
+        except ValueError as exc:
+            raise RuntimeError(
+                f"CoinGecko invalid JSON for page={page}: {exc}; body={_response_snippet(resp)}"
+            ) from exc
+
         return data if isinstance(data, list) else []
-    if last_exc:
-        raise last_exc
-    raise RuntimeError("Failed to fetch markets after retries")
+
+    detail = ""
+    if last_resp is not None:
+        detail = (
+            f" last_http={last_resp.status_code} body={_response_snippet(last_resp)}"
+        )
+    if last_exc is not None:
+        detail += f" last_error={last_exc!r}"
+    raise RuntimeError(
+        f"Failed to fetch CoinGecko /coins/markets after {max_retries} attempts "
+        f"(page={page}).{detail} "
+        "Free-tier IPs (e.g. GitHub Actions) are often rate-limited; set COINGECKO_API_KEY "
+        "for the Pro API or increase COINGECKO_MAX_RETRIES / COINGECKO_INITIAL_DELAY_SEC."
+    )
 
 
 def build_bulk_ops(coins: List[Dict[str, Any]]) -> List[UpdateOne]:
@@ -149,6 +225,10 @@ def main() -> int:
     max_pages = int((os.environ.get("MAX_PAGES") or "20").strip() or "20")
     page_sleep = float(os.environ.get("PAGE_SLEEP_SEC", "1.2"))
     api_key = os.environ.get("COINGECKO_API_KEY", "").strip()
+    max_retries = int((os.environ.get("COINGECKO_MAX_RETRIES") or "12").strip() or "12")
+    initial_delay = float(
+        (os.environ.get("COINGECKO_INITIAL_DELAY_SEC") or "0").strip() or "0"
+    )
 
     if api_key:
         base_url = PRO_BASE
@@ -160,8 +240,12 @@ def main() -> int:
     session = requests.Session()
     all_coins: List[Dict[str, Any]] = []
 
+    if initial_delay > 0:
+        print(f"Initial delay {initial_delay}s before CoinGecko requests…", file=sys.stderr)
+        time.sleep(initial_delay)
+
     for page in range(1, max_pages + 1):
-        batch = fetch_markets_page(session, base_url, page, cg_headers)
+        batch = fetch_markets_page(session, base_url, page, cg_headers, max_retries)
         if not batch:
             break
         all_coins.extend(batch)
