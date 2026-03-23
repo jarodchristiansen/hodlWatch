@@ -7,13 +7,13 @@ Environment:
   MONGODB_DB_NAME   — optional, default Crypto_Watch
   MONGODB_COLLECTION — optional, default assets
   MAX_PAGES         — optional, max API pages, default 20
-  COINGECKO_PER_PAGE — optional, rows per request (max 250), default 100
+  COINGECKO_PER_PAGE — optional, rows per request (max 250); default 100 on GITHUB_ACTIONS without API key, else 250
   PAGE_SLEEP_SEC    — optional, delay after a successful write before next API call, default 1.2
   COINGECKO_API_KEY — optional, Pro API key (uses pro-api.coingecko.com)
   COINGECKO_MAX_RETRIES — optional, max attempts per page (429/5xx/network each consume one), default 3
   COINGECKO_429_SLEEP_SEC — optional, wait after HTTP 429 before retrying, default 300 (5 min)
   COINGECKO_INITIAL_DELAY_SEC — optional, sleep before first request, default 0
-  COINGECKO_FREE_CI_MAX_PAGES — optional, when GITHUB_ACTIONS + no API key: cap MAX_PAGES (default 5)
+  COINGECKO_FREE_CI_MAX_PAGES — optional, when GITHUB_ACTIONS + no API key: cap MAX_PAGES (default 3)
   COINGECKO_FREE_CI_MIN_PAGE_SLEEP — optional, when GITHUB_ACTIONS + no API key: min PAGE_SLEEP_SEC (default 45)
   COINGECKO_ALLOW_UNSAFE_FREE_CI — set to "1" to skip the GitHub/free-tier caps
 
@@ -23,6 +23,7 @@ Does not overwrite: favorite_count, description, tags, linkUrl, title, category,
 from __future__ import annotations
 
 import os
+import re
 import sys
 import time
 from datetime import datetime, timezone
@@ -37,9 +38,36 @@ DEFAULT_UA = (
     "HodlWatch-CoinGeckoSync/1.0 (+https://github.com; automated daily asset metadata sync)"
 )
 
-DEFAULT_PER_PAGE = 100
+DEFAULT_PER_PAGE_FREE_CI = 100
+DEFAULT_PER_PAGE_NORMAL = 250
 FREE_BASE = "https://api.coingecko.com/api/v3"
 PRO_BASE = "https://pro-api.coingecko.com/api/v3"
+
+
+def upsert_filter_for_coin(gecko_id: str, symbol: str, name: str) -> Dict[str, Any]:
+    """
+    Match canonical row by coingecko_id, or legacy rows without coingecko_id
+    with same symbol (+ name when present) so we update instead of inserting duplicates.
+    """
+    sym = symbol.strip()
+    sym_pat = f"^{re.escape(sym)}$"
+    legacy_no_id: Dict[str, Any] = {
+        "$or": [
+            {"coingecko_id": {"$exists": False}},
+            {"coingecko_id": ""},
+            {"coingecko_id": None},
+        ]
+    }
+    legacy_match: List[Dict[str, Any]] = [
+        legacy_no_id,
+        {"symbol": {"$regex": sym_pat, "$options": "i"}},
+    ]
+    name_stripped = (name or "").strip()
+    if name_stripped:
+        name_pat = f"^{re.escape(name_stripped)}$"
+        legacy_match.append({"name": {"$regex": name_pat, "$options": "i"}})
+
+    return {"$or": [{"coingecko_id": gecko_id}, {"$and": legacy_match}]}
 
 
 def parse_iso_dt(value: Optional[str]) -> Optional[datetime]:
@@ -204,14 +232,17 @@ def build_bulk_ops(coins: List[Dict[str, Any]]) -> List[UpdateOne]:
     ops: List[UpdateOne] = []
     for coin in coins:
         gecko_id = coin.get("id")
-        if not gecko_id or not (coin.get("symbol") or "").strip():
+        sym = (coin.get("symbol") or "").strip()
+        if not gecko_id or not sym:
             continue
         set_doc = coin_to_update_doc(coin)
         if not set_doc:
             continue
+        nm = (coin.get("name") or "").strip()
+        flt = upsert_filter_for_coin(gecko_id, sym, nm)
         ops.append(
             UpdateOne(
-                {"coingecko_id": gecko_id},
+                flt,
                 {
                     "$set": set_doc,
                     "$setOnInsert": {"createAt": now, "favorite_count": 0},
@@ -227,20 +258,79 @@ def chunked(xs: List[UpdateOne], size: int):
         yield xs[i : i + size]
 
 
+def prune_batch_duplicates(
+    coll: Collection, coins: List[Dict[str, Any]]
+) -> Tuple[int, int]:
+    """
+    After upserts: remove extra docs sharing the same coingecko_id, then legacy rows
+    (no coingecko_id) matching the same symbol+name as this batch.
+    Returns (deleted_same_coingecko_id, deleted_legacy_orphans).
+    """
+    dup_del = 0
+    seen_gids: set[str] = set()
+
+    for coin in coins:
+        gid = coin.get("id")
+        if not gid or gid in seen_gids:
+            continue
+        seen_gids.add(gid)
+        docs = list(
+            coll.find({"coingecko_id": gid}, {"_id": 1, "market_cap": 1}).sort(
+                "market_cap", -1
+            )
+        )
+        if len(docs) <= 1:
+            continue
+        keep_id = docs[0]["_id"]
+        res = coll.delete_many({"coingecko_id": gid, "_id": {"$ne": keep_id}})
+        dup_del += res.deleted_count
+
+    leg_del = 0
+    for coin in coins:
+        sym = (coin.get("symbol") or "").strip()
+        if not sym:
+            continue
+        sym_pat = f"^{re.escape(sym)}$"
+        orphan_q: Dict[str, Any] = {
+            "symbol": {"$regex": sym_pat, "$options": "i"},
+            "$or": [
+                {"coingecko_id": {"$exists": False}},
+                {"coingecko_id": ""},
+                {"coingecko_id": None},
+            ],
+        }
+        name = (coin.get("name") or "").strip()
+        if name:
+            name_pat = f"^{re.escape(name)}$"
+            orphan_q["name"] = {"$regex": name_pat, "$options": "i"}
+        res = coll.delete_many(orphan_q)
+        leg_del += res.deleted_count
+
+    return dup_del, leg_del
+
+
 def write_batch_to_mongo(
     coll: Collection, coins: List[Dict[str, Any]]
-) -> Tuple[int, int, int, int]:
-    """Returns (matched, modified, upserted, op_count)."""
+) -> Tuple[int, int, int, int, int, int]:
+    """Returns (matched, modified, upserted, op_count, pruned_coingecko_dupes, pruned_legacy)."""
     ops = build_bulk_ops(coins)
     if not ops:
-        return 0, 0, 0, 0
+        return 0, 0, 0, 0, 0, 0
     matched = modified = upserted = 0
     for chunk in chunked(ops, 500):
         result = coll.bulk_write(chunk, ordered=False)
         matched += result.matched_count
         modified += result.modified_count
         upserted += result.upserted_count
-    return matched, modified, upserted, len(ops)
+
+    pr_dup, pr_leg = prune_batch_duplicates(coll, coins)
+    if pr_dup or pr_leg:
+        print(
+            f"  pruned extra docs: coingecko_id_dupes={pr_dup} legacy_orphans={pr_leg}",
+            file=sys.stderr,
+        )
+
+    return matched, modified, upserted, len(ops), pr_dup, pr_leg
 
 
 def apply_github_actions_free_tier_limits(
@@ -258,8 +348,8 @@ def apply_github_actions_free_tier_limits(
         )
         return max_pages, page_sleep
 
-    # ~500 top coins at 100/page
-    cap = int((os.environ.get("COINGECKO_FREE_CI_MAX_PAGES") or "5").strip() or "5")
+    # ~300 top coins at 100/page (3 pages)
+    cap = int((os.environ.get("COINGECKO_FREE_CI_MAX_PAGES") or "3").strip() or "3")
     min_sleep = float(
         (os.environ.get("COINGECKO_FREE_CI_MIN_PAGE_SLEEP") or "45").strip() or "45"
     )
@@ -292,14 +382,20 @@ def main() -> int:
     db_name = os.environ.get("MONGODB_DB_NAME", "Crypto_Watch").strip()
     coll_name = os.environ.get("MONGODB_COLLECTION", "assets").strip()
     max_pages = int((os.environ.get("MAX_PAGES") or "20").strip() or "20")
+    api_key = os.environ.get("COINGECKO_API_KEY", "").strip()
+    on_github_free = (
+        os.environ.get("GITHUB_ACTIONS", "").lower() == "true" and not api_key
+    )
+    default_per_page = (
+        DEFAULT_PER_PAGE_FREE_CI if on_github_free else DEFAULT_PER_PAGE_NORMAL
+    )
     per_page = int(
-        (os.environ.get("COINGECKO_PER_PAGE") or str(DEFAULT_PER_PAGE)).strip()
-        or str(DEFAULT_PER_PAGE)
+        (os.environ.get("COINGECKO_PER_PAGE") or str(default_per_page)).strip()
+        or str(default_per_page)
     )
     per_page = max(1, min(per_page, 250))
 
     page_sleep = float(os.environ.get("PAGE_SLEEP_SEC", "1.2"))
-    api_key = os.environ.get("COINGECKO_API_KEY", "").strip()
     max_attempts = int((os.environ.get("COINGECKO_MAX_RETRIES") or "3").strip() or "3")
     max_attempts = max(1, max_attempts)
     sleep_429 = float((os.environ.get("COINGECKO_429_SLEEP_SEC") or "300").strip() or "300")
@@ -321,6 +417,7 @@ def main() -> int:
     session = requests.Session()
     total_rows = 0
     total_matched = total_modified = total_upserted = total_ops = 0
+    total_pr_dup = total_pr_leg = 0
 
     if initial_delay > 0:
         print(f"Initial delay {initial_delay}s before CoinGecko requests…", file=sys.stderr)
@@ -349,16 +446,19 @@ def main() -> int:
                 print(f"Empty response page={page}; stopping pagination.", file=sys.stderr)
                 break
 
-            m, mod, up, n_ops = write_batch_to_mongo(coll, batch)
+            m, mod, up, n_ops, pr_d, pr_l = write_batch_to_mongo(coll, batch)
             total_matched += m
             total_modified += mod
             total_upserted += up
             total_ops += n_ops
+            total_pr_dup += pr_d
+            total_pr_leg += pr_l
             total_rows += len(batch)
 
             print(
                 f"page={page}: wrote {n_ops} upserts "
                 f"(matched={m} modified={mod} upserted={up}) from {len(batch)} API rows"
+                + (f"; pruned d={pr_d} leg={pr_l}" if (pr_d or pr_l) else "")
             )
 
             if len(batch) < per_page:
@@ -381,6 +481,11 @@ def main() -> int:
     print(
         f"Done: {total_rows} API rows across pages, {total_ops} upserts "
         f"(matched={total_matched}, modified={total_modified}, upserted={total_upserted})"
+        + (
+            f"; total pruned coingecko_dupes={total_pr_dup} legacy_orphans={total_pr_leg}"
+            if (total_pr_dup or total_pr_leg)
+            else ""
+        )
     )
     return 0
 

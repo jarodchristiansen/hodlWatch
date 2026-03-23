@@ -30,5 +30,8 @@ jobs:
           # With COINGECKO_API_KEY (Pro): set repo variable for more pages (default 20 in script).
           # Without a key, the script caps pages + enforces min delay on GitHub Actions.
           MAX_PAGES: ${{ vars.COINGECKO_SYNC_MAX_PAGES }}
-          COINGECKO_INITIAL_DELAY_SEC: "25"
+          COINGECKO_INITIAL_DELAY_SEC: "10"
+          # Honored when Pro key is set; free CI path raises PAGE_SLEEP via script defaults
+          PAGE_SLEEP_SEC: "2"
+          COINGECKO_PER_PAGE: ${{ vars.COINGECKO_SYNC_PER_PAGE }}
         run: python scripts/sync_coingecko_assets.py
