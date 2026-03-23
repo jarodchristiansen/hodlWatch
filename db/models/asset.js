@@ -18,7 +18,10 @@ const AssetsSchema = new Schema({
     required: true,
     trim: true,
   },
-  /** CoinGecko coin id (e.g. "bitcoin") — stable key for upserts / sync */
+  /**
+   * CoinGecko coin id (e.g. "bitcoin") — stable key for upserts / sync.
+   * In Atlas, confirm index coingecko_id_1 exists (unique + sparse) so duplicate ids fail fast.
+   */
   coingecko_id: {
     type: String,
     trim: true,
