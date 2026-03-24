@@ -98,14 +98,30 @@ const ProfilePage = () => {
             src={favorite.image}
             height={50}
             width={50}
-            alt="block-logo"
+            alt={`${favorite.title} logo`}
             className="pointer-link favorites-image"
+            role="button"
+            tabIndex={0}
             onClick={() => navigateToAssetPage(favorite)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                navigateToAssetPage(favorite);
+              }
+            }}
             unoptimized={true}
           />
           <h5
             className="pointer-link"
+            role="button"
+            tabIndex={0}
             onClick={() => navigateToAssetPage(favorite)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                navigateToAssetPage(favorite);
+              }
+            }}
           >
             {favorite.title}-{favorite.symbol}
           </h5>
@@ -136,7 +152,7 @@ const ProfilePage = () => {
     if (viewState === "edit_user" || viewState === "portfolio") {
       router.push("/");
     }
-  }, []);
+  }, [router, viewState]);
 
   const navLinks = [
     { name: "Profile", stateChanger: () => routeToMain() },

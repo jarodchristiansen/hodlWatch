@@ -1,5 +1,5 @@
 export const NewsFeedResolver = {
-  getNewsFeed: async (_, {}) => {
+  getNewsFeed: async (_parent) => {
     try {
       let newsData = await fetch(
         `https://min-api.cryptocompare.com/data/v2/news/?lang=EN`

@@ -1,7 +1,7 @@
 import CollectiveStats from "../../models/collective";
 
 export const CollectiveResolver = {
-  getCollectiveStats: async (_, {}) => {
+  getCollectiveStats: async (_parent) => {
     try {
       let collectiveStats = await CollectiveStats.find().catch(
         (err) => new Error(err)

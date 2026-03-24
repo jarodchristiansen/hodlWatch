@@ -65,7 +65,19 @@ const EditUserDetails = ({ user, fetchedUser }) => {
 
                 <h4>{fetchedUser?.username}</h4>
 
-                <span onClick={setEditUsername}>X</span>
+                <span
+                  role="button"
+                  tabIndex={0}
+                  onClick={setEditUsername}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setEditUsername();
+                    }
+                  }}
+                >
+                  X
+                </span>
               </div>
 
               <div className="detail-row">
@@ -110,7 +122,19 @@ const EditUserDetails = ({ user, fetchedUser }) => {
                 />
                 {/* <h4>{fetchedUser?.username}</h4> */}
 
-                <span onClick={setEditMain}>Back</span>
+                <span
+                  role="button"
+                  tabIndex={0}
+                  onClick={setEditMain}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setEditMain();
+                    }
+                  }}
+                >
+                  Back
+                </span>
               </div>
 
               <div className="detail-row-inactive">

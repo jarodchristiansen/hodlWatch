@@ -28,14 +28,25 @@ interface MacroPoint {
  * @returns The container/charts associated with Bitcoin macros VWAP/TWAP/MVRV/Sharpe
  */
 const BitcoinMacrosContainer = ({ MacroData }: BitcoinMacrosProps) => {
-  const [WAPData, SharpeData, VolumeData] = useMemo(() => {
-    if (!MacroData) return [];
+  const [WAPData, SharpeData] = useMemo(() => {
+    if (!MacroData?.length) {
+      return [[], []];
+    }
 
-    let wapDatas = [];
-    let volumes = [];
-    let sharpes = [];
+    const wapDatas: {
+      twap: number;
+      vwap: number;
+      open: number;
+      close: number;
+      time: number;
+    }[] = [];
+    const sharpes: {
+      rolling_sharpe?: number;
+      close: number;
+      time: number;
+    }[] = [];
 
-    MacroData.map((datapoint) => {
+    MacroData.forEach((datapoint) => {
       wapDatas.push({
         twap: datapoint.TWAP,
         vwap: datapoint.VWAP,
@@ -51,9 +62,9 @@ const BitcoinMacrosContainer = ({ MacroData }: BitcoinMacrosProps) => {
       });
     });
 
-    let removefirst365 = sharpes.splice(0, 365);
+    sharpes.splice(0, 365);
 
-    return [wapDatas, sharpes, "b"];
+    return [wapDatas, sharpes];
   }, [MacroData]);
 
   return (
