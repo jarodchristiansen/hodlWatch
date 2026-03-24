@@ -215,7 +215,7 @@ const ScrollChevron = styled(motion.span)`
   line-height: 1;
 `;
 
-const HeroBanner = ({ }) => {
+const HeroBanner = () => {
   const router = useRouter();
 
   const wave1 = {

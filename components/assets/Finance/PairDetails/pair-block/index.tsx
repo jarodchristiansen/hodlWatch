@@ -35,7 +35,18 @@ const PairBlock = (props: PairBlockProps) => {
 
   return (
     <PairBlockContainer>
-      <h6 className="pointer-link block-header" onClick={routeUser}>
+      <h6
+        className="pointer-link block-header"
+        role="button"
+        tabIndex={0}
+        onClick={routeUser}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            routeUser();
+          }
+        }}
+      >
         {data?.FULLNAME}
       </h6>
       <h6>

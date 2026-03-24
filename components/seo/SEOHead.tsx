@@ -22,7 +22,7 @@ const SEOHead = ({
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" type="image/png" href="/images/cube-svgrepo-com.svg" />
 
-      <title>{metaTitle && metaTitle}</title>
+      <title>{metaTitle}</title>
       {isHomePage && (
         <>
           <meta
@@ -66,7 +66,7 @@ const SEOHead = ({
         property="og:description"
         content={metaDescription ? metaDescription : "Crypto market data, portfolio tracking, and community in one place."}
       />
-      <meta property="og:image" content={previewImage && previewImage} />
+      <meta property="og:image" content={previewImage ?? ""} />
       <meta property="og:image:width" content="400" />
       <meta property="og:image:height" content="400" />
     </Head>

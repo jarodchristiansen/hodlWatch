@@ -3,7 +3,7 @@ import {
   CardHeaderRow,
   FavoriteButton,
   Identity,
-  Symbol,
+  SymbolLabel,
   Title,
 } from "./AssetCard.styled";
 
@@ -33,7 +33,7 @@ export function AssetCardHeader({
         </AssetIcon>
         <div className="names">
           <Title>{title || name || "Asset"}</Title>
-          <Symbol>{symbol?.toUpperCase() || "-"}</Symbol>
+          <SymbolLabel>{symbol?.toUpperCase() || "-"}</SymbolLabel>
         </div>
       </Identity>
 

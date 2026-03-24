@@ -25,12 +25,7 @@ const AssetsContainer = ({ assets, session, viewMode = "grid" }: AssetsContainer
 
   const [
     fetchUserDetails,
-    {
-      data: userData,
-      loading: dataLoading,
-      error: userError,
-      refetch: refetchUser,
-    },
+    { data: userData, loading: dataLoading, error: userError },
   ] = useLazyQuery(GET_USER, {
     fetchPolicy: "network-only",
   });
@@ -66,20 +61,12 @@ const AssetsContainer = ({ assets, session, viewMode = "grid" }: AssetsContainer
             favorited={favorites?.some(
               (e) => e.symbol.toLowerCase() === asset.symbol.toLowerCase()
             )}
-            refetchFavorites={() => refetchUser()}
             viewMode={viewMode}
           />
         </div>
       );
     });
-  }, [
-    currentAssets,
-    userData?.getUser?.favorites,
-    dataLoading,
-    refetchUser,
-    session?.user?.email,
-    viewMode,
-  ]);
+  }, [currentAssets, userData?.getUser?.favorites, session?.user?.email, viewMode]);
 
   return (
     <div data-testid={"assets-container"}>
@@ -105,7 +92,6 @@ const AssetsContainer = ({ assets, session, viewMode = "grid" }: AssetsContainer
             (e) =>
               e.symbol.toLowerCase() === currentAssets[0].symbol.toLowerCase()
           )}
-          refetchFavorites={() => refetchUser()}
           viewMode={viewMode}
           data-testid={`asset-card`}
         />

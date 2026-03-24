@@ -14,10 +14,8 @@ import { useAssetCardFavorites } from "./useAssetCardFavorites";
 
 interface AssetCardProps {
   asset: Asset;
-  key?: string;
   email: string | null;
   favorited: boolean;
-  refetchFavorites?: () => void;
   viewMode?: "grid" | "list";
 }
 

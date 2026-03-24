@@ -30,7 +30,18 @@ const SideMenu = ({ navLinks }) => {
       <div className={style}>
         <ul>
           {navLinks.map(({ name, stateChanger }) => (
-            <li onClick={() => runPropFunction(stateChanger)} key={name}>
+            <li
+              key={name}
+              role="button"
+              tabIndex={0}
+              onClick={() => runPropFunction(stateChanger)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  runPropFunction(stateChanger);
+                }
+              }}
+            >
               <span>{name}</span>
             </li>
           ))}

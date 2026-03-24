@@ -48,7 +48,7 @@ export const Title = styled.h4`
   word-break: break-word;
 `;
 
-export const Symbol = styled.h6`
+export const SymbolLabel = styled.h6`
   font-size: 0.92rem;
   font-weight: 800;
   color: ${Colors.textMutedOnDark};

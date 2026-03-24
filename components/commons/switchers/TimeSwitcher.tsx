@@ -84,7 +84,7 @@ const Underline = styled.div<UnderlineProps>`
   width: 100%;
   height: 2px;
   background-color: ${Colors.accent};
-  transform: scaleX(${(props) => (props.selected ? 0.5 : 0.5)});
+  transform: scaleX(${(props) => (props.selected ? 1 : 0)});
   transform-origin: ${(props) => (props.selected ? "left" : "right")};
   transition: transform 5.3s ease;
 `;
