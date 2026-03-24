@@ -1,7 +1,8 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
+import { computeEMA } from "@/helpers/finance/ema";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { ChartColors, ChartDimensions, Colors } from "@/styles/variables";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Area,
   CartesianGrid,
@@ -24,47 +25,34 @@ const EMAChartDesktop = ({ data }) => {
   const [emaData, setEmaData] = useState<any>();
   const [showLatest14Days, setShowLatest14Days] = useState(false);
 
-  useEffect(() => {
-    processEmas(data);
-  }, [showLatest14Days]);
-
-  function EMACalc(mArray, mRange) {
-    var k = 2 / (mRange + 1);
-    // first item is just the same as the first item in the input
-    let emaArray = [mArray[0]];
-    // for the rest of the items, they are computed with the previous one
-    for (var i = 1; i < mArray.length; i++) {
-      emaArray.push(mArray[i] * k + emaArray[i - 1] * (1 - k));
-    }
-    return emaArray;
-  }
-
   const handleCheckboxChange = () => {
     setShowLatest14Days(!showLatest14Days);
   };
 
-  const processEmas = (data) => {
-    let closeData = [];
-    let dateData = [];
-
+  const processEmas = useCallback(() => {
+    if (!data?.length) {
+      setEmaData(undefined);
+      return;
+    }
+    let series = data;
     if (showLatest14Days) {
-      data = data.slice(-30);
+      series = data.slice(-30);
     }
 
-    let time = data.length;
+    const closeData: number[] = [];
+    const dateData: (string | number)[] = [];
 
-    for (let i of data) {
+    for (const i of series) {
       closeData.push(i.close);
       dateData.push(i.time);
     }
 
-    let emas = [];
+    const emas = [];
 
-    let thirtyEma = EMACalc(closeData, 30);
-
-    let fiftyEma = EMACalc(closeData, 50);
-    let oneHundredEma = EMACalc(closeData, 100);
-    let twoHundredEma = EMACalc(closeData, 200);
+    const thirtyEma = computeEMA(closeData, 30);
+    const fiftyEma = computeEMA(closeData, 50);
+    const oneHundredEma = computeEMA(closeData, 100);
+    const twoHundredEma = computeEMA(closeData, 200);
 
     for (let i = 0; i < dateData.length; i++) {
       emas.push({
@@ -78,7 +66,11 @@ const EMAChartDesktop = ({ data }) => {
     }
 
     setEmaData(emas);
-  };
+  }, [data, showLatest14Days]);
+
+  useEffect(() => {
+    processEmas();
+  }, [processEmas]);
 
   return (
     <ChartContainer>

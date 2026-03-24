@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest --coverage",
+    "test:python": "pytest tests/test_sync_coingecko_assets.py -q",
     "jest": "jest --watch --coverage",
     "cypress": "npx cypress open",
     "cypress:run": "npx cypress run",

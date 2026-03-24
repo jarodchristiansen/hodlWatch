@@ -11,12 +11,13 @@ import clientPromise from "../../../lib/mongodb";
 import User from "../../../db/models/user";
 
 function makeid(length) {
-  var result = "";
-  var characters =
+  const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(
+      Math.floor(Math.random() * characters.length)
+    );
   }
   return result;
 }
