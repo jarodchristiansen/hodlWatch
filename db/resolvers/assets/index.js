@@ -1,6 +1,7 @@
 const CoinGecko = require("coingecko-api");
 import Asset from "../../models/asset";
 import btc_macros from "../../models/btc_macro";
+const { mergeDbFallbackPatches } = require("./geckoMergePatches");
 
 function escapeRegex(s) {
   return String(s || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -185,6 +186,62 @@ function buildDetailsFromDbAsset(dbAsset, fallbackToken) {
       ? { en: String(dbAsset.description) }
       : null,
   };
+}
+
+async function findDbAssetByNameOrSymbol(raw) {
+  let dbAsset = await Asset.findOne({
+    name: new RegExp(`^${escapeRegex(raw)}$`, "i"),
+  }).catch(() => null);
+
+  if (!dbAsset) {
+    dbAsset = await Asset.findOne({
+      symbol: new RegExp(`^${escapeRegex(raw)}$`, "i"),
+    }).catch(() => null);
+  }
+  return dbAsset;
+}
+
+async function resolveGeckoIdForRaw(raw, list) {
+  const q = raw.toLowerCase();
+  const qSym = q.replace(/[^a-z0-9]/g, "");
+
+  const byId = list.find((c) => (c?.id || "").toLowerCase() === q);
+  const byName = list.find((c) => (c?.name || "").toLowerCase() === q);
+  const bySymbolExact = list.find(
+    (c) => (c?.symbol || "").toLowerCase() === q
+  );
+  const bySymbolLoose =
+    bySymbolExact ||
+    list.find(
+      (c) =>
+        (c?.symbol || "").toLowerCase().replace(/[^a-z0-9]/g, "") === qSym
+    );
+
+  let resolvedId = (byId || byName || bySymbolLoose)?.id;
+
+  if (!resolvedId) {
+    resolvedId = await searchCoinGeckoId(raw);
+  }
+
+  return resolvedId;
+}
+
+async function loadCoinGeckoDetailForId(resolvedId, CoinGeckoClient) {
+  let data = {};
+  const restCoin = await fetchCoinGeckoCoinDetailRest(resolvedId);
+  if (restCoin) {
+    data = restCoin;
+  } else {
+    const geckoData = await CoinGeckoClient.coins.fetch(resolvedId, {
+      market_data: true,
+      localization: false,
+    });
+    const payload = geckoData?.data ?? geckoData;
+    if (payload && typeof payload === "object") {
+      data = payload;
+    }
+  }
+  return data;
 }
 
 export const AssetResolver = {
@@ -448,15 +505,7 @@ export const AssetResolver = {
       const raw = (name || "").toString().trim();
       if (!raw) throw new Error("Asset not found");
 
-      let dbAsset = await Asset.findOne({
-        name: new RegExp(`^${escapeRegex(raw)}$`, "i"),
-      }).catch(() => null);
-
-      if (!dbAsset) {
-        dbAsset = await Asset.findOne({
-          symbol: new RegExp(`^${escapeRegex(raw)}$`, "i"),
-        }).catch(() => null);
-      }
+      const dbAsset = await findDbAssetByNameOrSymbol(raw);
 
       const CoinGeckoClient = new CoinGecko();
       let coinList = await CoinGeckoClient.coins.list();
@@ -466,43 +515,11 @@ export const AssetResolver = {
         list = await fetchCoinsListFromRest();
       }
 
-      const q = raw.toLowerCase();
-      const qSym = q.replace(/[^a-z0-9]/g, "");
-
-      const byId = list.find((c) => (c?.id || "").toLowerCase() === q);
-      const byName = list.find((c) => (c?.name || "").toLowerCase() === q);
-      const bySymbolExact = list.find(
-        (c) => (c?.symbol || "").toLowerCase() === q
-      );
-      const bySymbolLoose =
-        bySymbolExact ||
-        list.find(
-          (c) =>
-            (c?.symbol || "").toLowerCase().replace(/[^a-z0-9]/g, "") === qSym
-        );
-
-      let resolvedId = (byId || byName || bySymbolLoose)?.id;
-
-      if (!resolvedId) {
-        resolvedId = await searchCoinGeckoId(raw);
-      }
+      const resolvedId = await resolveGeckoIdForRaw(raw, list);
 
       let data = {};
-
       if (resolvedId) {
-        const restCoin = await fetchCoinGeckoCoinDetailRest(resolvedId);
-        if (restCoin) {
-          data = restCoin;
-        } else {
-          const geckoData = await CoinGeckoClient.coins.fetch(resolvedId, {
-            market_data: true,
-            localization: false,
-          });
-          const payload = geckoData?.data ?? geckoData;
-          if (payload && typeof payload === "object") {
-            data = payload;
-          }
-        }
+        data = await loadCoinGeckoDetailForId(resolvedId, CoinGeckoClient);
       }
 
       const dbFallback = buildDetailsFromDbAsset(dbAsset, raw);
@@ -511,45 +528,7 @@ export const AssetResolver = {
         if (!data || typeof data !== "object" || !data.id) {
           data = { ...dbFallback };
         } else {
-          if (
-            (!data.market_data?.current_price ||
-              typeof data.market_data.current_price.usd !== "number") &&
-            typeof dbFallback.market_data?.current_price?.usd === "number"
-          ) {
-            data.market_data = data.market_data || {};
-            data.market_data.current_price =
-              data.market_data.current_price ||
-              dbFallback.market_data.current_price;
-          }
-          if (
-            data.market_data &&
-            (data.market_data.price_change_percentage_24h === undefined ||
-              data.market_data.price_change_percentage_24h === null) &&
-            typeof dbFallback.market_data?.price_change_percentage_24h ===
-              "number"
-          ) {
-            data.market_data.price_change_percentage_24h =
-              dbFallback.market_data.price_change_percentage_24h;
-          }
-          const hasImg =
-            data.image &&
-            (data.image.large || data.image.small || data.image.thumb);
-          if (!hasImg && dbFallback.image?.large) {
-            data.image = dbFallback.image;
-          }
-          if (!data.name && dbFallback.name) data.name = dbFallback.name;
-          if (!data.symbol && dbFallback.symbol)
-            data.symbol = dbFallback.symbol;
-          if (
-            (data.market_cap_rank === undefined ||
-              data.market_cap_rank === null) &&
-            dbFallback.market_cap_rank != null
-          ) {
-            data.market_cap_rank = dbFallback.market_cap_rank;
-          }
-          if (!data.description?.en && dbFallback.description?.en) {
-            data.description = dbFallback.description;
-          }
+          mergeDbFallbackPatches(data, dbFallback);
         }
       }
 

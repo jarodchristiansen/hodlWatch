@@ -8,8 +8,8 @@ import {
   SectionSpacing,
   Surfaces,
 } from "@/styles/variables";
-import Link from "next/link";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import styled from "styled-components";
 
@@ -34,7 +34,7 @@ const Footer = () => {
       <FooterInner>
         <FooterTop>
           <BrandBlock>
-            <BrandLink href="/">Mesh</BrandLink>
+            <BrandLink href="/">HodlWatch</BrandLink>
             <BrandTagline>
               Market data, watchlists, and context—without the noise.
             </BrandTagline>
@@ -90,7 +90,7 @@ const Footer = () => {
               href={FOOTER_SOCIAL.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Mesh on Instagram (opens in a new tab)"
+              aria-label="HodlWatch on Instagram (opens in a new tab)"
             >
               <FaInstagram aria-hidden size={20} />
             </SocialAnchor>

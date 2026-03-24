@@ -57,7 +57,7 @@ const NewsFeedPage = () => {
         metaDescription={
           "Have questions about cryptocurrency, 'like how many cryptocurrency exchanges are there?' but need some of the details explained? Click to learn more."
         }
-        // previewImage={"/assets/PieChart.PNG"}
+      // previewImage={"/assets/PieChart.PNG"}
       />
       {/* <FilterBar>
         <button className="standardized-button">All</button>
