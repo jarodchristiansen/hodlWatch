@@ -14,18 +14,18 @@ import {
 import { AssetSummaryStatsGrid } from "./AssetSummaryStatsGrid";
 
 interface AssetSummaryCardProps {
-  name: string;
-  symbol: string;
-  price?: number;
-  priceChange24h?: number;
-  image?: string;
-  genesisDate?: string;
-  communityScore?: number;
-  developerScore?: number;
-  marketCapRank?: number;
-  liquidityScore?: number;
-  sentimentUp?: number;
-  sentimentDown?: number;
+  readonly name: string;
+  readonly symbol: string;
+  readonly price?: number;
+  readonly priceChange24h?: number;
+  readonly image?: string;
+  readonly genesisDate?: string;
+  readonly communityScore?: number;
+  readonly developerScore?: number;
+  readonly marketCapRank?: number;
+  readonly liquidityScore?: number;
+  readonly sentimentUp?: number;
+  readonly sentimentDown?: number;
 }
 
 const AssetSummaryCard = ({
@@ -45,7 +45,14 @@ const AssetSummaryCard = ({
   const hasPrice = typeof price === "number" && !Number.isNaN(price);
   const hasChange24h =
     typeof priceChange24h === "number" && !Number.isNaN(priceChange24h);
-  const changeIsPositive = !!hasChange24h && (priceChange24h as number) >= 0;
+  const changeIsPositive = hasChange24h && priceChange24h >= 0;
+  let changePillClass = "";
+  if (hasChange24h) {
+    changePillClass = changeIsPositive ? "pos" : "neg";
+  }
+  const changePercentText = hasChange24h
+    ? `${changeIsPositive ? "+" : ""}${priceChange24h.toFixed(2)}%`
+    : "—";
 
   return (
     <HeaderCard data-testid="asset-summary-card">
@@ -84,18 +91,10 @@ const AssetSummaryCard = ({
           <div className="label">Price</div>
           <div className="value-row">
             <div className="value">
-              {hasPrice ? currencyFormat(price as number) : "—"}
+              {hasPrice ? currencyFormat(price) : "—"}
             </div>
-            <ChangePill
-              className={
-                hasChange24h ? (changeIsPositive ? "pos" : "neg") : ""
-              }
-            >
-              {hasChange24h
-                ? `${changeIsPositive ? "+" : ""}${(
-                    priceChange24h as number
-                  ).toFixed(2)}%`
-                : "—"}
+            <ChangePill className={changePillClass}>
+              {changePercentText}
             </ChangePill>
           </div>
           <div className="sub">

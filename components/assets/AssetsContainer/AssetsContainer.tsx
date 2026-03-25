@@ -43,7 +43,6 @@ const AssetsContainer = ({ assets, session, viewMode = "grid" }: AssetsContainer
   }, [assets]);
 
   const ref = useRef();
-  // const isVisible = useOnScreen(ref, "100px");
 
   const AssetCards = useMemo(() => {
     if (!currentAssets) return [];

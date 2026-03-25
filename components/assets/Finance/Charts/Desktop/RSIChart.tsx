@@ -1,6 +1,5 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { ChartColors, ChartDimensions } from "@/styles/variables";
-// import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -21,7 +20,7 @@ const RsiChart = ({ data }) => {
 
   useEffect(() => {
     processEmas(data);
-  }, [showLatest14Days]);
+  }, [data, showLatest14Days]);
 
   const handleCheckboxChange = () => {
     setShowLatest14Days(!showLatest14Days);
@@ -35,11 +34,9 @@ const RsiChart = ({ data }) => {
       data = data.slice(-30);
     }
 
-    let time = data.length;
-
-    for (let i of data) {
-      closeData.push(i.close);
-      dateData.push(i.time);
+    for (const row of data) {
+      closeData.push(row.close);
+      dateData.push(row.time);
     }
 
     let emas = [];
@@ -61,10 +58,6 @@ const RsiChart = ({ data }) => {
 
   // RSI (Relative Strength Index)
   function calculateRSI(closingPrices, period = 14) {
-    // if (closingPrices?.length < period) {
-    //   throw new Error("Insufficient data for the specified period");
-    // }
-
     let gains = 0;
     let losses = 0;
 
@@ -118,9 +111,7 @@ const RsiChart = ({ data }) => {
               allowDataOverflow={true}
               yAxisId="left-axis"
               orientation="left"
-              // tick={{ fill: "white" }}
               width={0}
-              // formatter={(value) => currencyFormat(value)}
             />
 
             <YAxis
@@ -133,7 +124,6 @@ const RsiChart = ({ data }) => {
             <XAxis dataKey="time" />
 
             <Tooltip formatter={(value) => value} />
-            {/* <Legend /> */}
 
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

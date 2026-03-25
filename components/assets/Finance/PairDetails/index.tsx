@@ -11,9 +11,7 @@ interface PairDetailsRowProps {
 }
 
 const PairDetailsRow: React.FC<PairDetailsRowProps> = ({ id }) => {
-  const [getPairs, { data, loading }] = useLazyQuery(
-    GET_ASSET_PAIRS_24_HOURS
-  );
+  const [getPairs, { data }] = useLazyQuery(GET_ASSET_PAIRS_24_HOURS);
   const [pairStartIndex, setPairStartIndex] = useState(0);
   const [pairEndIndex, setPairEndIndex] = useState(4);
 
@@ -42,10 +40,7 @@ const PairDetailsRow: React.FC<PairDetailsRowProps> = ({ id }) => {
       setPairStartIndex(pairStartIndex + 4);
       setPairEndIndex(pairEndIndex + 4);
 
-      console.log("Scrolling to top"); // Add this console log to verify if the function is called
-
       if (rowRef.current) {
-        console.log("Scrolling element found"); // Add this console log to verify if the element is found
         rowRef.current.scrollTo({ top: 0, behavior: "smooth" });
       }
     }

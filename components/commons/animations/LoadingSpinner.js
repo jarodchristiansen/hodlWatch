@@ -1,7 +1,3 @@
-// import Lottie from "lottie-react";
-// // import animationData from "../../public/lotties/spiral-loading.json";
-// import animationData from "../../../public/lotties/spiral-loading.json";
-
 import { Colors } from "@/styles/variables";
 import { motion } from "framer-motion";
 import styled from "styled-components";
@@ -11,11 +7,12 @@ import ThreeDotsWave from "./ThreeDotsWave";
 const LoadingSpinner = ({ overlay = false, message = "Loading" }) => {
   if (overlay) {
     return (
-      <Overlay role="status" aria-live="polite" aria-busy="true">
+      <Overlay aria-live="polite" aria-busy="true">
         <SpinnerCard>
           <motion.img
             data-testid={"loading-element"}
             src={"/bitcoin_PNG48.png"}
+            alt=""
             style={{
               height: "120px",
               width: "120px",
@@ -52,17 +49,13 @@ const LoadingSpinner = ({ overlay = false, message = "Loading" }) => {
         <motion.img
           data-testid={"loading-element"}
           src={"/bitcoin_PNG48.png"}
+          alt=""
           style={{
             height: "150px",
-            // background: "#260049",
-            // backgroundImage: "../../../public/vercel.svg",
             width: "150px",
             borderRadius: "50%",
           }}
           animate={{
-            // scale: [1, 1.1, 1.25, 1.1, 1],
-            // src: ["/bitcoin.png", "/bitcoin_PNG48.png"],
-            // backgroundImage: ["/bitcoin.png", "/bitcoin_PNG48.png"],
             rotate: [0, 90, 180, 90, 0],
           }}
           transition={{
@@ -87,7 +80,7 @@ const LoadingSpinner = ({ overlay = false, message = "Loading" }) => {
   );
 };
 
-const Overlay = styled.div`
+const Overlay = styled.output`
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -95,6 +88,8 @@ const Overlay = styled.div`
   align-items: center;
   justify-content: center;
   padding: 24px;
+  margin: 0;
+  border: none;
   background: rgba(16, 24, 32, 0.55);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);

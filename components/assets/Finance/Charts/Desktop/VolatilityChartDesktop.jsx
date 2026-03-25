@@ -8,9 +8,6 @@ import {
   YAxis,
 } from "recharts";
 
-// import { FaInfoCircle } from "react-icons/fa";
-// import FinanceChartModal from "./FinanceChartModal";
-
 /**
  *
  * @param {data} data: Volatility Data

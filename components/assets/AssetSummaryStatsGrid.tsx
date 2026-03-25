@@ -1,8 +1,17 @@
 import { StatItem, StatsGrid } from "./AssetSummaryCard.styled";
 
 function optionalScore(value: number | undefined | null) {
-  return value !== undefined && value !== null ? value : "—";
+  return value ?? "—";
 }
+
+export type AssetSummaryStatsGridProps = Readonly<{
+  genesisDate?: string;
+  communityScore?: number;
+  developerScore?: number;
+  liquidityScore?: number;
+  sentimentUp?: number;
+  sentimentDown?: number;
+}>;
 
 /** Secondary stats: genesis, scores, sentiment. */
 export function AssetSummaryStatsGrid({
@@ -12,19 +21,12 @@ export function AssetSummaryStatsGrid({
   liquidityScore,
   sentimentUp,
   sentimentDown,
-}: {
-  genesisDate?: string;
-  communityScore?: number;
-  developerScore?: number;
-  liquidityScore?: number;
-  sentimentUp?: number;
-  sentimentDown?: number;
-}) {
+}: AssetSummaryStatsGridProps) {
   return (
     <StatsGrid>
       <StatItem>
         <span className="stat-label">Genesis</span>
-        <span className="stat-value">{genesisDate || "—"}</span>
+        <span className="stat-value">{genesisDate ?? "—"}</span>
       </StatItem>
       <StatItem>
         <span className="stat-label">Community</span>

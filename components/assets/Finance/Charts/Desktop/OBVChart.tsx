@@ -1,5 +1,4 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
-// import FinanceChartModal from "./FinanceChartModal";
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import { ChartColors, ChartDimensions } from "@/styles/variables";
 import { useEffect, useState } from "react";
@@ -22,7 +21,7 @@ const OBVChart = ({ data }) => {
 
   useEffect(() => {
     processEmas(data);
-  }, [showLatest14Days]);
+  }, [data, showLatest14Days]);
 
   const handleCheckboxChange = () => {
     setShowLatest14Days(!showLatest14Days);
@@ -37,12 +36,10 @@ const OBVChart = ({ data }) => {
       data = data.slice(-30);
     }
 
-    let time = data.length;
-
-    for (let i of data) {
-      closeData.push(i.close);
-      dateData.push(i.time);
-      volumeData.push(i.volumeto + i.volumefrom);
+    for (const row of data) {
+      closeData.push(row.close);
+      dateData.push(row.time);
+      volumeData.push(row.volumeto + row.volumefrom);
     }
 
     let emas = [];
@@ -112,9 +109,7 @@ const OBVChart = ({ data }) => {
               allowDataOverflow={true}
               yAxisId="left-axis"
               orientation="left"
-              // tick={{ fill: "white" }}
               width={0}
-              // formatter={(value) => currencyFormat(value)}
             />
 
             <YAxis
@@ -130,7 +125,6 @@ const OBVChart = ({ data }) => {
             />
 
             <Tooltip formatter={(value) => value} />
-            {/* <Legend /> */}
 
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

@@ -1,7 +1,6 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { useEffect, useState } from "react";
-// import FinanceChartModal from "./FinanceChartModal";
 import {
   Area,
   CartesianGrid,
@@ -12,10 +11,41 @@ import {
   YAxis,
 } from "recharts";
 
-// import FinanceChartModal from "../FinanceChartModal";
 import { ChartColors, ChartDimensions } from "@/styles/variables";
 import ChartContainer from "../Desktop/ChartContainer";
 import FinanceChartModal from "../FinanceChartModal";
+
+function SharpeRatioModalBody() {
+  return (
+    <div>
+      <h5>What is a Sharpe Ratio?</h5>
+      <p>
+        The ratio describes how much excess return you receive for the extra
+        volatility you endure for holding a riskier asset. The higher the
+        number, the more returns you are getting for each unit of risk
+        associated with the asset Remember, you need compensation for the
+        additional risk you take for not holding a risk-free asset.
+      </p>
+
+      <p>
+        Generally speaking, the higher the Sharpe Ratio, the higher the
+        risk-adjusted performance of the portfolio.
+      </p>
+
+      <ul>
+        <li>
+          A negative Sharpe ratio means that the risk-free rate is higher than
+          the portfolio&apos;s return. This value does not convey any meaningful
+          information.
+        </li>
+        <li>A Sharpe ratio between 0 and 1.0 is considered sub-optimal.</li>
+        <li>A Sharpe ratio greater than 1.0 is considered acceptable.</li>
+        <li>A Sharpe ratio higher than 2.0 is considered very good.</li>
+        <li>A Sharpe ratio of 3.0 or higher is considered excellent.</li>
+      </ul>
+    </div>
+  );
+}
 
 /**
  *
@@ -28,42 +58,13 @@ const SharpeRatioChart = ({ data }) => {
 
   const modalText = {
     modalHeader: "Sharpe Ratio",
-    modalBodyText: () => (
-      <div>
-        <h5>What is a Sharpe Ratio?</h5>
-        <p>
-          The ratio describes how much excess return you receive for the extra
-          volatility you endure for holding a riskier asset. The higher the
-          number, the more returns you are getting for each unit of risk
-          associated with the asset Remember, you need compensation for the
-          additional risk you take for not holding a risk-free asset.
-        </p>
-
-        <p>
-          Generally speaking, the higher the Sharpe Ratio, the higher the
-          risk-adjusted performance of the portfolio.
-        </p>
-
-        <ul>
-          <li>
-            A negative Sharpe ratio means that the risk-free rate is higher than
-            the portfolio&apos;s return. This value does not convey any
-            meaningful information.
-          </li>
-          <li>A Sharpe ratio between 0 and 1.0 is considered sub-optimal.</li>
-          <li>A Sharpe ratio greater than 1.0 is considered acceptable.</li>
-          <li>A Sharpe ratio higher than 2.0 is considered very good.</li>
-          <li>A Sharpe ratio of 3.0 or higher is considered excellent.</li>
-        </ul>
-      </div>
-    ),
+    modalBodyText: () => <SharpeRatioModalBody />,
   };
 
   function calculateRollingSharpeRatio(closingPrices, windowSize) {
     const returns = [];
     const rollingSharpeRatios = [];
 
-    // Calculate daily returns
     for (let i = 1; i < closingPrices.length; i++) {
       const prevPrice = closingPrices[i - 1];
       const currPrice = closingPrices[i];
@@ -71,7 +72,6 @@ const SharpeRatioChart = ({ data }) => {
       returns.push(returnVal);
     }
 
-    // Calculate rolling Sharpe ratios
     for (let i = windowSize; i <= returns.length; i++) {
       const returnsSlice = returns.slice(i - windowSize, i);
       const averageReturn =
@@ -90,26 +90,23 @@ const SharpeRatioChart = ({ data }) => {
   }
 
   useEffect(() => {
-    if (data) {
-      if (showLatest14Days) {
-        data = data.slice(-30);
-      }
+    if (!data) return;
 
-      const closingPrices = data.map((x) => x.close);
+    const series = showLatest14Days ? data.slice(-30) : data;
+    const closingPrices = series.map((x) => x.close);
 
-      const rollingSharpeRatios = calculateRollingSharpeRatio(
-        closingPrices,
-        showLatest14Days ? 2 : 14
-      );
-      const rollingSharpeRatiosWithTime = data.map((x, i) => {
-        return {
-          ...x,
-          rolling_sharpe: rollingSharpeRatios[i],
-          time: x.time,
-        };
-      });
-      setChartData(rollingSharpeRatiosWithTime);
-    }
+    const rollingSharpeRatios = calculateRollingSharpeRatio(
+      closingPrices,
+      showLatest14Days ? 2 : 14
+    );
+    const rollingSharpeRatiosWithTime = series.map((x, i) => {
+      return {
+        ...x,
+        rolling_sharpe: rollingSharpeRatios[i],
+        time: x.time,
+      };
+    });
+    setChartData(rollingSharpeRatiosWithTime);
   }, [data, showLatest14Days]);
 
   const handleCheckboxChange = () => {

@@ -1,4 +1,3 @@
-// import FinanceChartModal from "./FinanceChartModal";
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import { ChartColors, ChartDimensions } from "@/styles/variables";
 import { useEffect, useState } from "react";
@@ -19,8 +18,9 @@ const NuplChart = ({ data }) => {
   const [nuplData, setNuplData] = useState([]);
 
   useEffect(() => {
+    if (!data?.length) return;
     calculateNUPL(data);
-  }, []);
+  }, [data]);
 
   const calculateNUPL = (data) => {
     let closeData = [];
@@ -49,8 +49,8 @@ const NuplChart = ({ data }) => {
     let unrealizedProfit = 0;
     let unrealizedLoss = 0;
 
-    for (let i = 0; i < closePrices.length; i++) {
-      const priceDiff = closePrices[i] - closePrices[0];
+    for (const price of closePrices) {
+      const priceDiff = price - closePrices[0];
 
       if (priceDiff > 0) {
         unrealizedProfit += priceDiff;
@@ -65,9 +65,7 @@ const NuplChart = ({ data }) => {
 
   return (
     <ChartContainer>
-      <div className={"label-row"}>
-        {/* Removed <h5>NUPL (Net Unrealized Profit and Loss)</h5> header, now handled by chart grid */}
-      </div>
+      <div className={"label-row"} />
       {nuplData && (
         <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={nuplData}>
@@ -97,7 +95,6 @@ const NuplChart = ({ data }) => {
             />
 
             <Tooltip formatter={(value) => value} />
-            {/* <Legend /> */}
 
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

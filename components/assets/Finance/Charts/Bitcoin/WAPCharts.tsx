@@ -1,6 +1,5 @@
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { FormatUnixTime } from "@/helpers/formatters/time";
-// import FinanceChartModal from "./FinanceChartModal";
 import React from "react";
 import {
   Area,
@@ -15,6 +14,30 @@ import styled from "styled-components";
 
 import FinanceChartModal from "../FinanceChartModal";
 
+function WapModalBody() {
+  return (
+    <div>
+      <p>
+        VWAP = Cumulative Typical Price x Volume/Cumulative Volume. The
+        volume-weighted average price (VWAP) is a technical analysis indicator
+        used on financial asset charts. It&apos;s a trading benchmark that
+        represents the average price a security has traded at throughout the
+        provided time range, based on both volume and price. VWAP is important
+        because it provides traders with pricing insight into both the trend
+        and value of a security.
+      </p>
+
+      <br />
+
+      <p>
+        TWAP stands for “time-weighted average price”. It&apos;s a pricing
+        algorithm used to calculate the average price of an asset over a set
+        period.
+      </p>
+    </div>
+  );
+}
+
 /**
  *
  * @param {data} data: VWAP, TWAP, price
@@ -23,34 +46,14 @@ import FinanceChartModal from "../FinanceChartModal";
 const WAPChart = ({ data }) => {
   const modalText = {
     modalHeader: "VWAP/TWAP",
-    modalBodyText: () => (
-      <div>
-        <p>
-          VWAP = Cumulative Typical Price x Volume/Cumulative Volume. The
-          volume-weighted average price (VWAP) is a technical analysis indicator
-          used on financial asset charts. It&apos;s a trading benchmark that
-          represents the average price a security has traded at throughout the
-          provided time range, based on both volume and price. VWAP is important
-          because it provides traders with pricing insight into both the trend
-          and value of a security.
-        </p>
-
-        <br />
-
-        <p>
-          TWAP stands for “time-weighted average price”. It&apos;s a pricing
-          algorithm used to calculate the average price of an asset over a set
-          period.
-        </p>
-      </div>
-    ),
+    modalBodyText: () => <WapModalBody />,
   };
 
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
         <h1>
-          (V/T)WAP Chart
+          (V/T)WAP Chart{" "}
           <span className={"ms-3"}>
             <FinanceChartModal text={modalText} />
           </span>

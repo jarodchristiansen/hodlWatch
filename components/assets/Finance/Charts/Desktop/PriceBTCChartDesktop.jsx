@@ -1,11 +1,9 @@
-// import FinanceChartModal from "./FinanceChartModal";
 import React, { useEffect, useState } from "react";
 import {
   CartesianGrid,
   Legend,
   Line,
   LineChart,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -14,38 +12,34 @@ import {
 const PriceBTCChartDesktop = ({ data }) => {
   const [processedData, setProcessedData] = useState([]);
 
-  useEffect(() => {
-    processFibonacciData(data);
-  });
+  function processFibonacciData(rows) {
+    const closeData = [];
+    const dateData = [];
 
-  const processFibonacciData = (data) => {
-    let closeData = [];
-    let dateData = [];
-
-    let time = data.length;
-
-    for (let i of data) {
-      closeData.push(i.price_btc);
-      dateData.push(i.time);
+    for (const row of rows) {
+      closeData.push(row.price_btc);
+      dateData.push(row.time);
     }
 
-    let priceMin = Math.min(...closeData);
-    let priceMax = Math.max(...closeData);
-    let diff = priceMax - priceMin;
+    const n = closeData.length;
 
-    let level1 = priceMax - 0.236 * diff;
-    let level2 = priceMax - 0.382 * diff;
-    let level3 = priceMax - 0.5 * diff;
-    let level4 = priceMax - 0.618 * diff;
+    const priceMin = Math.min(...closeData);
+    const priceMax = Math.max(...closeData);
+    const diff = priceMax - priceMin;
 
-    let fib1 = new Array(time).fill(level1).flat();
-    let fib2 = new Array(time).fill(level2).flat();
-    let fib3 = new Array(time).fill(level3).flat();
-    let fib4 = new Array(time).fill(level4).flat();
-    let minArray = new Array(time).fill(priceMin).flat();
-    let maxArray = new Array(time).fill(priceMax).flat();
+    const level1 = priceMax - 0.236 * diff;
+    const level2 = priceMax - 0.382 * diff;
+    const level3 = priceMax - 0.5 * diff;
+    const level4 = priceMax - 0.618 * diff;
 
-    let fibData = [];
+    const fib1 = new Array(n).fill(level1).flat();
+    const fib2 = new Array(n).fill(level2).flat();
+    const fib3 = new Array(n).fill(level3).flat();
+    const fib4 = new Array(n).fill(level4).flat();
+    const minArray = new Array(n).fill(priceMin).flat();
+    const maxArray = new Array(n).fill(priceMax).flat();
+
+    const fibData = [];
 
     for (let i = 0; i < dateData.length; i++) {
       fibData.push({
@@ -61,7 +55,12 @@ const PriceBTCChartDesktop = ({ data }) => {
     }
 
     setProcessedData(fibData);
-  };
+  }
+
+  useEffect(() => {
+    if (!data?.length) return;
+    processFibonacciData(data);
+  }, [data]);
 
   return (
     <div className={"card mt-2 mx-3 text-center"}>
@@ -80,9 +79,7 @@ const PriceBTCChartDesktop = ({ data }) => {
           />
           <XAxis dataKey="time" />
 
-          <Tooltip
-          // formatter={(value) => currencyFormat(value)}
-          />
+          <Tooltip />
           <Legend />
           <Line
             type="monotone"

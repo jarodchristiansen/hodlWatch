@@ -10,7 +10,37 @@ import {
 } from "./chartCardStyleConfig";
 import { chartConfig } from "./chartConfig";
 
-const FinancialChartGrid = ({ financialData, id, time }) => {
+function FinancialChartConfigCard({
+  entry,
+  processedFinancialData,
+  styleOverride,
+}) {
+  const ChartComponent = entry.component;
+  const chartData = entry.dataSelector(processedFinancialData);
+  if (!chartData || (Array.isArray(chartData) && !chartData.length))
+    return null;
+  return (
+    <ChartCard $styleOverride={styleOverride}>
+      <ChartHeader>
+        {entry.icon && (
+          <Image
+            src={entry.icon}
+            alt={entry.label + " icon"}
+            width={28}
+            height={28}
+          />
+        )}
+        <h5 style={entry.headerStyle}>{entry.header}</h5>
+      </ChartHeader>
+      {entry.description && (
+        <ChartDescription>{entry.description}</ChartDescription>
+      )}
+      <ChartComponent data={chartData} />
+    </ChartCard>
+  );
+}
+
+const FinancialChartGrid = ({ financialData }) => {
   const [processedFinancialData, setProcessedFinancialData] = useState([]);
   const [mode, setMode] = useState("overview");
   const [showMore, setShowMore] = useState(false);
@@ -59,34 +89,18 @@ const FinancialChartGrid = ({ financialData, id, time }) => {
     ...(showMore ? currentPreset.secondary || [] : []),
   ]);
 
-  // Render charts dynamically from config
   const renderCharts = () => {
     return chartConfig
       .filter((c) => selectedKeys.has(c.key))
-      .map((c, idx) => {
-        const ChartComponent = c.component;
-        const chartData = c.dataSelector(processedFinancialData);
-        if (!chartData || (Array.isArray(chartData) && !chartData.length))
-          return null;
+      .map((c) => {
         const styleOverride = chartCardStyleOverrides[c.key] || {};
         return (
-          <ChartCard key={c.key} $styleOverride={styleOverride}>
-            <ChartHeader>
-              {c.icon && (
-                <Image
-                  src={c.icon}
-                  alt={c.label + " icon"}
-                  width={28}
-                  height={28}
-                />
-              )}
-              <h5 style={c.headerStyle}>{c.header}</h5>
-            </ChartHeader>
-            {c.description && (
-              <ChartDescription>{c.description}</ChartDescription>
-            )}
-            <ChartComponent data={chartData} />
-          </ChartCard>
+          <FinancialChartConfigCard
+            key={c.key}
+            entry={c}
+            processedFinancialData={processedFinancialData}
+            styleOverride={styleOverride}
+          />
         );
       });
   };
