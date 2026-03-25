@@ -65,19 +65,9 @@ const EditUserDetails = ({ user, fetchedUser }) => {
 
                 <h4>{fetchedUser?.username}</h4>
 
-                <span
-                  role="button"
-                  tabIndex={0}
-                  onClick={setEditUsername}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setEditUsername();
-                    }
-                  }}
-                >
+                <TextActionButton type="button" onClick={setEditUsername}>
                   X
-                </span>
+                </TextActionButton>
               </div>
 
               <div className="detail-row">
@@ -122,19 +112,9 @@ const EditUserDetails = ({ user, fetchedUser }) => {
                 />
                 {/* <h4>{fetchedUser?.username}</h4> */}
 
-                <span
-                  role="button"
-                  tabIndex={0}
-                  onClick={setEditMain}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setEditMain();
-                    }
-                  }}
-                >
+                <TextActionButton type="button" onClick={setEditMain}>
                   Back
-                </span>
+                </TextActionButton>
               </div>
 
               <div className="detail-row-inactive">
@@ -157,6 +137,16 @@ const EditUserDetails = ({ user, fetchedUser }) => {
     </>
   );
 };
+
+const TextActionButton = styled.button`
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  color: ${Colors.accent};
+  font-weight: 800;
+  padding: 0 4px;
+`;
 
 const UserNameInput = styled.input`
   padding: 1rem 1rem;

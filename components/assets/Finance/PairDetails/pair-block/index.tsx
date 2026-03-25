@@ -35,20 +35,13 @@ const PairBlock = (props: PairBlockProps) => {
 
   return (
     <PairBlockContainer>
-      <h6
+      <PairTitleButton
+        type="button"
         className="pointer-link block-header"
-        role="button"
-        tabIndex={0}
         onClick={routeUser}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            routeUser();
-          }
-        }}
       >
         {data?.FULLNAME}
-      </h6>
+      </PairTitleButton>
       <h6>
         {" "}
         <span className="label">Total Supply:</span>{" "}
@@ -62,6 +55,19 @@ const PairBlock = (props: PairBlockProps) => {
     </PairBlockContainer>
   );
 };
+
+const PairTitleButton = styled.button`
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  color: inherit;
+`;
 
 const PairBlockContainer = styled.div`
   display: flex;

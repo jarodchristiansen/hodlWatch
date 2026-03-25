@@ -19,16 +19,8 @@ const PortfolioConnector = () => {
   const [portfolioView, setPortfolioView] = useState("Main");
   const [holdingSort, setHoldingSort] = useState("");
 
-  const [
-    fetchUserHoldings,
-    {
-      data: holdingData,
-      loading: holdingLoading,
-      error: holdingError,
-      refetch: refetchHoldings,
-      fetchMore: fetchMoreHoldings,
-    },
-  ] = useLazyQuery(GET_USER_HOLDINGS, {
+  const [fetchUserHoldings, { data: holdingData, loading: holdingLoading }] =
+    useLazyQuery(GET_USER_HOLDINGS, {
     variables: {
       input: {
         private_key: privateKeyValue,

@@ -11,10 +11,7 @@ import styled from "styled-components";
  * @returns News Feed Page featuring data from coingecko/cryptocompare
  */
 const NewsFeedPage = () => {
-  const [
-    fetchNewsFeed,
-    { data, loading: newsLoading, error, called, refetch },
-  ] = useLazyQuery(GET_NEWS_FEED);
+  const [fetchNewsFeed, { data }] = useLazyQuery(GET_NEWS_FEED);
 
   useEffect(() => {
     fetchNewsFeed();

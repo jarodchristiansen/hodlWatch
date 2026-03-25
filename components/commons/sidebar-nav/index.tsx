@@ -30,19 +30,14 @@ const SideMenu = ({ navLinks }) => {
       <div className={style}>
         <ul>
           {navLinks.map(({ name, stateChanger }) => (
-            <li
-              key={name}
-              role="button"
-              tabIndex={0}
-              onClick={() => runPropFunction(stateChanger)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  runPropFunction(stateChanger);
-                }
-              }}
-            >
-              <span>{name}</span>
+            <li key={name}>
+              <button
+                type="button"
+                className="side-nav-item"
+                onClick={() => runPropFunction(stateChanger)}
+              >
+                {name}
+              </button>
             </li>
           ))}
         </ul>
@@ -66,13 +61,6 @@ const Wrapper = styled.div`
     margin-top: -0.5rem;
     padding-top: 1rem;
 
-    span {
-      color: #fff;
-      text-decoration: none;
-      display: block;
-      padding: 20px;
-    }
-
     ul {
       padding: 0;
       margin: 0;
@@ -82,13 +70,24 @@ const Wrapper = styled.div`
         border-bottom: 1px solid #fff;
         transition: all 0.25s ease;
         animation: fadeInRight 0.25s ease forwards;
-        /* opacity: 0; */
+
+        .side-nav-item {
+          color: #fff;
+          text-decoration: none;
+          display: block;
+          width: 100%;
+          padding: 20px;
+          border: none;
+          background: none;
+          font: inherit;
+          text-align: left;
+          cursor: pointer;
+        }
 
         &:hover {
           opacity: 0.8;
           transition: all 0.25s ease;
           background: #000;
-          cursor: pointer;
         }
       }
     }

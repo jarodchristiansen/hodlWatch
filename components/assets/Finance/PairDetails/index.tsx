@@ -11,7 +11,7 @@ interface PairDetailsRowProps {
 }
 
 const PairDetailsRow: React.FC<PairDetailsRowProps> = ({ id }) => {
-  const [getPairs, { data, loading, error, refetch }] = useLazyQuery(
+  const [getPairs, { data, loading }] = useLazyQuery(
     GET_ASSET_PAIRS_24_HOURS
   );
   const [pairStartIndex, setPairStartIndex] = useState(0);
@@ -33,9 +33,9 @@ const PairDetailsRow: React.FC<PairDetailsRowProps> = ({ id }) => {
     return data?.getAssetPairs.pairData
       ?.slice(pairStartIndex, pairEndIndex)
       .map((pair, idx) => {
-        return <PairBlock data={pair} id={id} key={idx} />;
+        return <PairBlock data={pair} id={id} key={pair.ID} />;
       });
-  }, [data?.getAssetPairs, loading, id, pairStartIndex, pairEndIndex]);
+  }, [data?.getAssetPairs, id, pairStartIndex, pairEndIndex]);
 
   const incrementPairIndex = () => {
     if (pairEndIndex + 4 < data?.getAssetPairs?.pairData?.length) {

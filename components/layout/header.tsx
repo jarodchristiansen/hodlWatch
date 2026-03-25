@@ -1,38 +1,26 @@
 import { Colors, FontFamily, FontSize, MediaQueries } from "@/styles/variables";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-
-const HERO_HEIGHT_THRESHOLD = 400;
 
 /**
  *
  * @returns Header component above pages
  */
 function Header() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [selectedRoute, setSelectedRoute] = useState<string | number>("");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
   const router = useRouter();
   const { asPath } = router;
-  const isHomePage = asPath === "/";
 
-  const handleSignin = (e) => {
-    e.preventDefault();
-    signIn();
-  };
   const handleSignout = (e) => {
     e.preventDefault();
     setSelectedRoute("");
     signOut();
-  };
-
-  const handleSelect = (selectedKey) => {
-    setSelectedRoute(selectedKey);
   };
 
   // @ts-ignore: next-auth type issue v3
@@ -57,19 +45,6 @@ function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asPath]);
 
-  useEffect(() => {
-    if (!isHomePage) {
-      setScrolledPastHero(false);
-      return;
-    }
-    const onScroll = () => {
-      setScrolledPastHero(window.scrollY > HERO_HEIGHT_THRESHOLD);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [isHomePage]);
-
   const setRouterAsPath = () => {
     let matchingRoute = routes.filter((item) => asPath.includes(item.route));
 
@@ -81,7 +56,7 @@ function Header() {
   const routeObjects = useMemo(() => {
     if (!routes?.length) return [];
 
-    return routes.map((route, idx) => {
+    return routes.map((route) => {
       if (!route?.key) return;
 
       return (

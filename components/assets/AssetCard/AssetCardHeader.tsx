@@ -8,6 +8,16 @@ import {
 } from "./AssetCard.styled";
 
 /** Top row: icon, title/symbol, favorite toggle. */
+export type AssetCardHeaderProps = Readonly<{
+  title: string;
+  name: string;
+  symbol: string;
+  image: string;
+  favorited: boolean;
+  onAddToFavorites: () => void;
+  onRemoveFromFavorites: () => void;
+}>;
+
 export function AssetCardHeader({
   title,
   name,
@@ -16,15 +26,7 @@ export function AssetCardHeader({
   favorited,
   onAddToFavorites,
   onRemoveFromFavorites,
-}: {
-  title: string;
-  name: string;
-  symbol: string;
-  image: string;
-  favorited: boolean;
-  onAddToFavorites: () => void;
-  onRemoveFromFavorites: () => void;
-}) {
+}: AssetCardHeaderProps) {
   return (
     <CardHeaderRow>
       <Identity>
