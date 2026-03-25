@@ -25,7 +25,11 @@ export const UserResolver = {
           }
 
           return assetArray;
-        } catch (err) {}
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.error("getAssetPriceData:", err);
+          return [];
+        }
       }
     },
     getUserExchangeData: async (_, { input }) => {

@@ -1,5 +1,5 @@
 import { processFinancialHistory } from "@/helpers/financial";
-import { BorderRadius, Colors, FontFamily, MediaQueries, Surfaces } from "@/styles/variables";
+import { BorderRadius, Colors, FontFamily, MediaQueries } from "@/styles/variables";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -115,7 +115,7 @@ const FinancialChartGrid = ({ financialData, id, time }) => {
           </ModeHint>
         </div>
 
-        <DepthToggle role="group" aria-label="Detail level">
+        <DepthToggle aria-label="Detail level">
           <button
             type="button"
             className={!showMore ? "active" : ""}
@@ -235,12 +235,15 @@ const ModeHint = styled.div`
   }
 `;
 
-const DepthToggle = styled.div`
+const DepthToggle = styled.fieldset`
   display: inline-flex;
+  margin: 0;
+  padding: 0;
+  border: none;
   align-items: center;
   border-radius: 999px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
   background: rgba(0, 0, 0, 0.18);
 
   button {

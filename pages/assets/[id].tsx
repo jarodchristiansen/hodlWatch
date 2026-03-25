@@ -30,7 +30,7 @@ function queryAsString(value: string | string[] | undefined): string | undefined
 }
 
 const AssetDetailsPage = ({ session }) => {
-  const [timeQuery, setTimeQuery] = useState(365);
+  const [timeQuery] = useState(365);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [pageView, setPageView] = useState("dashboard");
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -41,7 +41,7 @@ const AssetDetailsPage = ({ session }) => {
   const id = queryAsString(router.query?.id) ?? "";
   const name = queryAsString(router.query?.name);
 
-  const [getFinancials, { data, loading, error, refetch }] =
+  const [getFinancials, { data, loading, error }] =
     useLazyQuery(GET_ASSET_HISTORY);
 
   const [
@@ -49,10 +49,8 @@ const AssetDetailsPage = ({ session }) => {
     { data: GeckoDetails, loading: GeckoLoading, error: GeckoError },
   ] = useLazyQuery(GET_GECKO_DETAILS);
 
-  const [
-    getBTCMacros,
-    { data: MacroData, loading: MacroLoading, error: MacroError },
-  ] = useLazyQuery(GET_BTC_MACROS);
+  const [getBTCMacros, { data: MacroData, error: MacroError }] =
+    useLazyQuery(GET_BTC_MACROS);
 
   const isBtcOrEth = id === "btc" || id === "eth";
   const isBtc = id === "btc";
@@ -181,8 +179,10 @@ const AssetDetailsPage = ({ session }) => {
         <ScrollToTop scrollThreshold={90} />
 
         {(error || GeckoError || MacroError) && (
-          <ErrorBanner role="status">
-            <div className="msg">Some sections failed to load. Try refreshing the page.</div>
+          <ErrorBanner>
+            <output className="msg" aria-live="polite">
+              Some sections failed to load. Try refreshing the page.
+            </output>
             {process.env.NODE_ENV !== "production" && (
               <details className="details">
                 <summary>Show error details (dev)</summary>
@@ -321,6 +321,13 @@ const ErrorBanner = styled.div`
   color: rgba(255, 255, 255, 0.92);
   font-family: ${FontFamily.primary};
   font-weight: 700;
+
+  .msg {
+    display: block;
+    margin: 0;
+    font: inherit;
+    font-weight: 700;
+  }
 
   .details {
     margin-top: 10px;

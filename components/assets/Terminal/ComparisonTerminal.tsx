@@ -32,18 +32,10 @@ const ComparisonTerminal = ({ id }) => {
   ]);
   const [comparisonAssetType, setComparisonAssetType] = useState("Crypto");
 
-  const [getFirstAssetHistory, { data, loading, error, refetch }] =
-    useLazyQuery(GET_ASSET_HISTORY);
+  const [getFirstAssetHistory, { data }] = useLazyQuery(GET_ASSET_HISTORY);
 
-  const [
-    getSecondAssetHistory,
-    {
-      data: secondAssetData,
-      loading: secondAssetLoading,
-      error: secondAssetError,
-      refetch: secondAssetRefetch,
-    },
-  ] = useLazyQuery(GET_ASSET_HISTORY);
+  const [getSecondAssetHistory, { data: secondAssetData }] =
+    useLazyQuery(GET_ASSET_HISTORY);
 
   useEffect(() => {
     if (comparisonDuration) {

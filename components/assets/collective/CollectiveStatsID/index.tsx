@@ -1,6 +1,5 @@
 import { GET_COLLECTIVE_STATS } from "@/helpers/queries/collective";
 import { useLazyQuery } from "@apollo/client";
-import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import styled from "styled-components";
 
@@ -10,16 +9,13 @@ interface CollectiveStatsIdProps {
 }
 
 const CollectiveStatsId = ({ favoriteCount, id }: CollectiveStatsIdProps) => {
-  const [fetchCollectiveStats, { data, loading, error, refetch, fetchMore }] =
-    useLazyQuery(GET_COLLECTIVE_STATS, {
-      fetchPolicy: "cache-and-network",
-    });
+  const [fetchCollectiveStats, { data }] = useLazyQuery(GET_COLLECTIVE_STATS, {
+    fetchPolicy: "cache-and-network",
+  });
 
   useEffect(() => {
     fetchCollectiveStats();
-  });
-
-  const router = useRouter();
+  }, [fetchCollectiveStats]);
 
   const [favoriteToUserRatio, favoriteToFollowedRatio, isTopAsset] =
     useMemo(() => {

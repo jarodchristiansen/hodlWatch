@@ -135,7 +135,7 @@ export default function Home({ data }) {
           ))}
         </HowItWorksSteps>
 
-        <HowItWorksDetailPanel role="region" aria-live="polite">
+        <HowItWorksDetailPanel aria-label="How it works details" aria-live="polite">
           <HowItWorksDetailTitle>{howItWorksSteps[activeHowItWorksStep].title}</HowItWorksDetailTitle>
           <HowItWorksDetailDescription>
             {howItWorksSteps[activeHowItWorksStep].description}
@@ -381,7 +381,7 @@ const StepConnector = styled.span`
   }
 `;
 
-const HowItWorksDetailPanel = styled.div`
+const HowItWorksDetailPanel = styled.section`
   width: 100%;
   max-width: 980px;
   margin: 16px auto 0 auto;

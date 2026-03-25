@@ -8,18 +8,9 @@ import LoadingSpinner from "../commons/animations/LoadingSpinner";
 import NewsBlock from "../news/news-block";
 
 const ReportsView = ({ id }) => {
-  const [getNews, { data, loading, error, refetch }] =
-    useLazyQuery(GET_ASSET_NEWS);
+  const [getNews, { data, loading }] = useLazyQuery(GET_ASSET_NEWS);
 
-  const [
-    getSocials,
-    {
-      data: socialData,
-      loading: socialLoading,
-      error: socialError,
-      refetch: socialRefetch,
-    },
-  ] = useLazyQuery(GET_ASSET_SOCIALS);
+  const [getSocials] = useLazyQuery(GET_ASSET_SOCIALS);
 
   useEffect(() => {
     getNews({
@@ -35,13 +26,13 @@ const ReportsView = ({ id }) => {
     });
   }, [id, getNews, getSocials]);
 
-  console.log({ socialData });
-
   const NewsFeed = useMemo(() => {
     if (!data?.getAssetNews?.length) return [];
 
-    return data?.getAssetNews.map((news, idx) => {
-      return <NewsBlock story={news} key={idx} />;
+    return data?.getAssetNews.map((news) => {
+      return (
+        <NewsBlock story={news} key={news.guid ?? news.url ?? news.title} />
+      );
     });
   }, [data?.getAssetNews]);
 

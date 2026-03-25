@@ -23,10 +23,8 @@ interface AssetsContainerProps {
 const AssetsContainer = ({ assets, session, viewMode = "grid" }: AssetsContainerProps) => {
   const [currentAssets, setCurrentAssets] = useState(assets || null);
 
-  const [
-    fetchUserDetails,
-    { data: userData, loading: dataLoading, error: userError },
-  ] = useLazyQuery(GET_USER, {
+  const [fetchUserDetails, { data: userData, loading: dataLoading }] =
+    useLazyQuery(GET_USER, {
     fetchPolicy: "network-only",
   });
 

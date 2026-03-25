@@ -65,10 +65,8 @@ const UserHoldingsPieChart = ({ data, sum }: UserHoldingsPieChartProps) => {
   const formattedData = useMemo(() => {
     if (!data.length) return [];
 
-    let dataCopy = [
-      ...data.sort((a, b) => a.relative_value - b.relative_value),
-    ];
-
+    const dataCopy = [...data];
+    dataCopy.sort((a, b) => a.relative_value - b.relative_value);
     return dataCopy;
   }, [data]);
 

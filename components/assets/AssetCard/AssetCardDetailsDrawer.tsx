@@ -7,6 +7,18 @@ import { currencyFormat } from "@/helpers/formatters/currency";
 import { Drawer, DrawerGrid, DrawerItem } from "./AssetCard.styled";
 
 /** Expandable grid of ATH/ATL, supply, and date fields. */
+export type AssetCardDetailsDrawerProps = Readonly<{
+  isExpanded: boolean;
+  ath: number;
+  atl: number;
+  ath_change_percentage: number;
+  atl_change_percentage: number;
+  ath_date: unknown;
+  atl_date: unknown;
+  circulating_supply: number;
+  total_supply: number;
+}>;
+
 export function AssetCardDetailsDrawer({
   isExpanded,
   ath,
@@ -17,17 +29,7 @@ export function AssetCardDetailsDrawer({
   atl_date,
   circulating_supply,
   total_supply,
-}: {
-  isExpanded: boolean;
-  ath: number;
-  atl: number;
-  ath_change_percentage: number;
-  atl_change_percentage: number;
-  ath_date: unknown;
-  atl_date: unknown;
-  circulating_supply: number;
-  total_supply: number;
-}) {
+}: AssetCardDetailsDrawerProps) {
   return (
     <Drawer aria-hidden={!isExpanded} data-open={isExpanded}>
       <DrawerGrid>

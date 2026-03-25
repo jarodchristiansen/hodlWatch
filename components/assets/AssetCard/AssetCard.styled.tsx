@@ -95,13 +95,14 @@ export const AssetIcon = styled.div`
   }
 `;
 
-export const MetricsStrip = styled.div`
+export const MetricsStrip = styled.fieldset`
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
   gap: 10px 12px;
   align-items: start;
-  margin-top: 14px;
-  padding-top: 14px;
+  margin: 14px 0 0;
+  padding: 14px 0 0;
+  border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   min-width: 0;
 `;

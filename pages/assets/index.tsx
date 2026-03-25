@@ -19,7 +19,7 @@ import { GET_COLLECTIVE_STATS } from "../../helpers/queries/collective";
  * @param userSession: session returned from Next-Auth ssr query
  * @returns AssetPage that allows for searching/filtering of digital assets
  */
-const AssetsPage = ({ userSession: session, collectiveData }) => {
+const AssetsPage = ({ userSession: session, collectiveData: _collectiveData }) => {
   const [offsetState, setOffsetState] = useState<number>(1);
   const [limitState] = useState(12);
 
@@ -162,34 +162,6 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
   //   });
   // };
 
-  const collectiveDataComponents = useMemo(() => {
-    if (!collectiveData?.data?.getCollectiveStats?.asset_count) return [];
-
-    let data = collectiveData?.data?.getCollectiveStats;
-    return (
-      <CollectiveStatsHeader data-testid="collective-stats-header">
-        <div>
-          <h3>24hr Snapshot</h3>
-        </div>
-
-        <div className="mid-row">
-          <div>
-            <h5>User Count</h5>
-            <span>{data.user_count}</span>
-          </div>
-          <div>
-            <h5>Followed Assets</h5>
-            <span>{data.followed_assets}</span>
-          </div>
-          <div>
-            <h5>Number of Assets</h5>
-            <span>{data.asset_count}</span>
-          </div>
-        </div>
-      </CollectiveStatsHeader>
-    );
-  }, [collectiveData]);
-
   return (
     <PageWrapper>
       <SEOHead
@@ -250,7 +222,7 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
                 </select>
               </Control>
 
-              <SegmentedControl role="group" aria-label="View mode">
+              <SegmentedControl aria-label="View mode">
                 <button
                   type="button"
                   className={viewMode === "grid" ? "active" : ""}
@@ -286,11 +258,11 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
 
         <div>
           {!loading && !error && sortedAssets?.length === 0 && (
-            <EmptyState role="status">
+            <EmptyState>
               <h3>No assets found</h3>
-              <p>
+              <output aria-live="polite">
                 Try a different ticker symbol, or clear search to browse top assets.
-              </p>
+              </output>
               {isSearchMode && (
                 <button type="button" onClick={clearSearch}>
                   Back to browse
@@ -333,75 +305,6 @@ const AssetsPage = ({ userSession: session, collectiveData }) => {
     </PageWrapper>
   );
 };
-
-const CollectiveStatsHeader = styled.div`
-  padding: 2rem 1.5rem;
-  background: linear-gradient(
-    90deg,
-    ${Colors.primary} 0%,
-    ${Colors.charcoal} 100%
-  );
-  color: ${Colors.accent};
-  border-radius: 18px;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 24px 0 rgba(20, 20, 40, 0.18);
-  text-align: center;
-  justify-content: center;
-  border: 1px solid ${Colors.accent}33;
-
-  h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: ${Colors.accent};
-    letter-spacing: 0.5px;
-  }
-
-  .mid-row {
-    display: flex;
-    gap: 2rem;
-    overflow-x: auto;
-    text-align: center;
-    justify-content: center;
-    padding: 1.5rem 0.5rem;
-    margin: 0 -1.5rem;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: linear-gradient(
-        135deg,
-        ${Colors.charcoal} 60%,
-        ${Colors.primary} 100%
-      );
-      border-radius: 12px;
-      min-width: 140px;
-      padding: 1.25rem 1rem;
-      border: 1px solid ${Colors.accent}33;
-      box-shadow: 0 2px 12px 0 rgba(20, 20, 40, 0.1);
-      color: ${Colors.accent};
-      margin: 0 0.5rem;
-
-      h5 {
-        font-size: 1rem;
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-        color: ${Colors.accent};
-        letter-spacing: 0.2px;
-      }
-      span {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: #fffbe6;
-      }
-    }
-  }
-`;
 
 const PageWrapper = styled.div`
   padding-top: 48px;
@@ -543,10 +446,13 @@ const Control = styled.div`
   }
 `;
 
-const SegmentedControl = styled.div`
+const SegmentedControl = styled.fieldset`
   display: flex;
+  margin: 0;
+  padding: 0;
+  border: none;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
   overflow: hidden;
   height: 44px;
 
@@ -602,11 +508,13 @@ const EmptyState = styled.div`
     color: ${Colors.accent};
   }
 
-  p {
+  output {
+    display: block;
     margin: 0 auto 14px auto;
     max-width: 60ch;
     color: rgba(255, 255, 255, 0.86);
     line-height: 1.6;
+    font: inherit;
   }
 
   button {

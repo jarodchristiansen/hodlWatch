@@ -25,10 +25,7 @@ const ProfilePage = () => {
   //   const [walletIsConnected, setWalletIsConnected] = useState(false);
   // const { isOpen, open, close } = useConnectModal();
 
-  const [
-    fetchUserDetails,
-    { data, loading: dataLoading, error, refetch, fetchMore },
-  ] = useLazyQuery(GET_USER, {
+  const [fetchUserDetails, { data }] = useLazyQuery(GET_USER, {
     fetchPolicy: "network-only",
   });
 
@@ -91,40 +88,31 @@ const ProfilePage = () => {
   const userFavoritesList = useMemo(() => {
     if (!data?.getUser?.favorites) return [];
 
-    return data.getUser.favorites.map((favorite, idx) => {
+    return data.getUser.favorites.map((favorite) => {
       return (
         <div className="favorites-row" key={favorite.title}>
-          <Image
-            src={favorite.image}
-            height={50}
-            width={50}
-            alt={`${favorite.title} logo`}
-            className="pointer-link favorites-image"
-            role="button"
-            tabIndex={0}
+          <button
+            type="button"
+            className="favorites-image-btn"
             onClick={() => navigateToAssetPage(favorite)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                navigateToAssetPage(favorite);
-              }
-            }}
-            unoptimized={true}
-          />
-          <h5
-            className="pointer-link"
-            role="button"
-            tabIndex={0}
+            aria-label={`Open ${favorite.title}`}
+          >
+            <Image
+              src={favorite.image}
+              height={50}
+              width={50}
+              alt=""
+              className="favorites-image"
+              unoptimized={true}
+            />
+          </button>
+          <button
+            type="button"
+            className="favorites-title-btn pointer-link"
             onClick={() => navigateToAssetPage(favorite)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                navigateToAssetPage(favorite);
-              }
-            }}
           >
             {favorite.title}-{favorite.symbol}
-          </h5>
+          </button>
         </div>
       );
     });
@@ -440,9 +428,29 @@ const UserFavoritesList = styled.div`
     padding: 1rem 1rem;
     border-top: 1px solid black;
 
+    .favorites-image-btn {
+      padding: 0;
+      margin: 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-radius: 30px;
+      line-height: 0;
+    }
+
     .favorites-image {
       border-radius: 30px;
       border: 1px solid gray;
+      display: block;
+    }
+
+    .favorites-title-btn {
+      border: none;
+      background: none;
+      font: inherit;
+      cursor: pointer;
+      text-align: right;
+      color: inherit;
     }
   }
 `;
