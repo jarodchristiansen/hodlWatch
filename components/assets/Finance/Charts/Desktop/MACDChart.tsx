@@ -1,6 +1,5 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { ChartColors, ChartDimensions } from "@/styles/variables";
-// import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -21,7 +20,7 @@ const MACDChart = ({ data }) => {
 
   useEffect(() => {
     processEmas(data);
-  }, [showLatest14Days]);
+  }, [data, showLatest14Days]);
 
   const handleCheckboxChange = () => {
     setShowLatest14Days(!showLatest14Days);
@@ -35,17 +34,15 @@ const MACDChart = ({ data }) => {
       data = data.slice(-30);
     }
 
-    let time = data.length;
-
-    for (let i of data) {
-      closeData.push(i.close);
-      dateData.push(i.time);
+    for (const row of data) {
+      closeData.push(row.close);
+      dateData.push(row.time);
     }
 
     let emas = [];
 
     const { macdLine, signalLine, histogram } = calculateMACD(
-      closeData.slice(0, time),
+      closeData,
       showLatest14Days ? 3 : 12,
       showLatest14Days ? 4 : 26,
       showLatest14Days ? 2 : 9
@@ -157,7 +154,6 @@ const MACDChart = ({ data }) => {
             <XAxis dataKey="time" />
 
             <Tooltip formatter={(value) => value} />
-            {/* <Legend /> */}
 
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

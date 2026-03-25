@@ -1,13 +1,9 @@
-// import { useEffect, useState } from "react-responsive";
-// import { currencyFormat } from "../../helpers/formatters";
-// import FinanceChartModal from "./FinanceChartModal";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   CartesianGrid,
   Legend,
   Line,
   LineChart,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -35,10 +31,8 @@ const DifficultyRibbonChartDesktop = ({ data }: any) => {
           <CartesianGrid strokeDasharray="3 3" />
 
           <YAxis
-            // dataKey="market_dominance"
             domain={["auto", "auto"]}
             allowDataOverflow={true}
-            // tick={{ fill: "white" }}
             width={0}
           />
           <XAxis
@@ -99,7 +93,6 @@ const DifficultyRibbonChartDesktop = ({ data }: any) => {
             dot={false}
           />
           <Line type="monotone" dataKey="ma200" stroke="#8884d8" dot={false} />
-          {/*<Line type="monotone" dataKey="close" stroke="black" dot={false} />*/}
         </LineChart>
       )}
     </div>

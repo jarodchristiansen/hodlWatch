@@ -2,7 +2,6 @@ import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { currencyFormat } from "@/helpers/formatters/currency";
 import { ChartColors, ChartDimensions } from "@/styles/variables";
 import boll from "bollinger-bands";
-// import FinanceChartModal from "./FinanceChartModal";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -37,11 +36,9 @@ const BollingerBandChart = ({ data }) => {
       data = data.slice(-30);
     }
 
-    let time = data.length;
-
-    for (let i of data) {
-      closeData.push(i.close);
-      dateData.push(i.time);
+    for (const row of data) {
+      closeData.push(row.close);
+      dateData.push(row.time);
     }
 
     let emas = [];

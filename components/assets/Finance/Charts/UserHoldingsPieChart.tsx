@@ -24,6 +24,37 @@ interface BalanceObjects {
   __typename: string;
 }
 
+function HoldingsTooltip({
+  active,
+  payload,
+}: {
+  active?: boolean;
+  payload?: Array<{
+    name: string;
+    value: number;
+    payload: BalanceObjects;
+  }>;
+}) {
+  if (active && payload?.length) {
+    const p = payload[0];
+    return (
+      <div
+        className="custom-tooltip"
+        style={{
+          backgroundColor: "#ffff",
+          padding: "5px",
+          border: "1px solid #cccc",
+        }}
+      >
+        <span>{`${p.name} : ${p.value.toFixed(2)}% : $${(
+          p.payload.usd * p.payload.balance
+        ).toFixed(2)}`}</span>
+      </div>
+    );
+  }
+  return null;
+}
+
 /**
  *
  * @param data: User holding data
@@ -42,25 +73,6 @@ const UserHoldingsPieChart = ({ data, sum }: UserHoldingsPieChartProps) => {
     "#FFBB28",
     "#FF8042",
   ];
-
-  const CustomToolTip = ({ active, payload, label }) => {
-    if (active) {
-      return (
-        <div
-          className="custom-tooltip"
-          style={{
-            backgroundColor: "#ffff",
-            padding: "5px",
-            border: "1px solid #cccc",
-          }}
-        >
-          <label>{`${payload[0].name} : ${payload[0].value.toFixed(2)}% : $${(
-            payload[0].payload.usd * payload[0].payload.balance
-          ).toFixed(2)}`}</label>
-        </div>
-      );
-    }
-  };
 
   const formattedData = useMemo(() => {
     if (!data.length) return [];
@@ -92,14 +104,14 @@ const UserHoldingsPieChart = ({ data, sum }: UserHoldingsPieChartProps) => {
               outerRadius={120}
               fill="#8884d8"
             >
-              {data.map((entry, index) => (
+              {formattedData.map((entry, index) => (
                 <Cell
-                  key={`cell-${index}`}
+                  key={`${entry.symbol}-${entry.ticker}`}
                   fill={COLORS[index % COLORS.length]}
                 />
               ))}
             </Pie>
-            <Tooltip content={CustomToolTip} />
+            <Tooltip content={HoldingsTooltip} />
             <Legend />
           </PieChart>
         </ResponsiveContainer>

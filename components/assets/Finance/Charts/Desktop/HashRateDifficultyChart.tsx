@@ -1,7 +1,6 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
 import { ChartColors, ChartDimensions } from "@/styles/variables";
 import { useEffect, useState } from "react";
-// import FinanceChartModal from "./FinanceChartModal";
 import {
   Area,
   CartesianGrid,
@@ -24,12 +23,9 @@ const HashRateDifficultyChart = ({ data }) => {
   const [chartData, setChartData] = useState<any>();
 
   useEffect(() => {
-    if (showLatest14Days) {
-      data = data.slice(-30);
-    }
-
-    setChartData(data);
-  }, [showLatest14Days]);
+    const series = showLatest14Days ? data.slice(-30) : data;
+    setChartData(series);
+  }, [data, showLatest14Days]);
 
   const handleCheckboxChange = () => {
     setShowLatest14Days(!showLatest14Days);

@@ -241,7 +241,7 @@ const ProfilePage = () => {
                 </ConnectWalletCard>
               )} */}
 
-              {!!userFavoritesList.length ? (
+              {userFavoritesList.length > 0 ? (
                 <UserFavoritesList>
                   <h4 className="header-text">Favorited Assets</h4>
                   {userFavoritesList}

@@ -1,7 +1,7 @@
 import { GET_ASSET } from "@/helpers/queries/assets";
 import { useLazyQuery } from "@apollo/client";
 import type { ChangeEvent } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import styled from "styled-components";
 
 export type AssetSearchDropdownProps = Readonly<{
@@ -13,6 +13,7 @@ const AssetSearchDropdown = ({
   type,
   addAssetMethod,
 }: AssetSearchDropdownProps) => {
+  const listboxId = useId();
   const [searchValue, setSearchValue] = useState("");
   const [getAsset, { data }] = useLazyQuery(GET_ASSET);
   const [isOpen, setIsOpen] = useState(false);
@@ -44,21 +45,30 @@ const AssetSearchDropdown = ({
         type="text"
         value={searchValue}
         onChange={updateSearchValue}
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={isOpen}
+        aria-controls={listboxId}
       />
 
       {isOpen && data && data?.getAsset?.length > 0 && (
-        <ul className="option-container" role="listbox" aria-label="Assets">
+        <OptionsList
+          id={listboxId}
+          className="option-container"
+          role="listbox"
+          aria-label="Assets"
+        >
           {data.getAsset.map((asset) => (
-            <li key={asset.id} role="presentation">
-              <OptionButton
-                type="button"
-                onClick={() => addAssetMethod(asset.symbol)}
-              >
-                {asset.symbol.toUpperCase()} - {asset.name}
-              </OptionButton>
-            </li>
+            <OptionButton
+              key={asset.id}
+              type="button"
+              role="option"
+              onClick={() => addAssetMethod(asset.symbol)}
+            >
+              {asset.symbol.toUpperCase()} - {asset.name}
+            </OptionButton>
           ))}
-        </ul>
+        </OptionsList>
       )}
     </DropdownContainer>
   );
@@ -70,7 +80,6 @@ const DropdownContainer = styled.div`
   position: relative;
 
   .option-container {
-    list-style: none;
     margin: 0;
     padding: 0;
     border: 1px solid black;
@@ -82,6 +91,8 @@ const DropdownContainer = styled.div`
     overflow-y: auto;
   }
 `;
+
+const OptionsList = styled.div``;
 
 const OptionButton = styled.button`
   display: block;

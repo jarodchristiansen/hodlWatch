@@ -3,7 +3,9 @@ import type { KeyboardEvent } from "react";
 import styled from "styled-components";
 import { FaInfoCircle } from "react-icons/fa";
 
-function FinanceChartModal(props: { text?: any }) {
+type FinanceChartModalProps = Readonly<{ text?: any }>;
+
+function FinanceChartModal(props: FinanceChartModalProps) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

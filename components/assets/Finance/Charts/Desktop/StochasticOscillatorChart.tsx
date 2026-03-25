@@ -1,4 +1,3 @@
-// import FinanceChartModal from "./FinanceChartModal";
 import { ChartColors, ChartDimensions } from "@/styles/variables";
 import { useEffect, useState } from "react";
 import {
@@ -14,65 +13,63 @@ import {
 
 import ChartContainer from "./ChartContainer";
 
+function calculateStochasticOscSeries(closingPrices: number[], period = 14) {
+  if (closingPrices.length < period) {
+    throw new Error("Insufficient data for the specified period");
+  }
+
+  const stochasticValues: number[] = [];
+
+  for (let i = period - 1; i < closingPrices.length; i++) {
+    const highestHigh = Math.max(
+      ...closingPrices.slice(i - period + 1, i + 1)
+    );
+    const lowestLow = Math.min(...closingPrices.slice(i - period + 1, i + 1));
+
+    const currentClose = closingPrices[i];
+
+    const percentK =
+      ((currentClose - lowestLow) / (highestHigh - lowestLow)) * 100;
+
+    stochasticValues.push(percentK);
+  }
+
+  return stochasticValues;
+}
+
 const StochasticOscillatorChart = ({ data }) => {
   const [stochasticData, setStochasticData] = useState([]);
 
   useEffect(() => {
-    processStochastic(data);
-  }, []);
+    if (!data?.length) return;
 
-  const processStochastic = (data) => {
-    let closeData = [];
-    let dateData = [];
-    let highData = [];
-    let lowData = [];
+    const period = 14;
+    const closeData: number[] = [];
+    const dateData: string[] = [];
 
-    for (let i of data) {
-      closeData.push(i.close);
-      dateData.push(i.time);
-      highData.push(i.high);
-      lowData.push(i.low);
+    for (const row of data) {
+      closeData.push(row.close);
+      dateData.push(row.time);
     }
 
-    const stochasticValues = calculateStochasticOscillator(closeData);
+    const stochasticValues = calculateStochasticOscSeries(closeData, period);
+    const paddedStochastic = [
+      ...Array(Math.max(0, period - 1)).fill(null),
+      ...stochasticValues,
+    ];
 
-    const stochasticData = dateData.map((date, index) => ({
+    const rowsOut = dateData.map((date, index) => ({
       close: closeData[index],
-      stochastic: stochasticValues[index],
+      stochastic: paddedStochastic[index],
       time: date,
     }));
 
-    setStochasticData(stochasticData);
-  };
+    setStochasticData(rowsOut);
+  }, [data]);
 
-  function calculateStochasticOscillator(closingPrices, period = 14) {
-    if (closingPrices.length < period) {
-      throw new Error("Insufficient data for the specified period");
-    }
-
-    const stochasticValues = [];
-
-    for (let i = period - 1; i < closingPrices.length; i++) {
-      const highestHigh = Math.max(
-        ...closingPrices.slice(i - period + 1, i + 1)
-      );
-      const lowestLow = Math.min(...closingPrices.slice(i - period + 1, i + 1));
-
-      const currentClose = closingPrices[i];
-
-      const percentK =
-        ((currentClose - lowestLow) / (highestHigh - lowestLow)) * 100;
-
-      stochasticValues.push(percentK);
-    }
-
-    return stochasticValues;
-  }
   return (
     <ChartContainer>
-      <div className={"label-row"}>
-        {/* Removed <h5>Stochastic Oscillator</h5> header, now handled by chart grid */}
-      </div>
+      <div className={"label-row"} />
       {stochasticData && (
         <ResponsiveContainer width="100%" height={ChartDimensions.height}>
           <ComposedChart data={stochasticData}>
@@ -84,9 +81,7 @@ const StochasticOscillatorChart = ({ data }) => {
               allowDataOverflow={true}
               yAxisId="left-axis"
               orientation="left"
-              // tick={{ fill: "white" }}
               width={0}
-              // formatter={(value) => currencyFormat(value)}
             />
 
             <YAxis
@@ -100,7 +95,6 @@ const StochasticOscillatorChart = ({ data }) => {
             <XAxis dataKey="time" tickFormatter={(value) => value} />
 
             <Tooltip formatter={(value) => value} />
-            {/* <Legend /> */}
 
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

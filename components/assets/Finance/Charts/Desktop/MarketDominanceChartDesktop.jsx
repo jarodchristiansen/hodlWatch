@@ -1,6 +1,3 @@
-// import { useMediaQuery } from "react-responsive";
-// import { currencyFormat } from "../../helpers/formatters";
-// import FinanceChartModal from "./FinanceChartModal";
 import React from "react";
 import {
   CartesianGrid,

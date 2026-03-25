@@ -1,5 +1,4 @@
 import ToggleSwitch from "@/components/commons/switchers/toggle-switch";
-// import FinanceChartModal from "./FinanceChartModal";
 import { FormatUnixTime } from "@/helpers/formatters/time";
 import { useEffect, useState } from "react";
 import {
@@ -22,7 +21,7 @@ const ATRChart = ({ data }) => {
 
   useEffect(() => {
     processEmas(data);
-  }, [showLatest14Days]);
+  }, [data, showLatest14Days]);
 
   const handleCheckboxChange = () => {
     setShowLatest14Days(!showLatest14Days);
@@ -38,13 +37,11 @@ const ATRChart = ({ data }) => {
       data = data.slice(-30);
     }
 
-    let time = data.length;
-
-    for (let i of data) {
-      closeData.push(i.close);
-      dateData.push(i.time);
-      highData.push(i.high);
-      lowData.push(i.low);
+    for (const row of data) {
+      closeData.push(row.close);
+      dateData.push(row.time);
+      highData.push(row.high);
+      lowData.push(row.low);
     }
 
     let emas = [];
@@ -69,14 +66,6 @@ const ATRChart = ({ data }) => {
 
   // ATR (Average True Range)
   function calculateATR(highPrices, lowPrices, closingPrices, period = 14) {
-    // if (
-    //   highPrices.length < period ||
-    //   lowPrices.length < period ||
-    //   closingPrices.length < period
-    // ) {
-    //   throw new Error("Insufficient data for the specified period");
-    // }
-
     const trueRanges = [];
     for (let i = 1; i < period; i++) {
       const trueRange = Math.max(
@@ -129,9 +118,7 @@ const ATRChart = ({ data }) => {
               allowDataOverflow={true}
               yAxisId="left-axis"
               orientation="left"
-              // tick={{ fill: "white" }}
               width={0}
-              // formatter={(value) => currencyFormat(value)}
             />
 
             <YAxis
@@ -147,7 +134,6 @@ const ATRChart = ({ data }) => {
             />
 
             <Tooltip formatter={(value) => value} />
-            {/* <Legend /> */}
 
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

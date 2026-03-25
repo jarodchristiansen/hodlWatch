@@ -28,8 +28,6 @@ const DashboardView = ({
               ? data?.getAssetHistory.priceData
               : []
           }
-          id={id}
-          time={timeQuery}
         />
       </Section>
 

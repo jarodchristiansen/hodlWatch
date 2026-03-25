@@ -1,4 +1,3 @@
-// import FinanceChartModal from "./FinanceChartModal";
 import React from "react";
 import {
   CartesianGrid,
