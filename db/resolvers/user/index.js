@@ -33,11 +33,7 @@ export const UserResolver = {
       }
     },
     getUserExchangeData: async (_, { input }) => {
-      const {
-        exchangeData,
-        public_key: publicKey,
-        private_key: privateKey,
-      } = input;
+      const { public_key: publicKey, private_key: privateKey } = input;
 
       const ccxt = require("ccxt");
 

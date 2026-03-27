@@ -16,8 +16,24 @@ import {
 
 import ChartContainer from "./ChartContainer";
 
-const BollingerBandChart = ({ data }) => {
-  const [emaData, setEmaData] = useState();
+export interface BollingerCandleRow {
+  close: number;
+  time: string;
+}
+
+interface BollingerBandChartProps {
+  data: BollingerCandleRow[];
+}
+
+interface EmaRow {
+  close: number;
+  upperBand: number;
+  lowerBand: number;
+  time: string;
+}
+
+const BollingerBandChart = ({ data }: BollingerBandChartProps) => {
+  const [emaData, setEmaData] = useState<EmaRow[]>();
   const [showLatest14Days, setShowLatest14Days] = useState(false);
 
   useEffect(() => {
@@ -28,21 +44,22 @@ const BollingerBandChart = ({ data }) => {
     setShowLatest14Days(!showLatest14Days);
   };
 
-  const processEmas = (data) => {
-    let closeData = [];
-    let dateData = [];
+  const processEmas = (rows: BollingerCandleRow[]) => {
+    const closeData: number[] = [];
+    const dateData: string[] = [];
 
+    let working = rows;
     if (showLatest14Days) {
-      data = data.slice(-30);
+      working = rows.slice(-30);
     }
 
-    for (const row of data) {
+    for (const row of working) {
       closeData.push(row.close);
       dateData.push(row.time);
     }
 
-    let emas = [];
-    let bollingerNumbers = boll(closeData, showLatest14Days ? 3 : 30, 2);
+    const emas: EmaRow[] = [];
+    const bollingerNumbers = boll(closeData, showLatest14Days ? 3 : 30, 2);
 
     for (let i = 0; i < dateData.length; i++) {
       emas.push({
@@ -77,14 +94,11 @@ const BollingerBandChart = ({ data }) => {
               dataKey="close"
               domain={["auto", "auto"]}
               allowDataOverflow={true}
-              // tick={{ fill: "white" }}
               width={0}
-              // formatter={(value) => currencyFormat(value)}
             />
             <XAxis dataKey="time" />
 
             <Tooltip formatter={(value) => currencyFormat(value)} />
-            {/* <Legend /> */}
 
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

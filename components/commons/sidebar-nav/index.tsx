@@ -1,23 +1,8 @@
 import { MediaQueries } from "@/styles/variables";
-import { useState } from "react";
 import styled from "styled-components";
 
 const SideMenu = ({ navLinks }) => {
-  const [menuStatus, setMenuStatus] = useState("open");
-  const [style, setStyle] = useState("menu active");
-
-  const handleClick = () => {
-    switch (menuStatus) {
-      case "open":
-        setMenuStatus("close");
-        setStyle("menu active");
-        break;
-      case "close":
-        setMenuStatus("open");
-        setStyle("menu");
-        break;
-    }
-  };
+  const style = "menu active";
 
   const runPropFunction = (stateChanger) => {
     if (!!stateChanger && typeof stateChanger === "function") {

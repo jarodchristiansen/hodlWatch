@@ -300,10 +300,6 @@ export const AssetResolver = {
       `https://api.glassnode.com/v1/metrics/indicators/difficulty_ribbon?a=${symbol}&api_key=${process.env.GLASSNODE_KEY}`
     ).then((response) => response.json());
 
-    const addressCount = await fetch(
-      `https://api.glassnode.com/v1/metrics/addresses/active_count?a=${symbol}&api_key=${process.env.GLASSNODE_KEY}`
-    ).then((response) => response.json());
-
     let ribbonData = [];
 
     for (let i of data.slice(-cut)) {
@@ -458,20 +454,8 @@ export const AssetResolver = {
           `https://min-api.cryptocompare.com/data/blockchain/histo/day?fsym=${symbol}&limit=${time}&api_key=${process.env.CRYPTO_COMPARE_KEY}`
         ).then((response) => response.json());
 
-        // let indicatorData = await fetch(
-        //   `https://min-api.cryptocompare.com/data/tradingsignals/intotheblock/latest?fsym=BTC&api_key=${process.env.CRYPTO_COMPARE_KEY}`
-        // ).then((response) => response.json());
-
         data.blockchainData = blockchainData.Data.Data;
       }
-
-      // if (results.length === 1) {
-      //   data.priceData = results[0]?.Data?.Data;
-      //   // data.blockchainData = results[1]?.Data;
-      // } else if (results.length === 2) {
-      //   data.priceData = results[0]?.Data?.Data;
-      //   data.blockchainData = results[1]?.Data?.Data;
-      // }
 
       if (data?.priceData) {
         return data;

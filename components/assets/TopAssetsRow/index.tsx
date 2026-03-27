@@ -19,26 +19,19 @@ const TopAssetsRow = ({ topAssets }: TopAssetsRowProps) => {
     if (!topAssets.length) return [];
 
     return topAssets.map((asset) => {
+      const href = `/assets/${encodeURIComponent(asset.symbol)}?name=${encodeURIComponent(asset.name)}`;
       return (
-        <Link
-          href={`/assets/${asset.symbol}?name=${asset.name}`}
-          className="asset-link"
-          passHref
-          key={asset.symbol}
-          legacyBehavior
-        >
-          <a>
-            <TopAssetCard data-testid={`top-asset-card-${asset.name}`}>
-              <FavoriteCountCircle>
-                <span>{asset.favorite_count}</span>
-              </FavoriteCountCircle>
+        <Link href={href} className="asset-link" key={asset.symbol}>
+          <TopAssetCard data-testid={`top-asset-card-${asset.name}`}>
+            <FavoriteCountCircle>
+              <span>{asset.favorite_count}</span>
+            </FavoriteCountCircle>
 
-              <div className="card-text">
-                <h4> {asset.name}</h4>
-                <span>{asset?.symbol?.toUpperCase()}</span>
-              </div>
-            </TopAssetCard>
-          </a>
+            <div className="card-text">
+              <h4> {asset.name}</h4>
+              <span>{asset?.symbol?.toUpperCase()}</span>
+            </div>
+          </TopAssetCard>
         </Link>
       );
     });

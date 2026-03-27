@@ -105,14 +105,6 @@ const ProgressMeter = () => {
 
   const progressWidth = currentStep === 3 ? 100 : currentStep * 30 || 2;
 
-  const updateStep = () => {
-    if (currentStep >= 3) {
-      setCurrentStep(0);
-    } else {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
   const BarComponent = useMemo(() => {
     return (
       <>
@@ -150,7 +142,7 @@ const ProgressMeter = () => {
         </Timeline>
       </>
     );
-  }, [currentStep]);
+  }, [currentStep, progressWidth]);
 
   return <ProgressMeterContainer>{BarComponent}</ProgressMeterContainer>;
 };

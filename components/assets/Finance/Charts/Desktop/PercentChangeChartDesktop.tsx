@@ -1,48 +1,47 @@
-import React from "react";
 import {
   CartesianGrid,
   Legend,
   Line,
   LineChart,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 
-const MarketDominanceChartDesktop = ({ data }) => {
-  const format = (num, decimals) =>
-    num.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+export interface PercentChangeRow {
+  time: string;
+  percent_change: number;
+}
 
+interface PercentChangeChartDesktopProps {
+  data: PercentChangeRow[];
+}
+
+const PercentChangeChartDesktop = ({ data }: PercentChangeChartDesktopProps) => {
   return (
     <div className={"card mt-2 mx-3 text-center"}>
       <div className={"flex flex-row"}>
-        <h1>Market Dominance</h1>
+        <h1>Percent Change Chart</h1>
       </div>
       {data && (
         <LineChart data={data} height={500} width={500}>
           <CartesianGrid strokeDasharray="3 3" />
 
           <YAxis
-            dataKey="market_dominance"
+            dataKey="percent_change"
             domain={["auto", "auto"]}
             allowDataOverflow={true}
-            // tick={{ fill: "white" }}
             width={0}
           />
           <XAxis dataKey="time" />
 
-          <Tooltip formatter={(value) => format(value)} />
+          <Tooltip />
           <Legend />
           <Line
-            type="linear"
-            dataKey="market_dominance"
+            type="monotone"
+            dataKey="percent_change"
             stroke="#8884d8"
             dot={false}
-            strokeWidth={2}
           />
         </LineChart>
       )}
@@ -50,4 +49,4 @@ const MarketDominanceChartDesktop = ({ data }) => {
   );
 };
 
-export default MarketDominanceChartDesktop;
+export default PercentChangeChartDesktop;

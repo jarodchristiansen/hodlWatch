@@ -4,7 +4,15 @@ import styled from "styled-components";
 
 import ThreeDotsWave from "./ThreeDotsWave";
 
-const LoadingSpinner = ({ overlay = false, message = "Loading" }) => {
+export interface LoadingSpinnerProps {
+  readonly overlay?: boolean;
+  readonly message?: string;
+}
+
+const LoadingSpinner = ({
+  overlay = false,
+  message = "Loading",
+}: LoadingSpinnerProps) => {
   if (overlay) {
     return (
       <Overlay aria-live="polite" aria-busy="true">

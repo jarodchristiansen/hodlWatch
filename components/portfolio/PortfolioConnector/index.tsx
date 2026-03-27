@@ -7,6 +7,65 @@ import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
+type ExchangeBalance = {
+  symbol: string;
+  balance: number;
+  usd: number;
+};
+
+function compareHoldingsByValue(a: ExchangeBalance, b: ExchangeBalance): number {
+  return a.balance * a.usd - b.balance * b.usd;
+}
+
+function compareHoldingsByUnitPrice(
+  a: ExchangeBalance,
+  b: ExchangeBalance
+): number {
+  if (a.usd > b.usd) return 1;
+  if (b.usd > a.usd) return -1;
+  return 0;
+}
+
+function sortHoldings(
+  balances: ExchangeBalance[],
+  holdingSort: string
+): ExchangeBalance[] {
+  const copy = [...balances];
+  if (holdingSort === "Value") {
+    copy.sort(compareHoldingsByValue);
+  } else if (holdingSort === "Price") {
+    copy.sort(compareHoldingsByUnitPrice);
+  }
+  return copy;
+}
+
+function HoldingRow({
+  item,
+  sum,
+}: {
+  item: ExchangeBalance;
+  sum: number;
+}) {
+  const ratio =
+    sum > 0 ? Math.floor(((item.balance * item.usd) / sum) * 100) : undefined;
+  return (
+    <div className="holding-item-row">
+      <span className="item-symbol">{item.symbol}</span>
+
+      <div className="holdings-column">
+        <span>Holdings: {item.balance.toFixed(2)}</span>
+        <span>Current Price: {currencyFormat(item.usd)}</span>
+      </div>
+
+      <div className="item-total">
+        <span>Value: {currencyFormat(item.balance * item.usd)}</span>
+
+        <span>Ratio: {ratio != null ? `${ratio}%` : "—"}</span>
+      </div>
+    </div>
+  );
+}
+
 /**
  *
  * @returns PortfolioConnector: Portal that allows user to connect via their exchange keys and explore their portfolio compared to other users
@@ -52,7 +111,6 @@ const PortfolioConnector = () => {
       public_key: publicKeyValue,
       private_key: privateKeyValue,
     };
-    // const exchangeInstance = getExchangeInstance(exchangeId, apiCredentials);
     fetchUserHoldings();
 
     StoreLocalKeys("Portfolio Connector", JSON.stringify(userStore));
@@ -97,52 +155,15 @@ const PortfolioConnector = () => {
   }, [holdingData?.getUserExchangeData]);
 
   const HoldingsItems = useMemo(() => {
-    if (!holdingData?.getUserExchangeData?.balances?.length) return [];
+    const balances = holdingData?.getUserExchangeData?.balances as
+      | ExchangeBalance[]
+      | undefined;
+    if (!balances?.length) return [];
 
-    let initialData = [...holdingData.getUserExchangeData.balances];
-
-    let data;
-
-    switch (holdingSort) {
-      case "Value":
-        data = initialData.sort(
-          (a, b) => a.balance * a.usd - b.balance * b.usd
-        );
-        break;
-      case "Price":
-        data = initialData.sort((a, b) =>
-          a.usd > b.usd ? 1 : b.usd > a.usd ? -1 : 0
-        );
-        break;
-      default:
-        data = initialData;
-        break;
-    }
-
-    return data.map((item) => {
-      let ratio;
-
-      if (sum) {
-        ratio = Math.floor(((item.balance * item.usd) / sum) * 100);
-      }
-
-      return (
-        <div className="holding-item-row" key={item.balance}>
-          <span className="item-symbol">{item.symbol}</span>
-
-          <div className="holdings-column">
-            <span>Holdings: {item.balance.toFixed(2)}</span>
-            <span>Current Price: {currencyFormat(item.usd)}</span>
-          </div>
-
-          <div className="item-total">
-            <span>Value: {currencyFormat(item.balance * item.usd)}</span>
-
-            <span>Ratio: {ratio}%</span>
-          </div>
-        </div>
-      );
-    });
+    const ordered = sortHoldings(balances, holdingSort);
+    return ordered.map((item) => (
+      <HoldingRow key={item.symbol} item={item} sum={sum} />
+    ));
   }, [holdingData?.getUserExchangeData, holdingSort, sum]);
 
   const analyticsData = useMemo(() => {

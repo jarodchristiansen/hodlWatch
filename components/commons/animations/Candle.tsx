@@ -1,13 +1,19 @@
 import { motion } from "framer-motion";
 
-const Candle = ({ color, height, width }) => {
+export interface CandleProps {
+  readonly color: string;
+  readonly height: number;
+  readonly width: number;
+}
+
+const Candle = ({ color, height, width }: CandleProps) => {
   const candleVariants = {
     up: {
-      y: -height / 2, // Move candle up for positive movement
+      y: -height / 2,
       transition: { duration: 1, ease: "easeInOut" },
     },
     down: {
-      y: 0, // Reset candle position for negative movement
+      y: 0,
       transition: { duration: 1, ease: "easeInOut" },
     },
   };

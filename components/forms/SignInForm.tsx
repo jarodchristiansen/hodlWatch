@@ -104,10 +104,8 @@ const SignInForm = ({ providers }) => {
 
         <label className="form-check-label" htmlFor="terms-checkbox">
           <span>You agree to our&nbsp;</span>
-          <Link href="/terms-of-service" passHref legacyBehavior>
-            <a>
-              <span className="term-text">Terms of Service</span>
-            </a>
+          <Link href="/terms-of-service" className="term-text">
+            Terms of Service
           </Link>
         </label>
       </CheckMarkContainer>

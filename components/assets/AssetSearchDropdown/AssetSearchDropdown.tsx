@@ -13,11 +13,11 @@ const AssetSearchDropdown = ({
   type,
   addAssetMethod,
 }: AssetSearchDropdownProps) => {
-  const inputId = useId();
-  const listboxId = useId();
+  const uid = useId().replace(/:/g, "");
+  const inputId = `asset-search-in-${uid}`;
+  const datalistId = `asset-search-list-${uid}`;
   const [searchValue, setSearchValue] = useState("");
   const [getAsset, { data }] = useLazyQuery(GET_ASSET);
-  const [isOpen, setIsOpen] = useState(false);
 
   const updateSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -28,15 +28,20 @@ const AssetSearchDropdown = ({
       getAsset({
         variables: { symbol: value, type },
       });
-      setIsOpen(true);
     }
   };
 
   useEffect(() => {
-    if (!data || data?.getAsset?.length === 0) {
-      setIsOpen(false);
+    if (!searchValue || !data?.getAsset?.length) return;
+    const exact = data.getAsset.find(
+      (a: { symbol: string }) =>
+        a.symbol.toLowerCase() === searchValue.toLowerCase()
+    );
+    if (exact) {
+      addAssetMethod(exact.symbol);
+      setSearchValue("");
     }
-  }, [data]);
+  }, [data, searchValue, addAssetMethod]);
 
   return (
     <DropdownContainer>
@@ -46,32 +51,20 @@ const AssetSearchDropdown = ({
         type="text"
         value={searchValue}
         onChange={updateSearchValue}
-        role="combobox"
-        aria-autocomplete="list"
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-        aria-controls={listboxId}
+        list={datalistId}
+        autoComplete="off"
       />
-
-      {isOpen && data && data?.getAsset?.length > 0 && (
-        <OptionsList
-          id={listboxId}
-          className="option-container"
-          role="listbox"
-          aria-label="Assets"
-        >
-          {data.getAsset.map((asset) => (
-            <OptionButton
+      <datalist id={datalistId}>
+        {(data?.getAsset ?? []).map(
+          (asset: { id: string; symbol: string; name: string }) => (
+            <option
               key={asset.id}
-              type="button"
-              role="option"
-              onClick={() => addAssetMethod(asset.symbol)}
-            >
-              {asset.symbol.toUpperCase()} - {asset.name}
-            </OptionButton>
-          ))}
-        </OptionsList>
-      )}
+              value={asset.symbol}
+              label={`${asset.symbol.toUpperCase()} - ${asset.name}`}
+            />
+          )
+        )}
+      </datalist>
     </DropdownContainer>
   );
 };
@@ -91,26 +84,6 @@ const DropdownContainer = styled.div`
     z-index: 100;
     max-height: 200px;
     overflow-y: auto;
-  }
-`;
-
-const OptionsList = styled.div``;
-
-const OptionButton = styled.button`
-  display: block;
-  width: 100%;
-  text-align: left;
-  border: none;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  padding: 12px;
-  cursor: pointer;
-  background: white;
-  font: inherit;
-
-  &:hover {
-    background-color: blue;
-    color: white;
   }
 `;
 

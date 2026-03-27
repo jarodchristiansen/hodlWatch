@@ -23,8 +23,9 @@ const AssetsPage = ({ userSession: session, collectiveData: _collectiveData }) =
   const [offsetState, setOffsetState] = useState<number>(1);
   const [limitState] = useState(12);
 
-  const [fetchAssets, { data, loading, error, refetch, fetchMore }] =
-    useLazyQuery(GET_ASSETS, {
+  const [fetchAssets, { data, loading, error, refetch }] = useLazyQuery(
+    GET_ASSETS,
+    {
       variables: {
         offset: 1,
         limit: 12,
@@ -118,24 +119,6 @@ const AssetsPage = ({ userSession: session, collectiveData: _collectiveData }) =
   const canGoPrev = !isSearchMode && offsetState > 1;
   const canGoNext = !isSearchMode && (data?.getAssets?.length || 0) >= limitState;
 
-  const loadMore = async () => {
-    if (isSearchMode) return;
-    if (!canGoNext) return;
-
-    const nextOffset = offsetState + 1;
-    await fetchMore?.({
-      variables: { offset: nextOffset, limit: limitState },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult?.getAssets?.length) return prev;
-        return {
-          ...prev,
-          getAssets: [...(prev?.getAssets || []), ...(fetchMoreResult.getAssets || [])],
-        };
-      },
-    });
-    setOffsetState(nextOffset);
-  };
-
   const renderedAssets = useMemo(() => {
     if (!data && !loading) {
       return [];
@@ -206,7 +189,12 @@ const AssetsPage = ({ userSession: session, collectiveData: _collectiveData }) =
                 <select
                   id="asset-sort"
                   value={sortKey}
-                  onChange={(e) => setSortKey(e.target.value as any)}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    if (v === "rank" || v === "price" || v === "mcap") {
+                      setSortKey(v);
+                    }
+                  }}
                 >
                   <option value="rank">Market cap rank</option>
                   <option value="mcap">Market cap</option>
@@ -233,20 +221,6 @@ const AssetsPage = ({ userSession: session, collectiveData: _collectiveData }) =
             </ControlGroup>
           </ExplorerControls>
         </ExplorerHeader>
-
-        {/* {!!collectiveDataComponents && collectiveDataComponents} */}
-
-        {/* {!!collectiveData?.data?.getCollectiveStats?.top_assets?.length && (
-          <div data-testid="top-assets-row">
-            <TopAssetsRow
-              topAssets={collectiveData?.data?.getCollectiveStats?.top_assets}
-            />
-          </div>
-        )} */}
-
-        {/* <div>
-          <CryptoHeatMap />
-        </div> */}
 
         <div>
           {!loading && !error && sortedAssets?.length === 0 && (
@@ -285,12 +259,6 @@ const AssetsPage = ({ userSession: session, collectiveData: _collectiveData }) =
                 canGoNext={canGoNext}
               />
             </div>
-
-            {/* <LoadMoreRow>
-              <button type="button" onClick={loadMore} disabled={!canGoNext || loading}>
-                {canGoNext ? "Load more" : "End of results"}
-              </button>
-            </LoadMoreRow> */}
           </BottomControls>
         )}
       </div>

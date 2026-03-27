@@ -153,11 +153,11 @@ const Terminal = ({ id }) => {
   return (
     <TerminalContainer>
       <div className="mode-row">
-        <button onClick={() => setTerminvalView("comparison")}>
+        <button type="button" onClick={() => setTerminvalView("comparison")}>
           Asset Comparison
         </button>
-        <button>Apply Indicator</button>
-        <button>Apply News</button>
+        <button type="button">Apply Indicator</button>
+        <button type="button">Apply News</button>
       </div>
 
       <div className="options-row">{viewOptions}</div>

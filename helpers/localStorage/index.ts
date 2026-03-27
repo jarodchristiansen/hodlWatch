@@ -12,7 +12,6 @@ export const StoreLocalKeys = (identity, values) => {
     maxAge: 2592000,
     sameSite: true,
   });
-  // localStorage.setItem(identity, values);
 };
 
 export const GetLocalKeys = (identity) => {
@@ -28,6 +27,5 @@ export const GetLocalKeys = (identity) => {
     }
   }
 
-  return;
-  // return localStorage.getItem(identity);
+  return undefined;
 };

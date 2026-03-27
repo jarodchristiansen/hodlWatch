@@ -7,13 +7,13 @@ interface RelatedPostsProps {
 }
 
 export type Post = {
-  section: String;
-  category: String;
+  section: string;
+  category: string;
   publish_date: Date;
-  slug: String;
-  header_image: String;
-  post_title: String;
-  post_content: String;
+  slug: string;
+  header_image: string;
+  post_title: string;
+  post_content: string;
 };
 
 /**
@@ -42,7 +42,7 @@ const RelatedPostsRow = (props: RelatedPostsProps) => {
         </Link>
       );
     });
-  }, []);
+  }, [tempPost]);
 
   return <>{posts}</>;
 };

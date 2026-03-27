@@ -16,6 +16,15 @@ import styled from "styled-components";
 
 import client from "../../apollo-client";
 
+function stableMarkdownChunkKey(content: string, chunkIndex: number): string {
+  let h = 2166136261;
+  for (let i = 0; i < content.length; i++) {
+    h ^= content.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return `md-${chunkIndex}-${(h >>> 0).toString(36)}-${content.length}`;
+}
+
 /**
  *
  * @param data: Post Article that is returned from SSR query
@@ -58,14 +67,14 @@ const EducationArticle = ({ data }) => {
     return markdownParts
       .filter((element) => !!element.length)
       .map((markdownPiece, idx) => {
-        // Throughout the piece without interfering in headers or lists
-        let renderRepetitionCondition =
+        const chunkKey = stableMarkdownChunkKey(markdownPiece, idx);
+        const renderRepetitionCondition =
           !!idx &&
           idx % 7 === 0 &&
           !noGoCharacters.some((char) => markdownPiece.includes(char));
 
         return (
-          <div key={`education-md-${idx}`}>
+          <div key={chunkKey}>
             <ReactMarkdown
               // eslint-disable-next-line react/no-children-prop
               children={markdownPiece}
@@ -73,7 +82,7 @@ const EducationArticle = ({ data }) => {
               rehypePlugins={[rehypeRaw]}
             />
             {renderRepetitionCondition && (
-              <InterstitialCTA key={`cta-${idx}`}>
+              <InterstitialCTA key={`cta-${chunkKey}`}>
                 <Link href="/assets">Explore assets</Link>
                 <span> · </span>
                 <Link href="/auth?path=SignUp">Sign up</Link>
