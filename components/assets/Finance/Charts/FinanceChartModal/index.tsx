@@ -1,9 +1,14 @@
 import { useState } from "react";
-import type { KeyboardEvent } from "react";
+import type { KeyboardEvent, ReactNode } from "react";
 import styled from "styled-components";
 import { FaInfoCircle } from "react-icons/fa";
 
-type FinanceChartModalProps = Readonly<{ text?: any }>;
+export type FinanceChartModalCopy = Readonly<{
+  modalHeader?: string;
+  modalBodyText: () => ReactNode;
+}>;
+
+type FinanceChartModalProps = Readonly<{ text?: FinanceChartModalCopy }>;
 
 function FinanceChartModal(props: FinanceChartModalProps) {
   const [show, setShow] = useState(false);
@@ -49,10 +54,10 @@ function FinanceChartModal(props: FinanceChartModalProps) {
             </CloseButton>
             <h2>{text?.modalHeader || "Modal Heading"}</h2>
             <div>
-              {text?.modalBodyText() || "This is the modal description"}
+              {text?.modalBodyText?.() ?? "This is the modal description"}
             </div>
             <div className="modal-footer">
-              <button className="btn" onClick={handleClose}>
+              <button type="button" className="btn" onClick={handleClose}>
                 Close
               </button>
             </div>

@@ -247,23 +247,6 @@ async function loadCoinGeckoDetailForId(resolvedId, CoinGeckoClient) {
 export const AssetResolver = {
   getAssets: async (_, { offset, limit, topListBy }) => {
     try {
-      // const CoinGeckoClient = new CoinGecko();
-      // const client = new CoinGeckoClient({
-      //   timeout: 10000,
-      //   autoRetry: false,
-      // });
-
-      // let assets = await client.coinMarket({
-      //   vs_currency: "USD",
-      //   page: offset,
-      //   per_page: limit,
-      //   order: "market_cap_desc",
-      // });
-
-      // console.log({ assets });
-
-      // const assetsByPageNumber = assets?.splice(offset - 1, limit);
-
       const assets = await Asset.find({})
         .limit(offset * limit)
         .sort("-market_cap");

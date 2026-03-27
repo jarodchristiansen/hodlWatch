@@ -52,7 +52,6 @@ const AssetDetailsPage = ({ session }) => {
   const [getBTCMacros, { data: MacroData, error: MacroError }] =
     useLazyQuery(GET_BTC_MACROS);
 
-  const isBtcOrEth = id === "btc" || id === "eth";
   const isBtc = id === "btc";
 
   // Keep view state shareable + back/forward friendly
@@ -223,12 +222,9 @@ const AssetDetailsPage = ({ session }) => {
             <DashboardView
               id={id}
               MacroData={MacroData}
-              GeckoDetails={GeckoDetails}
-              timeQuery={timeQuery}
               data={data}
               loading={loading}
               isBtc={isBtc}
-              isBtcOrEth={isBtcOrEth}
             />
           </ViewContainer>
         )}

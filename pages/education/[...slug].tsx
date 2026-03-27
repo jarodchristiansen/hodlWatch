@@ -65,7 +65,7 @@ const EducationArticle = ({ data }) => {
           !noGoCharacters.some((char) => markdownPiece.includes(char));
 
         return (
-          <div key={markdownPiece + idx}>
+          <div key={`education-md-${idx}`}>
             <ReactMarkdown
               // eslint-disable-next-line react/no-children-prop
               children={markdownPiece}

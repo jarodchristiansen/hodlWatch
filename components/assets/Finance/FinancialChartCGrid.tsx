@@ -8,13 +8,56 @@ import {
   chartCardStyleOverrides,
   defaultChartCardStyle,
 } from "./chartCardStyleConfig";
+import type { ChartConfig } from "./chartConfig";
 import { chartConfig } from "./chartConfig";
+
+type FinancialRow = Record<string, unknown>;
+type ProcessedFinancial = ReturnType<typeof processFinancialHistory>;
+
+export type FinancialChartGridProps = Readonly<{
+  financialData?: FinancialRow[] | null;
+}>;
+
+const MODE_PRESETS = {
+  overview: {
+    primary: ["fibonacci", "ema", "macd", "bollinger"] as const,
+    secondary: ["volume", "rsi"] as const,
+    label: "Overview",
+    description: "Key trend + momentum signals at a glance.",
+  },
+  momentum: {
+    primary: ["macd", "rsi", "stochastic"] as const,
+    secondary: ["obv", "adx", "volume"] as const,
+    label: "Momentum",
+    description: "Momentum & reversal signals for timing.",
+  },
+  risk: {
+    primary: ["bollinger", "atr", "sharpe"] as const,
+    secondary: ["volume", "adx"] as const,
+    label: "Risk",
+    description: "Volatility and risk-adjusted context.",
+  },
+  onchain: {
+    primary: ["nupl"] as const,
+    secondary: ["volume", "obv"] as const,
+    label: "On-chain",
+    description: "On-chain sentiment and participation proxies (where available).",
+  },
+} as const;
+
+type ModeKey = keyof typeof MODE_PRESETS;
+
+type FinancialChartConfigCardProps = Readonly<{
+  entry: ChartConfig;
+  processedFinancialData: ProcessedFinancial;
+  styleOverride: Partial<typeof defaultChartCardStyle>;
+}>;
 
 function FinancialChartConfigCard({
   entry,
   processedFinancialData,
   styleOverride,
-}) {
+}: FinancialChartConfigCardProps) {
   const ChartComponent = entry.component;
   const chartData = entry.dataSelector(processedFinancialData);
   if (!chartData || (Array.isArray(chartData) && !chartData.length))
@@ -25,7 +68,7 @@ function FinancialChartConfigCard({
         {entry.icon && (
           <Image
             src={entry.icon}
-            alt={entry.label + " icon"}
+            alt={`${entry.label} icon`}
             width={28}
             height={28}
           />
@@ -40,56 +83,25 @@ function FinancialChartConfigCard({
   );
 }
 
-const FinancialChartGrid = ({ financialData }) => {
-  const [processedFinancialData, setProcessedFinancialData] = useState([]);
-  const [mode, setMode] = useState("overview");
+const FinancialChartGrid = ({ financialData }: FinancialChartGridProps) => {
+  const [processedFinancialData, setProcessedFinancialData] =
+    useState<ProcessedFinancial>(() => processFinancialHistory(null));
+  const [mode, setMode] = useState<ModeKey>("overview");
   const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     if (financialData) {
-      processFinancialData(financialData);
+      setProcessedFinancialData(processFinancialHistory(financialData));
     }
   }, [financialData]);
 
-  const processFinancialData = (financialData) => {
-    const filteredData = processFinancialHistory(financialData);
-    setProcessedFinancialData(filteredData);
-  };
-
-  const MODE_PRESETS = {
-    overview: {
-      primary: ["fibonacci", "ema", "macd", "bollinger"],
-      secondary: ["volume", "rsi"],
-      label: "Overview",
-      description: "Key trend + momentum signals at a glance.",
-    },
-    momentum: {
-      primary: ["macd", "rsi", "stochastic"],
-      secondary: ["obv", "adx", "volume"],
-      label: "Momentum",
-      description: "Momentum & reversal signals for timing.",
-    },
-    risk: {
-      primary: ["bollinger", "atr", "sharpe"],
-      secondary: ["volume", "adx"],
-      label: "Risk",
-      description: "Volatility and risk-adjusted context.",
-    },
-    onchain: {
-      primary: ["nupl"],
-      secondary: ["volume", "obv"],
-      label: "On-chain",
-      description: "On-chain sentiment and participation proxies (where available).",
-    },
-  };
-
-  const currentPreset = MODE_PRESETS[mode] || MODE_PRESETS.overview;
-  const selectedKeys = new Set([
-    ...(currentPreset.primary || []),
-    ...(showMore ? currentPreset.secondary || [] : []),
+  const currentPreset = MODE_PRESETS[mode] ?? MODE_PRESETS.overview;
+  const selectedKeys = new Set<string>([
+    ...currentPreset.primary,
+    ...(showMore ? currentPreset.secondary : []),
   ]);
 
-  const renderCharts = () => {
+  function renderCharts() {
     return chartConfig
       .filter((c) => selectedKeys.has(c.key))
       .map((c) => {
@@ -103,25 +115,28 @@ const FinancialChartGrid = ({ financialData }) => {
           />
         );
       });
-  };
+  }
 
   return (
     <div style={{ overflowX: "hidden", width: "100%" }}>
       <DashboardTopBar>
         <div className="left">
           <ModeTabs role="tablist" aria-label="Dashboard modes">
-            {Object.entries(MODE_PRESETS).map(([key, cfg]) => (
-              <button
-                key={key}
-                type="button"
-                role="tab"
-                aria-selected={mode === key}
-                className={mode === key ? "active" : ""}
-                onClick={() => setMode(key)}
-              >
-                {cfg.label}
-              </button>
-            ))}
+            {(Object.keys(MODE_PRESETS) as ModeKey[]).map((key) => {
+              const cfg = MODE_PRESETS[key];
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  role="tab"
+                  aria-selected={mode === key}
+                  className={mode === key ? "active" : ""}
+                  onClick={() => setMode(key)}
+                >
+                  {cfg.label}
+                </button>
+              );
+            })}
           </ModeTabs>
           <ModeHint>
             <span className="title">{currentPreset.label}</span>
@@ -283,9 +298,9 @@ const DepthToggle = styled.fieldset`
   }
 `;
 
-const ChartCard = styled.div.attrs((props) => ({
+const ChartCard = styled.div.attrs((props: { $styleOverride?: object }) => ({
   style: props.$styleOverride || {},
-}))`
+}))<{ $styleOverride?: Partial<typeof defaultChartCardStyle> }>`
   display: flex;
   flex-direction: column;
   text-align: left;

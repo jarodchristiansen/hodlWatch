@@ -30,7 +30,7 @@ const PairDetailsRow: React.FC<PairDetailsRowProps> = ({ id }) => {
 
     return data?.getAssetPairs.pairData
       ?.slice(pairStartIndex, pairEndIndex)
-      .map((pair, idx) => {
+      .map((pair) => {
         return <PairBlock data={pair} id={id} key={pair.ID} />;
       });
   }, [data?.getAssetPairs, id, pairStartIndex, pairEndIndex]);

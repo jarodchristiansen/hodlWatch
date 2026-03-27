@@ -1,7 +1,7 @@
 import { GET_USER } from "@/helpers/queries/user";
 import { MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
 import AssetCard from "../AssetCard/AssetCard";
@@ -42,8 +42,6 @@ const AssetsContainer = ({ assets, session, viewMode = "grid" }: AssetsContainer
     setCurrentAssets(assets);
   }, [assets]);
 
-  const ref = useRef();
-
   const AssetCards = useMemo(() => {
     if (!currentAssets) return [];
 
@@ -73,9 +71,9 @@ const AssetsContainer = ({ assets, session, viewMode = "grid" }: AssetsContainer
         {currentAssets && currentAssets.length > 1 && (
           <>
             {viewMode === "grid" ? (
-              <GridComponent ref={ref}>{AssetCards}</GridComponent>
+              <GridComponent>{AssetCards}</GridComponent>
             ) : (
-              <ListComponent ref={ref}>{AssetCards}</ListComponent>
+              <ListComponent>{AssetCards}</ListComponent>
             )}
           </>
         )}

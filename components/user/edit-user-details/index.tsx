@@ -110,7 +110,6 @@ const EditUserDetails = ({ user, fetchedUser }) => {
                   placeholder={fetchedUser?.username}
                   onChange={(e) => setUsernameInput(e.target.value)}
                 />
-                {/* <h4>{fetchedUser?.username}</h4> */}
 
                 <TextActionButton type="button" onClick={setEditMain}>
                   Back
@@ -131,7 +130,18 @@ const EditUserDetails = ({ user, fetchedUser }) => {
             </>
           )}
 
-          <button onClick={submitUsernameChange}>Submit</button>
+          <button
+            type="button"
+            disabled={loading}
+            onClick={submitUsernameChange}
+          >
+            {loading ? "Saving…" : "Submit"}
+          </button>
+          {error && (
+            <p className="mutation-error" role="alert">
+              {error.message}
+            </p>
+          )}
         </UserDetailsCard>
       )}
     </>
@@ -203,6 +213,12 @@ const UserDetailsCard = styled.div`
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
     }
+  }
+
+  .mutation-error {
+    margin: 0.75rem 2rem 1rem;
+    color: #b00020;
+    font-size: 0.9rem;
   }
 
   @media ${MediaQueries.MD} {

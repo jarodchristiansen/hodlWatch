@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-interface SEOHeadProps {
-  isHomePage?: boolean;
-  metaTitle: string;
-  metaDescription: string;
-  previewImage?: string;
+export interface SEOHeadProps {
+  readonly isHomePage?: boolean;
+  readonly metaTitle: string;
+  readonly metaDescription: string;
+  readonly previewImage?: string;
 }
 
 const SEOHead = ({
@@ -44,27 +44,32 @@ const SEOHead = ({
       )}
 
       <meta property="og:type" content="website" />
-      {/* <meta property="fb:app_id" content="your fb id" /> */}
 
       <meta
         property="og:title"
-        content={metaTitle ? metaTitle : "Mesh: Crypto market data and portfolios"}
+        content={metaTitle || "Mesh: Crypto market data and portfolios"}
       />
 
       <meta
         name="description"
-        content={metaDescription ? metaDescription : "Crypto market data, portfolio tracking, and community in one place."}
+        content={
+          metaDescription ||
+          "Crypto market data, portfolio tracking, and community in one place."
+        }
       />
       <meta
         name="twitter:card"
-        content={metaTitle ? metaTitle : "Mesh: Crypto market data and portfolios"}
+        content={metaTitle || "Mesh: Crypto market data and portfolios"}
       />
 
       {pathname && <meta name="twitter:site" content={pathname} />}
 
       <meta
         property="og:description"
-        content={metaDescription ? metaDescription : "Crypto market data, portfolio tracking, and community in one place."}
+        content={
+          metaDescription ||
+          "Crypto market data, portfolio tracking, and community in one place."
+        }
       />
       <meta property="og:image" content={previewImage ?? ""} />
       <meta property="og:image:width" content="400" />

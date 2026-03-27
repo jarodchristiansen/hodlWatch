@@ -13,6 +13,7 @@ const AssetSearchDropdown = ({
   type,
   addAssetMethod,
 }: AssetSearchDropdownProps) => {
+  const inputId = useId();
   const listboxId = useId();
   const [searchValue, setSearchValue] = useState("");
   const [getAsset, { data }] = useLazyQuery(GET_ASSET);
@@ -39,14 +40,15 @@ const AssetSearchDropdown = ({
 
   return (
     <DropdownContainer>
-      <label htmlFor="asset-search">Asset Search</label>
+      <label htmlFor={inputId}>Asset Search</label>
       <Input
-        id="asset-search"
+        id={inputId}
         type="text"
         value={searchValue}
         onChange={updateSearchValue}
         role="combobox"
         aria-autocomplete="list"
+        aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-controls={listboxId}
       />

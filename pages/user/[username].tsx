@@ -1,11 +1,9 @@
 import SideMenu from "@/components/commons/sidebar-nav";
 import PortfolioMain from "@/components/portfolio/PortfolioMain";
-// import PriceScreener from "@/components/commons/screener";
 import EditUserDetails from "@/components/user/edit-user-details";
 import { GET_USER } from "@/helpers/queries/user/index";
 import { Colors, MediaQueries } from "@/styles/variables";
 import { useLazyQuery } from "@apollo/client";
-// import { getSession, useSession } from "@web3modal/react";
 import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
@@ -20,10 +18,6 @@ import styled from "styled-components";
 const ProfilePage = () => {
   const { data: session, status } = useSession();
   const [user, setUser] = useState(null);
-  // const { account, isReady } = useAccount();
-
-  //   const [walletIsConnected, setWalletIsConnected] = useState(false);
-  // const { isOpen, open, close } = useConnectModal();
 
   const [fetchUserDetails, { data }] = useLazyQuery(GET_USER, {
     fetchPolicy: "network-only",
@@ -60,21 +54,6 @@ const ProfilePage = () => {
       setUser(data.getUser);
     }
   }, [data?.getUser]);
-
-  // const walletIsConnected = useMemo(() => {
-  //   if (!account.status) return false;
-
-  //   return account.status !== "disconnected" && account.status !== "connecting"
-  //     ? true
-  //     : false;
-  // }, [account]);
-
-  // const {
-  //   data: tokenData,
-  //   error: fetchTokenError,
-  //   isLoading: fetchTokensLoading,
-  //   refetch: refetchTokoenData,
-  // } = useBalance({ addressOrName: account?.address });
 
   const navigateToAssetPage = useCallback(
     (favorite) => {
@@ -218,28 +197,6 @@ const ProfilePage = () => {
                   </>
                 )}
               </UserDetailsCard>
-              {/* 
-              {!walletIsConnected && (
-                <ConnectWalletCard>
-                  <h4>It looks like your wallet isn't connected</h4>
-                  <button className="standardized-button" onClick={open}>
-                    Connect Your Wallet
-                  </button>
-                </ConnectWalletCard>
-              )}
-
-              {!!walletIsConnected && (
-                <ConnectWalletCard onClick={open}>
-                  <h6>{account?.address}</h6>
-                  <div>
-                    <h4>Balance:</h4>
-                    <h4>
-                      {tokenData?.formatted} {tokenData?.symbol}
-                    </h4>
-                  </div>
-                  <Web3Button />
-                </ConnectWalletCard>
-              )} */}
 
               {userFavoritesList.length > 0 ? (
                 <UserFavoritesList>
@@ -343,22 +300,6 @@ const CentralWrapper = styled.div`
     color: ${Colors.accent};
     font-weight: bold;
     font-size: 18px;
-  }
-`;
-
-const ConnectWalletCard = styled.div`
-  width: 100%;
-  border: 2px solid black;
-  border-radius: 14px;
-  text-align: center;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-
-  @media ${MediaQueries.MD} {
-    width: 30rem;
   }
 `;
 
