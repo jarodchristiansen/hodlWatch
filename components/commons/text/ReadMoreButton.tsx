@@ -1,62 +1,39 @@
-import { Colors } from "@/styles/variables";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "styled-components";
 
-const ReadMoreButton = ({ children }) => {
-  const [currentText, setCurrentText] = useState();
-  const [shouldShowReadMore, setShouldShowReadMore] = useState(false);
+interface ReadMoreButtonProps {
+  readonly children: string;
+}
+
+const ReadMoreButton = ({ children }: ReadMoreButtonProps) => {
   const [showMore, setShowMore] = useState(false);
 
-  useEffect(() => {
-    if (children.length > 250) {
-      setShouldShowReadMore(true);
-    }
-  }, [children]);
+  const shouldTruncate = useMemo(
+    () => children.length > 250,
+    [children]
+  );
 
   const shortenedText = useMemo(() => {
-    if (!children) return "N/A";
-    if (!shouldShowReadMore || showMore) return children;
+    if (!shouldTruncate || showMore) return children;
     return children.slice(0, 250);
-  }, [shouldShowReadMore, children, showMore]);
+  }, [children, shouldTruncate, showMore]);
 
-  const changeRender = (step: string) => {
-    if (step === "Less") {
-      setShowMore(false);
-      setShouldShowReadMore(true);
-    }
-    if (step === "More") {
-      setShowMore(true);
-      setShouldShowReadMore(false);
-    }
-  };
+  if (!shouldTruncate) {
+    return <ReadMoreWrapper>{children}</ReadMoreWrapper>;
+  }
 
   return (
     <ReadMoreWrapper>
-      {!shouldShowReadMore && !showMore && <>{children}</>}
-
-      {shouldShowReadMore && (
-        <div className="content-container">
-          {shortenedText}
-          <button
-            onClick={() => changeRender("More")}
-            className="read-more-text standardized-button"
-          >
-            Read More
-          </button>
-        </div>
-      )}
-
-      {!shouldShowReadMore && showMore && (
-        <div className="content-container">
-          {children}
-          <button
-            onClick={() => changeRender("Less")}
-            className="read-more-text standardized-button"
-          >
-            Show Less
-          </button>
-        </div>
-      )}
+      <div className="content-container">
+        {showMore ? children : shortenedText}
+        <button
+          type="button"
+          onClick={() => setShowMore((prev) => !prev)}
+          className="read-more-text standardized-button"
+        >
+          {showMore ? "Show Less" : "Read More"}
+        </button>
+      </div>
     </ReadMoreWrapper>
   );
 };

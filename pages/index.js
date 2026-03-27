@@ -29,6 +29,9 @@ const cardContent = [
   },
 ];
 
+/**
+ * @param {{ data: Record<string, unknown> }} props
+ */
 export default function Home({ data }) {
   const { data: session } = useSession();
   const [activeHowItWorksStep, setActiveHowItWorksStep] = useState(0);
@@ -69,16 +72,6 @@ export default function Home({ data }) {
       <TopRow>
         <HeroBanner />
       </TopRow>
-
-      {/* <StatsStripSection id="stats">
-        <StatsStrip>
-          <StatItem>10,000+ assets</StatItem>
-          <StatSeparator aria-hidden="true">·</StatSeparator>
-          <StatItem>Real-time data</StatItem>
-          <StatSeparator aria-hidden="true">·</StatSeparator>
-          <StatItem>Free to start</StatItem>
-        </StatsStrip>
-      </StatsStripSection> */}
 
       <Row id="features">
         <FeatureSectionHeader>
@@ -189,43 +182,6 @@ const TopRow = styled.section`
     justify-content: space-between;
     padding: 96px 0 0 0;
   }
-`;
-
-const StatsStripSection = styled.section`
-  width: 100%;
-  background: ${Colors.primary};
-  padding: ${SectionSpacing.compact} 24px;
-
-  @media ${MediaQueries.MD} {
-    padding: ${SectionSpacing.default} 32px;
-  }
-`;
-
-const StatsStrip = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 12px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-family: ${FontFamily.primary};
-  font-size: ${FontSize.small};
-  color: ${Colors.accentLight};
-
-  @media ${MediaQueries.MD} {
-    font-size: ${FontSize.medium};
-    gap: 16px 24px;
-  }
-`;
-
-const StatItem = styled.span`
-  font-weight: 600;
-`;
-
-const StatSeparator = styled.span`
-  color: ${Colors.secondary};
-  opacity: 0.8;
 `;
 
 const FeatureSectionHeader = styled.div`
@@ -500,9 +456,6 @@ export const getServerSideProps = async (context) => {
   let data = {};
 
   try {
-    // const response = await getNewsFeed(); // replace with your actual data fetching logic.
-    // data = response.data;
-
     if (!data) {
       return {
         notFound: true,

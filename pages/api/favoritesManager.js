@@ -26,7 +26,7 @@ export default async function handler(request, response) {
     }
 
     for (let favorite in favoritesMap) {
-      let asset = await Asset.findOneAndUpdate(
+      await Asset.findOneAndUpdate(
         { name: favorite },
         { favorite_count: favoritesMap[favorite] }
       ).catch();
@@ -40,6 +40,5 @@ export default async function handler(request, response) {
       status: 401,
       message: "Unauthorized",
     });
-    return;
   }
 }

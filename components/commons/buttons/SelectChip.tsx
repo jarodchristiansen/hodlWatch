@@ -6,7 +6,11 @@ const SelectChip = ({ title, onClick }) => {
     <ChipWrapper>
       {title?.toUpperCase()}
 
-      {typeof onClick === "function" && <button onClick={onClick}>X</button>}
+      {typeof onClick === "function" && (
+        <button type="button" onClick={onClick}>
+          X
+        </button>
+      )}
     </ChipWrapper>
   );
 };

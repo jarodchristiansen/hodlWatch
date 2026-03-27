@@ -16,7 +16,7 @@ import styled from "styled-components";
  * @returns User Profile Page with edit/profile pages connected as query strings
  */
 const ProfilePage = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [user, setUser] = useState(null);
 
   const [fetchUserDetails, { data }] = useLazyQuery(GET_USER, {

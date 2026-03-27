@@ -232,6 +232,41 @@ def _decode_markets_json_or_retry(
     return (data if isinstance(data, list) else []), False
 
 
+def _markets_page_response_action(
+    resp: Response,
+    page: int,
+    attempt: int,
+    max_attempts: int,
+    sleep_429_sec: float,
+) -> Tuple[Optional[List[Dict[str, Any]]], str]:
+    """
+    Map HTTP response to (payload, directive).
+    directive: "done" (return payload), "retry", or "stop" (give up page).
+    Raises RuntimeError on non-retryable 4xx.
+    """
+    if resp.status_code == 429:
+        if _handle_429_on_page(page, attempt, max_attempts, resp, sleep_429_sec):
+            return None, "retry"
+        return None, "stop"
+
+    if resp.status_code >= 500:
+        if _handle_server_error_on_page(page, attempt, max_attempts, resp):
+            return None, "retry"
+        return None, "stop"
+
+    if resp.status_code >= 400:
+        raise RuntimeError(
+            f"CoinGecko HTTP {resp.status_code} for page={page}: {_response_snippet(resp)}"
+        )
+
+    parsed, should_retry = _decode_markets_json_or_retry(
+        resp, page, attempt, max_attempts
+    )
+    if should_retry:
+        return None, "retry"
+    return parsed or [], "done"
+
+
 def fetch_markets_page(
     session: requests.Session,
     base_url: str,
@@ -262,30 +297,14 @@ def fetch_markets_page(
             continue
 
         last_resp = resp
-
-        if resp.status_code == 429:
-            if not _handle_429_on_page(
-                page, attempt, max_attempts, resp, sleep_429_sec
-            ):
-                break
-            continue
-
-        if resp.status_code >= 500:
-            if not _handle_server_error_on_page(page, attempt, max_attempts, resp):
-                break
-            continue
-
-        if resp.status_code >= 400:
-            raise RuntimeError(
-                f"CoinGecko HTTP {resp.status_code} for page={page}: {_response_snippet(resp)}"
-            )
-
-        parsed, should_retry = _decode_markets_json_or_retry(
-            resp, page, attempt, max_attempts
+        payload, directive = _markets_page_response_action(
+            resp, page, attempt, max_attempts, sleep_429_sec
         )
-        if should_retry:
+        if directive == "done":
+            return payload or []
+        if directive == "retry":
             continue
-        return parsed or []
+        break
 
     detail = ""
     if last_resp is not None:

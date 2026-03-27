@@ -44,6 +44,5 @@ export default async function handler(request, response) {
       status: 401,
       message: "Unauthorized",
     });
-    return;
   }
 }

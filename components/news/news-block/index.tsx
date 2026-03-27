@@ -39,8 +39,17 @@ interface SourceInfoType {
  * @param props NewsBlockProps: the components of the newsStory rendered in the block
  * @returns NewsBlock: news post block in news feed
  */
+function externalStoryUrl(story: StoryType): string {
+  const candidates = [story.url, story.guid];
+  const found = candidates.find(
+    (u) => typeof u === "string" && /^https?:\/\//i.test(u)
+  );
+  return found ?? "";
+}
+
 const NewsBlock = (props: NewsBlockProps) => {
   const { story } = props;
+  const storyLink = externalStoryUrl(story);
 
   return (
     <NewsItem>
@@ -68,8 +77,13 @@ const NewsBlock = (props: NewsBlockProps) => {
           <span>{story.body.slice(0, 300) + "..."}</span>
         </div>
 
-        <Link href={story?.guid} passHref legacyBehavior>
-          <a target="_blank">
+        {storyLink ? (
+          <Link
+            href={storyLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="source-link"
+          >
             <div className="source-row">
               <span className="source-name">{story?.source_info?.name}</span>
               <Image
@@ -81,8 +95,20 @@ const NewsBlock = (props: NewsBlockProps) => {
                 priority
               />
             </div>
-          </a>
-        </Link>
+          </Link>
+        ) : (
+          <div className="source-row">
+            <span className="source-name">{story?.source_info?.name}</span>
+            <Image
+              src={story.source_info?.img}
+              height={55}
+              width={55}
+              alt="block-logo"
+              unoptimized={true}
+              priority
+            />
+          </div>
+        )}
       </div>
     </NewsItem>
   );

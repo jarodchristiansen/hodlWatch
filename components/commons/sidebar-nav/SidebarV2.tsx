@@ -31,11 +31,11 @@ const SidebarV2 = ({ open, setOpen, view, setPageView }: SidebarProps) => {
     <>
       {/* Mobile overlay and sidebar only when open */}
       {isMobile && open && (
-        <MobileSidebarOverlay onClick={() => setOpen(false)} />
+        <MobileSidebarOverlay onClick={() => setOpen?.(false)} />
       )}
       {(isMobile ? open : true) && (
         <SidebarContainer $open={open}>
-          <ToggleIcon onClick={() => setOpen && setOpen(!open)}>
+          <ToggleIcon onClick={() => setOpen?.(!open)}>
             {open ? (
               <i className="fas fa-times" />
             ) : (
@@ -63,7 +63,7 @@ const SidebarV2 = ({ open, setOpen, view, setPageView }: SidebarProps) => {
                 <MenuItem
                   $open={open}
                   className={isReportView ? "selected" : ""}
-                  onClick={() => setPageView && setPageView("reports")}
+                  onClick={() => setPageView?.("reports")}
                 >
                   <Image
                     alt="reports icon"
@@ -78,7 +78,7 @@ const SidebarV2 = ({ open, setOpen, view, setPageView }: SidebarProps) => {
                 <MenuItem
                   $open={open}
                   className={isSimulatorView ? "selected" : ""}
-                  onClick={() => setPageView && setPageView("simulator")}
+                  onClick={() => setPageView?.("simulator")}
                 >
                   <Image
                     alt="simulator icon"
@@ -125,7 +125,7 @@ const SidebarV2 = ({ open, setOpen, view, setPageView }: SidebarProps) => {
                 <MenuItem
                   $open={open}
                   className={isReportView ? "selected" : ""}
-                  onClick={() => setPageView && setPageView("reports")}
+                  onClick={() => setPageView?.("reports")}
                 >
                   <Image
                     alt="reports icon"
@@ -138,7 +138,7 @@ const SidebarV2 = ({ open, setOpen, view, setPageView }: SidebarProps) => {
                 <MenuItem
                   $open={open}
                   className={isSimulatorView ? "selected" : ""}
-                  onClick={() => setPageView && setPageView("simulator")}
+                  onClick={() => setPageView?.("simulator")}
                 >
                   <Image
                     alt="simulator icon"
@@ -168,7 +168,7 @@ const SidebarV2 = ({ open, setOpen, view, setPageView }: SidebarProps) => {
       )}
       {/* Hamburger always visible on mobile */}
       {isMobile && (
-        <MobileHamburger onClick={() => setOpen(!open)}>
+        <MobileHamburger onClick={() => setOpen?.(!open)}>
           <i className={open ? "fas fa-times" : "fas fa-bars"} />
         </MobileHamburger>
       )}

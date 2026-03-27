@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -9,12 +9,32 @@ import {
   YAxis,
 } from "recharts";
 
-const PriceBTCChartDesktop = ({ data }) => {
-  const [processedData, setProcessedData] = useState([]);
+export interface PriceBtcRow {
+  time: string;
+  price_btc: number;
+}
 
-  function processFibonacciData(rows) {
-    const closeData = [];
-    const dateData = [];
+interface PriceBtcProcessedRow {
+  price_btc: number;
+  fib1: number;
+  fib2: number;
+  fib3: number;
+  fib4: number;
+  time: string;
+  min: number;
+  max: number;
+}
+
+interface PriceBTCChartDesktopProps {
+  data: PriceBtcRow[];
+}
+
+const PriceBTCChartDesktop = ({ data }: PriceBTCChartDesktopProps) => {
+  const [processedData, setProcessedData] = useState<PriceBtcProcessedRow[]>([]);
+
+  function processFibonacciData(rows: PriceBtcRow[]) {
+    const closeData: number[] = [];
+    const dateData: string[] = [];
 
     for (const row of rows) {
       closeData.push(row.price_btc);
@@ -39,7 +59,7 @@ const PriceBTCChartDesktop = ({ data }) => {
     const minArray = new Array(n).fill(priceMin).flat();
     const maxArray = new Array(n).fill(priceMax).flat();
 
-    const fibData = [];
+    const fibData: PriceBtcProcessedRow[] = [];
 
     for (let i = 0; i < dateData.length; i++) {
       fibData.push({
@@ -67,7 +87,7 @@ const PriceBTCChartDesktop = ({ data }) => {
       <div className={"flex flex-row"}>
         <h1>Price Vs BTC</h1>
       </div>
-      {processedData && (
+      {processedData.length > 0 && (
         <LineChart data={processedData} height={500} width={500}>
           <CartesianGrid strokeDasharray="3 3" />
 

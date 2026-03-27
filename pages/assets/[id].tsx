@@ -36,7 +36,6 @@ const AssetDetailsPage = ({ session }) => {
   const [aboutOpen, setAboutOpen] = useState(false);
 
   const router = useRouter();
-  const { asPath } = router;
 
   const id = queryAsString(router.query?.id) ?? "";
   const name = queryAsString(router.query?.name);
