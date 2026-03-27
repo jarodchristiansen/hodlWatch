@@ -19,47 +19,6 @@ import { EducationPageContent } from "../../content/EducationPageContent";
  * @returns Education Page filtering the posts created from HodlWatch-Admin portal
  */
 const EducationPage = () => {
-  // const [getPosts, { data, loading: newsLoading, error, called, refetch }] =
-  //   useLazyQuery(GET_POSTS);
-
-  // useEffect(() => {
-  //   getPosts({
-  //     variables: {
-  //       filter: "Education",
-  //     },
-  //   });
-  // });
-
-  // const PostCards = useMemo(() => {
-  //   if (!data?.getPosts) return [];
-
-  //   return data.getPosts.map((post) => {
-  //     return (
-  //       <Link href={`/education${post.slug}`} key={post.slug}>
-  //         <PostRow>
-  //           <div>
-  //             <Image
-  //               src={post.header_image}
-  //               height={300}
-  //               width={100}
-  //               alt="block-logo"
-  //               priority
-  //               unoptimized={true}
-  //             />
-  //           </div>
-
-  //           <h2> {post.post_title}</h2>
-  //           <span>Subject: {post.category}</span>
-  //           <span>
-  //             {post?.description?.length &&
-  //               post?.description?.slice(0, 125) + "..."}
-  //           </span>
-  //         </PostRow>
-  //       </Link>
-  //     );
-  //   });
-  // }, [data?.getPosts]);
-
   const PostCards = useMemo(() => {
     return EducationPageContent("cards").map((post) => {
       return (
@@ -98,11 +57,6 @@ const EducationPage = () => {
         }
         previewImage={"/assets/PieChart.PNG"}
       />
-
-      {/* <FilterBar>
-        <label htmlFor="article_search">Article:</label>
-        <input type="text" name="article_search" />
-      </FilterBar> */}
 
       <PageHolder>
         <InterstitialRow>
@@ -293,22 +247,5 @@ const PageHolder = styled.div`
     }
   }
 `;
-
-// export async function getServerSideProps(context) {
-//   const session = await getSession(context);
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: "/auth",
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: { session },
-//   };
-// }
 
 export default EducationPage;

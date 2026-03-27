@@ -148,19 +148,11 @@ const AssetsPage = ({ userSession: session, collectiveData: _collectiveData }) =
             assets={sortedAssets}
             session={session}
             viewMode={viewMode}
-          // loadMore={loadMoreFunction}
           />
         </AssetContainerWrapper>
       );
     }
   }, [data, loading, isSearchMode, sortedAssets, session, viewMode]);
-
-  // const loadMoreFunction = () => {
-  //   // refetch({ offset: offsetState - 1 });
-  //   fetchMore({
-  //     offset: offsetState,
-  //   });
-  // };
 
   return (
     <PageWrapper>
@@ -590,15 +582,6 @@ const getCollectiveStats = async (context) => {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-
-  // if (!session) {
-  //   return {
-  //     redirect: {
-  //       destination: "/auth",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
 
   let data = null;
 

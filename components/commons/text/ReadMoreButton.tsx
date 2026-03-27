@@ -16,21 +16,14 @@ const ReadMoreButton = ({ children }) => {
   const shortenedText = useMemo(() => {
     if (!children) return "N/A";
     if (!shouldShowReadMore || showMore) return children;
-
-    // .replace(/ /g, "")
-    if (!showMore) {
-      return children.slice(0, 250);
-    }
+    return children.slice(0, 250);
   }, [shouldShowReadMore, children, showMore]);
 
   const changeRender = (step: string) => {
-    // step === "Less" && setShowMore(false);
-
     if (step === "Less") {
       setShowMore(false);
       setShouldShowReadMore(true);
     }
-    // step === "More" && setShowMore(true);
     if (step === "More") {
       setShowMore(true);
       setShouldShowReadMore(false);

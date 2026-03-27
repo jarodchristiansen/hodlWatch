@@ -5,16 +5,7 @@ import FinancialChartGrid from "../assets/Finance/FinancialChartCGrid";
 import PairDetailsRow from "../assets/Finance/PairDetails";
 import { BorderRadius, Colors, Surfaces } from "@/styles/variables";
 
-const DashboardView = ({
-  timeQuery,
-  data,
-  isBtcOrEth,
-  isBtc,
-  GeckoDetails,
-  id,
-  MacroData,
-  loading,
-}) => {
+const DashboardView = ({ data, isBtc, id, MacroData, loading }) => {
   return (
     <DashboardShell>
       <Section>
@@ -36,30 +27,6 @@ const DashboardView = ({
           <PairDetailsRow id={id} />
         </PairRowContainer>
       )}
-
-      {/* {isBtcOrEth && (
-        <IndicatorGrid
-          timeQuery={timeQuery}
-          id={id}
-          blockchainData={
-            data?.getAssetHistory?.blockchainData
-              ? data?.getAssetHistory.blockchainData
-              : []
-          }
-        />
-      )} */}
-
-      {/* {!!GeckoDetails?.getGeckoAssetDetails?.description?.en && (
-        <div className="bottom-row">
-          <ReactMarkdown
-            // eslint-disable-next-line react/no-children-prop
-            children={GeckoDetails?.getGeckoAssetDetails?.description?.en}
-            remarkPlugins={[remarkGfm, remarkParse, remarkRehype]}
-            rehypePlugins={[rehypeRaw]}
-            // key={markdownPiece + Math.random()}
-          />
-        </div>
-      )} */}
 
       {!loading && isBtc && (
         <Section>

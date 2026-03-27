@@ -81,19 +81,6 @@ const ProviderContainer = ({
     }
   };
 
-  // useEffect(() => {
-  //   handleFormatOnNumberOfProvider();
-  // }, [providers]);
-
-  // const handleFormatOnNumberOfProvider = () => {
-  //   let grid = document.getElementById("auth-provider-grid");
-  //   let childCount = grid?.childElementCount;
-
-  //   childCount && childCount % 2 == 0
-  //     ? grid.classList?.add("row", "row-cols-2")
-  //     : grid.classList?.add("col-8", `col-row-${childCount}`);
-  // };
-
   return (
     <ButtonContainer>
       {providers &&

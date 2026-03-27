@@ -154,8 +154,6 @@ section {
 .accordion-button::after {
   background-color: white;
   background-image: url("/Accordion/down-arrow.svg");
-
-  /*box-shadow: inset 0 0 0 1000px rgba(0, 255, 191, 0.25);*/
 }
 
 .accordion-body:not(.collapsed) {

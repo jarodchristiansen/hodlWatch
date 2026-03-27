@@ -104,12 +104,12 @@ const ReviewList: React.FC = () => {
               <StarsContainer>
                 {Array.from({ length: Math.floor(review.stars) }).map(
                   (_, index) => (
-                    <StarIcon key={index}>★</StarIcon>
+                    <StarIcon key={`${review.id}-filled-${index}`}>★</StarIcon>
                   )
                 )}
                 {Array.from({ length: 5 - Math.floor(review.stars) }).map(
                   (_, index) => (
-                    <StarIcon key={index + Math.floor(review.stars)}>☆</StarIcon>
+                    <StarIcon key={`${review.id}-empty-${index}`}>☆</StarIcon>
                   )
                 )}
               </StarsContainer>
@@ -129,9 +129,9 @@ const ReviewList: React.FC = () => {
         </ScrollButton>
       </CarouselRow>
       <DotsRow role="tablist" aria-label="Testimonial position">
-        {reviewList.map((_, index) => (
+        {reviewList.map((review, index) => (
           <DotButton
-            key={index}
+            key={review.id}
             type="button"
             role="tab"
             aria-label={`Testimonial ${index + 1} of ${reviewList.length}`}
@@ -236,13 +236,6 @@ const ReviewCard = styled(motion.div)`
   transition: transform 0.3s cubic-bezier(0.4, 1.4, 0.6, 1),
     box-shadow 0.3s cubic-bezier(0.4, 1.4, 0.6, 1);
   overflow: hidden;
-
-  // &:hover {
-  //   transform: translateY(-12px) scale(1.025);
-  //   box-shadow: 0 12px 40px 0 rgba(20, 24, 36, 0.35), 0 2px 0 0 ${Colors.accent};
-  // }
-
-  /* InitialsAvatar is a styled div, no img rules needed */
 
   &::before {
     content: "\201C";

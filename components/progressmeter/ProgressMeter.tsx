@@ -38,7 +38,6 @@ const Timeline = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  /* align-items: flex-start; */
   margin-top: 20px;
   padding: 0 24px 0 8px;
 
@@ -78,30 +77,30 @@ const StepTitle = styled.h4`
   color: ${Colors.white};
 `;
 
-const ProgressMeter = () => {
-  const steps = [
-    {
-      title: "Building",
-      description: "MVP development, and initial funding for Mesh.",
-      completed: false,
-    },
-    {
-      title: "Alpha release",
-      description: "The first version of Mesh will be released to the public.",
-      completed: false,
-    },
-    {
-      title: "Beta release",
-      description: "The second version of Mesh will be released to the public",
-      completed: false,
-    },
-    {
-      title: "Main release",
-      description: "The final version of Mesh will be released to the public.",
-      completed: false,
-    },
-  ];
+const MESH_ROADMAP_STEPS = [
+  {
+    title: "Building",
+    description: "MVP development, and initial funding for Mesh.",
+    completed: false,
+  },
+  {
+    title: "Alpha release",
+    description: "The first version of Mesh will be released to the public.",
+    completed: false,
+  },
+  {
+    title: "Beta release",
+    description: "The second version of Mesh will be released to the public",
+    completed: false,
+  },
+  {
+    title: "Main release",
+    description: "The final version of Mesh will be released to the public.",
+    completed: false,
+  },
+] as const;
 
+const ProgressMeter = () => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const progressWidth = currentStep === 3 ? 100 : currentStep * 30 || 2;
@@ -118,18 +117,17 @@ const ProgressMeter = () => {
     return (
       <>
         <Timeline>
-          {steps.map((step, index) => {
+          {MESH_ROADMAP_STEPS.map((step, index) => {
             if (index === 0 || index === 2) {
-              return <Step key={index}>{""}</Step>;
-            } else {
-              return (
-                <Step key={index}>
-                  <StepMarker />
-                  <StepTitle>{step.title}</StepTitle>
-                  <p>{step.description}</p>
-                </Step>
-              );
+              return <Step key={`timeline-a-${step.title}`}>{""}</Step>;
             }
+            return (
+              <Step key={`timeline-a-${step.title}`}>
+                <StepMarker />
+                <StepTitle>{step.title}</StepTitle>
+                <p>{step.description}</p>
+              </Step>
+            );
           })}
         </Timeline>
 
@@ -137,21 +135,18 @@ const ProgressMeter = () => {
           <Progress progressWidth={progressWidth} />
         </ProgressBar>
         <Timeline>
-          <Timeline>
-            {steps.map((step, index) => {
-              if (index === 1 || index === 3) {
-                return <Step key={index}>{""}</Step>;
-              } else {
-                return (
-                  <Step key={index}>
-                    <StepMarker />
-                    <StepTitle>{step.title}</StepTitle>
-                    <p>{step.description}</p>
-                  </Step>
-                );
-              }
-            })}
-          </Timeline>
+          {MESH_ROADMAP_STEPS.map((step, index) => {
+            if (index === 1 || index === 3) {
+              return <Step key={`timeline-b-${step.title}`}>{""}</Step>;
+            }
+            return (
+              <Step key={`timeline-b-${step.title}`}>
+                <StepMarker />
+                <StepTitle>{step.title}</StepTitle>
+                <p>{step.description}</p>
+              </Step>
+            );
+          })}
         </Timeline>
       </>
     );

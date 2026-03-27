@@ -52,8 +52,8 @@ const WAPChart = ({ data }) => {
   return (
     <ChartContainer>
       <div className={"flex flex-row"}>
-        <h1>
-          (V/T)WAP Chart{" "}
+        <h1 className="wap-chart-heading">
+          <span>(V/T)WAP Chart</span>
           <span className={"ms-3"}>
             <FinanceChartModal text={modalText} />
           </span>

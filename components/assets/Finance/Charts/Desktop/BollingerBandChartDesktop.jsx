@@ -22,7 +22,7 @@ const BollingerBandChart = ({ data }) => {
 
   useEffect(() => {
     processEmas(data);
-  }, [showLatest14Days]);
+  }, [data, showLatest14Days]);
 
   const handleCheckboxChange = () => {
     setShowLatest14Days(!showLatest14Days);
@@ -119,20 +119,6 @@ const BollingerBandChart = ({ data }) => {
               dot={false}
               name="Lower Band"
             />
-            {/* <Line
-            type="monotone"
-            dataKey="oneHundredEma"
-            stroke="blue"
-            dot={false}
-            name="100 Day Ema"
-          />
-          <Line
-            type="monotone"
-            dataKey="twoHundredEma"
-            stroke="green"
-            dot={false}
-            name="200 Day Ema"
-          /> */}
           </ComposedChart>
         </ResponsiveContainer>
       )}
